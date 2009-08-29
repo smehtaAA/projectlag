@@ -1,0 +1,23 @@
+<?= $this->doctype(); echo "\n" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head>  
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<title>LAG - Local Arena Games</title>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-ui-1.7.2.custom.min.js"></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/global.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/jquery/jquery.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/uploadify/uploadify.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/calendar/calendar.css" />
+	</head> 
+	<body>
+		<div id="global">
+<?= utf8_encode($this->render('header.phtml')) ?>		
+<?= utf8_encode($this->render('menu.phtml')) ?>		
+			<div id="content">
+				<?= $this->layout()->content ?>
+			</div>
+<?= utf8_encode($this->render('footer.phtml'))  ?>	
+		</div>
+	</body>
+</html>
