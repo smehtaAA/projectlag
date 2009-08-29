@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `lag` (
 	`nbmaxpers` int(10) NOT NULL,
 	`prix` int(10) NOT NULL,
 	`description` longtext CHARACTER SET utf8,
+	`nbclick` int(10) unsigned,
 	PRIMARY KEY(`idLan`)
 
 )ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
@@ -43,7 +44,21 @@ CREATE TABLE IF NOT EXISTS `jeux` (
 	`type` varchar(20) CHARACTER SET utf8 NOT NULL,
 	`lien` varchar(60) CHARACTER SET utf8 NOT NULL,
 	`description` longtext CHARACTER SET utf8,
+	`nbclick` int(10) unsigned,
 	PRIMARY KEY(`idJeux`)
+
+)ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `team`
+--
+DROP TABLE IF EXISTS `team`;
+CREATE TABLE IF NOT EXISTS `team` (
+	`idTeam`	int(10)	unsigned NOT NULL AUTO_INCREMENT,
+	`nom` varchar(30) CHARACTER SET utf8 NOT NULL,
+	PRIMARY KEY(`idTeam`)
 
 )ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
 
@@ -100,9 +115,11 @@ CREATE TABLE IF NOT EXISTS `compte` (
 	`temps` int(10) not null,
 	`ip` varchar(15) CHARACTER SET utf8 not null,
 	`jeuxprefere` varchar(100) CHARACTER SET utf8,
+	`site` varchar(100) CHARACTER SET utf8,
 	`configpc` longtext CHARACTER SET utf8,
 	`citationpreferee` varchar(140) CHARACTER SET utf8,
 	`description` longtext CHARACTER SET utf8,
+	`nbconnexion` int(10) unsigned,
 	PRIMARY KEY(`idCompte`),
 	FOREIGN KEY (`idStatut`) REFERENCES `statut`(`idStatut`)
 
@@ -111,20 +128,22 @@ CREATE TABLE IF NOT EXISTS `compte` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lanjeuxjoueur`
+-- Structure de la table `lanjeuxjoueurteam`
 --
-DROP TABLE IF EXISTS `lanjeuxjoueur`;
-CREATE TABLE IF NOT EXISTS `lanjeuxjoueur` (
-	`idLanJeuxJoueur`	int(10)	unsigned NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `lanjeuxjoueurteam`;
+CREATE TABLE IF NOT EXISTS `lanjeuxjoueurteam` (
+	`idLanJeuxJoueurTeam`	int(10)	unsigned NOT NULL AUTO_INCREMENT,
 	`idLan` int(10) unsigned NOT NULL,
 	`idJeux` int(10) unsigned NOT NULL,
 	`idCompte` int(10) unsigned NOT NULL,
+	`idTeam` int(10) unsigned NOT NULL,
 	`dateins` date not null,
 	`paiement` tinyint not null,
 	`validation` bool not null,
-	PRIMARY KEY(`idLanJeuxJoueur`),
+	PRIMARY KEY(`idLanJeuxJoueurTeam`),
 	FOREIGN KEY (`idLan`) REFERENCES `lan`(`idLan`),
 	FOREIGN KEY (`idJeux`) REFERENCES `jeux`(`idJeux`),
+	FOREIGN KEY (`idTeam`) REFERENCES `team`(`idTeam`),
 	FOREIGN KEY (`idCompte`) REFERENCES `compte`(`idCompte`)
 
 )ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
@@ -208,6 +227,7 @@ CREATE TABLE IF NOT EXISTS `multimedia` (
 	`date` date NOT NULL,
 	`lien` varchar(120) CHARACTER SET utf8,
 	`description` longtext CHARACTER SET utf8,
+	`nbclick` int(10) unsigned,
 	PRIMARY KEY(`idMultimedia`)
 
 )ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
@@ -385,6 +405,7 @@ CREATE TABLE IF NOT EXISTS `sujet` (
     `vu` bool NOT NULL,
     `ip` varchar(15) CHARACTER SET utf8 NOT NULL,
     `visible` tinyint NOT NULL,
+	`nbvue` int(10) unsigned,
     PRIMARY KEY (`idSujet`),
 	FOREIGN KEY (`idSousCategorie`) REFERENCES `souscategorie`(`idSousCategorie`),
 	FOREIGN KEY (`idCompte`) REFERENCES `compte`(`idCompte`)
