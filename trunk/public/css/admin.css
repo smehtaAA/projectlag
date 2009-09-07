@@ -1,0 +1,237 @@
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Principal                                                                                                */
+/*----------------------------------------------------------------------------------------------------------- */
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #EFEFEF;
+	margin: 0;
+	padding: 0;
+	text-align:center;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	color:#000000;
+}
+
+a:hover {
+	text-decoration: none;
+	color:#ff8612;
+}
+
+ul.footer-link li {
+  list-style: none;
+  display: inline;
+}
+
+a img {
+	border: 0;
+}
+
+form {
+	display: inline;	
+}
+
+h2 {
+	font-size:14px;
+}
+
+dd {
+	margin: 0px;
+	margin-top: 2px;
+	margin-bottom: 8px;
+}
+
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Structure                                                                                                */
+/*----------------------------------------------------------------------------------------------------------- */
+
+#global {
+	width: 960px;
+	margin: 0 auto 2em auto;
+	text-align: left;
+}
+
+#header {
+  padding: 10px 0px 30px 0px; 
+  float : left;
+  width : 100%;
+}
+
+#header-text {
+  float : left;
+  font-size:14px;
+  font-weight:bold;
+}
+
+
+#header-logout {
+  float : right;
+}
+
+
+#main {
+  float : left;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  width : 100%;
+  background-color:#FFF;
+}
+
+#content {
+  float : left;
+  width : 100%;
+  padding: 15px;
+}
+
+
+#footer {
+  margin-top: 6px;
+  float : left;
+  width : 100%;
+  text-align:center;
+  font-size:10px;
+}
+
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Menu                                                                                                     */
+/*----------------------------------------------------------------------------------------------------------- */
+
+#menu {
+	float: left;
+	width : 962px;
+	margin: 0;
+	padding: 0;
+ 	border-bottom: 1px solid #999;
+}
+
+#menu ul {
+	float: left;
+	margin: 0;
+	padding: 0;
+	line-height : normal;
+	width : 100%;
+}
+
+#menu li {
+	float: left;
+	list-style: none;
+	margin : 0 -1px 0 0;
+	padding : 0 0 0 6px;
+	background: url(../images/admin/tab_left.gif) no-repeat 0 -110px;
+}
+
+#menu img {
+	display: inline;
+	padding: 0 4px 0 0;
+	vertical-align: text-bottom;
+}
+
+#menu a {
+	float: left;
+	display: block;
+	background: url(../images/admin/tab_righ.gif) no-repeat 100% -110px;
+	padding: 10px 10px 5px 3px;
+	font-family: Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	font-size: 0.95em;
+}
+
+#menu li.active, #menu li.active:hover {
+	background-position: 0 0;
+	margin-bottom:-1px;
+}
+#menu li.active a, #menu li.active:hover a {
+	padding-bottom: 6px;
+	background-position: 100% 0;
+	color: #000;
+	text-decoration: none;
+}
+#menu li:hover {
+	background-position: 0 -220px;
+}
+#menu li:hover a {
+	background-position: 100% -220px;
+	color: #000;
+	text-decoration: none;
+}
+#menu .space {
+ 	border-bottom: 1px solid #999;
+	float:left;
+	width:145px;
+	height:32px;
+}
+
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Submenu                                                                                                  */
+/*----------------------------------------------------------------------------------------------------------- */
+
+#submenu {
+	clear: left;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #CCC;
+	background: #ECEADE url(../images/admin/submenu.gif) repeat-x bottom left;
+	color: #666;
+	width:100%;
+}
+
+#submenu ul {
+	float: left;
+	margin: 0;
+	padding: 0.5em 1em;
+	line-height : normal;
+}
+
+#submenu li {
+	display: inline;
+	list-style: none;
+	margin: 0 30pt 0 0;
+}
+
+#submenu img {
+	vertical-align: middle;
+}
+
+#submenu a:hover {
+	color: #000;
+	text-decoration: underline;
+	/*font-weight: bold;*/
+}
+
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Images                                                                                                   */
+/*----------------------------------------------------------------------------------------------------------- */
+
+.textalignm {
+	vertical-align:middle;	
+}
+
+.titrep {
+	color: #ff8612;
+	font-weight: bold;
+}
+
+.galerie {
+	margin-left:50px;
+	text-align:left;
+	width: 700px;
+}
+
+.galerie-tab {
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-bottom: 10px;
+	float: left;
+}
+
+.photo {
+	border: 1px solid #D1D1D1;
+	background-color: #E9E9E9;
+	padding: 3px;
+	width: 160px;
+	height: 160px;
+}

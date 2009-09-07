@@ -1,0 +1,66 @@
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Principal                                                                                                */
+/*----------------------------------------------------------------------------------------------------------- */
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	color:#000000;
+}
+
+a:hover {
+	text-decoration: underline;
+	color:#0000FF;
+}
+
+ul.footer-link li {
+  list-style: none;
+  display: inline;
+}
+
+/*----------------------------------------------------------------------------------------------------------- */
+/*   Structure                                                                                                */
+/*----------------------------------------------------------------------------------------------------------- */
+
+#global {
+  width : 900px;
+  margin: 0 auto;
+}
+
+#header {
+  padding: 3px; 
+  border: 1px solid #CCCCCC;
+  background-color: #EEEEEE; 
+  height: 30px;
+  float : left;
+  width : 892px;
+}
+
+#menu {
+  padding: 3px; 
+  border: 1px solid #CCCCCC;
+  background-color: #EEEEEE;
+  margin-top: 6px;
+  float : left;
+  width : 200px;
+}
+
+#content {
+  padding: 3px; 
+  border: 1px solid #CCCCCC;
+  margin-top: 6px;
+  float :right;
+  width : 675px;
+}
+
+#footer {
+  padding: 3px; 
+  border: 1px solid #CCCCCC;
+  margin-top: 6px;
+  background-color: #EEEEEE;
+  float : left;
+  width : 892px;
+}
