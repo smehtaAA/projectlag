@@ -46,7 +46,11 @@ class Model_Compte
 	public function existLog(array $data)
     {
         $table = $this->getTable();
-        $select = $table->select()->where('login = ?', $data['login'])->where('password = ?', $data['password'])->where('actif = 1');
+        $select = $table->select()
+				->where('login = ?', $data['login'])
+				->where('password = ?', $data['password'])
+				->where('actif = 1');
+				
 		if($table->fetchRow($select)) {
         	return $table->fetchRow($select)->toArray();
 		} else {
