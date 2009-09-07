@@ -1,0 +1,112 @@
+<?= $this->doctype(); echo "\n"; $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head>  
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<title>Mont Notre Dame</title>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/tiny_mce/tiny_mce.js"></script>
+		<script type="text/javascript">
+			tinyMCE.init({
+				language : 'fr',
+				mode : "textareas",
+				theme : "advanced",
+			
+				
+				theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect",
+				theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,forecolor,backcolor",
+				theme_advanced_buttons3 : "hr,|,sub,sup,|,charmap",
+				theme_advanced_toolbar_location : "top",
+				theme_advanced_toolbar_align : "left",
+				theme_advanced_statusbar_location : "bottom",
+				theme_advanced_resizing : true,
+				
+			});
+		</script>
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/admin.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/jquery/jquery.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/uploadify/uploadify.css"/>
+	</head> 
+	<body>
+		<div id="global">
+			<div id="header">
+				<div id="header-text">
+					<a href="<?= $this->url(array('controller' => 'admin', 'action' => 'indexuser'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/lock.png" alt="Panneau d'administration" class="textalignm" /> Panneau d'administration</a>
+					<form action="" style="margin-left:60px;" method="post">
+						<input type="text" name="search" style="width: 120px;" onfocus="this.value = '';"  onclick="this.value = '';"
+						value="" />&nbsp;
+						<input type="submit" name="bo_search" value="Recherche" />
+					</form>
+				</div>
+				<div id="header-logout">      
+					<a href="<?= $this->url(array('controller' => 'log', 'action' => 'deconnexion'),'default', true) ?>">Déconnexion <img src="<?= $this->baseUrl() ?>/images/admin/close.png" alt="déconnexion" class="textalignm" /></a>
+				</div>
+			</div>
+			<div id="menu">
+				<ul>
+					<li <?php if($controllerName=="commune" || $controllerName=="news" || $controllerName=="administration" || $controllerName=="conseiller" || $controllerName=="reunion" || $controllerName=="accueil" || $controllerName=="cmf" || $controllerName=="mandat" || $controllerName=="fonction") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'commune', 'action' => 'indexadminmenu'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/city.png" alt="Commune" class="textalignm" /> Commune</a>
+					</li>
+					<li <?php if(($controllerName=="compte" || $controllerName=="aps" || $controllerName=="admin" || $controllerName=="annonce" || $controllerName=="apscompte" || $controllerName=="admincompte" || $controllerName=="annoncecompte") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'compte', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/users.png" alt="déconnexion" class="Comptes" /> Comptes</a>
+					</li>
+					<li <?php if($controllerName=="calendrier") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'calendrier', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/date.png" alt="Calendrier" class="textalignm" /> Calendrier</a>
+					</li>
+					<li <?php if($controllerName=="album") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'album', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/album.png" alt="Albums" class="textalignm" /> Albums</a>
+					</li>
+					<li <?php if($controllerName=="livredor") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'livredor', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/bookmark.png" alt="Livre d'Or" class="textalignm" /> Livre d'Or</a>
+					</li>
+					<li <?php if($controllerName=="externe" || $controllerName=="lien" || $controllerName=="partenaire") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'externe', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/link.png" alt="Externes" class="textalignm" /> Externes</a>
+					</li>
+					<li <?php if($controllerName=="newsletter") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'newsletter', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/newsletter.png" alt="Newsletters" class="textalignm" /> Newsletters</a>
+					</li>
+					<li <?php if($controllerName=="contact") { echo 'class="active"'; } ?>>
+						<a href="<?= $this->url(array('controller' => 'contact', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/contact.png" alt="Contact" class="textalignm" /> Contact</a>
+					</li>
+					<li <?php if($controllerName=="config") { echo 'class="active"'; } ?>><a href="<?= $this->url(array('controller' => 'site', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/config.png" alt="Outils" class="textalignm" /> Site</a>
+					</li>
+				</ul>
+			</div>
+			<div id="main">
+				<div id="submenu">
+					<ul>
+						<?php if($controllerName=="commune" || $controllerName=="news" || $controllerName=="administration" || $controllerName=="conseiller" || $controllerName=="reunion" || $controllerName=="accueil" || $controllerName=="cmf" || $controllerName=="mandat" || $controllerName=="fonction") { ?>
+						<li><a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'indexadmin'),'default', true) ?>">Accueil</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'commune', 'action' => 'indexadmin'),'default', true) ?>">Commune</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'news', 'action' => 'indexadmin'),'default', true) ?>">News</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'administration', 'action' => 'indexadmin'),'default', true) ?>">Administration</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'cmf', 'action' => 'indexadmin'),'default', true) ?>">Conseil Municipal</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'reunion', 'action' => 'indexadmin'),'default', true) ?>">Réunions</a></li>
+						<?php }  if(($controllerName=="compte" || $controllerName=="aps" || $controllerName=="admin" || $controllerName=="annonce" || $controllerName=="apscompte" || $controllerName=="admincompte" || $controllerName=="annoncecompte") && $actionName != "indexuser") { ?>
+						<li><a href="<?= $this->url(array('controller' => 'annoncecompte', 'action' => 'indexadmin'),'default', true) ?>">Annonce</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'aps', 'action' => 'indexadmin'),'default', true) ?>">APS</a></li>
+						<?php }  if($controllerName=="externe" || $controllerName=="lien" || $controllerName=="partenaire") { ?>
+						<li><a href="<?= $this->url(array('controller' => 'lien', 'action' => 'indexadmin'),'default', true) ?>">Liens</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'partenaire', 'action' => 'indexadmin'),'default', true) ?>">Partenaires</a></li>
+						<?php }  if($controllerName=="site" || $controllerName=="mentionlegale" || $controllerName=="config" || $controllerName=="bug") { ?>
+						<li><a href="<?= $this->url(array('controller' => 'bug', 'action' => 'indexadmin'),'default', true) ?>">Bugs</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'config', 'action' => 'indexadmin'),'default', true) ?>">Configuration</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'mentionlegale', 'action' => 'indexadmin'),'default', true) ?>">Mentions L&eacute;gales</a></li>
+						<?php }  if($controllerName=="newsletter" || $controllerName=="newslettermail" || $controllerName=="newslettertype" || $controllerName=="newslettermailtype") { ?>
+						<li><a href="<?= $this->url(array('controller' => 'newsletter', 'action' => 'indexadmin'),'default', true) ?>">NewsLetter</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'newslettertype', 'action' => 'indexadmin'),'default', true) ?>">Type des NewsLetter</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'newslettermail', 'action' => 'indexadmin'),'default', true) ?>">Liste des Mails</a></li>
+						<?php } ?>
+						<li>&nbsp;</li>
+					</ul>
+				</div>
+				<div id="content">
+					<?= $this->layout()->content ?>
+				</div>
+			</div>
+			<div id="footer">
+				Admin panel. Maxime Méhault & Antoine Moraux.
+			</div>
+		</div>
+	</body>
+</html>
