@@ -1,10 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Document sans titre</title>
-</head>
+<?php
 
-<body>
-</body>
-</html>
+class JeuxController extends Zend_Controller_Action 
+{
+	
+	public function indexAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		
+		$smarty->display('jeux/index.tpl');
+	}
+	
+    public function indexsuperadminAction() 
+    {
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$smarty->assign('baseurl',$request->getBaseUrl());
+			
+			$smarty->assign('title','Jeux');
+			$smarty->display('jeux/indexSuperAdmin.tpl');
+		} else {
+			$smarty->assign('message', 'Erreur Connexion');
+			$smarty->display('error/errorconnexion.tpl');
+		}  
+    }
+	
+	public function indexadminAction() 
+    {
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')) {
+			$request = $this->getRequest();
+			$smarty->assign('baseurl',$request->getBaseUrl());
+			
+			$smarty->assign('title','Jeux');
+			$smarty->display('jeux/indexAdmin.tpl');
+		} else {
+			$smarty->assign('message', 'Erreur Connexion');
+			$smarty->display('error/errorconnexion.tpl');
+		}  
+    }
+  
+}

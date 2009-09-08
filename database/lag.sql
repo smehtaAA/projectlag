@@ -318,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `lanjeux` (
   `nbmaxteam` int(10) NOT NULL,
   `nbmaxjoueur` int(10) NOT NULL,
   `nbmaxjoueurparteam` int(10) NOT NULL,
+  `tournoi` boolean,
   `ordre` int(10) NOT NULL,
   PRIMARY KEY (`idLanJeux`),
   KEY `idLan` (`idLan`),
@@ -531,6 +532,78 @@ CREATE TABLE IF NOT EXISTS `newscom` (
 --
 -- Contenu de la table `newscom`
 --
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `newsletter`
+--
+
+DROP TABLE IF EXISTS `newsletter`;
+CREATE TABLE IF NOT EXISTS `newsletter` (
+  `idNewsletter` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idAdmin` int(10) unsigned DEFAULT NULL,
+  `titre` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `img` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8,
+  `IP` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`idNewsletter`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+
+--
+-- Contenu de la table `newsletter`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `newslettermail`
+--
+
+DROP TABLE IF EXISTS `newslettermail`;
+CREATE TABLE IF NOT EXISTS `newslettermail` (
+  `idNewsletterMail` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mail` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`idNewsletterMail`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+
+--
+-- Contenu de la table `newslettermail`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `newslettertype`
+--
+
+DROP TABLE IF EXISTS `newslettertype`;
+CREATE TABLE IF NOT EXISTS `newslettertype` (
+  `idNewsletterType` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`idNewsletterType`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `newslettermailtype`
+--
+
+DROP TABLE IF EXISTS `newslettermailtype`;
+CREATE TABLE IF NOT EXISTS `newslettermailtype` (
+  `idNewsletterMailType` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idNewsletterType` int(10) unsigned NOT NULL,
+  `idNewsletterMail` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idNewsletterMailType`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+
+
 
 
 -- --------------------------------------------------------
