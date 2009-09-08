@@ -18,7 +18,7 @@ class LanController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			
-			$smarty->assign('title','Accueil');
+			$smarty->assign('title','Lan');
 			$smarty->display('lan/indexSuperAdmin.tpl');
 		} else {
 			$smarty->assign('message', 'Erreur Connexion');
