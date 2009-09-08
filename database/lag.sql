@@ -502,6 +502,8 @@ CREATE TABLE IF NOT EXISTS `news` (
   `idCompte` int(10) unsigned NOT NULL,
   `titre` varchar(60) NOT NULL,
   `date` date NOT NULL,
+  `type_n` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `img` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
   `description` longtext,
   PRIMARY KEY (`idNews`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
