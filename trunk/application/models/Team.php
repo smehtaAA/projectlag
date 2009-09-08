@@ -1,14 +1,14 @@
 <?php
 
-class Model_Lan 
+class Model_Team
 {
     protected $_table;
 
     public function getTable()
     {
         if (null === $this->_table) {
-            require_once APPLICATION_PATH . '/models/DbTable/Lan.php';
-            $this->_table = new Model_DbTable_Lan;
+            require_once APPLICATION_PATH . '/models/DbTable/Team.php';
+            $this->_table = new Model_DbTable_Team;
         }
         return $this->_table;
     }
@@ -23,7 +23,7 @@ class Model_Lan
             }
         }
 		if($id > 0) {
-			$where = $table->getAdapter()->quoteInto('idLan = ?', $id);
+			$where = $table->getAdapter()->quoteInto('idTeam = ?', $id);
 			return $table->update($data,$where);
 		}
 		else
@@ -38,7 +38,7 @@ class Model_Lan
     public function fetchEntry($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->where('idLan = ?', $id);
+        $select = $table->select()->where('idTeam = ?', $id);
 
         return $table->fetchRow($select)->toArray();
     }
@@ -46,7 +46,7 @@ class Model_Lan
 	public function countEntries()
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('lan','COUNT(idLan) AS num');
+		$select = $table->select()->from('team','COUNT(idTeam) AS num');
 		$row = $table->fetchRow($select);
         return $row->num;
 	}
@@ -54,7 +54,7 @@ class Model_Lan
 	public function delete($id)
     {	
 		$table  = $this->getTable();
-		$where = $table->getAdapter()->quoteInto('idLan = ?', $id);
+		$where = $table->getAdapter()->quoteInto('idTeam = ?', $id);
 		return $table->delete($where);
 
     }
