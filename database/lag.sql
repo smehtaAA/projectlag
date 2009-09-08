@@ -282,11 +282,11 @@ CREATE TABLE IF NOT EXISTS `jeux` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lag`
+-- Structure de la table `lan`
 --
 
-DROP TABLE IF EXISTS `lag`;
-CREATE TABLE IF NOT EXISTS `lag` (
+DROP TABLE IF EXISTS `lan`;
+CREATE TABLE IF NOT EXISTS `lan` (
   `idLan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
   `adresse` varchar(60) NOT NULL,
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `lag` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Contenu de la table `lag`
+-- Contenu de la table `lan`
 --
 
 
