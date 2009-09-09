@@ -75,8 +75,10 @@ class CharteController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
-					$nb = $model->countEntries();
-					$dataform['ordre'] = $nb+1;
+					if($id==0){
+						$nb = $model->countEntries();
+						$dataform['ordre'] = $nb+1;
+					}
 					$model->save($id,$dataform);
 					if($log->_getTypeConnected('superadmin'))
 						return $this->_helper->redirector('indexsuperadmin');
@@ -129,7 +131,10 @@ class CharteController extends Zend_Controller_Action
 				
 				
 			}
-			return $this->_helper->redirector('indexadmin'); 
+			if($log->_getTypeConnected('superadmin'))
+				return $this->_helper->redirector('indexsuperadmin')
+			else
+				return $this->_helper->redirector('indexadmin'); 
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
