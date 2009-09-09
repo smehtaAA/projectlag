@@ -1,6 +1,6 @@
 <?php
 
-class Form_Charte extends Zend_Form
+class Form_Fonction extends Zend_Form
 {
     public function init()
     {
@@ -16,24 +16,15 @@ class Form_Charte extends Zend_Form
         ));	
 		
 		$this->addElement('hidden', 'ordre', array());	
-		
-		$this->addElement('select', 'idJeux', array(
-            'label'          => 'Jeux : ',
-            'required'       => false,
-			'registerInArrayValidator' => false
-        ));	
+		$this->addElement('checkbox', 'afficher', array(
+			'label'      => 'Afficher : '
+		));
+		$this->addElement('checkbox', 'sceller', array(
+			'label'      => 'Sceller : '
+		));
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
         ));
     }
-	
-	public function RemplirJeux($jeuxDB)
-	{
-		$type = $this->getElement('idJeux');
-		$type->addMultiOption("", "-----------");
-		
-		foreach ($jeuxDB as $c)
-			$type->addMultiOption($c['idJeux'], $c['nom']);
-	}
 }
