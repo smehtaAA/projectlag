@@ -71,7 +71,7 @@
 					<li <?php if($controllerName=="contact") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'contact', 'action' => 'indexsuperadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/contact.png" alt="Contact" class="textalignm" /> Contact</a>
 					</li>
-					<li <?php if($controllerName=="config" || $controllerName=="site" || $controllerName=="mentionlegale") { echo 'class="active"'; } ?>>
+					<li <?php if($controllerName=="config" || $controllerName=="site" || $controllerName=="mentionlegale" || $controllerName=="bug") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'site', 'action' => 'indexsuperadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/config.png" alt="Outils" class="textalignm" /> Site</a>
 					</li>
 					<li <?php if($controllerName=="forum" || $controllerName=="categorie" || $controllerName=="souscategorie" || $controllerName=="grade") { echo 'class="active"'; } ?>>

@@ -56,12 +56,17 @@ class NewsletterMailController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		$id      = (int)$request->getParam('id', 0);
 		$form    = $this->_getNewsletterMailForm($id);
-		$model   = $this->_getModel();		
+		$model   = $this->_getModel();
+		$log = new SessionLAG();
 
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($request->getPost())) {
-				$model->save($id,$form->getValues());
-				return $this->_helper->redirector('indexadmin');
+				$model->save($id,$form->getValues());					
+				if($log->_getTypeConnected('superadmin'))
+					return $this->_helper->redirector('indexsuperadmin');
+				else
+					return $this->_helper->redirector('indexadmin');
+
 			}
 		} else {
 			if ($id > 0) {
@@ -82,14 +87,19 @@ class NewsletterMailController extends Zend_Controller_Action
 	public function delAction()
     {
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		$smarty  = Zend_Registry::get('view');
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
 				$model = $this->_getModel();
 				$model->delete($id);
-			}
-			return $this->_helper->redirector('indexadmin'); 
+			}					
+			if($log->_getTypeConnected('superadmin'))
+				return $this->_helper->redirector('indexsuperadmin');
+			else
+				return $this->_helper->redirector('indexadmin');
+
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

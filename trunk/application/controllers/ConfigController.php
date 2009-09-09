@@ -48,7 +48,7 @@ class ConfigController extends Zend_Controller_Action
 	{
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$model = $this->_getModel();
 			$id      = (int)$request->getParam('id', 0);
@@ -62,7 +62,11 @@ class ConfigController extends Zend_Controller_Action
 						$model->save($id,$valform);
 						//$smarty->assign('day',$d[2]);
 						//$smarty->assign('debug',$valform['date']);
-						return $this->_helper->redirector('indexadmin');
+						if ($log->_getTypeConnected('admin')) {
+							return $this->_helper->redirector('indexadmin');
+						} elseif ($log->_getTypeConnected('superadmin')){
+							return $this->_helper->redirector('indexsuperadmin');
+						}
 						//$smarty->display('reunion/debug.tpl');
 				}
 			} else {

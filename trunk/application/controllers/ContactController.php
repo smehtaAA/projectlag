@@ -53,7 +53,7 @@ class ContactController extends Zend_Controller_Action
 	{
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$model  = $this->_getModel();
 			$request  = $this->getRequest();
 			$base_url = $request->getBaseUrl();
@@ -100,7 +100,7 @@ class ContactController extends Zend_Controller_Action
 	public function delAction()
     {
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
