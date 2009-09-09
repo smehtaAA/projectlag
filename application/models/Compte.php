@@ -58,4 +58,15 @@ class Model_Compte
 		return $table->delete($where);
 
     }
+	
+	public function existLog(array $data)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('login = ?', $data['login'])->where('password = ?', $data['password'])->where('actif = 1');
+		if($table->fetchRow($select)) {
+        	return $table->fetchRow($select)->toArray();
+		} else {
+			return false;
+		}
+    }
 }
