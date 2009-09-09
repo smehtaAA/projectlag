@@ -7,31 +7,6 @@ class Form_Compte extends Zend_Form
         $this->setMethod('post');
 		$this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
 		
-		if(Zend_Registry::get('modeform') == 'ajout') {
-			$this->addElement('text', 'login', array(
-				'label'      => 'Login : ',
-				'required'   => true,
-				'filters'    => array('StringTrim'),
-				
-			));
-		
-			$this->addElement('password', 'pass', array(
-				'label'      => 'Mot de passe : ',
-				'required'   => true,
-				'validators' => array(
-					 array('validator' => 'PasswordConfirmation', 'options' => array(6, 20))
-				)
-			));
-			
-			$this->addElement('password', 'pass_confirm', array(
-				'label'      => 'Confirmation mot de passe : ',
-				'required'   => true,
-				'validators' => array(
-					 array('validator' => 'PasswordConfirmation', 'options' => array(6, 20))
-				)
-			));
-		}
-		
 		$this->addElement('text', 'nom', array(
             'label'      => 'Nom : ',
             'required'   => true,

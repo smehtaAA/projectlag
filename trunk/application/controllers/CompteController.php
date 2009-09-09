@@ -101,7 +101,7 @@ class CompteController extends Zend_Controller_Action
 				$smarty->assign('title', 'Ajout Compte');
 			
 			$smarty->assign('form', $form);
-			$smarty->display('lan/form.tpl');
+			$smarty->display('compte/form.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
