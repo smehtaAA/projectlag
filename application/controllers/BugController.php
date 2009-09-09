@@ -101,6 +101,8 @@ class BugController extends Zend_Controller_Action
 					$model->save($id,$dataform);
 					if ($log->_getTypeConnected('admin')) {
 						return $this->_helper->redirector('indexadmin');
+					} elseif ($log->_getTypeConnected('superadmin')){
+						return $this->_helper->redirector('indexsuperadmin');
 					} else {
 						return $this->_helper->redirector('remerciement');
 					}
@@ -140,12 +142,14 @@ class BugController extends Zend_Controller_Action
 					$model->save($id,$dataform);
 					if ($log->_getTypeConnected('admin')) {
 						return $this->_helper->redirector('indexadmin');
+					} elseif ($log->_getTypeConnected('superadmin')){
+						return $this->_helper->redirector('indexsuperadmin');
 					} else {
 						$smarty->display('error/errorconnexion.tpl');
 					}
 				}
 			} else {
-				if ($id > 0 && $log->_getTypeConnected('admin')) {
+				if ($id > 0 && ($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin'))) {
 					$data = $model->fetchEntry($id);
 					$form->populate($data);
 				}
@@ -174,7 +178,7 @@ class BugController extends Zend_Controller_Action
     {
         require_once APPLICATION_PATH . '/forms/Bug.php';
 		
-		if ($id > 0 && $type == 'admin')
+		if ($id > 0 && ($type == 'admin'||$type == 'superadmin'))
 			Zend_Registry::set('modeform', 'modif');
 		else
 			Zend_Registry::set('modeform', 'ajout');

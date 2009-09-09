@@ -18,11 +18,31 @@ class MentionLegaleController extends Zend_Controller_Action
 		$smarty->assign('datas', $datas);
 		$smarty->display('mentionlegale/index.tpl');
 	}
+	
+	public function indexsuperadminAction()
+    {
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin')) {
+			$model   = $this->_getModel();
+			$datas   = $model->fetchEntriesOrderByOrdre();
+			$request = $this->getRequest();
+			$smarty->assign('base_url',$request->getBaseUrl());
+			$smarty->assign('titre','Mentions L&eacute;gales');
+			$smarty->assign('urladd','form/');
+			$smarty->assign('urlupd','form/?id=');
+			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('datas',$datas);
+			$smarty->display('mentionlegale/indexSuperAdmin.tpl');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+    }
 
     public function indexadminAction()
     {
 		$smarty = Zend_Registry::get('view');
-		$log = new SessionMnd();
+		$log = new SessionLAG();
 		if($log->_getTypeConnected('admin')) {
 			$model   = $this->_getModel();
 			$datas   = $model->fetchEntriesOrderByOrdre();
@@ -42,8 +62,8 @@ class MentionLegaleController extends Zend_Controller_Action
     public function formAction()
     {
 		$smarty  = Zend_Registry::get('view');
-		$log = new SessionMnd();
-		if($log->_getTypeConnected('admin')) {
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			$form    = $this->_getMentionLegaleForm($id);
@@ -52,10 +72,16 @@ class MentionLegaleController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
-					$nb = $model->countEntries();
-					$dataform['ordre'] = $nb+1;
+					if($id==0){
+						$nb = $model->countEntries();
+						$dataform['ordre'] = $nb+1;
+					}
 					$model->save($id,$dataform);
-					return $this->_helper->redirector('indexadmin');
+					if ($log->_getTypeConnected('admin')) {
+						return $this->_helper->redirector('indexadmin');
+					} elseif ($log->_getTypeConnected('superadmin')){
+						return $this->_helper->redirector('indexsuperadmin');
+					}
 				}
 			} else {
 				if ($id > 0) {
@@ -79,8 +105,8 @@ class MentionLegaleController extends Zend_Controller_Action
 	
 	public function delAction()
     {
-		$log = new SessionMnd();
-		if($log->_getTypeConnected('admin')) {
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
@@ -101,7 +127,11 @@ class MentionLegaleController extends Zend_Controller_Action
 				
 				
 			}
-			return $this->_helper->redirector('indexadmin'); 
+			if ($log->_getTypeConnected('admin')) {
+				return $this->_helper->redirector('indexadmin');
+			} elseif ($log->_getTypeConnected('superadmin')){
+				return $this->_helper->redirector('indexsuperadmin');
+			}
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -109,8 +139,8 @@ class MentionLegaleController extends Zend_Controller_Action
 	
 	public function changementordreAction()
 	{
-		$log = new SessionMnd();
-		if($log->_getTypeConnected('admin')) {
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$model   = $this->_getModel();
 			$ordre   = (int)$request->getParam('ordre', 0);
@@ -139,7 +169,11 @@ class MentionLegaleController extends Zend_Controller_Action
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('datas',$datas);
-			$smarty->display('mentionlegale/indexAdmin.tpl');
+			if ($log->_getTypeConnected('admin')) {
+				$smarty->display('mentionlegale/indexAdmin.tpl');
+			} elseif ($log->_getTypeConnected('superadmin')){
+				$smarty->display('mentionlegale/indexSuperAdmin.tpl');
+			}
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');

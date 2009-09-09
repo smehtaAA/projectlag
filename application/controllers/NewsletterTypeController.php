@@ -17,7 +17,7 @@ class NewsletterTypeController extends Zend_Controller_Action
 			// je n'ai pas encore gérer le order pour le fetchEntries mais ne pas oublier
 			$smarty->assign('title','Type des NewsLetter');
 			$smarty->assign('base_url',$request->getBaseUrl());
-			$smarty->assign('urlvoir', $request->getBaseUrl().'/newslettermailtype/indexadmin/?id=');
+			$smarty->assign('urlvoir', $request->getBaseUrl().'/newslettermailtype/indexsuperadmin/?id=');
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
@@ -56,7 +56,7 @@ class NewsletterTypeController extends Zend_Controller_Action
 	{
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$model  = $this->_getModel();
 			$request = $this->getRequest();
 			$id = (int) $request->getParam('id', 0);
@@ -66,7 +66,10 @@ class NewsletterTypeController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$model->save($id,$form->getValues());
-					return $this->_helper->redirector('indexadmin');
+					if($log->_getTypeConnected('superadmin'))
+						return $this->_helper->redirector('indexsuperadmin');
+					else
+						return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
@@ -88,14 +91,17 @@ class NewsletterTypeController extends Zend_Controller_Action
 	public function delAction()
     {
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
 				$model = $this->_getModel();
 				$model->delete($id);
 			}
-			return $this->_helper->redirector('indexadmin'); 
+			if($log->_getTypeConnected('superadmin'))
+				return $this->_helper->redirector('indexsuperadmin');
+			else
+				return $this->_helper->redirector('indexadmin');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

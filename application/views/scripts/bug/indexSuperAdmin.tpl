@@ -8,7 +8,7 @@
 {/if}
 <br/><br/><br/>
 
-<table align="center" border=1>
+<table align="center">
   <tr height="30">
   	<th></th>
     <th align="left" width="200">Titre</th>
