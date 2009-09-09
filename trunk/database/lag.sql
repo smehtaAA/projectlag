@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 07 Septembre 2009 à 17:38
+-- Généré le : Mer 09 Septembre 2009 à 09:06
 -- Version du serveur: 5.1.33
 -- Version de PHP: 5.2.9-2
 
@@ -268,16 +268,19 @@ CREATE TABLE IF NOT EXISTS `jeux` (
   `idJeux` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
   `type` varchar(20) NOT NULL,
+  `datesortie` date NOT NULL,
   `lien` varchar(60) NOT NULL,
   `description` longtext,
   `nbclick` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idJeux`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `jeux`
 --
 
+INSERT INTO `jeux` (`idJeux`, `nom`, `type`, `lien`, `description`, `nbclick`) VALUES
+(1, 'Wolfenstein', 'FPS', 'www.google.fr', '<p>gzhefhenzafbvlzebfvz</p>', NULL);
 
 -- --------------------------------------------------------
 
@@ -297,12 +300,14 @@ CREATE TABLE IF NOT EXISTS `lan` (
   `description` longtext,
   `nbclick` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idLan`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `lan`
 --
 
+INSERT INTO `lan` (`idLan`, `nom`, `adresse`, `datedeb`, `datefin`, `nbmaxpers`, `prix`, `description`, `nbclick`) VALUES
+(2, 'G4', 'Mont', '2009-09-12', '2009-09-13', 50, 10, '<p>test d''ajout avec datepicker</p>', NULL);
 
 -- --------------------------------------------------------
 
@@ -318,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `lanjeux` (
   `nbmaxteam` int(10) NOT NULL,
   `nbmaxjoueur` int(10) NOT NULL,
   `nbmaxjoueurparteam` int(10) NOT NULL,
-  `tournoi` boolean,
+  `tournoi` tinyint(1) DEFAULT NULL,
   `ordre` int(10) NOT NULL,
   PRIMARY KEY (`idLanJeux`),
   KEY `idLan` (`idLan`),
@@ -502,11 +507,11 @@ CREATE TABLE IF NOT EXISTS `news` (
   `idCompte` int(10) unsigned NOT NULL,
   `titre` varchar(60) NOT NULL,
   `date` date NOT NULL,
-  `type_n` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
-  `img` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `type_n` varchar(20) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
   `description` longtext,
   PRIMARY KEY (`idNews`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `news`
@@ -546,13 +551,13 @@ DROP TABLE IF EXISTS `newsletter`;
 CREATE TABLE IF NOT EXISTS `newsletter` (
   `idNewsletter` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idAdmin` int(10) unsigned DEFAULT NULL,
-  `titre` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `titre` varchar(100) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `img` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8,
-  `IP` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  `description` longtext,
+  `IP` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idNewsletter`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `newsletter`
@@ -568,27 +573,13 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
 DROP TABLE IF EXISTS `newslettermail`;
 CREATE TABLE IF NOT EXISTS `newslettermail` (
   `idNewsletterMail` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `mail` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `mail` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idNewsletterMail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `newslettermail`
 --
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `newslettertype`
---
-
-DROP TABLE IF EXISTS `newslettertype`;
-CREATE TABLE IF NOT EXISTS `newslettertype` (
-  `idNewsletterType` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nom` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`idNewsletterType`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -603,9 +594,29 @@ CREATE TABLE IF NOT EXISTS `newslettermailtype` (
   `idNewsletterType` int(10) unsigned NOT NULL,
   `idNewsletterMail` int(10) unsigned NOT NULL,
   PRIMARY KEY (`idNewsletterMailType`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Contenu de la table `newslettermailtype`
+--
 
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `newslettertype`
+--
+
+DROP TABLE IF EXISTS `newslettertype`;
+CREATE TABLE IF NOT EXISTS `newslettertype` (
+  `idNewsletterType` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idNewsletterType`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Contenu de la table `newslettertype`
+--
 
 
 -- --------------------------------------------------------
@@ -694,9 +705,11 @@ CREATE TABLE IF NOT EXISTS `team` (
   `idTeam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
   PRIMARY KEY (`idTeam`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `team`
 --
 
+INSERT INTO `team` (`idTeam`, `nom`) VALUES
+(2, 'Team 1');
