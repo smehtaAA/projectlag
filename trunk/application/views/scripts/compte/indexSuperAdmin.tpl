@@ -21,8 +21,8 @@
     <td>{$i.email}</td>
     <td>{$i.dateins|date_format:"%d/%m/%Y"}</td>
     <td></td>
-    <td align="center"><a href="{$urlupd}{$i.idLan}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
-    <td align="center"><a href="{$urldel}{$i.idLan}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
+    <td align="center"><a href="{$urlupd}{$i.idCompte}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
+    <td align="center"><a href="{$urldel}{$i.idCompte}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>
 {/foreach}
 </table>

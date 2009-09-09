@@ -91,6 +91,10 @@ class LanController extends Zend_Controller_Action
 			} else {
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
+					$date = new Zend_Date($data['datedeb']);
+					$data['datedeb'] = $date->toString('dd/MM/Y');
+					$datef = new Zend_Date($data['datefin']);
+					$data['datefin'] = $datef->toString('dd/MM/Y');
 					$form->populate($data);
 				}
 			}

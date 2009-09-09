@@ -72,7 +72,7 @@ class CompteController extends Zend_Controller_Action
 		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
-			$form    = $this->_getCompteForm($id);
+			$form    = $this->_getCompteForm($id, $log->_getType());
 			$model   = $this->_getModel();		
 	
 			if ($this->getRequest()->isPost()) {
@@ -89,6 +89,8 @@ class CompteController extends Zend_Controller_Action
 			} else {
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
+					$date = new Zend_Date($data['datenaissance']);
+					$data['datenaissance'] = $date->toString('dd/MM/Y');
 					$form->populate($data);
 				}
 			}
@@ -134,15 +136,23 @@ class CompteController extends Zend_Controller_Action
         return $this->_model;
     }
 
-    protected function _getLanForm($id)
+    protected function _getCompteForm($id,$type)
     {
         require_once APPLICATION_PATH . '/forms/Compte.php';
-        $form = new Form_Compte();
-		if($id > 0)
+        if(($type == 'admin'||$type=='superadmin') && !empty($id)) {
+			Zend_Registry::set('modeform', 'modif');
+			$form = new Form_Compte();
 			$form->setAction($this->_helper->url('form/?id='.$id));
-		else
+		} else {
+			if($type == 'admin'||$type=='superadmin')
+				Zend_Registry::set('modeform', 'ajout');
+			else
+				Zend_Registry::set('modeform', 'modif');
+			
+			$form = new Form_Compte();
 			$form->setAction($this->_helper->url('form'));
-        return $form;
+		}
+		return $form;
     }
 	
 }
