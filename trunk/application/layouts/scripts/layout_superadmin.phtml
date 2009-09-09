@@ -53,7 +53,7 @@
 					<li <?php if(($controllerName=="jeux") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'jeux', 'action' => 'indexsuperadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/games.png" alt="Jeux" class="textalignm" /> Jeux</a>
 					</li>
-					<li <?php if(($controllerName=="charte") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
+					<li <?php if(($controllerName=="charte" || $controllerName=="chartearticle") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'charte', 'action' => 'indexsuperadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/charte.gif" alt="Chartes" class="textalignm" /> Charte</a>
 					</li>
 					<li <?php if(($controllerName=="compte" || $controllerName=="fonction") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
