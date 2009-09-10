@@ -1,11 +1,11 @@
 {literal}
 <script type="text/javascript">
-	function changerordre(obj, changement) {		
+	function changerordre(obj, changement, idLan, url) {		
 		$.ajax({
 			type     : "POST",
-			url      : "changementordre",
+			url      : url,
 			async    : true,
-			data     : "ordre="+obj.name+"&change="+changement,
+			data     : "ordre="+obj.name+"&change="+changement+"&idLan="+idLan,
 			dateType : "html",
 			error    : function(msg) {
 				alert( "Error: " + msg );
@@ -24,7 +24,8 @@
 
 <a href="{$urladd}"><img src="{$base_url}/images/admin/add.png" alt="Ajouter une team" class="textalignm" title="Ajouter" /> Ajouter un Jeux &agrave; cette Lan</a>
 <br /><br />
-<table align="center">
+<div id="tab_content">
+<table align="center" id="tab_record">
   <tr>
   	<th></th>
     <th align="left" width="200">Nom</th>
@@ -55,21 +56,22 @@
     <!-- Affichage des flches pour la gestion de l'ordre -->
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}
-    		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up')" />
+    		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
         {else}
-        	<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Monter" onclick="javascript:changerordre(this,'up')" />        
+        	<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Monter" onclick="javascript:changerordre(this,'up',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />        
     	{/if}
     </td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != $smarty.foreach.foo.last}
-        	<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Descendre" onclick="javascript:changerordre(this,'down')" />
+        	<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Descendre" onclick="javascript:changerordre(this,'down',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
         {else}
-       		<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Descendre" onclick="javascript:changerordre(this,'down')" />
+       		<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Descendre" onclick="javascript:changerordre(this,'down',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
     	{/if}
     </td>
     <td></td>
-    <td align="center"><a href="{$urlupd}{$i.idTeam}"><img src="{$base_url}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
-    <td align="center"><a href="{$urldel}{$i.idTeam}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
+    <td align="center"><a href="{$urlupd}{$i.idLanJeux}"><img src="{$base_url}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
+    <td align="center"><a href="{$urldel}{$i.idLanJeux}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>
 {/foreach}
 </table>
+</div>

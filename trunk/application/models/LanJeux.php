@@ -51,9 +51,27 @@ class Model_LanJeux
 							->join(array('l'=>'lan'),'l.idLan=lj.idLan')
 							->join(array('j'=>'jeux'),'j.idJeux=lj.idJeux')
 							->where('lj.idLan = ?', $idLan)
+							->order('ordre')
 							->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();
+    }
+	
+	public function countEntriesByLan($idLan)
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('lanjeux','COUNT(idLanJeux) AS num')->where('idLan = ?', $idLan);
+		$row = $table->fetchRow($select);
+        return $row->num;
+		
+	}
+	
+	public function fetchEntryByOrdreAndLan($idLan, $ordre)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('idLan = ?', $idLan)->where('ordre = ?', $ordre);
+
+        return $table->fetchRow($select)->toArray();
     }
 	
 	public function countEntries()
