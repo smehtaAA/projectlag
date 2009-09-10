@@ -7,7 +7,9 @@
   	<th></th>
     <th align="left" width="250">Nom</th>
     <th align="left" width="150">Date D&eacute;but</th>
-    <th align="left" width="150">Date Fin</th>
+    <th width="70" align="center"> Inscrits </th>
+    <th width="70" align="center">Teams </th>
+    <th width="70" align="center">Jeux </th>
     <th width="70" align="center">Modifier</th>
     <th align="center">Supprimer</th>
   </tr>
@@ -16,7 +18,9 @@
   	<td>{$smarty.foreach.foo.index+1} - </td>
     <td>{$i.nom}</td>
     <td>{$i.datedeb|date_format:"%d/%m/%Y"}</td>
-    <td>{$i.datefin|date_format:"%d/%m/%Y"}</td>
+    <td align="center"><a href="{$urlinscrits}{$i.idLan}">{$chiffre[$i.idLan][0].insc}</a></td>
+    <td align="center"><a href="{$urlteams}{$i.idLan}">{$chiffre[$i.idLan][0].teams}</a></td>
+    <td align="center"><a href="{$urljeux}{$i.idLan}">{$chiffre[$i.idLan][0].jeux}</a></td>
     <td align="center"><a href="{$urlupd}{$i.idLan}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idLan}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>
