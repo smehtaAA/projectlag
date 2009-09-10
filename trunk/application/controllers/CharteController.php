@@ -132,7 +132,7 @@ class CharteController extends Zend_Controller_Action
 				
 			}
 			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin')
+				return $this->_helper->redirector('indexsuperadmin');
 			else
 				return $this->_helper->redirector('indexadmin'); 
 		} else {
