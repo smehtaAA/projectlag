@@ -147,7 +147,7 @@ class NewsController extends Zend_Controller_Action
 				$model = $this->_getModel();
 				$model->delete($id);
 			}
-			f($log->_getTypeConnected('superadmin'))
+			if($log->_getTypeConnected('superadmin'))
 				return $this->_helper->redirector('indexsuperadmin');
 			else
 				return $this->_helper->redirector('indexadmin'); 
