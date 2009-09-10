@@ -89,6 +89,39 @@ class SousCategorieController extends Zend_Controller_Action
 		}
 	}
 	
+	public function delAction()
+    {
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$id      = (int)$request->getParam('id', 0);
+			if ($id > 0) {
+				$model = $this->_getModel();
+				$data = $model->fetchEntry($id);
+				$ordre = $data['ordre'];
+				$model->delete($id);
+				
+				// Decalage des ordres
+				$datas = $model->fetchEntriesOrderByOrdre();
+				foreach($datas as $mention) {
+					if($mention['ordre'] == $ordre+1) {
+						$mention['ordre'] = $ordre;
+						$model->save($mention['idSousCategorie'], $mention);
+						$ordre++;
+					}
+				}
+				
+				
+			}
+			if($log->_getTypeConnected('superadmin'))
+				return $this->_helper->redirector('indexsuperadmin','categorie');
+			else
+				return $this->_helper->redirector('indexadmin','categorie');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+    }
+	
 	protected function _getModel()
     {
         if (null === $this->_model) {
