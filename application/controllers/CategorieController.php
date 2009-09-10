@@ -3,6 +3,7 @@
 class CategorieController extends Zend_Controller_Action 
 {
 	protected $_model;
+	protected $_modelSousCategorie;
 	
 	public function indexAction()
 	{
@@ -17,15 +18,19 @@ class CategorieController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin')) {
 			$model = $this->_getModel();
+			$modelSousCategorie = $this->_getModelSousCategorie();
 			$request = $this->getRequest();
 			
 			$datas=$model->fetchEntriesOrderByOrdre();
+			$datasSousCategorie=$modelSousCategorie->fetchEntriesOrderByOrdre();
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
 			$smarty->assign('datas', $datas);
+			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
 			$smarty->display('forum/categorie/indexSuperAdmin.tpl');
 		} else {
@@ -140,6 +145,7 @@ class CategorieController extends Zend_Controller_Action
 		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$model   = $this->_getModel();
+			$modelSousCategorie = $this->_getModelSousCategorie();
 			$ordre   = (int)$request->getParam('ordre', 0);
 			$change  = (string)$request->getParam('change');
 			$data    = $model->fetchEntryByOrdre($ordre);
@@ -160,12 +166,15 @@ class CategorieController extends Zend_Controller_Action
 			$smarty = Zend_Registry::get('view');
 	
 			$datas=$model->fetchEntriesOrderByOrdre();
+			$datasSousCategorie=$modelSousCategorie->fetchEntriesOrderByOrdre();
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
-			$smarty->assign('datas', $datas);
 			$smarty->assign('urladd','form/');
+			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('datas', $datas);
+			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
 			if($log->_getTypeConnected('superadmin'))
 				$smarty->display('forum/categorie/indexSuperAdmin.tpl');
@@ -184,6 +193,15 @@ class CategorieController extends Zend_Controller_Action
             $this->_model = new Model_Categorie();
         }
         return $this->_model;
+    }
+	
+	protected function _getModelSousCategorie()
+    {
+        if (null === $this->_modelSousCategorie) {
+            require_once APPLICATION_PATH . '/models/SousCategorie.php';
+            $this->_modelSousCategorie = new Model_SousCategorie();
+        }
+        return $this->_modelSousCategorie;
     }
 	
 	protected function _getCategorieForm($id)
