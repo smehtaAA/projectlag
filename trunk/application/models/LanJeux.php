@@ -1,14 +1,14 @@
 <?php
 
-class Model_Lan 
+class Model_LanJeux 
 {
     protected $_table;
 
     public function getTable()
     {
         if (null === $this->_table) {
-            require_once APPLICATION_PATH . '/models/DbTable/Lan.php';
-            $this->_table = new Model_DbTable_Lan;
+            require_once APPLICATION_PATH . '/models/DbTable/LanJeux.php';
+            $this->_table = new Model_DbTable_LanJeux;
         }
         return $this->_table;
     }
@@ -23,7 +23,7 @@ class Model_Lan
             }
         }
 		if($id > 0) {
-			$where = $table->getAdapter()->quoteInto('idLan = ?', $id);
+			$where = $table->getAdapter()->quoteInto('idLanJeux = ?', $id);
 			return $table->update($data,$where);
 		}
 		else
@@ -38,37 +38,28 @@ class Model_Lan
     public function fetchEntry($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->where('idLan = ?', $id);
+        $select = $table->select()->where('idLanJeux = ?', $id);
 
         return $table->fetchRow($select)->toArray();
     }
 	
-	public function fetchEntriesCount($idLan)
+	public function fetchEntriesByLan($idLan)
     {
         $table = $this->getTable();
-		$select = $table->select()
-							->from(array('ljjt' => 'lanjeuxjoueurteam'), array('COUNT(DISTINCT ljjt.idCompte) as insc', 'COUNT(DISTINCT ljjt.idTeam) as teams'))
-							->where('ljjt.idLan = ?', $idLan)
-							->setIntegrityCheck(false);
-		
-		return $table->fetchAll($select)->toArray();
-    }
-	
-	public function fetchEntriesCountJeux($idLan)
-    {
-        $table = $this->getTable();
-		$select = $table->select()
-							->from(array('lj' => 'lanjeux'), array('idLan', 'COUNT(DISTINCT lj.idJeux) as jeux'))
+        $select = $table->select()
+							->from(array('lj' => 'lanjeux'))
+							->join(array('l'=>'lan'),'l.idLan=lj.idLan')
+							->join(array('j'=>'jeux'),'j.idJeux=lj.idJeux')
 							->where('lj.idLan = ?', $idLan)
 							->setIntegrityCheck(false);
-		
-		return $table->fetchRow($select)->jeux;
+
+        return $table->fetchAll($select)->toArray();
     }
 	
 	public function countEntries()
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('lan','COUNT(idLan) AS num');
+		$select = $table->select()->from('lanjeux','COUNT(idLanJeux) AS num');
 		$row = $table->fetchRow($select);
         return $row->num;
 	}
@@ -76,7 +67,7 @@ class Model_Lan
 	public function delete($id)
     {	
 		$table  = $this->getTable();
-		$where = $table->getAdapter()->quoteInto('idLan = ?', $id);
+		$where = $table->getAdapter()->quoteInto('idLanJeux = ?', $id);
 		return $table->delete($where);
 
     }

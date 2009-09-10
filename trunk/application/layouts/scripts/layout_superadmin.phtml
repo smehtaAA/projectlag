@@ -47,7 +47,7 @@
 					<li <?php if($controllerName=="accueil" || $controllerName=="news") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'indexsuperadminmenu'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/city.png" alt="LAG" class="textalignm" /> Lag</a>
 					</li>
-					<li <?php if(($controllerName=="lan" || $controllerName=="team") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
+					<li <?php if(($controllerName=="lan" || $controllerName=="team" || $controllerName=="lanjeux") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'lan', 'action' => 'indexsuperadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/computer.png" alt="Lan" class="textalignm" /> Lan</a>
 					</li>
 					<li <?php if(($controllerName=="jeux") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
@@ -84,7 +84,7 @@
 					<ul>
 						<?php if($controllerName=="accueil" || $controllerName=="news") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'news', 'action' => 'indexsuperadmin'),'default', true) ?>">News</a></li>
-						<?php }  if(($controllerName=="lan" || $controllerName=="team") && $actionName != "indexuser") { ?>
+						<?php }  if(($controllerName=="lan" || $controllerName=="team" || $controllerName=="lanjeux") && $actionName != "indexuser") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'indexsuperadmin'),'default', true) ?>">Lan</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'team', 'action' => 'indexsuperadmin'),'default', true) ?>">Team</a></li>
 						<?php }  if($controllerName=="compte" || $controllerName=="fonction") { ?>
