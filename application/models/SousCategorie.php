@@ -44,12 +44,20 @@ class Model_SousCategorie
 		return $stmt->fetchAll();
     }
 	
-	public function fetchEntryByOrdre($ordre)
+	public function fetchEntryByOrdreAndCategorie($ordre, $idCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->where('ordre = ?', $ordre);
+		$select = $table->select()->where('idCategorie = ?', $idCat)->where('ordre = ?', $ordre);
 
 		return $table->fetchRow($select)->toArray();
+    }
+	
+	public function fetchEntryByCategorie($idCat)
+    {
+		$table = $this->getTable();
+		$select = $table->select()->where('idCategorie = ?', $idCat)->order('ordre');
+
+		return $table->fetchAll($select)->toArray();
     }
 	
     public function fetchEntry($id)

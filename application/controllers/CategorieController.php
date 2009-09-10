@@ -22,13 +22,18 @@ class CategorieController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			
 			$datas=$model->fetchEntriesOrderByOrdre();
-			$datasSousCategorie=$modelSousCategorie->fetchEntriesOrderByOrdre();
+			foreach($datas as $cat)
+			{
+				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
+			}
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urlupdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urldelSousCat', $request->getBaseUrl().'/souscategorie/del?id=');
 			$smarty->assign('datas', $datas);
 			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
@@ -48,12 +53,20 @@ class CategorieController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			
 			$datas=$model->fetchEntriesOrderByOrdre();
+			foreach($datas as $cat)
+			{
+				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
+			}
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urlupdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urldelSousCat', $request->getBaseUrl().'/souscategorie/del?id=');
 			$smarty->assign('datas', $datas);
+			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
 			$smarty->display('forum/categorie/indexAdmin.tpl');
 		} else {
@@ -166,13 +179,71 @@ class CategorieController extends Zend_Controller_Action
 			$smarty = Zend_Registry::get('view');
 	
 			$datas=$model->fetchEntriesOrderByOrdre();
-			$datasSousCategorie=$modelSousCategorie->fetchEntriesOrderByOrdre();
+			foreach($datas as $cat)
+			{
+				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
+			}
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('urladd','form/');
-			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urlupdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urldelSousCat', $request->getBaseUrl().'/souscategorie/del?id=');
+			$smarty->assign('datas', $datas);
+			$smarty->assign('datasSousCategorie', $datasSousCategorie);
+			$smarty->assign('title','Categorie');
+			if($log->_getTypeConnected('superadmin'))
+				$smarty->display('forum/categorie/indexSuperAdmin.tpl');
+			else
+				$smarty->display('forum/categorie/indexAdmin.tpl');
+			
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+	}
+	
+	public function changementordresouscatAction()
+	{
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$model   = $this->_getModel();
+			$modelSousCategorie = $this->_getModelSousCategorie();
+			$ordre   = (int)$request->getParam('ordre', 0);
+			$idCat   = (int)$request->getParam('idCat', 0);
+			$change  = (string)$request->getParam('change');
+			$data    = $modelSousCategorie->fetchEntryByOrdreAndCategorie($ordre,$idCat);
+			
+			if($change == "up") {
+				$data['ordre']    = $data['ordre'] - 1;
+				$mention          = $modelSousCategorie->fetchEntryByOrdreAndCategorie($data['ordre'],$data['idCategorie']);
+				$mention['ordre'] = $mention['ordre'] + 1;
+			} else {
+				$data['ordre']    = $data['ordre'] + 1;
+				$mention          = $modelSousCategorie->fetchEntryByOrdreAndCategorie($data['ordre'],$data['idCategorie']);
+				$mention['ordre'] = $mention['ordre'] - 1;
+			}
+			
+			$modelSousCategorie->save($data['idSousCategorie'], $data);
+			$modelSousCategorie->save($mention['idSousCategorie'], $mention);
+			
+			$smarty = Zend_Registry::get('view');
+	
+			$datas=$model->fetchEntriesOrderByOrdre();
+			foreach($datas as $cat)
+			{
+				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
+			}
+			
+			$smarty->assign('base_url',$request->getBaseUrl());
+			$smarty->assign('urladd','form/');
+			$smarty->assign('urlupd','form/?id=');
+			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urlupdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
+			$smarty->assign('urldelSousCat', $request->getBaseUrl().'/souscategorie/del?id=');
 			$smarty->assign('datas', $datas);
 			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
