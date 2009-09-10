@@ -58,7 +58,7 @@ class SousCategorieController extends Zend_Controller_Action
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
 					if($id==0){
-						$nb = $model->countEntries();
+						$nb = $model->countEntriesbyCategorie($idCat);
 						$dataform['ordre'] = $nb+1;
 					}
 					$dataform['idCategorie'] = $idCat;
