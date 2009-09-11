@@ -18,7 +18,7 @@ class LanController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin')) {
 			$model  = $this->_getModel();
-			$datas  = $model->fetchEntries();
+			$datas  = $model->fetchEntriesorderByDate();
 			$request = $this->getRequest();
 			
 			foreach($datas as $lan)
