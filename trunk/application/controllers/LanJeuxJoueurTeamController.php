@@ -6,6 +6,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected $_model;
 	protected $_modelLan;
 	protected $_modelJeux;
+	protected $_modelLanJeux;
 	
 	public function indexAction()
 	{
@@ -62,6 +63,50 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$smarty->assign('datas',$datas);
 			
 			$smarty->display('lanjeuxjoueurteam/viewinscrits.tpl');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+		
+	}
+	
+	public function viewteamsAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+			$model  = $this->_getModel();
+			$modelLan = $this->_getModelLan();
+			$modelLanJeux = $this->_getModelLanJeux();
+			$request = $this->getRequest();
+			$idLan   = (int)$request->getParam('idLan', 0);
+			
+			$datas  = $model->fetchEntriesByLan_Teams($idLan);
+			$jeux = $modelLanJeux->fetchEntriesByLan($idLan);
+			$lan = $modelLan->fetchEntry($idLan);
+			
+			foreach($jeux as $j)
+			{
+				$teams[$j['idJeux']] = $model->fetchEntriesByLanAndJeux($idLan, $j['idJeux']);
+				
+				foreach($teams[$j['idJeux']] as $t)
+				{
+					$compte[$j['idJeux']][$t['idTeam']] = $model->fetchEntriesByLanAndJeuxAndTeam($idLan, $j['idJeux'], $t['idTeam']);
+				}
+				
+			}
+		
+			
+			$smarty->assign('base_url',$request->getBaseUrl());
+			$smarty->assign('teams', $teams);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('compte', $compte);
+			$smarty->assign('total',$model->countEntries());
+			$smarty->assign('title','Inscrits de la Lan '.$lan['nom']);
+			$smarty->assign('urlupd',$request->getBaseUrl().'/lanjeuxjoueurteam/form/?idLan='.$idLan.'&id=');
+			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeuxjoueurteam/del/?idLan='.$idLan.'&id=');
+			$smarty->assign('datas',$datas);
+			
+			$smarty->display('lanjeuxjoueurteam/viewteams.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -199,6 +244,65 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 		}
 	}
 	
+	public function activationjoueurteamAction()
+	{
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$model   = $this->_getModel();
+			$modelLan = $this->_getModelLan();
+			$modelLanJeux = $this->_getModelLanJeux();
+			$id   = (int)$request->getParam('idLanJeuxJoueurTeam', 0);
+			$idLan   = (int)$request->getParam('idLan', 0);
+			$change  = (string)$request->getParam('change');
+			$data    = $model->fetchEntry($id);
+			$lan = $modelLan->fetchEntry($idLan);
+			
+			if($change == "a") {
+				$data['validation']    = 1;
+				$data['paiement'] = $lan['prix'];
+			} else {
+				$data['validation']    = 0;
+				$data['paiement'] = 0;
+			}
+			
+			$model->save($data['idLanJeuxJoueurTeam'], $data);
+			
+			$smarty = Zend_Registry::get('view');
+	
+			$datas  = $model->fetchEntriesByLan_Teams($idLan);
+			$jeux = $modelLanJeux->fetchEntriesByLan($idLan);
+			$lan = $modelLan->fetchEntry($idLan);
+			
+			foreach($jeux as $j)
+			{
+				$teams[$j['idJeux']] = $model->fetchEntriesByLanAndJeux($idLan, $j['idJeux']);
+				
+				foreach($teams[$j['idJeux']] as $t)
+				{
+					$compte[$j['idJeux']][$t['idTeam']] = $model->fetchEntriesByLanAndJeuxAndTeam($idLan, $j['idJeux'], $t['idTeam']);
+				}
+				
+			}
+		
+			
+			$smarty->assign('base_url',$request->getBaseUrl());
+			$smarty->assign('teams', $teams);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('compte', $compte);
+			$smarty->assign('total',$model->countEntries());
+			$smarty->assign('title','Inscrits de la Lan '.$lan['nom']);
+			$smarty->assign('urlupd',$request->getBaseUrl().'/lanjeuxjoueurteam/form/?idLan='.$idLan.'&id=');
+			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeuxjoueurteam/del/?idLan='.$idLan.'&id=');
+			$smarty->assign('datas',$datas);
+			
+			$smarty->display('lanjeuxjoueurteam/viewteams.tpl');
+			
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+	}
+	
 	protected function _getModel()
     {
         if (null === $this->_model) {
@@ -224,6 +328,15 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
             $this->_modelJeux = new Model_Jeux();
         }
         return $this->_modelJeux;
+    }
+	
+	protected function _getModelLanJeux()
+    {
+        if (null === $this->_modelLanJeux) {
+            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            $this->_modelLanJeux = new Model_LanJeux();
+        }
+        return $this->_modelLanJeux;
     }
 
     protected function _getLanJeuxJoueurTeamForm($id, $idLan)

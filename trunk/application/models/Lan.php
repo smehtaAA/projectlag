@@ -35,6 +35,14 @@ class Model_Lan
         return $this->getTable()->fetchAll('1')->toArray();
     }
 	
+	public function fetchEntriesorderByDate()
+    {
+        $table = $this->getTable();
+        $select = $table->select()->order('datedeb DESC');
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
     public function fetchEntry($id)
     {
         $table = $this->getTable();
