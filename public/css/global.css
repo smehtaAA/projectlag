@@ -48,6 +48,15 @@ ul.footer-link li {
   width : 200px;
 }
 
+#menu_joueur {
+  padding: 3px; 
+  border: 1px solid #CCCCCC;
+  background-color: #EEEEEE;
+  margin-top: 6px;
+  float : top;
+  width : 200px;
+}
+
 #content {
   padding: 3px; 
   border: 1px solid #CCCCCC;

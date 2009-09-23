@@ -58,7 +58,7 @@ class AccueilController extends Zend_Controller_Action
 		}  
     }
 	
-	public function indexjoueurAction() 
+	public function indexjoueurmenuAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
@@ -67,7 +67,7 @@ class AccueilController extends Zend_Controller_Action
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			
 			$smarty->assign('title','Accueil');
-			$smarty->display('accueil/indexAdmin.tpl');
+			$smarty->display('accueil/indexJoueur.tpl');
 		} else {
 			$smarty->assign('message', 'Erreur Connexion');
 			$smarty->display('error/errorconnexion.tpl');
