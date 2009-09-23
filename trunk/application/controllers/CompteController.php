@@ -41,7 +41,7 @@ class CompteController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			
-			$smarty->assign('title','Compte');
+			$smarty->assign('titre','Mon Compte');
 			$smarty->display('compte/indexAdmin.tpl');
 		} else {
 			$smarty->assign('message', 'Erreur Connexion');
@@ -57,8 +57,13 @@ class CompteController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			
-			$smarty->assign('title','Compte');
-			$smarty->display('compte/indexAdmin.tpl');
+			
+			//$formmdp = $this->_getMdpForm($id, $log->_getType());
+			
+			
+			
+			$smarty->assign('titre','Mon Compte');
+			$smarty->display('compte/indexJoueur.tpl');
 		} else {
 			$smarty->assign('message', 'Erreur Connexion');
 			$smarty->display('error/errorconnexion.tpl');
@@ -69,22 +74,37 @@ class CompteController extends Zend_Controller_Action
     {
 		$smarty  = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$log->_getTypeConnected('joueur')) {
 			$request = $this->getRequest();
-			$id      = (int)$request->getParam('id', 0);
+			
+			if($log->_getTypeConnected('joueur')) {
+				$this->redirection = 'accueil/indexjoueurmenu';
+				$id = $log->_getUser();
+			} else {
+				$this->redirection = 'accueil/indexadmin';
+				$id = (int)$request->getParam('id', 0);
+			}
+			
 			$form    = $this->_getCompteForm($id, $log->_getType());
-			$model   = $this->_getModel();		
-	
+			$formmdp = $this->_getMdpForm($id, $log->_getType());
+			$model   = $this->_getModel();
+
 			if ($this->getRequest()->isPost()) {
-				if ($form->isValid($request->getPost())) {
-					$dataform = $form->getValues();
-					$datenaissance = $dataform['datenaissance'];
-					$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
-					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin');
-					else
-						return $this->_helper->redirector('indexadmin');
+				if($request->getParam('f') != 'mdp') {
+					if ($form->isValid($request->getPost())) {
+						$dataform=$form->getValues();
+						$datenaissance = $dataform['datenaissance'];
+						$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
+						$model->save($id,$dataform);
+						return $this->_redirect($this->redirection);
+					}
+				} else {
+					if ($formmdp->isValid($request->getPost())) {
+						$val         = $formmdp->getValues();
+						$val2        = array('password' => md5($val['newpassword']));
+						$model->save($id,$val2);
+						return $this->_redirect($this->redirection);
+					}
 				}
 			} else {
 				if ($id > 0) {
@@ -95,12 +115,19 @@ class CompteController extends Zend_Controller_Action
 				}
 			}
 			
-			if($id > 0)
-				$smarty->assign('title','Modification Compte');
-			else
-				$smarty->assign('title', 'Ajout Compte');
+			if($log->_getTypeConnected('admin')) {
+				if($id > 0)
+					$smarty->assign('title','Modification Compte');
+				else
+					$smarty->assign('title', 'Ajout Compte');
+			} else {
+					$smarty->assign('title', 'Modifier mon compte');
+			}			
+			
+	
 			
 			$smarty->assign('form', $form);
+			$smarty->assign('formmdp', $formmdp);
 			$smarty->display('compte/form.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
@@ -153,6 +180,27 @@ class CompteController extends Zend_Controller_Action
 			$form->setAction($this->_helper->url('form'));
 		}
 		return $form;
+    }
+	
+	protected function _getMdpForm($id, $type)
+    {
+        require_once APPLICATION_PATH . '/forms/Mdp.php';
+		
+		if($type == 'admin' && !empty($id)) {
+			Zend_Registry::set('modeform', 'modif');
+			$form = new Form_Mdp();
+			$form->setAction($this->_helper->url('form/?f=mdp&id='.$id));
+		} else {
+			if($type == 'admin')
+				Zend_Registry::set('modeform', 'ajout');
+			else
+				Zend_Registry::set('modeform', 'modif');
+
+			$form = new Form_Mdp();
+			$form->setAction($this->_helper->url('form/?f=mdp'));
+		}
+		
+        return $form;
     }
 	
 }

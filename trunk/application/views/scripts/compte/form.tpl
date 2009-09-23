@@ -24,4 +24,6 @@ $(document).ready(function() {
 
 <h2>{$title}</h2>
 
+{$formmdp}
+
 {$form}
