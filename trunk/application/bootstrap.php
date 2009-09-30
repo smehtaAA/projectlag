@@ -38,9 +38,7 @@ $frontController->setParam('env', APPLICATION_ENVIRONMENT);
 
 $defaultNamespace = new Zend_Session_Namespace();
 if(isset($defaultNamespace->userid)) {
-	if($defaultNamespace->type == 'superadmin')
-		$layoutname = 'layout_superadmin';
-	elseif($defaultNamespace->type == 'admin')
+	if($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin')
 		$layoutname = 'layout_admin';
 	elseif($defaultNamespace->type == 'joueur')
 		$layoutname = 'layout_joueur';

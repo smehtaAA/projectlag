@@ -11,27 +11,11 @@ class SousCategorieController extends Zend_Controller_Action
 		$smarty->display('forum/souscategorie/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Sous Categorie');
-			$smarty->display('forum/souscategorie/indexSuperAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-    }
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			
@@ -63,10 +47,7 @@ class SousCategorieController extends Zend_Controller_Action
 					}
 					$dataform['idCategorie'] = $idCat;
 					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin','categorie');
-					else
-						return $this->_helper->redirector('indexadmin','categorie');
+					return $this->_helper->redirector('indexadmin','categorie');
 				}
 			} else {
 				if ($id > 0) {
@@ -113,10 +94,7 @@ class SousCategorieController extends Zend_Controller_Action
 				
 				
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin','categorie');
-			else
-				return $this->_helper->redirector('indexadmin','categorie');
+			return $this->_helper->redirector('indexadmin','categorie');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

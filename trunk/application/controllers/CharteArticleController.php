@@ -19,37 +19,11 @@ class CharteArticleController extends Zend_Controller_Action
 		$smarty->display('chartearticle/index.tpl');
 	}
 	
-	public function indexsuperadminAction()
+	public function indexadminAction()
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			
-			$request = $this->getRequest();
-			$id = (int)$request->getParam('id', 0);
-			
-			if(!empty($id)){
-				$model   = $this->_getModel();
-				$datas   = $model->fetchEntriesByCharte($id);
-				$request = $this->getRequest();
-				$smarty->assign('base_url',$request->getBaseUrl());
-				$smarty->assign('titre','Article');
-				$smarty->assign('urladd',$request->getBaseUrl().'/chartearticle/form/?idCharte='.$id);
-				$smarty->assign('urlupd',$request->getBaseUrl().'/chartearticle/form/?idCharte='.$id.'&id=');
-				$smarty->assign('urldel',$request->getBaseUrl().'/chartearticle/del/?id=');
-				$smarty->assign('datas',$datas);
-				$smarty->display('chartearticle/indexSuperAdmin.tpl');
-			}
-		} else {
-			$smarty->display('error/errorconnexion.tpl');
-		}
-    }
-
-    public function indexadminAction()
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			
 			$request = $this->getRequest();
 			$id = (int)$request->getParam('id', 0);
@@ -92,10 +66,7 @@ class CharteArticleController extends Zend_Controller_Action
 					}
 					$dataform['idCharte']=$idCharte;
 					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin','chartearticle','',array('id'=>$idCharte));
-					else
-						return $this->_helper->redirector('indexadmin','chartearticle','',array('id'=>$idCharte));
+					return $this->_helper->redirector('indexadmin','chartearticle','',array('id'=>$idCharte));
 				}
 			} else {
 				if ($id > 0) {
@@ -140,10 +111,7 @@ class CharteArticleController extends Zend_Controller_Action
 				
 				
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin','chartearticle','',array('id'=>$idCharte));
-			else
-				return $this->_helper->redirector('indexadmin','chartearticle','',array('id'=>$idCharte));
+			return $this->_helper->redirector('indexadmin','chartearticle','',array('id'=>$idCharte));
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -182,11 +150,7 @@ class CharteArticleController extends Zend_Controller_Action
 			$smarty->assign('urlupd',$request->getBaseUrl().'/chartearticle/form/?idCharte='.$data['idCharte'].'&id=');
 			$smarty->assign('urldel',$request->getBaseUrl().'/chartearticle/del/?id=');
 			$smarty->assign('datas',$datas);
-			if($log->_getTypeConnected('superadmin')){
-				$smarty->display('chartearticle/indexSuperAdmin.tpl');
-			}else{
-				$smarty->display('chartearticle/indexAdmin.tpl');
-			}
+			$smarty->display('chartearticle/indexAdmin.tpl');
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');

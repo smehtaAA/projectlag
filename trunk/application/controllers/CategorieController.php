@@ -12,47 +12,17 @@ class CategorieController extends Zend_Controller_Action
 		$smarty->display('forum/categorie/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model = $this->_getModel();
 			$modelSousCategorie = $this->_getModelSousCategorie();
 			$request = $this->getRequest();
 			
 			$datas=$model->fetchEntriesOrderByOrdre();
-			foreach($datas as $cat)
-			{
-				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
-			}
-			
-			$smarty->assign('base_url',$request->getBaseUrl());
-			$smarty->assign('urladd','form/');
-			$smarty->assign('urlupd','form/?id=');
-			$smarty->assign('urldel','del/?id=');
-			$smarty->assign('urladdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
-			$smarty->assign('urlupdSousCat', $request->getBaseUrl().'/souscategorie/form?idCat=');
-			$smarty->assign('urldelSousCat', $request->getBaseUrl().'/souscategorie/del?id=');
-			$smarty->assign('datas', $datas);
-			$smarty->assign('datasSousCategorie', $datasSousCategorie);
-			$smarty->assign('title','Categorie');
-			$smarty->display('forum/categorie/indexSuperAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-    }
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
-			$model = $this->_getModel();
-			$request = $this->getRequest();
-			
-			$datas=$model->fetchEntriesOrderByOrdre();
+			$datasSousCategorie=null;
 			foreach($datas as $cat)
 			{
 				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
@@ -93,10 +63,7 @@ class CategorieController extends Zend_Controller_Action
 						$dataform['ordre'] = $nb+1;
 					}
 					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin');
-					else
-						return $this->_helper->redirector('indexadmin');
+					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
@@ -143,10 +110,7 @@ class CategorieController extends Zend_Controller_Action
 				
 				
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin');
-			else
-				return $this->_helper->redirector('indexadmin');  
+			return $this->_helper->redirector('indexadmin');  
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -179,6 +143,7 @@ class CategorieController extends Zend_Controller_Action
 			$smarty = Zend_Registry::get('view');
 	
 			$datas=$model->fetchEntriesOrderByOrdre();
+			$datasSousCategorie=null;
 			foreach($datas as $cat)
 			{
 				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
@@ -194,10 +159,7 @@ class CategorieController extends Zend_Controller_Action
 			$smarty->assign('datas', $datas);
 			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
-			if($log->_getTypeConnected('superadmin'))
-				$smarty->display('forum/categorie/indexSuperAdmin.tpl');
-			else
-				$smarty->display('forum/categorie/indexAdmin.tpl');
+			$smarty->display('forum/categorie/indexAdmin.tpl');
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
@@ -230,8 +192,9 @@ class CategorieController extends Zend_Controller_Action
 			$modelSousCategorie->save($mention['idSousCategorie'], $mention);
 			
 			$smarty = Zend_Registry::get('view');
-	
+			
 			$datas=$model->fetchEntriesOrderByOrdre();
+			$datasSousCategorie=null;
 			foreach($datas as $cat)
 			{
 				$datasSousCategorie[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorie($cat['idCategorie']);
@@ -247,10 +210,7 @@ class CategorieController extends Zend_Controller_Action
 			$smarty->assign('datas', $datas);
 			$smarty->assign('datasSousCategorie', $datasSousCategorie);
 			$smarty->assign('title','Categorie');
-			if($log->_getTypeConnected('superadmin'))
-				$smarty->display('forum/categorie/indexSuperAdmin.tpl');
-			else
-				$smarty->display('forum/categorie/indexAdmin.tpl');
+			$smarty->display('forum/categorie/indexAdmin.tpl');
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');

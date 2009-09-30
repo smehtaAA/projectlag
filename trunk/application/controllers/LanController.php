@@ -12,11 +12,11 @@ class LanController extends Zend_Controller_Action
 		$smarty->display('accueil/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
+		if($log->_getTypeConnected('superadmin') || $log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$datas  = $model->fetchEntriesorderByDate();
 			$request = $this->getRequest();
@@ -24,7 +24,8 @@ class LanController extends Zend_Controller_Action
 			foreach($datas as $lan)
 			{
 				
-				$chiffre[$lan['idLan']] = $model->fetchEntriesCount($lan['idLan']);
+				$chiffre[$lan['idLan']][0]['insc'] = $model->fetchEntriesCount($lan['idLan']);
+				$chiffre[$lan['idLan']][0]['teams']= $model->fetchEntriesCountTeam($lan['idLan']);
 				$chiffre[$lan['idLan']][0]['jeux'] = $model->fetchEntriesCountJeux($lan['idLan']);
 			}
 			
@@ -39,45 +40,13 @@ class LanController extends Zend_Controller_Action
 			
 			$smarty->assign('urlinscrits',$request->getBaseUrl().'/lanjeuxjoueurteam/viewinscrits?idLan=');
 			$smarty->assign('urlteams',$request->getBaseUrl().'/lanjeuxjoueurteam/viewteams?idLan=');
-			$smarty->assign('urljeux',$request->getBaseUrl().'/lanjeux/indexsuperadmin?idLan=');
+			$smarty->assign('urljeux',$request->getBaseUrl().'/lanjeux/indexadmin?idLan=');
 			
 			$smarty->assign('datas',$datas);
-			$smarty->display('lan/indexSuperAdmin.tpl');
+			$smarty->display('lan/indexAdmin.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
-    }
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
-						$model  = $this->_getModel();
-			$datas  = $model->fetchEntries();
-			$request = $this->getRequest();
-			
-			foreach($datas as $lan)
-			{
-				
-				$chiffre[$lan['idLan']] = $model->fetchEntriesCount($lan['idLan']);
-				$chiffre[$lan['idLan']][0]['jeux'] = $model->fetchEntriesCountJeux($lan['idLan']);
-			}
-			
-			
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			$smarty->assign('total',$model->countEntries());
-			$smarty->assign('chiffre', $chiffre);
-			$smarty->assign('title','Lan');
-			$smarty->assign('urladd','form/');
-			$smarty->assign('urlupd','form/?id=');
-			$smarty->assign('urldel','del/?id=');
-			$smarty->assign('datas',$datas);
-			$smarty->display('accueil/indexAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
     }
 	
 	public function indexjoueurAction() 
@@ -114,10 +83,7 @@ class LanController extends Zend_Controller_Action
 					$datefin = $dataform['datefin'];
 					$dataform['datefin'] = substr($datefin, 6, 4)."-".substr($datefin, 3, 2)."-".substr($datefin, 0, 2)." 00:00:00";
 					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin');
-					else
-						return $this->_helper->redirector('indexadmin');
+					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
@@ -152,10 +118,7 @@ class LanController extends Zend_Controller_Action
 				$model = $this->_getModel();
 				$model->delete($id);
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin');
-			else
-				return $this->_helper->redirector('indexadmin');
+			return $this->_helper->redirector('indexadmin');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

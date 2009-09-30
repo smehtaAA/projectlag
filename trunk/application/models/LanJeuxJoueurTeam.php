@@ -47,10 +47,10 @@ class Model_LanJeuxJoueurTeam
     {
         $table = $this->getTable();
         $select = $table->select()
-							->from(array('ljjt' => 'lanjeuxjoueurteam'))
-							->join(array('l'=>'lan'),'l.idLan=ljjt.idLan')
-							->join(array('c'=>'compte'),'c.idCompte=ljjt.idCompte')
-							->where('ljjt.idLan = ?', $idLan)
+							->from(array('lj' => 'lanjoueur'))
+							->join(array('l'=>'lan'),'l.idLan=lj.idLan')
+							->join(array('c'=>'compte'),'c.idCompte=lj.idCompte')
+							->where('lj.idLan = ?', $idLan)
 							->distinct('nom')
 							->setIntegrityCheck(false);
 
@@ -62,12 +62,13 @@ class Model_LanJeuxJoueurTeam
         $table = $this->getTable();
         $select = $table->select()
 							->from(array('ljjt' => 'lanjeuxjoueurteam'))
-							->join(array('l'=>'lan'),'l.idLan=ljjt.idLan')
-							->join(array('lj'=>'lanjeux'),'lj.idJeux=ljjt.idJeux')
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
+							->join(array('l'=>'lan'),'l.idLan=lj.idLan')
+							->join(array('ljj'=>'lanjeux'),'ljj.idJeux=ljjt.idJeux')
 							->join(array('c'=>'compte'),'c.idCompte=ljjt.idCompte')
-							->where('ljjt.idLan = ?', $idLan)
 							->where('lj.idLan = ?', $idLan)
-							->order('lj.ordre')
+							->where('ljj.idLan = ?', $idLan)
+							->order('ljj.ordre')
 							->distinct('nom')
 							->setIntegrityCheck(false);
 
@@ -79,8 +80,9 @@ class Model_LanJeuxJoueurTeam
         $table = $this->getTable();
         $select = $table->select()
 							->from(array('ljjt' => 'lanjeuxjoueurteam'), '')
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
 							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam')
-							->where('ljjt.idLan = ?', $idLan)
+							->where('lj.idLan = ?', $idLan)
 							->where('ljjt.idJeux = ?', $idJeux)
 							->order('nom')
 							->distinct('t.idTeam')
@@ -109,11 +111,12 @@ class Model_LanJeuxJoueurTeam
         $table = $this->getTable();
         $select = $table->select()
 							->from(array('ljjt' => 'lanjeuxjoueurteam'))
-							->join(array('l'=>'lan'),'l.idLan=ljjt.idLan')
-							->join(array('c'=>'compte'),'c.idCompte=ljjt.idCompte')
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
+							->join(array('l'=>'lan'),'l.idLan=lj.idLan')
+							->join(array('c'=>'compte'),'c.idCompte=lj.idCompte')
 							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam')
-							->where('ljjt.idLan = ?', $idLan)
-							->order('ljjt.dateins')
+							->where('lj.idLan = ?', $idLan)
+							->order('lj.dateins')
 							->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();

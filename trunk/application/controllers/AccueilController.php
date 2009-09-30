@@ -10,43 +10,11 @@ class AccueilController extends Zend_Controller_Action
 		$smarty->display('accueil/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Accueil');
-			$smarty->display('accueil/indexSuperAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-    }
-	
-	public function indexsuperadminmenuAction()
-	{
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Menu Administration');
-			$smarty->display('accueil/indexSuperAdminMenu.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-	}
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			
@@ -57,6 +25,22 @@ class AccueilController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}  
     }
+	
+	public function indexadminmenuAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+			$request = $this->getRequest();
+			$smarty->assign('baseurl',$request->getBaseUrl());
+			
+			$smarty->assign('title','Menu Administration');
+			$smarty->display('accueil/indexAdminMenu.tpl');
+		} else {
+			$smarty->assign('message', 'Erreur Connexion');
+			$smarty->display('error/errorconnexion.tpl');
+		}  
+	}
 	
 	public function indexjoueurmenuAction() 
     {

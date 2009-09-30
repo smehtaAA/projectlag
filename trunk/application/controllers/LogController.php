@@ -38,7 +38,10 @@ class LogController extends Zend_Controller_Action
 							}
 						}
 						$this->connexion($existlog[$userid],$nom);
-						return $this->_redirect('/accueil/index'.$nom.'menu');
+						if($min<=2)
+							return $this->_redirect('/accueil/indexadminmenu');
+						else
+							return $this->_redirect('/accueil/indexjoueurmenu');
 					} else {
 						$form = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
 					}

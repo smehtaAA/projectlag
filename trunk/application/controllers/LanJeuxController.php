@@ -14,11 +14,11 @@ class LanJeuxController extends Zend_Controller_Action
 		$smarty->display('jeux/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$modelLan = $this->_getModelLan();
 			$request = $this->getRequest();
@@ -35,26 +35,10 @@ class LanJeuxController extends Zend_Controller_Action
 			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeux/del/?idLan='.$idLan.'&id=');
 			$smarty->assign('datas',$datas);
 			
-			$smarty->display('lanjeux/indexSuperAdmin.tpl');
+			$smarty->display('lanjeux/indexAdmin.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
-    }
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Jeux');
-			$smarty->display('jeux/indexAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
     }
 	
 	public function indexjoueurAction() 
@@ -96,10 +80,7 @@ class LanJeuxController extends Zend_Controller_Action
 						$dataform['ordre'] = $nb+1;
 					}
 					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin','lanjeux','',array('idLan'=>$idLan));
-					else
-						return $this->_helper->redirector('indexadmin','lanjeux','',array('idLan'=>$idLan));
+					return $this->_helper->redirector('indexadmin','lanjeux','',array('idLan'=>$idLan));
 				}
 			} else {
 				if ($id > 0) {
@@ -133,10 +114,7 @@ class LanJeuxController extends Zend_Controller_Action
 				$model = $this->_getModel();
 				$model->delete($id);
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin','lanjeux','',array('idLan'=>$idLan));
-			else
-				return $this->_helper->redirector('indexadmin','lanjeux','',array('idLan'=>$idLan));
+			return $this->_helper->redirector('indexadmin','lanjeux','',array('idLan'=>$idLan));
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -180,10 +158,7 @@ class LanJeuxController extends Zend_Controller_Action
 			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeux/del/?idLan='.$idLan.'&id=');
 			$smarty->assign('datas',$datas);
 			
-			if($log->_getTypeConnected('superadmin'))
-				$smarty->display('lanjeux/indexSuperAdmin.tpl');
-			else
-				$smarty->display('lanjeux/indexAdmin.tpl');
+			$smarty->display('lanjeux/indexAdmin.tpl');
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');

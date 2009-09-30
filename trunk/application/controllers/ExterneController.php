@@ -10,27 +10,11 @@ class ExterneController extends Zend_Controller_Action
 		$smarty->display('externe/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Externe');
-			$smarty->display('externe/indexSuperAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-    }
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			

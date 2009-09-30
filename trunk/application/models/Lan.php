@@ -55,11 +55,27 @@ class Model_Lan
     {
         $table = $this->getTable();
 		$select = $table->select()
-							->from(array('ljjt' => 'lanjeuxjoueurteam'), array('COUNT(DISTINCT ljjt.idCompte) as insc', 'COUNT(DISTINCT ljjt.idTeam) as teams'))
-							->where('ljjt.idLan = ?', $idLan)
+							->from(array('lj' => 'lanjoueur'), array('COUNT(DISTINCT lj.idLanJoueur) as insc'))
+							->where('lj.idLan = ?', $idLan)
 							->setIntegrityCheck(false);
 		
-		return $table->fetchAll($select)->toArray();
+		
+		$row = $table->fetchRow($select);
+        return $row->insc;
+    }
+	
+	public function fetchEntriesCountTeam($idLan)
+    {
+        $table = $this->getTable();
+		$select = $table->select()
+							->from(array('ljjt' => 'lanjeuxjoueurteam'), array('COUNT(DISTINCT ljjt.idTeam) as teams'))
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
+							->where('lj.idLan = ?', $idLan)
+							->setIntegrityCheck(false);
+		
+		
+		$row = $table->fetchRow($select);
+        return $row->teams;
     }
 	
 	public function fetchEntriesCountJeux($idLan)

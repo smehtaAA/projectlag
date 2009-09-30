@@ -15,11 +15,11 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 		$smarty->display('jeux/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$modelLan = $this->_getModelLan();
 			$request = $this->getRequest();
@@ -36,7 +36,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeux/del/?idLan='.$idLan.'&id=');
 			$smarty->assign('datas',$datas);
 			
-			$smarty->display('lanjeux/indexSuperAdmin.tpl');
+			$smarty->display('lanjeux/indexAdmin.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -84,6 +84,9 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$jeux = $modelLanJeux->fetchEntriesByLan($idLan);
 			$lan = $modelLan->fetchEntry($idLan);
 			
+			$teams = null;
+			$compte = null;
+			
 			foreach($jeux as $j)
 			{
 				$teams[$j['idJeux']] = $model->fetchEntriesByLanAndJeux($idLan, $j['idJeux']);
@@ -112,22 +115,6 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 		}
 		
 	}
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Jeux');
-			$smarty->display('jeux/indexAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-    }
 	
 	public function indexjoueurAction() 
     {

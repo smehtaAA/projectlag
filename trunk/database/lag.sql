@@ -334,6 +334,29 @@ CREATE TABLE IF NOT EXISTS `lanjeux` (
 -- Contenu de la table `lanjeux`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lanjoueur`
+--
+
+DROP TABLE IF EXISTS `lanjoueur`;
+CREATE TABLE IF NOT EXISTS `lanjoueur` (
+  `idLanJoueur` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idLan` int(10) NOT NULL,
+  `idCompte` int(10) NOT NULL,
+  `dateins` int(10) NOT NULL,
+  `paiement` int(10) NOT NULL,
+  `validation` int(10) NOT NULL,
+  PRIMARY KEY (`idLanJoueur`),
+  KEY `idLan` (`idLan`),
+  KEY `idCompte` (`idCompte`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Contenu de la table `lanjoueur`
+--
+
 
 -- --------------------------------------------------------
 
@@ -344,18 +367,13 @@ CREATE TABLE IF NOT EXISTS `lanjeux` (
 DROP TABLE IF EXISTS `lanjeuxjoueurteam`;
 CREATE TABLE IF NOT EXISTS `lanjeuxjoueurteam` (
   `idLanJeuxJoueurTeam` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `idLan` int(10) unsigned NOT NULL,
+  `idLanJoueur` int(10) unsigned NOT NULL,
   `idJeux` int(10) unsigned NOT NULL,
-  `idCompte` int(10) unsigned NOT NULL,
-  `idTeam` int(10) unsigned NOT NULL,
-  `dateins` date NOT NULL,
-  `paiement` tinyint(4) NOT NULL,
-  `validation` tinyint(1) NOT NULL,
+  `idTeam` int(10) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`idLanJeuxJoueurTeam`),
-  KEY `idLan` (`idLan`),
+  KEY `idLanJoueur` (`idLanJoueur`),
   KEY `idJeux` (`idJeux`),
-  KEY `idTeam` (`idTeam`),
-  KEY `idCompte` (`idCompte`)
+  KEY `idTeam` (`idTeam`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -705,11 +723,11 @@ CREATE TABLE IF NOT EXISTS `team` (
   `idTeam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
   PRIMARY KEY (`idTeam`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `team`
 --
 
 INSERT INTO `team` (`idTeam`, `nom`) VALUES
-(2, 'Team 1');
+(1, 'Sans Team');
