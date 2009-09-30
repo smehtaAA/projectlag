@@ -49,31 +49,11 @@ class LienController extends Zend_Controller_Action
 		$smarty->display('lien/index.tpl');
 	}
 	
-	public function indexsuperadminAction()
+	public function indexadminAction()
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$model  = $this->_getModel();
-			$datas  = $model->fetchEntries();
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());			
-			$smarty->assign('title','Lien');
-			$smarty->assign('urladd','form/');
-			$smarty->assign('urlupd','form/?id=');
-			$smarty->assign('urldel','del/?id=');
-			$smarty->assign('datas',$datas);
-			$smarty->display('lien/indexSuperAdmin.tpl');
-		} else {
-			$smarty->display('error/errorconnexion.tpl');
-		}
-    }
-
-    public function indexadminAction()
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$datas  = $model->fetchEntries();
 			$request = $this->getRequest();
@@ -102,10 +82,7 @@ class LienController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$model->save($id,$form->getValues());
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin');
-					else
-						return $this->_helper->redirector('indexadmin');
+					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
@@ -136,10 +113,7 @@ class LienController extends Zend_Controller_Action
 				$model = $this->_getModel();
 				$model->delete($id);
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin');
-			else
-				return $this->_helper->redirector('indexadmin');
+			return $this->_helper->redirector('indexadmin');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

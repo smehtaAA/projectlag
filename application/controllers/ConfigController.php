@@ -4,31 +4,11 @@ class ConfigController extends Zend_Controller_Action
 {
 	protected $_model;
 	
-	public function indexsuperadminAction()
-	{
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$request = $this->getRequest();
-			$model = $this->_getModel();
-		
-			$base_url = $request->getBaseUrl();
-			$datas = $model->fetchEntries();
-	
-			$smarty->assign('base_url', $base_url);
-			$smarty->assign('datas', $datas);
-			$smarty->assign('titre', 'Page de Configuration');
-			$smarty->display('config/indexSuperAdmin.tpl');
-		} else {
-			$smarty->display('error/errorconnexion.tpl');
-		}  
-	}
-	
 	public function indexadminAction()
 	{
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$request = $this->getRequest();
 			$model = $this->_getModel();
 		
@@ -62,11 +42,7 @@ class ConfigController extends Zend_Controller_Action
 						$model->save($id,$valform);
 						//$smarty->assign('day',$d[2]);
 						//$smarty->assign('debug',$valform['date']);
-						if ($log->_getTypeConnected('admin')) {
-							return $this->_helper->redirector('indexadmin');
-						} elseif ($log->_getTypeConnected('superadmin')){
-							return $this->_helper->redirector('indexsuperadmin');
-						}
+						return $this->_helper->redirector('indexadmin');
 						//$smarty->display('reunion/debug.tpl');
 				}
 			} else {

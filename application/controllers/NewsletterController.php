@@ -12,31 +12,11 @@ class NewsletterController extends Zend_Controller_Action
 		$smarty->display('newsletter/index.tpl');
 	}
 	
-	public function indexsuperadminAction()
+	public function indexadminAction()
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$model  = $this->_getModel();
-			$datas  = $model->fetchEntries();
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			$smarty->assign('title','Newsletter');
-			$smarty->assign('urladd','form/');
-			$smarty->assign('urlupd','form/?id=');
-			$smarty->assign('urldel','del/?id=');
-			$smarty->assign('datas',$datas);
-			$smarty->display('newsletter/indexSuperAdmin.tpl');
-		} else {
-			$smarty->display('error/errorconnexion.tpl');
-		}
-    }
-
-    public function indexadminAction()
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$datas  = $model->fetchEntries();
 			$request = $this->getRequest();

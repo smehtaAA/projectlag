@@ -12,11 +12,11 @@ class JeuxController extends Zend_Controller_Action
 		$smarty->display('jeux/index.tpl');
 	}
 	
-    public function indexsuperadminAction() 
+    public function indexadminAction() 
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$datas  = $model->fetchEntries();
 			$request = $this->getRequest();
@@ -27,26 +27,10 @@ class JeuxController extends Zend_Controller_Action
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('datas',$datas);
-			$smarty->display('jeux/indexSuperAdmin.tpl');
+			$smarty->display('jeux/indexAdmin.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
-    }
-	
-	public function indexadminAction() 
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
-			$request = $this->getRequest();
-			$smarty->assign('baseurl',$request->getBaseUrl());
-			
-			$smarty->assign('title','Jeux');
-			$smarty->display('jeux/indexAdmin.tpl');
-		} else {
-			$smarty->assign('message', 'Erreur Connexion');
-			$smarty->display('error/errorconnexion.tpl');
-		}  
     }
 	
 	public function indexjoueurAction() 
@@ -84,10 +68,7 @@ class JeuxController extends Zend_Controller_Action
 						$dataform["type"] = $dataform["creer_type"];
 					unset($dataform["creer_type"]);
 					$model->save($id,$dataform);
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin');
-					else
-						return $this->_helper->redirector('indexadmin');
+					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
@@ -122,10 +103,7 @@ class JeuxController extends Zend_Controller_Action
 				$model = $this->_getModel();
 				$model->delete($id);
 			}
-			if($log->_getTypeConnected('superadmin'))
-				return $this->_helper->redirector('indexsuperadmin');
-			else
-				return $this->_helper->redirector('indexadmin');
+			return $this->_helper->redirector('indexadmin');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

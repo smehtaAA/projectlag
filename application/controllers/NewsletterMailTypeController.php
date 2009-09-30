@@ -6,41 +6,11 @@ class NewsletterMailTypeController extends Zend_Controller_Action
 	protected $_modelMail;
 	protected $_modelType;
 	
-	public function indexsuperadminAction()
+	public function indexadminAction()
     {
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('superadmin')) {
-			$model  = $this->_getModel();
-			$request = $this->getRequest();
-			$id = (int) $request->getParam('id', 0);
-			
-			if($id>0)
-			{
-				$datas = $model->fetchEntriesByType($id);
-				
-				$smarty->assign('title', 'Mails');
-				$smarty->assign('base_url', $request->getBaseUrl());
-				$smarty->assign('urladd','../rattachermail/?id='.$id);
-				$smarty->assign('urlupd','form/?id=');
-				$smarty->assign('urldel','del/?id=');
-				$smarty->assign('datas', $datas);
-				$smarty->display('newsletter/indexmailtypeSuperAdmin.tpl');
-			} else{
-				$smarty->display('error/errorconnexion.tpl');
-			}
-			
-			
-		} else {
-			$smarty->display('error/errorconnexion.tpl');
-		}
-	}
-
-    public function indexadminAction()
-    {
-		$smarty = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$request = $this->getRequest();
 			$id = (int) $request->getParam('id', 0);
@@ -65,7 +35,7 @@ class NewsletterMailTypeController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
 	}
-	
+
 	public function formAction()
 	{
 		$smarty = Zend_Registry::get('view');
@@ -80,10 +50,7 @@ class NewsletterMailTypeController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$model->save($id,$form->getValues());					
-					if($log->_getTypeConnected('superadmin'))
-						return $this->_helper->redirector('indexsuperadmin');
-					else
-						return $this->_helper->redirector('indexadmin');
+					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
