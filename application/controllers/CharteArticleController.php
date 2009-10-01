@@ -3,7 +3,7 @@
 class CharteArticleController extends Zend_Controller_Action 
 {
     protected $_model;
-	protected $_modelJeux;
+	protected $_modelCharte;
 	
 	public function indexAction()
 	{
@@ -30,10 +30,15 @@ class CharteArticleController extends Zend_Controller_Action
 			
 			if(!empty($id)){
 				$model   = $this->_getModel();
+				$modelCharte   = $this->_getModelCharte();
 				$datas   = $model->fetchEntriesByCharte($id);
+				$charte = $modelCharte->fetchEntry($id);
 				$request = $this->getRequest();
 				$smarty->assign('base_url',$request->getBaseUrl());
-				$smarty->assign('titre','Article');
+				if($id==1)
+					$smarty->assign('titre','Charte de l\'Association');
+				else
+					$smarty->assign('titre','Article de la charte '.$charte['nom']);
 				$smarty->assign('urladd',$request->getBaseUrl().'/chartearticle/form/?idCharte='.$id);
 				$smarty->assign('urlupd',$request->getBaseUrl().'/chartearticle/form/?idCharte='.$id.'&id=');
 				$smarty->assign('urldel',$request->getBaseUrl().'/chartearticle/del/?id=');
@@ -168,11 +173,11 @@ class CharteArticleController extends Zend_Controller_Action
 
 	protected function _getModelCharte()
     {
-        if (null === $this->_modelJeux) {
+        if (null === $this->_modelCharte) {
             require_once APPLICATION_PATH . '/models/Charte.php';
-            $this->_modelJeux = new Model_Charte();
+            $this->_modelCharte = new Model_Charte();
         }
-        return $this->_modelJeux;
+        return $this->_modelCharte;
     }
 
     protected function _getCharteArticleForm($id, $idCharte)

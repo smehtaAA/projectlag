@@ -4,6 +4,7 @@ class CharteController extends Zend_Controller_Action
 {
     protected $_model;
 	protected $_modelJeux;
+	protected $_modelCharteArticle;
 	
 	public function indexAction()
 	{
@@ -25,6 +26,31 @@ class CharteController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model   = $this->_getModel();
+			$modelCharteArticle = $this->_getModelCharteArticle();
+			$charte   = $model->fetchEntryAsso();
+			
+			$datas = $modelCharteArticle->fetchEntriesByCharte($charte['idCharte']);
+			
+			$request = $this->getRequest();
+			$smarty->assign('base_url',$request->getBaseUrl());
+			$smarty->assign('titre','Charte');
+			$smarty->assign('idCharte', $charte['idCharte']);
+			$smarty->assign('urladd',$request->getBaseUrl().'/chartearticle/form/?idCharte='.$charte['idCharte']);
+			$smarty->assign('urlupd',$request->getBaseUrl().'/chartearticle/form/?id=');
+			$smarty->assign('urldel',$request->getBaseUrl().'/chartearticle/del/?id=');
+			$smarty->assign('datas',$datas);
+			$smarty->display('charte/indexAdmin.tpl');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+    }
+	
+	public function indexjeuxadminAction()
+    {
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+			$model   = $this->_getModel();
 			$datas   = $model->fetchEntriesOrderByOrdre();
 			$request = $this->getRequest();
 			$smarty->assign('base_url',$request->getBaseUrl());
@@ -34,7 +60,7 @@ class CharteController extends Zend_Controller_Action
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('viewarticles',$request->getBaseUrl().'/chartearticle/indexadmin?id=');
 			$smarty->assign('datas',$datas);
-			$smarty->display('charte/indexAdmin.tpl');
+			$smarty->display('charte/indexjeuxAdmin.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -59,7 +85,7 @@ class CharteController extends Zend_Controller_Action
 						$dataform['ordre'] = $nb+1;
 					}
 					$model->save($id,$dataform);
-					return $this->_helper->redirector('indexadmin');
+					return $this->_helper->redirector('indexjeuxadmin');
 				}
 			} else {
 				if ($id > 0) {
@@ -145,8 +171,8 @@ class CharteController extends Zend_Controller_Action
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('datas',$datas);
-			$smarty->assign('viewarticles',$request->getBaseUrl().'/chartearticle/indexadmin?id=');
-			$smarty->display('charte/indexAdmin.tpl');
+			$smarty->assign('viewarticles',$request->getBaseUrl().'/chartearticle/indexjeuxadmin?id=');
+			$smarty->display('charte/indexjeuxAdmin.tpl');
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
@@ -161,6 +187,15 @@ class CharteController extends Zend_Controller_Action
         }
         return $this->_model;
     }
+	
+	protected function _getModelCharteArticle()
+	{
+		if(null === $this->_modelCharteArticle) {
+			require_once APPLICATION_PATH . '/models/CharteArticle.php';
+			$this->_modelCharteArticle = new Model_CharteArticle();
+		}
+		return $this->_modelCharteArticle;
+	}
 
 	protected function _getModelJeux()
     {

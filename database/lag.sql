@@ -74,16 +74,16 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 DROP TABLE IF EXISTS `charte`;
 CREATE TABLE IF NOT EXISTS `charte` (
   `idCharte` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `idJeux` int(10) unsigned NOT NULL,
+  `idJeux` int(10) unsigned NULL,
   `nom` varchar(60) NOT NULL,
   `ordre` int(10) NOT NULL,
   PRIMARY KEY (`idCharte`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `charte`
 --
-
+INSERT INTO `charte` (`idCharte`,`idJeux`,`nom`,`ordre`) VALUES (1,0,'Association',0);
 
 -- --------------------------------------------------------
 
@@ -297,6 +297,7 @@ CREATE TABLE IF NOT EXISTS `lan` (
   `datefin` date NOT NULL,
   `nbmaxpers` int(10) NOT NULL,
   `prix` int(10) NOT NULL,
+  `inscription` boolean NOT NULL DEFAULT FALSE,
   `description` longtext,
   `nbclick` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idLan`)
