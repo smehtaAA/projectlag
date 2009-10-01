@@ -97,8 +97,9 @@ class Model_LanJeuxJoueurTeam
         $table = $this->getTable();
         $select = $table->select()
 							->from(array('ljjt' => 'lanjeuxjoueurteam'))
-							->join(array('c'=>'compte'),'c.idCompte=ljjt.idCompte')
-							->where('ljjt.idLan = ?', $idLan)
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
+							->join(array('c'=>'compte'),'c.idCompte=lj.idCompte')
+							->where('lj.idLan = ?', $idLan)
 							->where('ljjt.idJeux = ?', $idJeux)
 							->where('ljjt.idTeam = ?', $idTeam)
 							->setIntegrityCheck(false);
