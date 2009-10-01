@@ -38,7 +38,7 @@ class Model_Charte
 	public function fetchEntriesOrderByOrdre()
     {
 		$table = $this->getTable();
-		$select = $table->select()->order('ordre');
+		$select = $table->select()->order('ordre')->where('idJeux <> 0');
 		$stmt = $select->query();
 
 		return $stmt->fetchAll();
@@ -48,6 +48,14 @@ class Model_Charte
     {
 		$table = $this->getTable();
 		$select = $table->select()->where('ordre = ?', $ordre);
+
+		return $table->fetchRow($select)->toArray();
+    }
+	
+	public function fetchEntryAsso()
+    {
+		$table = $this->getTable();
+		$select = $table->select()->where('idJeux = 0');
 
 		return $table->fetchRow($select)->toArray();
     }
