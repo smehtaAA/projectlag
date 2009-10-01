@@ -51,6 +51,19 @@ class Model_Lan
         return $table->fetchRow($select)->toArray();
     }
 	
+	public function fetchEntryOuverte()
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('inscription = true');
+		
+		$temp = $table->fetchRow($select);
+
+		if(isset($temp))
+        	return $temp->toArray();
+		else
+			return -1;
+    }
+	
 	public function fetchEntriesCount($idLan)
     {
         $table = $this->getTable();
