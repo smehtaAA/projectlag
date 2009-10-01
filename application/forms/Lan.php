@@ -35,6 +35,11 @@ class Form_Lan extends Zend_Form
             'required'   => true
         ));
 		
+		$this->addElement('checkbox', 'inscription', array(
+            'label'      => 'Ouverture des Inscriptions : ',
+            'RegisterInArrayValidator' => false
+        ));
+		
 		$this->addElement('text', 'nbmaxpers', array(
             'label'      => 'Nombre de Personnes Max : ',
             'RegisterInArrayValidator' => false,

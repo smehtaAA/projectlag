@@ -60,6 +60,18 @@ class Model_Charte
 		return $table->fetchRow($select)->toArray();
     }
 	
+	public function fetchArticlesAsso()
+	{
+		$table = $this->getTable();
+		$select = $table->select()
+						->from(array('ca' => 'CharteArticle'))
+						->where('idCharte = 1')
+						->order('ordre')
+						->setIntegrityCheck(false);
+
+		return $table->fetchAll($select)->toArray();
+	}
+	
     public function fetchEntry($id)
     {
         $table = $this->getTable();
