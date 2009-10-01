@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
 --
 
 INSERT INTO `compte` (`idCompte`, `idGrade`, `login`, `password`, `nom`, `prenom`, `email`, `datenaissance`, `dateins`, `dateco`, `temps`, `ip`, `jeuxprefere`, `site`, `configpc`, `citationpreferee`, `description`, `nbconnexion`, `keyvalidation`, `actif`) VALUES
-(1, 1, 'sieg', '6ae357dc98f739341238fc52aea9d00d', 'Méhault', 'Maxime', 'lag.sieg@gmail.com', '1988-02-09', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+(1, 1, 'sieg', 'l@g8?6ae357dc98f739341238fc52aea9d00dpe6r!e8', 'Méhault', 'Maxime', 'lag.sieg@gmail.com', '1988-02-09', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `date` date NOT NULL,
   `description` longtext NOT NULL,
   `lu` boolean DEFAULT false,
-  `repondu` boolean DEFAULT false
+  `repondu` boolean DEFAULT false,
   PRIMARY KEY (`idContact`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `fonction` (
   `afficher` tinyint(1) DEFAULT NULL,
   `sceller` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idFonction`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `fonction`
@@ -219,7 +219,8 @@ CREATE TABLE IF NOT EXISTS `fonction` (
 
 INSERT INTO `fonction` (`idFonction`, `nom`, `ordre`, `afficher`, `sceller`) VALUES
 (1, 'superadmin', 1, 1, 1),
-(2, 'admin', 2, 1, 1);
+(2, 'admin', 2, 1, 1),
+(3, 'joueur', 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `fonctioncompte` (
   PRIMARY KEY (`idFonctionCompte`),
   KEY `idFonction` (`idFonction`),
   KEY `idCompte` (`idCompte`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;
 
 --
 -- Contenu de la table `fonctioncompte`
@@ -261,10 +262,6 @@ CREATE TABLE IF NOT EXISTS `grade` (
 --
 -- Contenu de la table `grade`
 --
-
-INSERT INTO `grade` (`idGrade`, `nom`, `nbmessages`) VALUES
-(1, 'peon''noob', 25),
-(2, 'peon', 50);
 
 -- --------------------------------------------------------
 
