@@ -32,7 +32,10 @@ class Model_Contact
 
     public function fetchEntries()
     {
-        return $this->getTable()->fetchAll('1')->toArray();
+        $table=$this->getTable();
+		$select=$table->select()->order('date DESC');
+		
+		return $table->fetchAll($select)->toArray();
     }
 
     public function fetchEntry($id)
