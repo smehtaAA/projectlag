@@ -1,26 +1,22 @@
-{literal}
-<script type="text/javascript">
-$(document).ready(function() {
-	$('#datenaissance').datepicker({
-			format:'dd/mm/Y',
-			date: $('#datedeb').val(),
-			current: $('#datedeb').val(),
-			numberOfMonths: 3,
-			showButtonPanel: true,
-			starts: 1,
-			position: 'right',
-			onBeforeShow: function(){
-				$('#datedeb').DatePickerSetDate($('#datedeb').val(), true);
-			},
-			onChange: function(formated, dates){
-				$('#datedeb').val(formated);
-				$('#datedeb').DatePickerHide();
-			}
-	});	
-}); 
-</script>
-{/literal}
+<h2> Inscription </h2>
 
-<h2> {$titre} </h2>
 
-{$form}
+<table border=1>
+
+<th width="250px" align="left"> D&eacute;ja Membre </th>
+<th width="250px" align="left"> Je ne suis pas membre </th>
+
+<tr>
+	<td height="200px">
+    
+    {$form}
+    
+    </td> 
+    
+    <td>
+    	<a href="{$creer_compte}">Cliquez ici pour cr&eacute;er un compte</a>
+    </td>
+</tr>
+
+
+</table>

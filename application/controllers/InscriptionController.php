@@ -7,6 +7,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected $_modelCharte;
 	protected $_modelCompte;
 	protected $_modelLanJoueur;
+	protected $_modelFonctionCompte;
 	
 	public function indexAction()
 	{
@@ -19,12 +20,13 @@ class InscriptionController extends Zend_Controller_Action
 		
 		if($lan==-1) {
 			$smarty->assign('titre', 'Aucune Inscription n\'est actuellement ouverte');
+			$smarty->assign('ouverte', false);
 		} else {
 			$modelCharte=$this->_getModelCharte();
 			
 			$charte = $modelCharte->fetchEntryAsso();
 			$articles = $modelCharte->fetchArticlesAsso();
-			
+			$smarty->assign('ouverte', true);
 			$smarty->assign('articles', $articles);
 			$smarty->assign('url_valide', $request->getBaseUrl().'/inscription/inscription');
 			$smarty->assign('url_nonvalide', $request->getBaseUrl());
@@ -40,6 +42,62 @@ class InscriptionController extends Zend_Controller_Action
 	
 	public function inscriptionAction()
 	{
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('joueur')) {
+			return $this->_helper->redirector('inscriptionlan','inscription');
+		} else {
+			$smarty = Zend_Registry::get('view');
+			$request = $this->getRequest();
+			$smarty->assign('title', 'Connexion');
+			$defaultNamespace = new Zend_Session_Namespace();
+			
+			if(Zend_Session::sessionExists() && empty($defaultNamespace->userid)) {
+				$form  = $this->_getLogForm();
+				$model = $this->_getModelCompte();
+				$modelFonctionCompte = $this->_getModelFonctionCompte();
+		
+				if ($this->getRequest()->isPost()) {
+					if ($form->isValid($request->getPost())) {
+						$existlog = $model->existLog($form->getValues());
+						if($existlog != NULL) {
+							$userid = 'idCompte';
+							$fonction = $modelFonctionCompte->fetchFonction($existlog[$userid]);
+							$min=200;
+							foreach($fonction as $f) {
+								if($f['ordre']<$min) {
+									$min = $f['ordre'];
+									$nom = $f['nom'];
+								}
+							}
+							$this->connexion($existlog[$userid],$nom);
+							return $this->_redirect('/inscription/inscriptionlan');
+						} else {
+							$form = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
+						}
+					}
+				}
+				$smarty->assign('creer_compte', $request->getBaseUrl().'/inscription/inscriptionmembre');
+				$smarty->assign('form',$form);
+				$smarty->display('inscription/inscription.tpl');
+			}
+		}
+	}
+	
+	protected function connexion($userid,$type)
+	{
+		$defaultNamespace = new Zend_Session_Namespace();
+		$defaultNamespace->userid = $userid;
+		$defaultNamespace->type = $type;
+	}
+	
+	public function validationAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$smarty->display('inscription/validation.tpl');
+	}
+	
+	public function inscriptionmembreAction()
+	{
 		$smarty = Zend_Registry::get('view');
 		$modelLan = $this->_getModelLan();
 		$request = $this->getRequest();
@@ -54,85 +112,36 @@ class InscriptionController extends Zend_Controller_Action
 				$dataform=$form->getValues();
 				$datenaissance = $dataform['datenaissance'];
 				$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
+				$dataform['password'] = 'l@g8?'.md5($dataform['password']).'pe6r!e8';
 				$modelCompte->save(0,$dataform);
+				
 				$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
 				
+				$modelFonctionCompte = $this->_getModelFonctionCompte();
+				$f['idCompte'] = $compte['idCompte'];
+				$f['idFonction'] = 3;
+				$modelFonctionCompte->save(0,$f);
+				
+				return $this->_redirect('/inscription/validation');
+				
+				
+				/* Code permettant l'inscription à une LAN
+				Ce morceau de code doit etre déplacé à l'endroit voulu
+				$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
 				$insc['idLan']=$lan['idLan'];
 				$insc['idCompte']=$compte['idCompte'];
 				$insc['paiement']=0;
 				$insc['validation']=false;
 				
 				$modelLanJoueur->save(0,$insc);
+				*/
 			}
 		}
 				
 			
 		$smarty->assign('titre', 'Inscription pour la lan '.$lan['nom']);
 		$smarty->assign('form', $form);
-		/*
-				$smarty  = Zend_Registry::get('view');
-		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$log->_getTypeConnected('joueur')) {
-			$request = $this->getRequest();
-			
-			if($log->_getTypeConnected('joueur')) {
-				$this->redirection = 'accueil/indexjoueurmenu';
-				$id = $log->_getUser();
-			} else {
-				$this->redirection = 'compte/indexadmin';
-				$id = (int)$request->getParam('id', 0);
-			}
-			
-			$form    = $this->_getCompteForm($id, $log->_getType());
-			$formmdp = $this->_getMdpForm($id, $log->_getType());
-			$model   = $this->_getModel();
-
-			if ($this->getRequest()->isPost()) {
-				if($request->getParam('f') != 'mdp') {
-					if ($form->isValid($request->getPost())) {
-						$dataform=$form->getValues();
-						$datenaissance = $dataform['datenaissance'];
-						$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
-						$model->save($id,$dataform);
-						return $this->_redirect($this->redirection);
-					}
-				} else {
-					if ($formmdp->isValid($request->getPost())) {
-						$val         = $formmdp->getValues();
-						$val2        = array('password' => md5($val['newpassword']));
-						$model->save($id,$val2);
-						return $this->_redirect($this->redirection);
-					}
-				}
-			} else {
-				if ($id > 0) {
-					$data = $model->fetchEntry($id);
-					$date = new Zend_Date($data['datenaissance']);
-					$data['datenaissance'] = $date->toString('dd/MM/Y');
-					$form->populate($data);
-				}
-			}
-			
-			if($log->_getTypeConnected('admin')) {
-				if($id > 0)
-					$smarty->assign('title','Modification Compte');
-				else
-					$smarty->assign('title', 'Ajout Compte');
-			} else {
-					$smarty->assign('title', 'Modifier mon compte');
-			}			
-			
-	
-			
-			$smarty->assign('form', $form);
-			$smarty->assign('formmdp', $formmdp);
-			$smarty->display('compte/form.tpl');
-		} else {
-			$smarty->display('error/errorconnexion.tpl');
-		}
-		*/
-		
-		$smarty->display('inscription/inscription.tpl');
+		$smarty->display('inscription/inscriptionMembre.tpl');
 	}
 	
 	protected function _getModelCompte()
@@ -162,6 +171,23 @@ class InscriptionController extends Zend_Controller_Action
         return $this->_modelCharte;
     }
 	
+	public function _getLogForm()
+	{
+		require_once APPLICATION_PATH . '/forms/Log.php';
+        $form = new Form_Log();
+		$form->setAction($this->_helper->url('inscription'));
+        return $form;
+	}
+	
+	protected function _getModelFonctionCompte()
+	{
+        if (null === $this->_modelFonctionCompte) {
+            require_once APPLICATION_PATH . '/models/FonctionCompte.php';
+            $this->_modelFonctionCompte = new Model_FonctionCompte();
+        }
+        return $this->_modelFonctionCompte;
+	}
+	
 	protected function _getModelLanJoueur()
     {
         if (null === $this->_modelLanJoueur) {
@@ -176,7 +202,7 @@ class InscriptionController extends Zend_Controller_Action
         require_once APPLICATION_PATH . '/forms/Compte.php';
         Zend_Registry::set('modeform', 'inscription');
 		$form = new Form_Compte();
-		$form->setAction($this->_helper->url('inscription'));
+		$form->setAction($this->_helper->url('inscriptionmembre'));
 		return $form;
     }
 }
