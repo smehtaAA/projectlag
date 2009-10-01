@@ -35,6 +35,18 @@ class Model_LanJoueur
         return $this->getTable()->fetchAll('1')->toArray();
     }
 	
+	public function fetchEntriesByLan($idLan)
+	{
+        $table = $this->getTable();
+        $select = $table->select()
+						->from(array('lj' => 'LanJoueur'))
+						->join(array('c' => 'Compte'),'c.idCompte=lj.idCompte')
+						->where('idLan = ?', $idLan)
+						->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+	}
+	
     public function fetchEntry($id)
     {
         $table = $this->getTable();

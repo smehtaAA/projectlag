@@ -7,6 +7,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected $_modelLan;
 	protected $_modelJeux;
 	protected $_modelLanJeux;
+	protected $_modelLanJoueur;
 	
 	public function indexAction()
 	{
@@ -49,10 +50,11 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
 			$modelLan = $this->_getModelLan();
+			$modelLanJoueur = $this->_getModelLanJoueur();
 			$request = $this->getRequest();
 			$idLan   = (int)$request->getParam('idLan', 0);
 			
-			$datas  = $model->fetchEntriesByLan($idLan);
+			$datas  = $modelLanJoueur->fetchEntriesByLan($idLan);
 			$lan = $modelLan->fetchEntry($idLan);
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
@@ -195,11 +197,12 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$model   = $this->_getModel();
+			$modelLanJoueur   = $this->_getModelLanJoueur();
 			$modelLan = $this->_getModelLan();
-			$id   = (int)$request->getParam('idLanJeuxJoueurTeam', 0);
+			$id   = (int)$request->getParam('idLanJoueur', 0);
 			$idLan   = (int)$request->getParam('idLan', 0);
 			$change  = (string)$request->getParam('change');
-			$data    = $model->fetchEntry($id);
+			$data    = $modelLanJoueur->fetchEntry($id);
 			$lan = $modelLan->fetchEntry($idLan);
 			
 			if($change == "a") {
@@ -210,11 +213,11 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 				$data['paiement'] = 0;
 			}
 			
-			$model->save($data['idLanJeuxJoueurTeam'], $data);
+			$modelLanJoueur->save($data['idLanJoueur'], $data);
 			
 			$smarty = Zend_Registry::get('view');
 	
-			$datas  = $model->fetchEntriesByLan($idLan);
+			$datas  = $modelLanJoueur->fetchEntriesByLan($idLan);
 			$lan = $modelLan->fetchEntry($idLan);
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
@@ -306,6 +309,15 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
             $this->_modelLan = new Model_Lan();
         }
         return $this->_modelLan;
+    }
+	
+	protected function _getModelLanJoueur()
+    {
+        if (null === $this->_modelLanJoueur) {
+            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            $this->_modelLanJoueur = new Model_LanJoueur();
+        }
+        return $this->_modelLanJoueur;
     }
 	
 	protected function _getModelJeux()
