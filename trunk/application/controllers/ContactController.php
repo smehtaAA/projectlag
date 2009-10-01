@@ -11,6 +11,12 @@ class ContactController extends Zend_Controller_Action
 		$smarty->display('contact/index.tpl');
 	}
 	
+	public function remerciementAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$smarty->display('contact/remerciement.tpl');
+	}
+	
 	public function indexadminAction()
     {
 		$smarty = Zend_Registry::get('view');
@@ -60,12 +66,13 @@ class ContactController extends Zend_Controller_Action
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($request->getPost())) {
 				$model->save($id,$form->getValues());
-				return $this->_helper->redirector('indexadmin');
+				$this->sendMail($form->getValues());
+				return $this->_helper->redirector('remerciement');
 			}
-		} else {
+		} 
+		else {
 			if ($id > 0) {
-				$data = $model->fetchEntry($id);
-				$form->populate($data);
+				return $this->_helper->redirector('form','contact');
 			}
 		}
 		
@@ -93,6 +100,12 @@ class ContactController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
     }
+	
+	protected function sendMail($data)
+	{
+		// Fonction d'envoi du mail sur association.lag@gmail.com	
+		
+	}
 
     protected function _getModel()
     {

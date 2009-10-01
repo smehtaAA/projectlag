@@ -1,0 +1,1 @@
+La LAG vous remercie et répondra dans les plus brefs délais à vos questions.

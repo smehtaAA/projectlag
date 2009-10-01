@@ -178,8 +178,17 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `titre` varchar(60) NOT NULL,
   `mail` varchar(60) NOT NULL,
   `type` varchar(60) NOT NULL,
+  `IP` varchar(15) NOT NULL,
+  `script` varchar(60) NOT NULL,
+  `referrer` varchar(60) NOT NULL,
+  `remote_host` varchar(60) NOT NULL,
+  `os` varchar(30) NOT NULL,
+  `language` varchar(60) NOT NULL,
+  `user_agent` varchar(60) NOT NULL,
   `date` date NOT NULL,
   `description` longtext NOT NULL,
+  `lu` boolean DEFAULT false,
+  `repondu` boolean DEFAULT false
   PRIMARY KEY (`idContact`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

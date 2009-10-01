@@ -6,6 +6,7 @@ class Form_Compte extends Zend_Form
     {
         $this->setMethod('post');
 		$this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
+		$modeform = Zend_Registry::get('modeform');
 		
 		$this->addElement('text', 'login', array(
             'label'      => 'Login : ',
@@ -15,9 +16,8 @@ class Form_Compte extends Zend_Form
             )
         ));	
 		
-		$f = Zend_Registry::get('modeform');
 		
-		if($f=='inscription') {
+		if($modeform=='inscription') {
 			
 			$this->addElement('password', 'password', array(
 				'label'      => 'Mot de passe : ',
