@@ -8,6 +8,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected $_modelCompte;
 	protected $_modelLanJoueur;
 	protected $_modelFonctionCompte;
+	protected $_modelLanJeux;
 	
 	public function indexAction()
 	{
@@ -144,6 +145,29 @@ class InscriptionController extends Zend_Controller_Action
 		$smarty->display('inscription/inscriptionMembre.tpl');
 	}
 	
+	public function inscriptionlanAction()
+	{
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('joueur')) {
+			$smarty = Zend_Registry::get('view');
+			$modelLan = $this->_getModelLan();
+			$modelCompte = $this->_getModelCompte();
+			$modelLanJeux=$this->_getModelLanJeux();
+			$id=$log->_getUser();
+			$lan=$modelLan->fetchEntryOuverte();
+			$joueur=$modelCompte->fetchEntry($id);
+			$jeux=$modelLanJeux->fetchEntriesByLan($lan['idLan']);
+			
+			$smarty->assign('lan', $lan);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('joueur', $joueur);
+			$smarty->display('inscription/inscriptionlan.tpl');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+		
+	}
+	
 	protected function _getModelCompte()
     {
         if (null === $this->_modelCompte) {
@@ -160,6 +184,15 @@ class InscriptionController extends Zend_Controller_Action
             $this->_modelLan = new Model_Lan();
         }
         return $this->_modelLan;
+    }
+	
+	protected function _getModelLanJeux()
+    {
+        if (null === $this->_modelLanJeux) {
+            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            $this->_modelLanJeux = new Model_LanJeux();
+        }
+        return $this->_modelLanJeux;
     }
 	
 	protected function _getModelCharte()
