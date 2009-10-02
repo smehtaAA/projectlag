@@ -22,3 +22,9 @@ Email : {$joueur.email} <br/>
 
 
 {/foreach}
+
+
+
+<br/><br/><br/>
+
+{$form}
