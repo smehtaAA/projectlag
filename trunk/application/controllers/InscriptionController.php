@@ -158,6 +158,12 @@ class InscriptionController extends Zend_Controller_Action
 			$joueur=$modelCompte->fetchEntry($id);
 			$jeux=$modelLanJeux->fetchEntriesByLan($lan['idLan']);
 			
+			$form=$this->_getInscriptionLanForm();
+			
+			$form->RemplirJeux($jeux);
+			
+			$smarty->assign('form', $form);
+			
 			$smarty->assign('lan', $lan);
 			$smarty->assign('jeux', $jeux);
 			$smarty->assign('joueur', $joueur);
@@ -236,6 +242,14 @@ class InscriptionController extends Zend_Controller_Action
         Zend_Registry::set('modeform', 'inscription');
 		$form = new Form_Compte();
 		$form->setAction($this->_helper->url('inscriptionmembre'));
+		return $form;
+    }
+	
+	protected function _getInscriptionLanForm()
+    {
+        require_once APPLICATION_PATH . '/forms/InscriptionLan.php';
+		$form = new Form_InscriptionLan();
+		$form->setAction($this->_helper->url('inscriptionlan'));
 		return $form;
     }
 }
