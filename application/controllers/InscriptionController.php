@@ -100,25 +100,36 @@ class InscriptionController extends Zend_Controller_Action
 		$smarty = Zend_Registry::get('view');
 		$request = $this->getRequest();
 		
-		$key = $request->getParam('key', 0);
+		$key = $request->getParam('key', "");
+		if($key!="") {
 		$modelCompte = $this->_getModelCompte();
 		
-		$compte = $modelCompte->fetchEntryByKey($key);
+		$compte = $modelCompte->fetchEntryByKeyAndMail($key);
 		$compte['actif'] = 1;
 		
 		$modelCompte->save($compte['idCompte'],$compte);
 		
 		$smarty->display('inscription/validation.tpl');
+		} else {
+			echo "non";
+		}
 	}
 	
 	public function paiementAction()
 	{
 		$smarty = Zend_Registry::get('view');
-		$request = $this->getRequest();
-		$modelLan = $this->_getModelLan();
-		$lan=$modelLan->fetchEntryOuverte();
-		$smarty->assign('lan', $lan);
-		$smarty->display('inscription/paiement.tpl');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('joueur')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$modelLan = $this->_getModelLan();
+			$modelCompte = $this->_getModelCompte();
+			$id=$log->_getUser();
+			$compte = $modelCompte->fetchEntry($id);
+			$lan=$modelLan->fetchEntryOuverte();
+			$smarty->assign('compte',$compte);
+			$smarty->assign('lan', $lan);
+			$smarty->display('inscription/paiement.tpl');
+		}
 	}
 	
 	public function inscriptionmembreAction()
@@ -138,6 +149,7 @@ class InscriptionController extends Zend_Controller_Action
 				$datenaissance = $dataform['datenaissance'];
 				$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
 				$dataform['password'] = 'l@g8?'.md5($dataform['password']).'pe6r!e8';
+				$dataform['keyvalidation']=sha1(time()+rand());
 				$modelCompte->save(0,$dataform);
 				
 				$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
@@ -145,10 +157,9 @@ class InscriptionController extends Zend_Controller_Action
 				$modelFonctionCompte = $this->_getModelFonctionCompte();
 				$f['idCompte'] = $compte['idCompte'];
 				$f['idFonction'] = 3;
-				$f['keyvalidation']=md5(rand());
 				$modelFonctionCompte->save(0,$f);
 				
-				$this->sendMailInscriptionMembre($f['keyvalidation']);
+				$this->sendMailInscriptionMembre($dataform['keyvalidation']);
 				
 				return $this->_redirect('/inscription/validation');
 				
@@ -174,6 +185,7 @@ class InscriptionController extends Zend_Controller_Action
 	
 	public function inscriptionlanAction()
 	{
+		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('joueur')) {
 			$smarty = Zend_Registry::get('view');
@@ -199,7 +211,7 @@ class InscriptionController extends Zend_Controller_Action
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
 					// Sauvegarde Team si n'existe pas
-					if($dataform['team'] == 'new'){
+					if($dataform['team'] == '0'){
 						$t['nom'] = $dataform['newteam'];
 						$ljjt['idTeam'] = $modelTeam->save(0,$t);
 					} else {

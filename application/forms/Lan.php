@@ -45,6 +45,16 @@ class Form_Lan extends Zend_Form
             'RegisterInArrayValidator' => false
         ));
 		
+		$this->addElement('checkbox', 'prepaiement', array(
+            'label'      => 'Activer le prepaiement : ',
+            'RegisterInArrayValidator' => false
+        ));
+		
+		$this->addElement('text', 'prix_prepaiement', array(
+            'label'      => 'Montant du prepaiement : ',
+            'RegisterInArrayValidator' => false
+        ));
+		
 		$this->addElement('text', 'nbmaxpers', array(
             'label'      => 'Nombre de Personnes Max : ',
             'RegisterInArrayValidator' => false,

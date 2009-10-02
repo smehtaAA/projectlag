@@ -100,6 +100,7 @@ class Model_LanJeuxJoueurTeam
 							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam')
 							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
 							->where('lj.idLan = ?', $lan)
+							->where('t.idTeam != ?', '1')
 							->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();

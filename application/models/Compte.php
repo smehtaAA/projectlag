@@ -51,7 +51,7 @@ class Model_Compte
         return $table->fetchRow($select)->toArray();
     }
 		
-	public function fetchEntryByKey($key)
+	public function fetchEntryByKeyAndMail($key)
     {
         $table = $this->getTable();
         $select = $table->select()->where('keyvalidation = ?', $key);
