@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `nom` varchar(30) NOT NULL,
   `prenom` varchar(30) NOT NULL,
   `email` varchar(60) NOT NULL,
+  `phone` varchar(10) NOT NULL,
   `datenaissance` date NOT NULL,
   `dateins` date NOT NULL,
   `dateco` date NOT NULL,
@@ -133,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `citationpreferee` varchar(140) DEFAULT NULL,
   `description` longtext,
   `nbconnexion` int(10) unsigned DEFAULT NULL,
-  `keyvalidation` varchar(8) DEFAULT NULL,
+  `keyvalidation` varchar(45) DEFAULT NULL,
   `actif` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idCompte`),
   KEY `idGrade` (`idGrade`)
@@ -230,7 +231,7 @@ INSERT INTO `fonction` (`idFonction`, `nom`, `ordre`, `afficher`, `sceller`) VAL
 
 DROP TABLE IF EXISTS `fonctioncompte`;
 CREATE TABLE IF NOT EXISTS `fonctioncompte` (
-  `idFonctionCompte` int(10) unsigned NOT NULL,
+  `idFonctionCompte` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idFonction` int(10) unsigned NOT NULL,
   `idCompte` int(10) unsigned NOT NULL,
   PRIMARY KEY (`idFonctionCompte`),
@@ -305,6 +306,8 @@ CREATE TABLE IF NOT EXISTS `lan` (
   `prix` int(10) NOT NULL,
   `inscription` boolean NOT NULL DEFAULT FALSE,
   `telethon` boolean NOT NULL DEFAULT FALSE,
+  `prepaiement` boolean NOT NULL DEFAULT FALSE,
+  `prix_prepaiement` int(10) NOT NULL,
   `description` longtext,
   `nbclick` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idLan`)

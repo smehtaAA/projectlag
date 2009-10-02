@@ -1972,6 +1972,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             require_once 'Zend/Form/Exception.php';
             throw new Zend_Form_Exception(__CLASS__ . '::' . __METHOD__ . ' expects an array');
         }
+		
         $translator = $this->getTranslator();
         $valid      = true;
 
@@ -1997,6 +1998,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
 
         $this->_errorsExist = !$valid;
+		
         return $valid;
     }
 
@@ -2628,7 +2630,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     public function setTranslator($translator = null)
     {
-        if (null === $translator) {
+		if (null === $translator) {
             $this->_translator = null;
         } elseif ($translator instanceof Zend_Translate_Adapter) {
             $this->_translator = $translator;
@@ -2650,7 +2652,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     public static function setDefaultTranslator($translator = null)
     {
-        if (null === $translator) {
+		if (null === $translator) {
             self::$_translatorDefault = null;
         } elseif ($translator instanceof Zend_Translate_Adapter) {
             self::$_translatorDefault = $translator;

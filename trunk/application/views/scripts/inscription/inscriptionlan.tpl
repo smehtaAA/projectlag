@@ -2,12 +2,12 @@
 	<script type="text/javascript">
 		function verif_clan()
 		{
-			if (document.getElementById('team').value == "new") {
-				document.getElementById('newteam').style.display = "";
-				document.getElementsByName('newteam').style.display = "";
-			}else    {
-				document.getElementById('newteam').style.display = "none";
-				document.getElementsByName('newteam').style.display = "none";
+			if (document.getElementById('team').value == "0") {
+				document.getElementById('hide_new_team').style.display = "";
+				document.getElementById('hide_new_team').className="";
+			}else {
+				document.getElementById('hide_new_team').style.display = "none";
+				document.getElementById('hide_new_team').className="default_display_none";
 			}
 		}
 	</script>
