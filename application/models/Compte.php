@@ -50,6 +50,14 @@ class Model_Compte
 		
         return $table->fetchRow($select)->toArray();
     }
+		
+	public function fetchEntryByKey($key)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('keyvalidation = ?', $key);
+		
+        return $table->fetchRow($select)->toArray();
+    }
 	
 	public function countEntries()
 	{

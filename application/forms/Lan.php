@@ -40,6 +40,11 @@ class Form_Lan extends Zend_Form
             'RegisterInArrayValidator' => false
         ));
 		
+		$this->addElement('checkbox', 'telethon', array(
+            'label'      => 'Lan Telethon : ',
+            'RegisterInArrayValidator' => false
+        ));
+		
 		$this->addElement('text', 'nbmaxpers', array(
             'label'      => 'Nombre de Personnes Max : ',
             'RegisterInArrayValidator' => false,

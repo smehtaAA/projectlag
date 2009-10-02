@@ -9,6 +9,8 @@ class InscriptionController extends Zend_Controller_Action
 	protected $_modelLanJoueur;
 	protected $_modelFonctionCompte;
 	protected $_modelLanJeux;
+	protected $_modelLanJeuxJoueurTeam;
+	protected $_modelTeam;
 	
 	public function indexAction()
 	{
@@ -34,10 +36,6 @@ class InscriptionController extends Zend_Controller_Action
 			
 			$smarty->assign('titre', 'Inscription pour la lan '.$lan['nom']);
 		}
-		
-		
-		
-		
 		$smarty->display('inscription/index.tpl');
 	}
 	
@@ -97,6 +95,32 @@ class InscriptionController extends Zend_Controller_Action
 		$smarty->display('inscription/validation.tpl');
 	}
 	
+	public function validationmembreAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$request = $this->getRequest();
+		
+		$key = $request->getParam('key', 0);
+		$modelCompte = $this->_getModelCompte();
+		
+		$compte = $modelCompte->fetchEntryByKey($key);
+		$compte['actif'] = 1;
+		
+		$modelCompte->save($compte['idCompte'],$compte);
+		
+		$smarty->display('inscription/validation.tpl');
+	}
+	
+	public function paiementAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$request = $this->getRequest();
+		$modelLan = $this->_getModelLan();
+		$lan=$modelLan->fetchEntryOuverte();
+		$smarty->assign('lan', $lan);
+		$smarty->display('inscription/paiement.tpl');
+	}
+	
 	public function inscriptionmembreAction()
 	{
 		$smarty = Zend_Registry::get('view');
@@ -121,7 +145,10 @@ class InscriptionController extends Zend_Controller_Action
 				$modelFonctionCompte = $this->_getModelFonctionCompte();
 				$f['idCompte'] = $compte['idCompte'];
 				$f['idFonction'] = 3;
+				$f['keyvalidation']=md5(rand());
 				$modelFonctionCompte->save(0,$f);
+				
+				$this->sendMailInscriptionMembre($f['keyvalidation']);
 				
 				return $this->_redirect('/inscription/validation');
 				
@@ -150,27 +177,79 @@ class InscriptionController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('joueur')) {
 			$smarty = Zend_Registry::get('view');
+			$request = $this->getRequest();
 			$modelLan = $this->_getModelLan();
 			$modelCompte = $this->_getModelCompte();
 			$modelLanJeux=$this->_getModelLanJeux();
+			$modelLanJoueur=$this->_getModelLanJoueur();
+			$modelLanJeuxJoueurTeam=$this->_getModelLanJeuxJoueurTeam();
+			$modelTeam = $this->_getModelTeam();
 			$id=$log->_getUser();
 			$lan=$modelLan->fetchEntryOuverte();
 			$joueur=$modelCompte->fetchEntry($id);
 			$jeux=$modelLanJeux->fetchEntriesByLan($lan['idLan']);
+			$teams=$modelLanJeuxJoueurTeam->fetchTeam($lan['idLan']);
 			
 			$form=$this->_getInscriptionLanForm();
 			
 			$form->RemplirJeux($jeux);
+			$form->RemplirTeam($teams);
+			
+			if ($this->getRequest()->isPost()) {
+				if ($form->isValid($request->getPost())) {
+					$dataform = $form->getValues();
+					// Sauvegarde Team si n'existe pas
+					if($dataform['team'] == 'new'){
+						$t['nom'] = $dataform['newteam'];
+						$ljjt['idTeam'] = $modelTeam->save(0,$t);
+					} else {
+						$ljjt['idTeam'] = $dataform['team'];
+					}
+					
+					// Sauvegarde joueur pour la lan ouverte
+					$insc['idLan']=$lan['idLan'];
+					$insc['idCompte']=$joueur['idCompte'];
+					$insc['paiement']=0;
+					$insc['validation']=false;
+					$ljjt['idLanJoueur'] = $modelLanJoueur->save(0,$insc);
+					
+					// Sauvegarde les jeux choisis pour cette lan
+					foreach($dataform['jeux'] as $j) {
+						$ljjt['idJeux'] = $j;
+						$modelLanJeuxJoueurTeam->save(0,$ljjt);
+					}
+					
+					return $this->_helper->redirector('paiement','inscription');
+				}
+			}
+			
+			
+			
 			
 			$smarty->assign('form', $form);
 			
 			$smarty->assign('lan', $lan);
+			$smarty->assign('teams', $teams);
 			$smarty->assign('jeux', $jeux);
 			$smarty->assign('joueur', $joueur);
 			$smarty->display('inscription/inscriptionlan.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
+		
+	}
+	
+	protected function sendMailInscriptionLan()
+	{
+		
+		
+		
+	}
+	
+	protected function sendMailInscriptionMembre($key)
+	{
+		
+		
 		
 	}
 	
@@ -191,6 +270,25 @@ class InscriptionController extends Zend_Controller_Action
         }
         return $this->_modelLan;
     }
+	
+	protected function _getModelTeam()
+    {
+        if (null === $this->_modelTeam) {
+            require_once APPLICATION_PATH . '/models/Team.php';
+            $this->_modelTeam = new Model_Team();
+        }
+        return $this->_modelTeam;
+    }
+	
+	protected function _getModelLanJeuxJoueurTeam()
+    {
+        if (null === $this->_modelLanJeuxJoueurTeam) {
+            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            $this->_modelLanJeuxJoueurTeam = new Model_LanJeuxJoueurTeam();
+        }
+        return $this->_modelLanJeuxJoueurTeam;
+    }
+	
 	
 	protected function _getModelLanJeux()
     {
