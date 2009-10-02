@@ -304,6 +304,7 @@ CREATE TABLE IF NOT EXISTS `lan` (
   `nbmaxpers` int(10) NOT NULL,
   `prix` int(10) NOT NULL,
   `inscription` boolean NOT NULL DEFAULT FALSE,
+  `telethon` boolean NOT NULL DEFAULT FALSE,
   `description` longtext,
   `nbclick` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idLan`)
@@ -352,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `lanjoueur` (
   `idLanJoueur` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idLan` int(10) NOT NULL,
   `idCompte` int(10) NOT NULL,
-  `dateins` int(10) NOT NULL,
+  `dateins` date NOT NULL,
   `paiement` int(10) NOT NULL,
   `validation` int(10) NOT NULL,
   PRIMARY KEY (`idLanJoueur`),

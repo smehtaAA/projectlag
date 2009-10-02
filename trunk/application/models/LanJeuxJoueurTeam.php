@@ -92,6 +92,19 @@ class Model_LanJeuxJoueurTeam
         return $table->fetchAll($select)->toArray();
 	}
 	
+	public function fetchTeam($lan)
+	{
+        $table = $this->getTable();
+        $select = $table->select()
+							->from(array('ljjt' => 'lanjeuxjoueurteam'))
+							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam')
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
+							->where('lj.idLan = ?', $lan)
+							->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+	}
+	
 	public function fetchEntriesByLanAndJeuxAndTeam($idLan, $idJeux, $idTeam)
 	{
         $table = $this->getTable();

@@ -7,9 +7,22 @@ class Form_InscriptionLan extends Zend_Form
         $this->setMethod('post');
 		$this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
 		
+		$this->addElement('select', 'team', array(
+            'label'      => 'Team : ',
+            'required'       => false,
+			'onchange' => 'javascript:verif_clan();',
+			'registerInArrayValidator' => false
+        ));	
+		
+		$this->addElement('text', 'newteam', array(
+            'label'      => 'Nouvelle Team : ',
+            'required'       => false,
+			'registerInArrayValidator' => false
+        ));	
+		
 		$this->addElement('multicheckbox', 'jeux', array(
             'label'      => 'Jeux : ',
-            'required'   => true
+            'required'   => false
         ));	
 
         $this->addElement('submit', 'submit', array(
@@ -20,9 +33,17 @@ class Form_InscriptionLan extends Zend_Form
 	public function RemplirJeux($jeux)
 	{
 		$je = $this->getElement('jeux');
-		$je->addMultiOption("", "-----------");
 		
 		foreach ($jeux as $j)
 			$je->addMultiOption($j['idJeux'], $j['nom']);
+	}
+	
+	public function RemplirTeam($teams)
+	{
+		$tea = $this->getElement('team');
+		$tea->addMultiOption("new", "Pas dans la liste");
+		
+		foreach ($teams as $c)
+			$tea->addMultiOption($c['idTeam'], $c['nom']);
 	}
 }

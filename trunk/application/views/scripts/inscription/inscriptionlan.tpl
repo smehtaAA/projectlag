@@ -1,3 +1,18 @@
+{literal}
+	<script type="text/javascript">
+		function verif_clan()
+		{
+			if (document.getElementById('team').value == "new") {
+				document.getElementById('newteam').style.display = "";
+				document.getElementsByName('newteam').style.display = "";
+			}else    {
+				document.getElementById('newteam').style.display = "none";
+				document.getElementsByName('newteam').style.display = "none";
+			}
+		}
+	</script>
+{/literal}
+
 <h2> Inscription &agrave; la lan {$lan.nom} </h2>
 
 Date : {$lan.datedeb|date_format:"%d %m %Y"} <br/>
