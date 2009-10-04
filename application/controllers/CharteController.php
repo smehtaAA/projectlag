@@ -10,13 +10,18 @@ class CharteController extends Zend_Controller_Action
 	{
 		$smarty = Zend_Registry::get('view');
 		$model  = $this->_getModel();
+			$modelCharteArticle = $this->_getModelCharteArticle();
 		$request = $this->getRequest();
 		
-		$datas = $model->fetchEntriesOrderByOrdre();
+		$chartes = $model->fetchEntriesOrderByOrdre();
+		foreach($chartes as $c)
+			$articles[$c['idCharte']] = $modelCharteArticle->fetchEntriesByCharte($c['idCharte']);
 		
-		$smarty->assign('titre', 'Charte');
+		$smarty->assign('titre', 'Chartes');
 		$smarty->assign('base_url', $request->getBaseUrl());
-		$smarty->assign('datas', $datas);
+		$smarty->assign('ancrage', $request->getBaseUrl().'/charte/index#');
+		$smarty->assign('chartes', $chartes);
+		$smarty->assign('articles', $articles);
 		$smarty->display('charte/index.tpl');
 	}
 	
@@ -51,7 +56,7 @@ class CharteController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model   = $this->_getModel();
-			$datas   = $model->fetchEntriesOrderByOrdre();
+			$datas   = $model->fetchEntriesOrderByOrdreJeux();
 			$request = $this->getRequest();
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('titre','Charte');

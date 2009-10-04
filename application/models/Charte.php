@@ -38,7 +38,16 @@ class Model_Charte
 	public function fetchEntriesOrderByOrdre()
     {
 		$table = $this->getTable();
-		$select = $table->select()->order('ordre')->where('idJeux <> 0');
+		$select = $table->select()->order('ordre');
+		$stmt = $select->query();
+
+		return $stmt->fetchAll();
+    }
+	
+	public function fetchEntriesOrderByOrdreJeux()
+    {
+		$table = $this->getTable();
+		$select = $table->select()->order('ordre')->where('idJeux != 0');
 		$stmt = $select->query();
 
 		return $stmt->fetchAll();

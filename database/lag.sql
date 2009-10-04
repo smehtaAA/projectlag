@@ -83,7 +83,10 @@ CREATE TABLE IF NOT EXISTS `charte` (
 --
 -- Contenu de la table `charte`
 --
-INSERT INTO `charte` (`idCharte`,`idJeux`,`nom`,`ordre`) VALUES (1,0,'Association',0);
+
+INSERT INTO `charte` (`idCharte`, `idJeux`, `nom`, `ordre`) VALUES
+(1, 0, 'Association', 0),
+(2, 2, 'Warcraft III TFT', 2);
 
 -- --------------------------------------------------------
 
@@ -106,6 +109,19 @@ CREATE TABLE IF NOT EXISTS `chartearticle` (
 -- Contenu de la table `chartearticle`
 --
 
+INSERT INTO `chartearticle` (`idCharteArticle`, `idCharte`, `titre`, `description`, `ordre`) VALUES
+(1, 1, 'Introduction', '<p>Association &agrave; but non lucratif, bas&eacute;e sur la loi 1901 <br />Merci de lire attentivement la CHARTE et de ne sauter aucune ligne. <br /><br />Toute personne incitant ou consommant elle-m&ecirc;me de la drogue quelqu''elle soit sera exclue de la Lan sans pr&eacute;avis. <br /><br />Toute vid&eacute;o &agrave; caract&egrave;re pornographique ou incitant &agrave; la violence est strictement interdite sous peine d''&ecirc;tre exclu de la lan. <br /><br />Tout jeu grav&eacute; sera &agrave; la charge de son propri&eacute;taire et non &agrave; celle de l''association. <br /><br />Si une personne ne respecte pas cette Charte, elle sera dans l''impossibilit&eacute; de jouer ou de participer aux Lan.</p>\r\n<p>-------------------------&nbsp;<br /><br />Afin que le LAN organis&eacute; par l''association LAG puisse se d&eacute;rouler dans les meilleures conditions, nous avons r&eacute;dig&eacute; un r&egrave;glement int&eacute;rieur. Nous demandons simplement aux participants de bien vouloir le lire attentivement et le respecter. Merci.&nbsp;<br /><br />Il est imp&eacute;ratif de s''inscrire pour participer &agrave; toute LAN . Cette inscription est payante. <br /><br />Ce paiement s''effectuera en esp&egrave;ce ou par ch&egrave;que en Euro lors des &eacute;v&egrave;nements. Un syst&egrave;me de pr&eacute;-inscription est appliqu&eacute;e, le paiement des pr&eacute;-inscriptions peut s''effectuer par l''envoi d''un ch&egrave;que ou par PayPal.&nbsp;<br /><br />L''association Local Arena Games se r&eacute;serve le droit de changer ses tarifs.&nbsp;<br /><br />Des tarifs d&eacute;gressifs sont appliqu&eacute;s : <br />les places en pr&eacute; vente sont moins ch&egrave;res que celles achet&eacute;es sur place.</p>', 1),
+(2, 1, 'Inscription et Participation', '<p>2.1 Ne seront admis que ceux dont l''inscription a &eacute;t&eacute; pay&eacute;e et confirm&eacute;e. <br /><br />2.2 Les branchements des prises &eacute;lectriques et des c&acirc;bles r&eacute;seaux sur les switchs vous seront indiqu&eacute;s par les organisateurs. <br /><br />2.3 L''introduction de toute sorte de nourriture quelqu''elle soit est interdite dans l''espace de jeux, ainsi que tout type de boisson alcoolis&eacute;e. Un espace r&eacute;serv&eacute; &agrave; cet effet vous sera indiqu&eacute;. <br /><br />2.4 Seul l''emploi du casque audio est autoris&eacute;. <br /><br />2.5 L''association ne fournit pas les multiprises n&eacute;cessaires &agrave; votre mat&eacute;riel. <br /><br />2.6 Vous devez poss&eacute;der une carte r&eacute;seau (Base 10T/100T/1000T) et un c&acirc;ble RJ45 d''au moins 5 m&egrave;tres minimum.</p>', 2),
+(3, 1, 'Sécurité', '<p><strong>3.1</strong> Pour pallier aux &eacute;ventuels accidents, pr&eacute;voir une assurance responsabilit&eacute; civile individuelle. Toutefois, l''association Golden-Nethix-Lan, son mat&eacute;riel et les locaux sont assur&eacute;s, et les membres de l''association veilleront au bon d&eacute;roulement des festivit&eacute;s. <br /><br /><strong>3.2.1</strong> Les LAN sont des &eacute;v&eacute;nements qui r&eacute;unissent des joueurs pour des tournois de jeux vid&eacute;os en r&eacute;seau. En aucun cas les LAN ne doivent devenir un lieu d''&eacute;changes ou de copies ill&eacute;gales de donn&eacute;es. L''association G-N-L d&eacute;cline toute responsabilit&eacute; vis-&agrave;-vis de la nature potentiellement ill&eacute;gale des donn&eacute;es contenues sur les machines personnelles des joueurs ou transitant par le r&eacute;seau. <br /><br /><strong>3.2.2</strong> Toute tentative d''intrusion sur les serveurs ou mat&eacute;riel r&eacute;seau du staff est passible d''exclusion au cours de chaque LAN. <br /><br /><strong>3.3</strong> Les mineurs seront accept&eacute;s sous la responsabilit&eacute; de leurs parents (autorisation &eacute;crite et sign&eacute;e sera exig&eacute;e) ou accompagn&eacute;s d''une personne majeure et responsable. <br /><br /><strong>3.4</strong> L''association G-N-L d&eacute;cline toute responsabilit&eacute; quant aux d&eacute;g&acirc;ts pouvant &ecirc;tre occasionn&eacute;s aux mat&eacute;riels des joueurs suite &agrave; une &eacute;ventuelle d&eacute;faillance &eacute;lectrique ou autre. En revanche, Golden-Nethix-Lan certifie qu''elle fera son maximum pour que ceci n''arrive pas. <br /><br /><strong>3.5</strong> Les organisateurs d&eacute;clinent toute responsabilit&eacute; en cas de vols commis &agrave; l''encontre des participants. <br /><br /><strong>3.6</strong>.1 Il est strictement interdit de fumer ou boire de l''alcool dans la salle sous peine d''expulsion et ce, pour des raisons de s&eacute;curit&eacute;. <br /><br /><strong>3.6.2</strong> Il est strictement interdit de faire cuire des aliments dans la salle et aux abords de celle-ci outre l''endroit indiqu&eacute; par les organisateurs. <br /><br /><strong>3.7.1</strong> Il est strictement interdit d''apporter aux LAN et d''utiliser d''autres appareilles &eacute;lectriques que votre PC personnel, pour des raisons de s&eacute;curit&eacute; et de consommation &eacute;lectrique. <br /><br /><strong>3.7.2</strong> Il est strictement interdit de brancher des onduleurs. <br /><br /><strong>3.8</strong> Pour des raisons de s&eacute;curit&eacute;, il vous est interdit d''entrer dans les locaux en possession d''un couteau ou tout autre accessoire consid&eacute;r&eacute; comme arme blanche. <br /><br /><strong>3.9</strong> Il sera impossible d''entrer et sortir des LAN entre minuit et six heures du matin durant la nuit du samedi au dimanche (pour des raisons de s&eacute;curit&eacute;).</p>', 3),
+(4, 1, 'Civilité', '<p>4.1 Il est strictement interdit de faire entrer des animaux dans l''enceinte des locaux. <br /><br />4.2 Toute provocation verbale ou physique &agrave; l''encontre de toute personne est strictement interdite. L''expulsion des fauteurs de troubles sera imm&eacute;diate et sans remboursement. <br /><br />4.3 D&eacute;gradation mat&eacute;rielle lors du LAN doit faire l''objet d''une r&eacute;paration financi&egrave;re. <br /><br />Les organisateurs expulseront des LAN toutes personnes ne se soumettant pas au pr&eacute;sent r&egrave;glement.</p>', 4),
+(5, 2, 'Informations générales', '<p>En participant au tournoi, les joueurs acceptent, sans r&eacute;ticence ou interpr&eacute;tation, de respecter le r&egrave;glement. Les joueurs acceptent l''application de ce r&egrave;glement et son application par les organisateurs.</p>', 5),
+(6, 2, 'Structure de la compétition', '<p>2.1 Le tournoi utilise la structure: Poules puis arbre en simple &eacute;limination.&nbsp;<br /><br />2.2 Pour les poules, matchs sans possibilit&eacute; d''&eacute;galit&eacute;, un point est attribu&eacute; pour une victoire, aucun point pour une d&eacute;faite. Si plusieurs &eacute;quipes finissent &agrave; &eacute;galit&eacute;, un sous classement sera effectu&eacute; sur le nombre de points acquis entre les joueurs en question. Si certains joueurs sont toujours &agrave; &eacute;galit&eacute; apr&egrave;s ce d&eacute;partage, les matchs entre ces joueurs devront &ecirc;tre re-jou&eacute;s. <br /><br />2.3 Dans un arbre en simple &eacute;limination, les joueurs commencent tous dans un arbre principal. Les joueurs gagnants avancent dans l''arbre jusqu''&agrave; la finale. Un joueur est &eacute;limin&eacute; du tournoi lorsqu''il perd 1 match. Chaque match est jou&eacute; en une manche gagnante.</p>', 6),
+(7, 2, 'Paramètres de jeu', '<p>3.1 La comp&eacute;tition utilise le jeu vid&eacute;o Warcraft III - The Frozen Throne avec la derni&egrave;re version de jeu en cours sur Battle.net, et oppose un joueur contre un autre.&nbsp;<br /><br />3.2 Le param&egrave;tre de jeu Gameplay est r&eacute;gl&eacute; &agrave; Rapide. <br /><br />3.3 La liste des maps disponibles est compos&eacute;e de : <br /> o Twisted Meadows <br /> o Turtle Rock <br /> o Gnoll Wood <br /> o Lost Temple <br /> o Terenas Stand <br /><br />3.4 La s&eacute;lection des maps pour chaque match se d&eacute;roule de la fa&ccedil;on suivante: <br />Un tirage au sort sera effectu&eacute; pour d&eacute;terminer la map du match.</p>', 7),
+(8, 2, 'Responsabilités des participants', '<p>4.1 Les joueurs acceptent de respecter les points suivants:&nbsp;<br /> o Toute forme de discrimination est prohib&eacute;e. <br /> o Les participants acceptent de se conformer au r&egrave;glement en vigueur <br /> o Les participants acceptent les d&eacute;cisions des representant officiels du tournoi <br /> o Les participants acceptent de ne pas utiliser des proc&eacute;d&eacute;s interdit ou illicites. <br /> o Les participants acceptent de respecter l''esprit de fair-play et de non violence. <br /> o Les participants acceptent de respecter leurs engagements. <br /><br />4.2 Les participants acceptent de ne pas tenter de duper, l&eacute;ser, mentir ou soudoyer les repr&eacute;sentants officiels du tournoi.</p>', 8),
+(9, 2, 'Déroulement du tournoi', '<p>Convocation&nbsp;<br /><br />5.1 Aucun joueur ne peut rejoindre le tournoi en cours, par cons&eacute;quent tout les joueurs absents lors du premier tour des poules, ne participeront pas au tournoi.&nbsp;<br /><br />5.2 Chaque joueur doit disposer d''un PC en &eacute;tat de marche et d''une version de Warcraft 3 - The Frozen Throne, install&eacute;e et correctement configur&eacute;e d&egrave;s le d&eacute;but du tournoi.&nbsp;<br /><br />5.3 Les joueurs doivent &ecirc;tre pr&eacute;sents &agrave; leur heure de convocation. Tout retard sup&eacute;rieur &agrave; 15 min pourra entra&icirc;ner un r&eacute;sultat &laquo; forfait pour ce tour &raquo; si celui-ci n''est pas motiv&eacute; par une raison valable.&nbsp;<br />Tout joueur souffrant d''un probl&egrave;me technique bloquant peut b&eacute;n&eacute;ficier d''un report de son match de 20 min, au del&agrave; desquelles, il est d&eacute;clar&eacute; forfait pour ce tour s''il n''est toujours pas en mesure de jouer. <br /><br />Installation et Echauffement <br /><br />5.4 Les r&egrave;gles suivantes s''appliquent uniquement lorsque les joueurs utilisent leurs ordinateurs sur scene.&nbsp;<br />- Les joueurs sont responsables du bon d&eacute;roulement de l''installation et du fonctionnement de leur mat&eacute;riel. <br /><br />5.5 Les joueurs ne peuvent pas utiliser de logiciel externe au jeu interagissant dans le jeu, ni installer n?importe quelle forme de modification alt&eacute;rant la version du jeu vid&eacute;o.&nbsp;<br /><br />D&eacute;roulement d''un match <br /><br />5.6 Les joueurs rencontrent leurs adversaires en fonction de la structure et du planning du tournoi.&nbsp;<br /><br />5.7 Les joueurs doivent recevoir l''autorisation d?un responsable de tournoi avant de commencer un match.&nbsp;<br /><br />5.8 Les joueurs ne peuvent pas communiquer avec d?autres personnes lors d''un match officiel.&nbsp;<br /><br />5.9 Si une partie est involontairement interrompue (crash client, crash serveur, coupure r&eacute;seau, ...)&nbsp;<br />la partie est rejou&eacute;e si elle a d&eacute;but&eacute; depuis moins de 5 min. Dans le cas contraire, l''&eacute;quipe ayant le plus haut score l''emporte. <br /><br />5.10 La pr&eacute;sence d''observateurs dans les parties est soumise &agrave; l''approbation des 2 joueurs, exception faites des arbitres qui peuvent observer toutes les parties.</p>', 9),
+(10, 2, 'Infractions au règlement', '<p>Avertissement&nbsp;<br /><br />6.1 Par d&eacute;cision des responsables du tournoi, un joueur qui a involontairement transgress&eacute; une r&egrave;gle peut recevoir un avertissement.&nbsp;<br /><br />Forfait <br /><br />6.2 Par d&eacute;cision des responsables du tournoi, un joueur qui ne s''est pas pr&eacute;sent&eacute; peut perdre son match par forfait et, le cas &eacute;ch&eacute;ant, recevoir un avertissement.&nbsp;<br /><br />6.3 Les joueurs qui sont disqualifi&eacute; perdent automatiquement tout leurs &eacute;ventuels prochains matchs par forfait. En poule tout les matchs du joueur disqualifi&eacute; seront annul&eacute;s et les points redistribu&eacute;s.&nbsp;<br /><br />Disqualification <br /><br />6.4 Par d&eacute;cision des organisateurs du tournoi, un joueur qui a re&ccedil;u 2 avertissements peut &ecirc;tre disqualifi&eacute; du tournoi.&nbsp;<br /><br />6.5 Par d&eacute;cision des organisateurs du tournoi, un joueur qui a intentionnellement transgress&eacute; une r&egrave;gle peut &ecirc;tre directement disqualifi&eacute;. La d&eacute;termination du degr&eacute; d''intention est &agrave; la discr&eacute;tion des organisateurs du tournoi.&nbsp;<br /><br />6.6 Toute forme de tricherie, d&eacute;connexion intentionnelle, flooding, attaque de serveur, etc... r&eacute;sultera d''une disqualification imm&eacute;diate du joueur.&nbsp;<br /><br />6.7 Un joueur disqualifi&eacute; ne peut plus prendre part au tournoi, perd ses prix et lots acquis qui lui serait destin&eacute; et peut &ecirc;tre banni pour la comp&eacute;tition de l''ann&eacute;e suivante.</p>', 10);
+
+
 
 -- --------------------------------------------------------
 
@@ -122,9 +138,11 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `nom` varchar(30) NOT NULL,
   `prenom` varchar(30) NOT NULL,
   `email` varchar(60) NOT NULL,
-  `phone` varchar(10) NOT NULL,
+  `msn` varchar(60),
+  `img` varchar(200),
+  `phone` varchar(10),
   `datenaissance` date NOT NULL,
-  `dateins` date NOT NULL,
+  `dateins` datetime NOT NULL,
   `dateco` date NOT NULL,
   `temps` int(10) NOT NULL,
   `ip` varchar(15) NOT NULL,
@@ -694,6 +712,40 @@ CREATE TABLE IF NOT EXISTS `souscategorie` (
 --
 -- Contenu de la table `souscategorie`
 --
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `staff`
+--
+
+DROP TABLE IF EXISTS `staff`;
+CREATE TABLE IF NOT EXISTS `staff` (
+  `idStaff` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) NOT NULL,
+  `unik` boolean DEFAULT true,
+  `ordre` int(10) NOT NULL,
+  PRIMARY KEY (`idStaff`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `staffcompte`
+--
+
+DROP TABLE IF EXISTS `staffcompte`;
+CREATE TABLE IF NOT EXISTS `staffcompte` (
+  `idStaffCompte` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idStaff` int(10) unsigned NOT NULL,
+  `idCompte` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idStaffCompte`),
+  KEY `idStaff` (`idStaff`),
+  KEY `idCompte` (`idCompte`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
