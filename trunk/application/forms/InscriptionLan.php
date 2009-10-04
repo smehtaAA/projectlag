@@ -1,6 +1,6 @@
 <?php
 
-class Form_InscriptionLan extends My_Form
+class Form_InscriptionLan extends My_InscriptionLan
 {
     public function init()
     {

@@ -7,6 +7,8 @@ $(document).ready(function() {
 			current: $('#datedeb').val(),
 			numberOfMonths: 3,
 			showButtonPanel: true,
+			changeMonth: true,
+			changeYear: true,
 			starts: 1,
 			position: 'right',
 			onBeforeShow: function(){

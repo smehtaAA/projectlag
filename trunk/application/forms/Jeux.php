@@ -39,7 +39,7 @@ class Form_Jeux extends Zend_Form
             'label'      => 'Lien : ',
             'required'   => true,
             'validators' => array(
-                 array('validator' => 'StringLength', 'options' => array(2, 30))
+                 array('validator' => 'StringLength', 'options' => array(2, 60))
             )
         ));	
 

@@ -1,5 +1,5 @@
 <?php
-class My_Form extends Zend_Form
+class My_InscriptionLan extends Zend_Form
 {
     /**
     * construction du formulaire

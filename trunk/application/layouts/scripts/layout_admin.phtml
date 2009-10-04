@@ -56,7 +56,7 @@
 					<li <?php if(($controllerName=="charte" || $controllerName=="chartearticle") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'chartearticle', 'action' => 'indexadmin', 'id' => '1'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/charte.gif" alt="Chartes" class="textalignm" /> Charte</a>
 					</li>
-					<li <?php if(($controllerName=="compte" || $controllerName=="fonction") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
+					<li <?php if(($controllerName=="compte" || $controllerName=="fonction" || $controllerName=="staff") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'compte', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/users.png" alt="Comptes" class="textalignm" /> Comptes</a>
 					</li>
 					<li <?php if($controllerName=="multimedia") { echo 'class="active"'; } ?>>
@@ -87,9 +87,10 @@
 						<?php }  if(($controllerName=="lan" || $controllerName=="team" || $controllerName=="lanjeux" || $controllerName=="lanjeuxjoueurteam") && $actionName != "indexuser") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'indexadmin'),'default', true) ?>">Lan</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'team', 'action' => 'indexadmin'),'default', true) ?>">Team</a></li>
-						<?php }  if($controllerName=="compte" || $controllerName=="fonction") { ?>
+						<?php }  if($controllerName=="compte" || $controllerName=="fonction" || $controllerName=="staff") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'compte', 'action' => 'indexadmin'),'default', true) ?>">Comptes</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'fonction', 'action' => 'indexadmin'),'default', true) ?>">Fonctions</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'staff', 'action' => 'indexadmin'),'default', true) ?>">Staff</a></li>
 						<?php }  if($controllerName=="externe" || $controllerName=="lien" || $controllerName=="partenaire") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'lien', 'action' => 'indexadmin'),'default', true) ?>">Liens</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'partenaire', 'action' => 'indexadmin'),'default', true) ?>">Partenaires</a></li>

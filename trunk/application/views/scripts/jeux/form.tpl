@@ -6,6 +6,8 @@ $(document).ready(function() {
 			date: $('#datesortie').val(),
 			current: $('#datesortie').val(),
 			showButtonPanel: true,
+			changeMonth: true,
+			changeYear: true,
 			starts: 1,
 			position: 'right',
 			onBeforeShow: function(){
