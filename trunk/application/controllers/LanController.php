@@ -4,12 +4,29 @@ class LanController extends Zend_Controller_Action
 {
 	
 	protected $_model;
+	protected $_modelLanJeux;
 	
 	public function indexAction()
 	{
-		$smarty = Zend_Registry::get('view');
+		$smarty = Zend_Registry::get('view');			
+		$model  = $this->_getModel();
+		$modelLanJeux = $this->_getModelLanJeux();
+		$request = $this->getRequest();
+		$lans  = $model->fetchEntriesorderByDate();
 		
-		$smarty->display('accueil/index.tpl');
+		foreach($lans as $lan)
+		{			
+			$chiffre[$lan['idLan']]['insc'] = $model->fetchEntriesCount($lan['idLan']);
+			$chiffre[$lan['idLan']]['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
+			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLan($lan['idLan']);
+		}
+		
+		$smarty->assign('lans', $lans);
+		$smarty->assign('chiffre', $chiffre);
+		$smarty->assign('jeux', $jeux);
+		$smarty->assign('titre', 'Lans');
+		
+		$smarty->display('lan/index.tpl');
 	}
 	
     public function indexadminAction() 
@@ -25,6 +42,7 @@ class LanController extends Zend_Controller_Action
 			{
 				
 				$chiffre[$lan['idLan']][0]['insc'] = $model->fetchEntriesCount($lan['idLan']);
+				$chiffre[$lan['idLan']][0]['valide'] = $model->fetchEntriesCountValide($lan['idLan']);
 				$chiffre[$lan['idLan']][0]['teams']= $model->fetchEntriesCountTeam($lan['idLan']);
 				$chiffre[$lan['idLan']][0]['jeux'] = $model->fetchEntriesCountJeux($lan['idLan']);
 			}
@@ -41,6 +59,7 @@ class LanController extends Zend_Controller_Action
 			$smarty->assign('urlinscrits',$request->getBaseUrl().'/lanjeuxjoueurteam/viewinscrits?idLan=');
 			$smarty->assign('urlteams',$request->getBaseUrl().'/lanjeuxjoueurteam/viewteams?idLan=');
 			$smarty->assign('urljeux',$request->getBaseUrl().'/lanjeux/indexadmin?idLan=');
+			$smarty->assign('urldescription',$request->getBaseUrl().'/lan/description?idLan=');
 			
 			$smarty->assign('datas',$datas);
 			$smarty->display('lan/indexAdmin.tpl');
@@ -64,6 +83,32 @@ class LanController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}  
     }
+	
+	public function descriptionAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin') || $log->_getTypeConnected('admin')) {
+			$model  = $this->_getModel();
+			$modelLanJeux = $this->_getModelLanJeux();
+			$request = $this->getRequest();
+			$id      = (int)$request->getParam('idLan', 0);
+			$lan = $model->fetchEntry($id);
+			
+			$chiffre['insc'] = $model->fetchEntriesCount($lan['idLan']);
+			$chiffre['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
+			$jeux = $modelLanJeux->fetchEntriesByLan($lan['idLan']);
+			
+			$smarty->assign('lan', $lan);
+			$smarty->assign('chiffre', $chiffre);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('titre', 'Lan '.$lan['nom']);
+			$smarty->display('lan/description.tpl');
+			
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+	}
 	
 	public function formAction()
     {
@@ -133,6 +178,16 @@ class LanController extends Zend_Controller_Action
         }
         return $this->_model;
     }
+	
+	protected function _getModelLanJeux()
+    {
+        if (null === $this->_modelLanJeux) {
+            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            $this->_modelLanJeux = new Model_LanJeux();
+        }
+        return $this->_modelLanJeux;
+    }
+
 
     protected function _getLanForm($id)
     {

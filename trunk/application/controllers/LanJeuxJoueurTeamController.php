@@ -207,7 +207,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			
 			if($change == "a") {
 				$data['validation']    = 1;
-				$data['paiement'] = $lan['prix'];
+				$data['paiement'] = $lan['prix_prepaiement'];
 			} else {
 				$data['validation']    = 0;
 				$data['paiement'] = 0;

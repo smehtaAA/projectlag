@@ -26,6 +26,12 @@ class Form_LanJeuxJoueurTeam extends Zend_Form
             'RegisterInArrayValidator' => false,
             'required'   => true
         ));
+		
+		$this->addElement('checkbox', 'present', array(
+            'label'      => 'Present : ',
+            'RegisterInArrayValidator' => false,
+            'required'   => true
+        ));
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
