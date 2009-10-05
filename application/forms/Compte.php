@@ -70,6 +70,12 @@ class Form_Compte extends Zend_Form
             'required'   => true
         ));
 		
+		$this->addElement('file', 'img', array(
+            'label'       => 'Avatar : ',
+			'destination' => '.',
+            'required'    => false
+        ));
+		
 		$this->addElement('textarea', 'jeuxprefere', array(
             'label'      => 'Jeux préférés : ',
             'RegisterInArrayValidator' => false,

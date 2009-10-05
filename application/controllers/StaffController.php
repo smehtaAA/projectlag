@@ -14,6 +14,7 @@ class StaffController extends Zend_Controller_Action
 		$modelStaffCompte = $this->_getModelStaffCompte();
 		$request = $this->getRequest();
 		$staff=$modelStaffCompte->fetchEntriesNonVides();
+		$comptes=null;
 		foreach($staff as $s)
 			$comptes[$s['idStaff']] = $modelStaffCompte->fetchEntriesByStaff($s['idStaff']);
 		

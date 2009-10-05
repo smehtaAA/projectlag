@@ -376,7 +376,8 @@ CREATE TABLE IF NOT EXISTS `lanjoueur` (
   `idCompte` int(10) NOT NULL,
   `dateins` date NOT NULL,
   `paiement` int(10) NOT NULL,
-  `validation` int(10) NOT NULL,
+  `validation` boolean DEFAULT false,
+  `present` boolean DEFAULT false,
   PRIMARY KEY (`idLanJoueur`),
   KEY `idLan` (`idLan`),
   KEY `idCompte` (`idCompte`)

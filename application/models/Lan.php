@@ -77,6 +77,34 @@ class Model_Lan
         return $row->insc;
     }
 	
+	public function fetchEntriesCountValide($idLan)
+    {
+        $table = $this->getTable();
+		$select = $table->select()
+							->from(array('lj' => 'lanjoueur'), array('COUNT(DISTINCT lj.idLanJoueur) as insc'))
+							->where('lj.idLan = ?', $idLan)
+							->where('lj.validation = 1')
+							->setIntegrityCheck(false);
+		
+		
+		$row = $table->fetchRow($select);
+        return $row->insc;
+    }
+	
+	public function fetchEntriesCountPresent($idLan)
+    {
+        $table = $this->getTable();
+		$select = $table->select()
+							->from(array('lj' => 'lanjoueur'), array('COUNT(DISTINCT lj.idLanJoueur) as insc'))
+							->where('lj.idLan = ?', $idLan)
+							->where('lj.present = 1')
+							->setIntegrityCheck(false);
+		
+		
+		$row = $table->fetchRow($select);
+        return $row->insc;
+    }
+	
 	public function fetchEntriesCountTeam($idLan)
     {
         $table = $this->getTable();

@@ -18,7 +18,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.nom}</td>
+    <td><a href="{$urldescription}{$i.idLan}">{$i.nom}</a></td>
     <td>{$i.datedeb|date_format:"%d/%m/%Y"}</td>
     {if $i.inscription == true}
     <td align="center">Oui</td>
@@ -26,7 +26,7 @@
     <td align="center">Non</td>
     {/if}
     <td></td>
-    <td align="center"><a href="{$urlinscrits}{$i.idLan}">{$chiffre[$i.idLan][0].insc}</a></td>
+    <td align="center"><a href="{$urlinscrits}{$i.idLan}">{$chiffre[$i.idLan][0].valide}/{$chiffre[$i.idLan][0].insc}</a></td>
     <td align="center"><a href="{$urlteams}{$i.idLan}">{$chiffre[$i.idLan][0].teams}</a></td>
     <td align="center"><a href="{$urljeux}{$i.idLan}">{$chiffre[$i.idLan][0].jeux}</a></td>
     <td align="center"><a href="{$urlupd}{$i.idLan}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
