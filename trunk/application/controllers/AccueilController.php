@@ -2,12 +2,57 @@
 
 class AccueilController extends Zend_Controller_Action 
 {
+	protected $_modelLan;
+	protected $_modelNews;
+	protected $_modelConfig;
 	
 	public function indexAction()
 	{
 		$smarty = Zend_Registry::get('view');
+		$modelLan = $this->_getModelLan();
+		$modelNews = $this->_getModelNews();
+		$modelConfig = $this->_getModelConfig();
 		
-		$smarty->display('accueil/index.tpl');
+		$request     = $this->getRequest();
+		$page        = $request->page;
+		$id          = (int)$request->getParam('id', 0);
+		
+		if($id == 0)
+		{
+			$config = $modelConfig->fetchEntrySetting('nb_max_news_page');
+			$nb_max_news_page = $config['valeur'];
+			
+			if($nb_max_news_page == 0)
+				$nb_max_news_page = 4;
+			
+			// Récupération du nombre d'enregistrement
+			$nb = $modelNews->countEntries();
+			// Arrondi à l'entier supérieur
+			$nb_page = ceil($nb/$nb_max_news_page);
+			// Bloque l'accès au page supérieure au nombre total de page
+			if($page > $nb_page) 
+				$page=1;
+			
+			// Récupération du nombre de ligne pour la page voulue
+			$news = $modelNews->fetchEntriesLimitPage($page,$nb_max_news_page);
+			$pages = null;
+			
+			for($i=1; $i<=$nb_page; $i++)
+				$pages[$i] = $i;
+				
+				
+			$nb_inscrits=0;
+			$lan=$modelLan->fetchEntryOuverte();
+			if($lan!=-1)
+				$nb_inscrits = $modelLan->fetchEntriesCount($lan['idLan']);
+				
+			$smarty->assign('lan', $lan);
+			$smarty->assign('nb_inscrits', $nb_inscrits);
+			$smarty->assign('pages', $pages);
+			$smarty->assign('url','?page=');
+			$smarty->assign('news', $news);
+			$smarty->display('accueil/index.tpl');
+		}
 	}
 	
     public function indexadminAction() 
@@ -57,5 +102,32 @@ class AccueilController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}  
     }
+	
+	protected function _getModelLan()
+    {
+        if (null === $this->_modelLan) {
+            require_once APPLICATION_PATH . '/models/Lan.php';
+            $this->_modelLan = new Model_Lan();
+        }
+        return $this->_modelLan;
+    }
+	
+    protected function _getModelNews()
+    {
+        if (null === $this->_modelNews) {
+            require_once APPLICATION_PATH . '/models/News.php';
+            $this->_modelNews = new Model_News();
+        }
+        return $this->_modelNews;
+    }
+	
+	protected function _getModelConfig()
+	{
+		if (null === $this->_modelConfig) {
+			require_once APPLICATION_PATH . '/models/Config.php';
+			$this->_modelConfig = new Model_Config();
+		}
+		return $this->_modelConfig;
+	}
     
 }

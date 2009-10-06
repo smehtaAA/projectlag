@@ -29,8 +29,30 @@ class Form_Lan extends Zend_Form
             'required'   => true
         ));
 		
+		$this->addElement('text', 'heuredeb', array(
+            'label'      => 'Heure de début : ',
+            'RegisterInArrayValidator' => false,
+            'required'   => true
+        ));
+		
+		$this->addElement('text', 'minutedeb', array(
+            'RegisterInArrayValidator' => false,
+            'required'   => true
+        ));
+		
 		$this->addElement('text', 'datefin', array(
             'label'      => 'Date de fin : ',
+            'RegisterInArrayValidator' => false,
+            'required'   => true
+        ));
+		
+		$this->addElement('text', 'heurefin', array(
+            'label'      => 'Heure de fin : ',
+            'RegisterInArrayValidator' => false,
+            'required'   => true
+        ));
+		
+		$this->addElement('text', 'minutefin', array(
             'RegisterInArrayValidator' => false,
             'required'   => true
         ));

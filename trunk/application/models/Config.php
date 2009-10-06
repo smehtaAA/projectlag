@@ -47,7 +47,7 @@ class Model_Config
     {
         $table = $this->getTable();
 		try {
-        	$select = $table->select()->where('setting = ?', $setting);
+        	$select = $table->select()->where('cle = ?', $setting);
 			return $table->fetchRow($select)->toArray();
 		} catch (Exception $e) {
 			echo $e;

@@ -13,10 +13,7 @@ class Form_Log extends Zend_Form
 		
 		$this->addElement('password', 'password', array(
             'label'      => 'Mot de passe : ',
-            'required'   => true,
-			'filters'    => array(
-				array('filter' => 'Md5')
-			)
+            'required'   => true
         ));
 		
 		$this->addElement('submit', 'submit', array(
