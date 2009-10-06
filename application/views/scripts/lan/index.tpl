@@ -3,7 +3,7 @@
 <br/> <br/>
 
 {foreach from=$lans item=l name=lan}
-	<strong>{$l.nom}</strong> - {$l.datedeb|date_format:"%d/%m/%Y"} - {$l.datefin|date_format:"%d/%m/%Y"} - - - {$chiffre[$l.idLan].present}/{$chiffre[$l.idLan].insc}
+	<strong>{$l.nom}</strong> - {$l.datedeb|date_format:"%d/%m/%Y a %H:%M"} jusqu'au {$l.datefin|date_format:"%d/%m/%Y a %H:%M"} - - - {$chiffre[$l.idLan].present}/{$chiffre[$l.idLan].insc}
     
     <br/><br/>
     <ul>

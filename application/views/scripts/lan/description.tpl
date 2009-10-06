@@ -13,6 +13,8 @@ Nombre Max de personnes : {$lan.nbmaxpers}
 <br/>
 Prix : {$lan.prix}
 <br/>
+{if $lan.inscription==1} Date de l'ouverture : {$lan.date_inscription|date_format:"%d/%m/%Y"} {/if}
+<br/>
 Lan T&eacute;l&eacute;thon : {if $lan.telethon==1} Oui {else} Non {/if}
 <br/>
 Activation Pre paiement: {if $lan.prepaiement==1} Oui <br/> Prix : {$lan.prix_prepaiement}{else} Non {/if}

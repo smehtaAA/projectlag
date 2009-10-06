@@ -40,7 +40,6 @@ class LanController extends Zend_Controller_Action
 			
 			foreach($datas as $lan)
 			{
-				
 				$chiffre[$lan['idLan']][0]['insc'] = $model->fetchEntriesCount($lan['idLan']);
 				$chiffre[$lan['idLan']][0]['valide'] = $model->fetchEntriesCountValide($lan['idLan']);
 				$chiffre[$lan['idLan']][0]['teams']= $model->fetchEntriesCountTeam($lan['idLan']);
@@ -124,9 +123,15 @@ class LanController extends Zend_Controller_Action
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
 					$datedeb = $dataform['datedeb'];
-					$dataform['datedeb'] = substr($datedeb, 6, 4)."-".substr($datedeb, 3, 2)."-".substr($datedeb, 0, 2)." 00:00:00";
+					$dataform['datedeb'] = substr($datedeb, 6, 4)."-".substr($datedeb, 3, 2)."-".substr($datedeb, 0, 2)." ".$dataform['heuredeb'].":".$data['minutedeb'].":00";
 					$datefin = $dataform['datefin'];
-					$dataform['datefin'] = substr($datefin, 6, 4)."-".substr($datefin, 3, 2)."-".substr($datefin, 0, 2)." 00:00:00";
+					$dataform['datefin'] = substr($datefin, 6, 4)."-".substr($datefin, 3, 2)."-".substr($datefin, 0, 2)." ".$dataform['heurefin'].":".$data['minutefin'].":00";
+					
+					if($dataform['inscription']==1) {
+						$d=new Zend_Date();
+						$dataform['date_inscription'] = $d->toString('YYYY-MM-dd');
+					}
+					
 					$model->save($id,$dataform);
 					return $this->_helper->redirector('indexadmin');
 				}
@@ -135,8 +140,12 @@ class LanController extends Zend_Controller_Action
 					$data = $model->fetchEntry($id);
 					$date = new Zend_Date($data['datedeb']);
 					$data['datedeb'] = $date->toString('dd/MM/Y');
+					$data['heuredeb'] = $date->toString('H');
+					$data['minutedeb'] = $date->toString('mm');
 					$datef = new Zend_Date($data['datefin']);
 					$data['datefin'] = $datef->toString('dd/MM/Y');
+					$data['heurefin'] = $datef->toString('H');
+					$data['minutefin'] = $datef->toString('mm');
 					$form->populate($data);
 				}
 			}

@@ -26,7 +26,9 @@ class LogController extends Zend_Controller_Action
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$existlog = $model->existLog($form->getValues());
+					$dataform = $form->getValues();
+					$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
+					$existlog = $model->existLog($dataform);
 					if($existlog != NULL) {
 						$userid = 'idCompte';
 						$fonction = $modelFonctionCompte->fetchFonction($existlog[$userid]);

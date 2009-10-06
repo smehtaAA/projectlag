@@ -148,7 +148,7 @@ class InscriptionController extends Zend_Controller_Action
 				$dataform=$form->getValues();
 				$datenaissance = $dataform['datenaissance'];
 				$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
-				$dataform['password'] = 'l@g8?'.md5($dataform['password']).'pe6r!e8';
+				$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
 				$dataform['keyvalidation']=sha1(time()+rand());
 				$modelCompte->save(0,$dataform);
 				
