@@ -147,7 +147,7 @@ INSERT INTO `chartearticle` (`idCharteArticle`, `idCharte`, `titre`, `descriptio
 DROP TABLE IF EXISTS `compte`;
 CREATE TABLE IF NOT EXISTS `compte` (
   `idCompte` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `idGrade` int(10) unsigned NOT NULL,
+  `idGrade` int(10) unsigned NOT NULL DEFAULT 1,
   `login` varchar(60) NOT NULL,
   `password` varchar(60) NOT NULL,
   `nom` varchar(30) NOT NULL,
@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `grade` (
   `nom` varchar(30) NOT NULL,
   `nbmessages` int(10) NOT NULL,
   PRIMARY KEY (`idGrade`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `grade`
