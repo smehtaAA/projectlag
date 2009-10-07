@@ -37,9 +37,9 @@ class Form_Partenaire extends Zend_Form
             )
         ));
 				
-		$this->addElement('file', 'img', array(
+		$this->addElement('file', 'logo', array(
             'label'       => 'Image : ',
-			'destination' => '.',
+			'destination' => './images/partenaires/',
             'required'    => false
         ));
 		

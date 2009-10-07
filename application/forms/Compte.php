@@ -72,7 +72,7 @@ class Form_Compte extends Zend_Form
 		
 		$this->addElement('file', 'img', array(
             'label'       => 'Avatar : ',
-			'destination' => '.',
+			'destination' => './images/comptes/',
             'required'    => false
         ));
 		

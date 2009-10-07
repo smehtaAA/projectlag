@@ -4,6 +4,7 @@ class NewsController extends Zend_Controller_Action
 {
     protected $_model;
 	protected $_modelConfig;
+	protected $_modelPartenaire;
 	
 	public function indexAction()
 	{
@@ -16,7 +17,7 @@ class NewsController extends Zend_Controller_Action
 
 		$config = $modelConfig->fetchEntrySetting('nb_max_news_page');
 
- 		$nb_max_news_page = $config['value'];
+ 		$nb_max_news_page = $config['valeur'];
 		
 		if($nb_max_news_page == 0)
 		{
@@ -48,7 +49,54 @@ class NewsController extends Zend_Controller_Action
 		$smarty->assign('pages', $pages);
 		$smarty->assign('url','?page=');
 		$smarty->display('news/index.tpl');
+	}
+	
+	public function newspartenaireAction()
+	{
+		$smarty = Zend_Registry::get('view');
 		
+		$model  = $this->_getModel();
+		$modelConfig = $this->_getModelConfig();
+		$modelPartenaire = $this->_getModelPartenaire();
+		$request = $this->getRequest();
+		$page = $request->page;
+
+		$config = $modelConfig->fetchEntrySetting('nb_max_news_page');
+
+ 		$nb_max_news_page = $config['valeur'];
+		
+		if($nb_max_news_page == 0)
+		{
+			$nb_max_news_page = 4;
+		}
+		
+		// Récupération du nombre d'enregistrement
+		$nb = $model->countEntriesPartenaire();
+		// Arrondi à l'entier supérieur
+		$nb_page = ceil($nb/$nb_max_news_page);
+		// Bloque l'accès au page supérieure au nombre total de page
+		if($page > $nb_page) 
+		{
+			$page=1;
+		}
+		
+		// Récupération du nombre de ligne pour la page voulue
+		$datas  = $model->fetchEntriesPartenaireLimitPage($page,$nb_max_news_page);
+		
+		$pages = null;
+		
+		for($i=1; $i<=$nb_page; $i++)
+		{
+			$pages[$i] = $i;
+		}
+
+		$partenaires=$modelPartenaire->fetchEntries();
+		
+		$smarty->assign('partenaires', $partenaires);
+		$smarty->assign('datas', $datas);
+		$smarty->assign('pages', $pages);
+		$smarty->assign('url','?page=');
+		$smarty->display('news/newspartenaire.tpl');
 	}
 	
 	public function indexadminAction()
@@ -81,6 +129,7 @@ class NewsController extends Zend_Controller_Action
 			$id      = (int)$request->getParam('id', 0);
 			$form    = $this->_getNewsForm($id);
 			$model   = $this->_getModel();		
+			$modelPartenaire = $this->_getModelPartenaire();
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
@@ -88,7 +137,31 @@ class NewsController extends Zend_Controller_Action
 					if(!empty($dataform["creer_type_n"]))
 						$dataform["type_n"] = $dataform["creer_type_n"];
 					unset($dataform["creer_type_n"]);
+					
+					if(empty($dataform['img']))
+						unset($dataform['img']);
+					else {
+						$nom_image = $dataform["titre"];
+						require_once '../library/My/Utils.php';
+						$chaine_valide = valideChaine($nom_image);
+						$ext = explode('.',$dataform["img"]);
+						$ancien_nom = $dataform['img'];
+						$dataform['img']=$chaine_valide.'.'.$ext[1];
+					}
+					
+					
 					$model->save($id,$dataform);
+					
+					// resize picture si image dans formulaire
+					if(!empty($dataform['img']))
+					{
+						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
+						$thumb = PhpThumbFactory::create('../public/images/news/'.$ancien_nom);
+						$thumb->resize(140, 140)->save('../public/images/news/'.$dataform["img"]);
+						if(file_exists('../public/images/news/'.$ancien_nom))
+							unlink('../public/images/news/'.$ancien_nom);
+					}
+					
 					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
@@ -99,6 +172,7 @@ class NewsController extends Zend_Controller_Action
 			}
 			
 			$form->RemplirType($model->fetchEntriesTypes());
+			$form->RemplirPartenaire($modelPartenaire->fetchEntries());
 			
 			if($id > 0)
 				$smarty->assign('title','Modification News');
@@ -135,6 +209,15 @@ class NewsController extends Zend_Controller_Action
             $this->_model = new Model_News();
         }
         return $this->_model;
+    }
+	
+    protected function _getModelPartenaire()
+    {
+        if (null === $this->_modelPartenaire) {
+            require_once APPLICATION_PATH . '/models/Partenaire.php';
+            $this->_modelPartenaire = new Model_Partenaire();
+        }
+        return $this->_modelPartenaire;
     }
 	
 	protected function _getModelConfig()

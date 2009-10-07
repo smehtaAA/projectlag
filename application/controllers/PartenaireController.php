@@ -70,10 +70,30 @@ class PartenaireController extends Zend_Controller_Action
 						$nb = $model->countEntries();
 						$dataform['ordre'] = $nb+1;
 					}
+					if(empty($dataform['logo']))
+						unset($dataform['logo']);
+					else {
+						$nom_image = $dataform["titre"];
+						require_once '../library/My/Utils.php';
+						$chaine_valide = valideChaine($nom_image);
+						$ext = explode('.',$dataform["logo"]);
+						$ancien_nom = $dataform['logo'];
+						$dataform['logo']=$chaine_valide.'.'.$ext[1];
+					}
 					if(!empty($dataform["creer_type"]))
 						$dataform["type"] = $dataform["creer_type"];
 					unset($dataform["creer_type"]);
 					$model->save($id,$dataform);
+					
+					if(!empty($dataform['logo']))
+					{
+						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
+						$thumb = PhpThumbFactory::create('../public/images/partenaires/'.$ancien_nom);
+						$thumb->resize(200, 200)->save('../public/images/partenaires/'.$dataform["logo"]);
+						if(file_exists('../public/images/partenaires/'.$ancien_nom))
+							unlink('../public/images/partenaires/'.$ancien_nom);
+					}
+					
 				return $this->_helper->redirector('indexadmin');
 				}
 			} else {

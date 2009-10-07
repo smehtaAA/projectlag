@@ -79,7 +79,30 @@ class CompteController extends Zend_Controller_Action
 						$dataform=$form->getValues();
 						$datenaissance = $dataform['datenaissance'];
 						$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
+						
+						if(empty($dataform['img']))
+							unset($dataform['img']);
+						else {
+							$nom_image = $dataform["login"];
+							require_once '../library/My/Utils.php';
+							$chaine_valide = valideChaine($nom_image);
+							$ext = explode('.',$dataform["img"]);
+							$ancien_nom = $dataform['img'];
+							$dataform['img']=$chaine_valide.'.'.$ext[1];
+						}
+						
 						$model->save($id,$dataform);
+						
+						// resize picture si image dans formulaire
+						if(!empty($dataform['img']))
+						{
+							require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
+							$thumb = PhpThumbFactory::create('../public/images/comptes/'.$ancien_nom);
+							$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"]);
+							if(file_exists('../public/images/comptes/'.$ancien_nom))
+								unlink('../public/images/comptes/'.$ancien_nom);
+						}
+						
 						return $this->_redirect($this->redirection);
 					}
 				} else {

@@ -45,7 +45,13 @@ class Model_News
 
 	public function fetchEntriesLimitPage($start,$end)
 	{
-		$select = $this->getTable()->select()->order('date DESC')->limitPage($start, $end);
+		$select = $this->getTable()->select()->where('idPartenaire = 0')->order('date DESC')->limitPage($start, $end);
+		return $this->getTable()->fetchAll($select)->toArray();
+	}
+	
+	public function fetchEntriesPartenaireLimitPage($start,$end)
+	{
+		$select = $this->getTable()->select()->where('idPartenaire != 0')->order('date DESC')->limitPage($start, $end);
 		return $this->getTable()->fetchAll($select)->toArray();
 	}
 	
@@ -60,7 +66,15 @@ class Model_News
 	public function countEntries()
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('news','COUNT(idNews) AS num');
+		$select = $table->select()->from('news','COUNT(idNews) AS num')->where('idPartenaire=0');
+		$row = $table->fetchRow($select);
+        return $row->num;
+	}
+	
+	public function countEntriesPartenaire()
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('news','COUNT(idNews) AS num')->where('idPartenaire!=0');
 		$row = $table->fetchRow($select);
         return $row->num;
 	}

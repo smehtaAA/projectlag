@@ -35,6 +35,7 @@ class AccueilController extends Zend_Controller_Action
 			
 			// Récupération du nombre de ligne pour la page voulue
 			$news = $modelNews->fetchEntriesLimitPage($page,$nb_max_news_page);
+			$newsp = $modelNews->fetchEntriesPartenaireLimitPage(1,3);
 			$pages = null;
 			
 			for($i=1; $i<=$nb_page; $i++)
@@ -48,8 +49,10 @@ class AccueilController extends Zend_Controller_Action
 				
 			$smarty->assign('lan', $lan);
 			$smarty->assign('nb_inscrits', $nb_inscrits);
+			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('pages', $pages);
 			$smarty->assign('url','?page=');
+			$smarty->assign('newsp', $newsp);
 			$smarty->assign('news', $news);
 			$smarty->display('accueil/index.tpl');
 		}
