@@ -732,11 +732,15 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
   `description` longtext NOT NULL,
   `ordre` int(10) NOT NULL,
   PRIMARY KEY (`idPartenaire`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `partenaire`
 --
+INSERT INTO `partenaire` (`idPartenaire`, `titre`, `date`, `nbclick`, `type`, `lien`, `logo`, `description`, `ordre`) VALUES
+(1, 'Steelseries', '2009-10-01', 0, 'Informatique', 'http://www.steelseries.com/', '', '<p>SteelSeries est un vendeur de matériels informatiques spécialisé dans les jeux vidéo (casques, claviers, souris, tapis de souris,...). Depuis sa création en 2001, SteelSeries est en coopération avec de grands joueurs professionnels et son développement devient de plus en plus important dans cet univers.</p>', 1),
+(2, 'FOCUS HOME INTERACTIVE', '2009-10-01', 0, 'Informatique', 'http://www.focus-home.com/', '', '<p>Créé en 1996, Focus Home Interactive est un éditeur français indépendant basé en région parisienne. Spécialisé dans le jeu vidéo depuis 2000, Focus a multiplié les succès en lançant bon nombre de titres originaux devenus de véritables références comme le jeu d\'aventure Runaway, le populaire Cycling Manager ou encore le fameux TrackMania. Reconnu pour la variété, la qualité et l\'originalité de son catalogue, Focus édite et distribue désormais une partie de ses titres dans de nombreux territoires en Europe et dans le monde à travers un réseau de distributeurs performants ou encore de manière digitale pour certains produits spécifiques.</p>', 1),
+(3, 'Thermaltake', '2009-10-01', 0, 'Informatique', 'http://fr.thermaltake.eu/', '', '<p>La personnalité de la marque d\'unique, d\'agressif, de vif, et d\'élégant fait de Thermaltake un expert dans la création de choses passionnantes et d\'environnement fascinant pour les gamers et les passionnés. L\'excellente capacité d\'expertise technique et d\'intégration, plus l\'audace d\'expérimenter sur les nouvelles possibilités donnent à Thermaltake la source d\'autorité sur le marché. De plus, Thermaltake se rapproche des consommateurs et observe le comportement et la demande des utilisateurs leaders, pour concevoir des produits esthétiques et de qualité qui amélioreront considérablement les performances du système et apporteront à l\'utilisateur le plus grand potentiel. Avec un design innovateur et un style unique, les produits de Thermaltake se répandent rapidement parmi les passionnés sur le marché DIY et deviennent bientôt le choix numéro un pour les passionnés de bricolage de PC dans le monde entier.</p>', 3);
 
 
 -- --------------------------------------------------------
