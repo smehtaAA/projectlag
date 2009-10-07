@@ -255,7 +255,10 @@ class InscriptionController extends Zend_Controller_Action
 						$modelLanJeuxJoueurTeam->save(0,$ljjt);
 					}
 					
-					return $this->_helper->redirector('paiement','inscription');
+					if($lan['prepaiement']==1)
+						return $this->_helper->redirector('paiement','inscription');
+					else
+						return $this->_helper->redirector('index','accueil');
 				}
 			}
 			

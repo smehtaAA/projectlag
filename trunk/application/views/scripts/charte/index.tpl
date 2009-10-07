@@ -2,7 +2,7 @@
 
 
 {foreach from=$chartes item=charte name=charte}
-	<a href="{$ancrage}charte_{$charte.idCharte}" class="deco"><div class="titre"><div class="titre2"><img src="{$base_url}/images/logo_horde.png" class="flecheh" alt="fleche" align="absmiddle" />{$charte.nom|capitalize}</div></div></a>
+	<a href="{$ancrage}charte_{$charte.idCharte}" class="deco"><div class="titre"><div class="titre2"><img src="" class="flecheh" alt="fleche" align="absmiddle" />{$charte.nom|capitalize}</div></div></a>
     
     <div class="description2">
     	{foreach from=$articles[$charte.idCharte] name=article item=article}

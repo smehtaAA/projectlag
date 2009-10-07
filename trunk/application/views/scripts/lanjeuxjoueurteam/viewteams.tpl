@@ -21,26 +21,26 @@
 {/literal}
 
 <h2>{$title}</h2>
-
-<br /><br />
+<br/><br/>
+A Faire !! : Lien pour lier un compte a une team et un jeux
+<br /><br /><br /><br />
 <div id="tab_content">
 <table align="center" id="tab_record">
   <tr>
-  	<th></th>
-    <th align="left" width="150">Jeux</th>
-    <th align="center" width="80">Team</th>
+  	<th align="right" width="30"></th>
+    <th align="left" width="200">Jeux</th>
+    <th align="center" width="120">Team</th>
     <th align="center" width="80">Login</th>
-    <th align="center" width="80">Nom</th>
     <th align="center" width="80">Prenom</th>
     <th align="center" width="80">Actif</th>
-    <th width="70"> </th>
-    <th align="center">Modifier</th>
-    <th align="center">Supprimer</th>
+    <th width="30"> </th>
+    <th align="center" width="100">Modifier</th>
+    <th align="center" width="100">Supprimer</th>
   </tr>
 {foreach from=$jeux key=myjeu item=i name=jeux}
   <tr>
-  	<td>{$smarty.foreach.jeux.index+1} - </td>
-    <td align="center">{$i.nom} ({$i.type})</td>
+  	<td align="right">{$smarty.foreach.jeux.index+1} - </td>
+    <td>{$i.nom}</td>
   </tr>
   
   {foreach from=$teams[$i.idJeux] key=myteam item=team name=team}
@@ -56,7 +56,6 @@
     		<td></td>
     		<td></td>
             <td align="center"> {$cpt.login} </td>
-            <td align="center"> {$cpt.nom} </td>
             <td align="center"> {$cpt.prenom} </td>
                 <td align="center">
                 {if $cpt.validation==1}
