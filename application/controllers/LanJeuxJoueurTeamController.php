@@ -146,21 +146,22 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$model   = $this->_getModel();		
 			$modelLan = $this->_getModelLan();
 			$modelJeux = $this->_getModelJeux();
+			$modelLanJoueur = $this->_getModelLanJoueur();
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
-					$dataform['idLan'] = $idLan;
+					$dataform['idLanJoueur'] = $id;
 					if($dataform['validation']==0)
 					{	
 						$dataform['paiement'] = 0;
 					}
-					$model->save($id,$dataform);
+					$modelLanJoueur->save($id,$dataform);
 					return $this->_helper->redirector('viewinscrits','lanjeuxjoueurteam','',array('idLan'=>$idLan));
 				}
 			} else {
 				if ($id > 0) {
-					$data = $model->fetchEntry($id);
+					$data = $modelLanJoueur->fetchEntry($id);
 					$form->populate($data);
 				}
 			}
@@ -242,6 +243,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$model   = $this->_getModel();
 			$modelLan = $this->_getModelLan();
 			$modelLanJeux = $this->_getModelLanJeux();
+			$modelLanJoueur   = $this->_getModelLanJoueur();
 			$id   = (int)$request->getParam('idLanJeuxJoueurTeam', 0);
 			$idLan   = (int)$request->getParam('idLan', 0);
 			$change  = (string)$request->getParam('change');
@@ -250,13 +252,13 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			
 			if($change == "a") {
 				$data['validation']    = 1;
-				$data['paiement'] = $lan['prix'];
+				$data['paiement'] = $lan['prix_prepaiement'];
 			} else {
 				$data['validation']    = 0;
 				$data['paiement'] = 0;
 			}
 			
-			$model->save($data['idLanJeuxJoueurTeam'], $data);
+			$modelLanJoueur->save($data['idLanJoueur'], $data);
 			
 			$smarty = Zend_Registry::get('view');
 	
