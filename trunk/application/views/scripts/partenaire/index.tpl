@@ -2,7 +2,7 @@
 
 {foreach from=$types item=type name=type}
 
-	<a href="{$base_url}/partenaire/?type={$type.type_p}"> {$type.type_p} </a><br/>
+	<a href="{$base_url}/partenaire/?type={$type.type}"> {$type.type} </a><br/>
 
 {/foreach}
 
@@ -11,7 +11,7 @@
 {if $partenaires != null}
 
 
-<table border=1>
+<table>
 <tr>
 	<th> Logo </th>
     <th> Nom </th>
