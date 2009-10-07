@@ -29,7 +29,13 @@ class Form_News extends Zend_Form
             )
         ));
 		
-		$test = $this->getElement('creer_type_n');
+		$this->addElement('select', 'idPartenaire', array(
+            'label'          => 'Partenaire : ',
+            'required'       => false,
+			'registerInArrayValidator' => false
+        ));
+		
+		//$test = $this->getElement('creer_type_n');
 		/*$test->setAttrib('style','display:none;');
 		$this->addDisplayGroup(array(
         
@@ -40,7 +46,7 @@ class Form_News extends Zend_Form
 				
 		$this->addElement('file', 'img', array(
             'label'       => 'Image : ',
-			'destination' => '.',
+			'destination' => './images/news/',
             'required'    => false
         ));
 
@@ -61,5 +67,14 @@ class Form_News extends Zend_Form
 		
 		foreach ($typesDB as $c)
 			$type->addMultiOption($c['type_n'], $c['type_n']);
+	}
+	
+	public function RemplirPartenaire($partenairesDB)
+	{
+		$part = $this->getElement('idPartenaire');
+		$part->addMultiOption("", "-----------");
+		
+		foreach ($partenairesDB as $c)
+			$part->addMultiOption($c['idPartenaire'], $c['titre']);
 	}
 }

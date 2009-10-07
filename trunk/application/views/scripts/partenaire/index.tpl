@@ -21,7 +21,7 @@
 {foreach from=$partenaires item=partenaire name=partenaire}
 
 	<tr>
-    <td> <img src="{$base_url}/{$partenaire.img}"  /></td>
+    <td> <img src="{$base_url}/images/partenaires/{$partenaire.logo}"  /></td>
     <td> {$partenaire.titre|capitalize} </td>
     <td> {$partenaire.description} </td>
     <td> <a href="http://{$partenaire.lien}"> {$partenaire.lien} </a> </td>
