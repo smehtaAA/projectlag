@@ -283,6 +283,8 @@ class InscriptionController extends Zend_Controller_Action
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('joueur')) {
+			
+			$request = $this->getRequest();
 			$modelLan = $this->_getModelLan();
 			$modelLanJoueur = $this->_getModelLanJoueur();
 			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
@@ -293,7 +295,40 @@ class InscriptionController extends Zend_Controller_Action
 			
 			$jeux=$modelLanJeuxJoueurTeam->fetchEntriesJeuxNonRattaches($lanjoueur['idLanJoueur']);
 			
-			$smarty->assign('jeux', $jeux);
+			$team = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur($lanjoueur['idLanJoueur']);
+			$smarty->assign('test', $team);
+			
+			$form = $this->_getModificationInscriptionLanForm();
+			
+			$jeux_libres = $modelLanJeuxJoueurTeam->fetchEntriesJeuxLibresByLanJoueur($lan['idLan'], $log->_getUser());
+			if(sizeof($jeux_libres)>0)
+				$form->RemplirJeux($jeux,true);
+			else
+				$form->RemplirJeux($jeux,false);
+
+			
+			if ($this->getRequest()->isPost()) {
+				if ($form->isValid($request->getPost())) {
+					$dataform = $form->getValues();
+					
+					$team = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur($lanjoueur['idLanJoueur']);
+					
+					$ljjt['idLanJoueur'] = $lanjoueur['idLanJoueur'];
+					$ljjt['idTeam'] = $team[0]['idTeam'];
+					
+					// Sauvegarde les jeux choisis pour cette lan
+					foreach($dataform['jeux'] as $j) {
+						$ljjt['idJeux'] = $j;
+						$modelLanJeuxJoueurTeam->save(0,$ljjt);
+					}
+					
+					return $this->_helper->redirector('indexjoueur','lan','',array('id'=>$lan['idLan']));
+				}
+			}
+			
+			$smarty->assign('jeux',$jeux);
+			$smarty->assign('form', $form);
+			$smarty->assign('lan', $lan);
 			
 			
 			$smarty->display('inscription/ajoutjeu.tpl');
@@ -412,6 +447,14 @@ class InscriptionController extends Zend_Controller_Action
         require_once APPLICATION_PATH . '/forms/InscriptionLan.php';
 		$form = new Form_InscriptionLan();
 		$form->setAction($this->_helper->url('inscriptionlan'));
+		return $form;
+    }
+	
+	protected function _getModificationInscriptionLanForm()
+    {
+        require_once APPLICATION_PATH . '/forms/ModificationInscriptionLan.php';
+		$form = new Form_ModificationInscriptionLan();
+		$form->setAction($this->_helper->url('ajoutjeu'));
 		return $form;
     }
 }
