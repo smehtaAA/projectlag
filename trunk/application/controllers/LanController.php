@@ -5,6 +5,7 @@ class LanController extends Zend_Controller_Action
 	
 	protected $_model;
 	protected $_modelLanJeux;
+	protected $_modelLanJoueur;
 	
 	public function indexAction()
 	{
@@ -74,9 +75,14 @@ class LanController extends Zend_Controller_Action
 		if($log->_getTypeConnected('joueur')) {
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
+			$modelLanJoueur=$this->_getModelLanJoueur();
 			
-			$smarty->assign('title','Accueil');
-			$smarty->display('accueil/indexAdmin.tpl');
+			$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
+			
+			
+			
+			$smarty->assign('title','Mes Lans');
+			$smarty->display('lan/indexJoueur.tpl');
 		} else {
 			$smarty->assign('message', 'Erreur Connexion');
 			$smarty->display('error/errorconnexion.tpl');
@@ -186,6 +192,15 @@ class LanController extends Zend_Controller_Action
             $this->_model = new Model_Lan();
         }
         return $this->_model;
+    }
+	
+	protected function _getModelLanJoueur()
+    {
+        if (null === $this->_modelLanJoueur) {
+            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            $this->_modelLanJoueur = new Model_LanJoueur();
+        }
+        return $this->_modelLanJoueur;
     }
 	
 	protected function _getModelLanJeux()
