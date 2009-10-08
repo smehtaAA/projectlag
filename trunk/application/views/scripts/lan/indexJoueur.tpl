@@ -4,6 +4,8 @@
 
 {foreach from=$lans item=lan name=lan}
 
-	{$lan.nom}
+	<a href="?id={$lan.idLan}">{$lan.nom} </a><br/>
+    {$lan.datedeb|date_format:"%d/%m/%Y"} <br/>
+    {$lan.datefin|date_format:"%d/%m/%Y"} <br/>
 
 {/foreach}
