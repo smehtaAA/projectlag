@@ -94,6 +94,15 @@ class LanController extends Zend_Controller_Action
 				$lan=$model->fetchEntry($id);
 				// recuperation des jeus où le joueur s'est inscrit
 				$jeux = $modelLanJeuxJoueurTeam->fetchEntriesJeuxByLan($id);
+				$jeux_libres = $modelLanJeuxJoueurTeam->fetchEntriesJeuxLibresByLanJoueur($id, $log->_getUser());
+				if(sizeof($jeux_libres)>0)
+					$jeuxlibres = 1;
+				else
+					$jeuxlibres=0;
+				
+				$smarty->assign('jeux_libres', $jeuxlibres);
+				
+				//$smarty->assign('test', $test);
 				$smarty->assign('title','Lan '.$lan['nom']);
 				
 				$smarty->assign('lan', $lan);
