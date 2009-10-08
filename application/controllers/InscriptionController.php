@@ -278,6 +278,31 @@ class InscriptionController extends Zend_Controller_Action
 		
 	}
 	
+	public function ajoutjeuAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('joueur')) {
+			$modelLan = $this->_getModelLan();
+			$modelLanJoueur = $this->_getModelLanJoueur();
+			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
+			
+			$id = $log->_getUser();
+			$lan = $modelLan->fetchEntryOuverte();
+			$lanjoueur=$modelLanJoueur->fetchEntriesByLanAndJoueur($lan['idLan'], $id);
+			
+			$jeux=$modelLanJeuxJoueurTeam->fetchEntriesJeuxNonRattaches($lanjoueur['idLanJoueur']);
+			
+			$smarty->assign('jeux', $jeux);
+			
+			
+			$smarty->display('inscription/ajoutjeu.tpl');
+			
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+	}
+	
 	protected function sendMailInscriptionLan()
 	{
 		

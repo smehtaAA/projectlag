@@ -6,6 +6,7 @@ class LanController extends Zend_Controller_Action
 	protected $_model;
 	protected $_modelLanJeux;
 	protected $_modelLanJoueur;
+	protected $_modelLanJeuxJoueurTeam;
 	
 	public function indexAction()
 	{
@@ -76,13 +77,32 @@ class LanController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			$modelLanJoueur=$this->_getModelLanJoueur();
+			$model=$this->_getModel();
+			$id = $request->getParam('id',0);
 			
-			$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
-			
-			
-			$smarty->assign('lans', $lans);
-			$smarty->assign('title','Mes Lans');
-			$smarty->display('lan/indexJoueur.tpl');
+			if($id==0) {
+				$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
+	
+				$smarty->assign('lans', $lans);
+				$smarty->assign('title','Mes Lans');
+				$smarty->display('lan/indexJoueur.tpl');
+			} else {
+				
+				$modelLanJeux = $this->_getModelLanJeux();
+				$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
+				
+				$lan=$model->fetchEntry($id);
+				// recuperation des jeus où le joueur s'est inscrit
+				$jeux = $modelLanJeuxJoueurTeam->fetchEntriesJeuxByLan($id);
+				$smarty->assign('title','Lan '.$lan['nom']);
+				
+				$smarty->assign('lan', $lan);
+				$smarty->assign('jeux', $jeux);
+				$smarty->assign('urladdjeu', $request->getBaseUrl().'/inscription/ajoutjeu');
+				
+				$smarty->display('lan/indexJoueurLan.tpl');
+			}
+				
 		} else {
 			$smarty->assign('message', 'Erreur Connexion');
 			$smarty->display('error/errorconnexion.tpl');
@@ -210,6 +230,15 @@ class LanController extends Zend_Controller_Action
             $this->_modelLanJeux = new Model_LanJeux();
         }
         return $this->_modelLanJeux;
+    }
+	
+	protected function _getModelLanJeuxJoueurTeam()
+    {
+        if (null === $this->_modelLanJeuxJoueurTeam) {
+            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            $this->_modelLanJeuxJoueurTeam = new Model_LanJeuxJoueurTeam();
+        }
+        return $this->_modelLanJeuxJoueurTeam;
     }
 
 

@@ -137,6 +137,30 @@ class Model_LanJeuxJoueurTeam
         return $table->fetchAll($select)->toArray();
     }
 	
+	public function fetchEntriesJeuxByLan($idLan)
+    {
+        $table = $this->getTable();
+        $select = $table->select()
+							->from(array('ljjt' => 'lanjeuxjoueurteam'))
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
+							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux')
+							->where('lj.idLan = ?', $idLan)
+							->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
+	public function fetchEntriesJeuxNonRattaches($id)
+	{
+		$table = $this->getTable();
+				
+		$sql = 'SELECT * FROM  jeux WHERE NOT EXISTS (SELECT NULL FROM lanjeuxjoueurteam WHERE  lanjeuxjoueurteam.idJeux =  jeux.idJeux AND lanjeuxjoueurteam.idLanJoueur=?) AND EXISTS (SELECT NULL FROM lanjeux WHERE  lanjeux.idJeux = jeux.idJeux)';
+		
+		$stmt = $table->getAdapter()->query($sql,$id);
+
+        return $stmt->fetchAll();
+	}
+	
 	public function countEntriesByLan($idLan)
 	{
 		$table = $this->getTable();
