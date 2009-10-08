@@ -80,7 +80,7 @@ class LanController extends Zend_Controller_Action
 			$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
 			
 			
-			
+			$smarty->assign('lans', $lans);
 			$smarty->assign('title','Mes Lans');
 			$smarty->display('lan/indexJoueur.tpl');
 		} else {
