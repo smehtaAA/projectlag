@@ -10,7 +10,7 @@
             </div>
             <div style="float:right;">
     			<img src="{$base_url}/images/info/information_1.jpg" align="right" class="img-spec" />
-                <div style="float:left;padding-right:5px;position: absolute;width: 402px;background-color:#000000; height:45px;margin-left:15px;margin-top:150px;opacity:0.7; color: #FFFFFF;padding:15px;">
+                <div style="float:left;padding-right:5px;position: absolute;width: 402px;background-color:#000000; height:45px;margin-left:25px;margin-top:150px;opacity:0.7; color: #FFFFFF;padding:15px;">
                 	<h4>Local Arena Games</h4>
                     <br />
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci mauris, auctor sit amet placerat non, adipiscing ac lacus.
