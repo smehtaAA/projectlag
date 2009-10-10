@@ -1,3 +1,11 @@
+SetEnv SESSION_USE_TRANS_SID 0
+#Force PHP5
+SetEnv PHP_VER 5
+#Désactive le paramètre register_globals
+SetEnv REGISTER_GLOBALS 0
+#Désactive le paramètre magic_quotes_gcp
+SetEnv MAGIC_QUOTES 0
+
 # Let's make sure that we have setup the timezone for this application,
 # In some php.ini files, this value is not set.  This will ensure it exists
 # for every reqeust of this application.

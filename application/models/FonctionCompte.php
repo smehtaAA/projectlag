@@ -39,7 +39,7 @@ class Model_FonctionCompte
 	{
 		$table = $this->getTable();
         $select = $table->select()
-					->from(array('fc' => 'FonctionCompte'))
+					->from(array('fc' => 'fonctioncompte'))
 					->join(array('f' => 'fonction'),'fc.idFonction=f.idFonction')
 					->where('fc.idCompte = ?', $id)
 					->setIntegrityCheck(false);
