@@ -1,23 +1,25 @@
-SetEnv SESSION_USE_TRANS_SID 0
 #Force PHP5
 SetEnv PHP_VER 5
-#DÃ©sactive le paramÃ¨tre register_globals
+#Désactive le paramètre register_globals
 SetEnv REGISTER_GLOBALS 0
-#DÃ©sactive le paramÃ¨tre magic_quotes_gcp
+#Désactive le paramètre magic_quotes_gcp
 SetEnv MAGIC_QUOTES 0
+
+SetEnv SESSION_AUTO_START 0
+SetEnv SESSION_USE_TRANS_SID 1
 
 # Let's make sure that we have setup the timezone for this application,
 # In some php.ini files, this value is not set.  This will ensure it exists
 # for every reqeust of this application.
 
-php_value date.timezone "UTC"
+#php_value date.timezone "UTC"
 AddDefaultCharset UTF-8
 
 # Let's also make sure that we can use the php short tag, "<?". The 
 # reason this is enabled is so that we can use these short tags in our 
 # php based view scripts. This allows for a shorter and cleaner view 
 # script, After all PHP IS A TEMPLATING LANGUAGE :)
-php_value short_open_tag "1"
+#php_value short_open_tag "1"
 
 # Set the error_reporting to E_ALL|E_STRICT
 # Since .htaccess only take an integer (and cannot render the PHP
@@ -25,21 +27,16 @@ php_value short_open_tag "1"
 #
 # > php -r "echo E_ALL|E_STRICT;"
 # 8191
-php_value error_reporting "8191"
+#php_value error_reporting "8191"
 
 # The following display_*error directives instruct PHP how to display
 # errors that might come up.  In a production environment, it might
 # be good to set these values inside the actual VHOST definiation.
 # NOTE: these display error ini's should most likely be OFF
 # in your production environment
-php_value display_startup_errors "1"
-php_value display_errors "1"
-php_value session.auto_start "0"
-
-# NOTE: by setting the above php ini values, we are ensuring that
-# regardless of the servers php.ini values, we can be assured that
-# our application will have these set values set on every request.
-
+#php_value display_startup_errors "1"
+#php_value display_errors "1"
+#php_value session.auto_start "0"
 
 
 

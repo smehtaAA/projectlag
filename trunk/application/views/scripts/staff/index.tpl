@@ -1,20 +1,26 @@
-<h2>{$titre}</h2>
-
-
-{foreach from=$staffs name=staff item=s}
-
-	<img src="{$base_url}/comptes/{$s.img}" align="right"/>
-
-	<h4>{$s.nom}</h4>
-    {foreach from=$comptes[$s.idStaff] name=compte item=c}
-    <strong>Nom :</strong> {$c.nom} {$c.prenom} <br/>
-    <strong>Pseudo :</strong> {$c.login|capitalize} <br/>
-    <strong>Age : </strong> {$datedujour-$c.datenaissance}<br/>
-    <strong>Mail : </strong> {$c.email} <br/>
-    <strong>Msn : </strong> {$c.msn} <br/>
-    <strong>Description : </strong> {$c.description} <br/>
-    <strong>Site : </strong> {$c.site} <br/>
-    
-    {/foreach}
-  	<br/>
-{/foreach}
+<div class="content-princ">
+    <div class="content-left-top"></div>
+    <div class="content-left-middle">
+        <div class="content-title-left"></div>
+        <div class="content-title-middle content-title-middle-left"><h3>{$titre}</h3></div>
+        <div class="content-title-right"></div>
+        <div class="content-left-text">
+            {foreach from=$staffs name=staff item=s}
+                <img src="{$base_url}/images/comptes/{$s.img}" align="right"/>
+                <h4>{$s.nom}</h4>
+                <br />
+                {foreach from=$comptes[$s.idStaff] name=compte item=c}
+                    &nbsp;&nbsp;<strong>Nom :</strong> {$c.nom} {$c.prenom} <br/>
+                    &nbsp;&nbsp<strong>Pseudo :</strong> {$c.login|capitalize} <br/>
+                    &nbsp;&nbsp<strong>Age : </strong> {$datedujour-$c.datenaissance}<br/>
+                    &nbsp;&nbsp<strong>Mail : </strong> {$c.email} <br/>
+                    &nbsp;&nbsp<strong>Msn : </strong> {$c.msn} <br/>
+                    &nbsp;&nbsp<strong>Site : </strong> {$c.site} <br/>
+                    &nbsp;&nbsp<strong>Description : </strong> {$c.description} <br/>          
+                {/foreach}
+                <hr />
+            {/foreach}
+        </div>
+    </div>
+    <div class="content-left-bottom"></div>
+</div>

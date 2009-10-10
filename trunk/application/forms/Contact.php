@@ -9,6 +9,7 @@ class Form_Contact extends Zend_Form
 		$this->addElement('text', 'titre', array(
             'label'      => 'Sujet : ',
             'required'   => true,
+			'class'      => 'input-contact-text',
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(3, 200))
             )
@@ -17,6 +18,7 @@ class Form_Contact extends Zend_Form
 		$this->addElement('select', 'type', array(
             'label'      => 'Type : ',
             'required'   => true,
+			'class'      => 'input-contact-text',
 			'multiOptions' => array(
 				'Demande d\'affiliation' => 'Demande d\'affiliation',
 				'Demande de partenariat' => 'Demande de partenariat',
@@ -29,6 +31,7 @@ class Form_Contact extends Zend_Form
         $this->addElement('text', 'mail', array(
             'label'      => 'Votre adresse mail : ',
             'required'   => true,
+			'class'      => 'input-contact-text',
             'filters'    => array('StringTrim'),
             'validators' => array(
                 'EmailAddress',
@@ -38,6 +41,8 @@ class Form_Contact extends Zend_Form
         $this->addElement('textarea', 'description', array(
             'label'      => 'Votre message : ',
             'required'   => true,
+			'rows' 		 => 15,
+			'cols'       => 70,
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(10, 1000))
                 )

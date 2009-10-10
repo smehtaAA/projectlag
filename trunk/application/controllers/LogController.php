@@ -45,7 +45,10 @@ class LogController extends Zend_Controller_Action
 						else
 							return $this->_redirect('/accueil/indexjoueurmenu');
 					} else {
-						$form = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
+						$message = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
+						$smarty->assign('message', $message);
+						$smarty->display('error/errorconnexion.tpl');
+						return NULL;
 					}
 				}
 			}
