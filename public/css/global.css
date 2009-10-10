@@ -96,7 +96,7 @@ h3 {
 #header {
 	float: left;
 	width: 868px;
-	height: 177px;
+	height: 188px;
 	background-image: url('../images/site/header.png');
 	background-position: left top;
 	background-repeat: no-repeat;
@@ -114,7 +114,7 @@ h3 {
 #connexion {
 	float: left;
 	position: absolute;
-	margin-top: 50px;
+	margin-top: 60px;
 	margin-left: 595px;
 	color: #000000;
 	font-size: 11px;
@@ -125,7 +125,7 @@ h3 {
 	position: absolute;
 	width: 860px;
 	height: 30px;
-	margin-top: 121px;
+	margin-top: 135px;
 	margin-left: 4px;
 	background-image: url('../images/site/menu_background.png');
 	background-position: left bottom;
@@ -137,7 +137,7 @@ h3 {
 	position: absolute;
 	width: 860px;
 	height: 25px;
-	margin-top: 151px;
+	margin-top: 165px;
 	margin-left: 4px;
 	background-image: url('../images/site/submenu_background.png');
 	background-position: left top;
