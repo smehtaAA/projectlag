@@ -318,7 +318,7 @@ h3 {
 	width: 236px;
 	height: 7px;
 	background-image: url('../images/site/content_right_top.png');
-	background-position: left top;
+	background-position: left bottom;
 	background-repeat: no-repeat;
 }
 
@@ -508,4 +508,16 @@ h3 {
 .staff-personne img {
 	border: solid 1px #CCCCCC;
 	padding: 1px;
+}
+
+.content-right-text input {
+	width:136px;
+	height:14px;
+	font-size: 11px;
+}
+
+.content-right-text .button {
+	width: 30px;
+	height: 20px;
+	font-size: 11px;
 }
