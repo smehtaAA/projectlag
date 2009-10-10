@@ -155,15 +155,15 @@ h3 {
 
 #content-left {
 	float: left;
-	width: 630px;
-	padding-left: 13px;
+	width: 595px;
+	padding-left: 11px;
 	padding-bottom: 6px;
 }
 
 #content-right {
 	float: right;
-	width: 260px;
-	padding-right: 13px;
+	width: 233px;
+	padding-right: 11px;
 	padding-bottom: 6px;
 }
 
@@ -263,6 +263,11 @@ h3 {
 .content-princ {
 	float: left;
 	width: 603px;
+}
+
+.content-right-princ {
+	float: left;
+	width: 250px;
 }
 
 .content-left-top {
@@ -463,6 +468,10 @@ h3 {
 	font-size: 11px;
 }
 
+.rouge {
+	color: #d51414;
+}
+
 #search input {
 	width:100px;
 	height:14px;
@@ -485,4 +494,18 @@ h3 {
 	width: 106px;
 	height: 20px;
 	font-size: 11px;
+}
+
+.staff-personne {
+	clear: left;
+	float: left;
+	border-bottom: dotted 1px #AAAAAA;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	width: 585px;
+}
+
+.staff-personne img {
+	border: solid 1px #CCCCCC;
+	padding: 1px;
 }
