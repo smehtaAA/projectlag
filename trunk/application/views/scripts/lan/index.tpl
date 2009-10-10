@@ -7,7 +7,7 @@
         <div class="content-title-right"></div>
         <div class="content-left-text">
             <strong>Date de d&eacute;but &nbsp;:</strong>&nbsp; Le {$l.datedeb|date_format:"%d/%m/%Y"} &agrave; {$l.datedeb|date_format:"%H:%M"}<br />
-            <strong>Date de fin &nbsp;:</strong>&nbsp; Le {$l.datefin|date_format:"%d/%m/%Y"} &agrave; {$l.datedeb|date_format:"%H:%M"}<br /><br />
+            <strong>Date de fin &nbsp;:</strong>&nbsp; Le {$l.datefin|date_format:"%d/%m/%Y"} &agrave; {$l.datefin|date_format:"%H:%M"}<br /><br />
             <strong>Nombre d'inscrits &nbsp;:</strong>&nbsp; {$chiffre[$l.idLan].insc}<br />
             <strong>Nombre de pr&eacute;&nbsp; :</strong>&nbsp; {$chiffre[$l.idLan].present}<br /><br />
 
