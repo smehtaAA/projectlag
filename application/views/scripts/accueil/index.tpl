@@ -26,7 +26,9 @@
             <div class="content-title-middle content-title-middle-left"><h3>{$new.titre}</h3><div class="right italic">{$new.date|date_format:"%A %e %B %Y"|capitalize}</div></div>
             <div class="content-title-right"></div>
             <div class="content-left-text">
-                <img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre}" tittle="{$new.titre}" />
+            	{if $new.img}
+                	<img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre}" tittle="{$new.titre}" />
+                {/if}
                 {$new.description|nl2br}
                 <hr />
                 <span class="tag">Tag : {$new.type_n}</span>

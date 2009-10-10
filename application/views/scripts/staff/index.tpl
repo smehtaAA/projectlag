@@ -11,7 +11,7 @@
                 <h4><span class="rouge">{$s.nom}</span></h4>
                 <br />
                 {foreach from=$comptes[$s.idStaff] name=compte item=c}
-                	<img src="{$base_url}/images/staff/{$c.prenom|lower}.jpg" align="right" alt="{$c.nom} {$c.prenom}" title="{$c.nom} {$c.prenom}" />
+                	<img src="{$base_url}/images/staff/{$c.prenom|lower}.jpg" align="right" alt="{$c.nom|capitalize} {$c.prenom}" title="{$c.nom} {$c.prenom}" />
                     &nbsp;&nbsp;<strong>Nom :</strong> {$c.nom|upper} {$c.prenom} <br/>
                     &nbsp;&nbsp<strong>Pseudo :</strong> {$c.login|capitalize} <br/>
                     &nbsp;&nbsp<strong>Age : </strong> {$datedujour-$c.datenaissance}<br/>
