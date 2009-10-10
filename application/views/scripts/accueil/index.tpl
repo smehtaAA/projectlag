@@ -1,3 +1,4 @@
+<div id="content-left">
 {if $lan != -1}
     <div class="content-princ">
     	<div class="content-right-top"></div>
@@ -45,4 +46,65 @@
            [<a href='{$url}{$page}'>{$page}</a>] 
         {/foreach}
     </center>
+</div>
+</div>
+<div id="content-right">
+    <div class="content-right-princ">
+        <div class="content-right-top"></div>
+        <div class="content-right-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-right"><h3>Image al&eacute;atoire</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-right-text">
+            </div>
+        </div>
+        <div class="content-right-bottom"></div>
+    </div>
+    
+    <div class="content-right-princ content-separator">
+        <div class="content-right-top"></div>
+        <div class="content-right-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-right"><h3>Newsletter</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-right-text">
+                <form method="post" action="">
+                    <table border="0">
+                        <tr>
+                            <td valign="middle">Email</td>
+                            <td valign="middle"> : </td>
+                            <td valign="middle"> <input type="text" name="mail" /> <input type="submit" value="ok" class="button" /></td>
+                        </tr>
+                    </table>
+                </form>		
+            </div>
+        </div>
+        <div class="content-right-bottom"></div>
+    </div>
+    
+    <div class="content-right-princ content-separator">
+        <div class="content-right-top"></div>
+        <div class="content-right-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-right"><h3>Partenaires</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-right-text">
+    
+            </div>
+        </div>
+        <div class="content-right-bottom"></div>
+    </div>
+    
+    <div class="content-right-princ content-separator">
+        <div class="content-right-top"></div>
+        <div class="content-right-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-right"><h3>News Partenaire</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-right-text">
+    
+            </div>
+        </div>
+        <div class="content-right-bottom"></div>
+    </div>
 </div>
