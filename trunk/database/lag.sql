@@ -305,6 +305,31 @@ CREATE TABLE IF NOT EXISTS `grade` (
 -- Contenu de la table `grade`
 --
 
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `information`
+--
+
+DROP TABLE IF EXISTS `information`;
+CREATE TABLE IF NOT EXISTS `information` (
+  `idInformation` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `titre` varchar(30) NOT NULL,
+  `description` varchar(150),
+  `date` datetime NOT NULL,
+  `img` varchar(50) NOT NULL,
+  `affiche` boolean NOT NULL DEFAULT FALSE,
+  PRIMARY KEY (`idInformation`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `information`
+--
+INSERT INTO `information` VALUES
+(1, 'Local Arena Games', 'La Local Arena Games (LAG) est une association loi 1901 qui a pour but de regrouper un maximum de joueurs.', '2009-10-10 11:00:00', 'information_1.jpg', true),
+(2, 'LAG Téléthon 2009', 'La LAG organise une LAN au profit du téléthon, de nombreux jeux seront joués lors de cette nuit de folie.', '2009-10-10 11:00:00', 'information_2.jpg', true);
+
 -- --------------------------------------------------------
 
 --
@@ -602,17 +627,18 @@ CREATE TABLE IF NOT EXISTS `news` (
   `idCompte` int(10) unsigned NOT NULL,
   `idPartenaire` int(10) unsigned DEFAULT NULL,
   `titre` varchar(60) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `type_n` varchar(20) DEFAULT NULL,
   `img` varchar(200) DEFAULT NULL,
   `description` longtext,
   PRIMARY KEY (`idNews`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `news`
 --
-INSERT INTO `news` VALUES(1, 0, 0, 'La LAG ', '2009-10-10', 'Association', NULL, '<p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">Salut &agrave; tous,</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">Nous avons le plaisir de vous pr&eacute;senter notre petite prot&eacute;g&eacute;e, la <strong>Local Arena Games</strong>. En effet, les anciens membres de l&rsquo;association Golden Nethix Lan (GNL pour les intimes) ont d&eacute;cid&eacute;s de se regrouper sous le nom d&rsquo;une nouvelle association, la <strong>LAG</strong> !&nbsp; :D. Le si&egrave;ge social ayant chang&eacute;, les &eacute;v&eacute;nements se d&eacute;rouleront maintenant dans une salle plus grande, o&ugrave; nous pourrons accueillir plus de joueurs. Nous pouvons donc mettre &agrave; disposition des joueurs, des &laquo;plus&raquo; tels qu&rsquo;un coin restauration, ou encore des activit&eacute;s sur console (PS2, Wii, ...)</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">La LAG est donc pleine de PGM ... euh plut&ocirc;t <strong>d&rsquo;enthousiasme</strong> et esp&egrave;re vous voir nombreux lors de ses &eacute;v&eacute;nements.</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">Bon, parlons plus s&eacute;rieusement, la premier &eacute;v&eacute;nement organisait par la LAG sera, comme &agrave; son habitude, une LAN <strong>enti&egrave;rement</strong> au profit du t&eacute;l&eacute;thon. Cet &eacute;v&eacute;nement porte le nom de &laquo;<strong>LAG T&eacute;l&eacute;thon 2009</strong>&raquo; et se d&eacute;roulera &agrave; la salle Poniatowsky de Mont Notre Dame (02220). Cette LAN aura pour but de r&eacute;unir des joueurs afin de jouer &agrave; un maximum de jeux diff&eacute;rents. En effet, aucun &laquo;vrai&raquo; tournoi ne sera organis&eacute;, la lan vise des jeux plus &laquo;<strong>fun</strong>&raquo; et dont la jouabilit&eacute; en multi-joueurs est plus que remarquable (Quake 3, Trackmania, Left 4 Dead et bien plus encore ...). L&rsquo;&eacute;quipe de la LAG esp&egrave;re que cette initiative vous plaira et reste &agrave; votre disposition pour toutes questions ou propositions.</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">@ bient&ocirc;t</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">L&rsquo;&eacute;quipe de la LAG</span></p>\r\n');
+INSERT INTO `news` VALUES(1, 0, 0, 'La LAG ', '2009-10-10 10:00:00', 'Association', NULL, '<p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">Salut &agrave; tous,</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">Nous avons le plaisir de vous pr&eacute;senter notre petite prot&eacute;g&eacute;e, la <strong style="mso-bidi-font-weight: normal;">Local Arena Games</strong>. En effet, les anciens membres de l&rsquo;association <strong style="mso-bidi-font-weight: normal;">Golden Nethix Lan</strong> (GNL pour les intimes) ont d&eacute;cid&eacute;s de se regrouper sous le nom d&rsquo;une nouvelle association, la <strong style="mso-bidi-font-weight: normal;">LAG</strong> !<span style="mso-spacerun: yes;">&nbsp; </span>:D. Le si&egrave;ge social ayant chang&eacute;, les &eacute;v&eacute;nements se d&eacute;rouleront maintenant dans une salle plus grande, o&ugrave; nous pourrons accueillir plus de joueurs. Cette salle se trouve &agrave; <strong>Mont Notre Dame</strong> (02220), village situ&eacute; entre Soissons et Reims. Avec cette salle, nous avons la possibilit&eacute; de mettre en place des &laquo;&nbsp;plus&nbsp;&raquo; tels qu&rsquo;un coin restauration, ou encore des activit&eacute;s sur console (PS2, Wii, ...)</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">La LAG revient donc avec le plein de PGM ... euh ... non &hellip; plut&ocirc;t <strong style="mso-bidi-font-weight: normal;">d&rsquo;enthousiasme</strong> et esp&egrave;re vous voir nombreux lors de ses &eacute;v&eacute;nements.</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">@ bient&ocirc;t</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">L&rsquo;&eacute;quipe de la LAG</p>\r\n</p>\r\n<p>&nbsp;</p>'),
+(2, 0, 0, 'LAG Téléthon 2009', '2009-10-10 11:00:00', 'Lan', NULL, '<p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">Salut &agrave; tous,</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">Reprenons notre s&eacute;rieux, le premier &eacute;v&eacute;nement organisait par la LAG sera, comme &agrave; son habitude, une LAN <strong style="mso-bidi-font-weight: normal;">enti&egrave;rement</strong> au profit du t&eacute;l&eacute;thon. Cet &eacute;v&eacute;nement porte le nom de &laquo;<strong style="mso-bidi-font-weight: normal;">LAG T&eacute;l&eacute;thon 2009</strong>&raquo; et se d&eacute;roulera &agrave; la salle Poniatowsky de Mont Notre Dame (02220). Lors de cette lan, l&rsquo;association LAG sera partenaire complet du T&eacute;l&eacute;thon, en effet, une demande d&rsquo;agr&eacute;ment aupr&egrave;s de l&rsquo;AFM T&eacute;l&eacute;thon vient d&rsquo;&ecirc;tre d&eacute;pos&eacute;e. <span style="mso-spacerun: yes;">&nbsp;</span>Ainsi, nous garantissons que l&rsquo;ensemble des entr&eacute;es et des ventes seront enti&egrave;rement revers&eacute;es au profit du T&eacute;l&eacute;thon.</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">La LAG a choisi de r&eacute;aliser une lan &laquo;&nbsp;<strong style="mso-bidi-font-weight: normal;">fun</strong>&nbsp;&raquo;. En effet, aucun &laquo;vrai&raquo; tournoi ne sera organis&eacute;, nous visons des jeux plus vari&eacute;s qui offrent en mode multi-joueurs de bons moments. Les jeux choisis sont nombreux mais certains ressortent plus que d&rsquo;autres comme <strong>Left 4 Dead</strong> , <strong>CS 1.6</strong> ou m&ecirc;me <strong>TrackMania</strong>. L&rsquo;&eacute;quipe de la LAG esp&egrave;re que cette initiative vous plaira et reste &agrave; votre disposition pour toutes questions ou propositions.</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">@ bient&ocirc;t</p>\r\n<p class="Corps" style="tab-stops: 35.45pt 70.85pt 106.3pt 5.0cm 177.15pt 212.6pt 248.05pt 283.45pt 318.9pt 354.35pt 389.75pt 425.2pt 460.65pt;">L&rsquo;&eacute;quipe de la LAG</p>\r\n</p>');
 
 
 -- --------------------------------------------------------
