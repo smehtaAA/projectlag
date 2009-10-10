@@ -49,6 +49,7 @@ class StaffController extends Zend_Controller_Action
 		$smarty->assign('datedujour', $date->toString('YYYY-M-dd'));
 		$smarty->assign('comptes', $comptes);
 		$smarty->assign('titre', 'Staff');
+		$smarty->assign('base_url', $request->getBaseUrl());
 		
 		$smarty->assign('staffs', $staff);
 		
