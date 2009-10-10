@@ -568,6 +568,12 @@ h3 {
 	padding: 1px;
 }
 
+.img-spec {
+	border: solid 1px #CCCCCC;
+	padding: 1px;
+}
+
+
 .content-right-text input {
 	width:136px;
 	height:14px;

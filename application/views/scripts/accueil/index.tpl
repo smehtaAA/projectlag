@@ -1,4 +1,26 @@
 <div id="content-left">
+<div class="content-princ">
+	<div class="content-left-top"></div>
+    <div class="content-left-middle">
+    	<div class="content-left-text">
+        	<div style="float:left;width: 80px;padding-left:10px;">
+        		<img src="{$base_url}/images/info/thumb/information_1.jpg" class="img-spec" />
+                <br /><br />
+                <img src="{$base_url}/images/info/thumb/information_2.jpg" class="img-spec" />
+            </div>
+            <div style="float:right;">
+    			<img src="{$base_url}/images/info/information_1.jpg" align="right" class="img-spec" />
+                <div style="float:left;padding-right:5px;position: absolute;width: 402px;background-color:#000000; height:45px;margin-left:15px;margin-top:150px;opacity:0.7; color: #FFFFFF;padding:15px;">
+                	<h4>Local Arena Games</h4>
+                    <br />
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci mauris, auctor sit amet placerat non, adipiscing ac lacus.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-left-bottom"></div>
+</div>
+
 {if $lan != -1}
     <div class="content-princ">
     	<div class="content-right-top"></div>
@@ -20,7 +42,7 @@
 {/if}
 
 {foreach from=$news item=new name=new}
-    <div class="content-princ">
+    <div class="content-princ content-separator">
     	<div class="content-left-top"></div>
         <div class="content-left-middle">
             <div class="content-title-left"></div>
