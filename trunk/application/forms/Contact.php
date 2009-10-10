@@ -42,7 +42,7 @@ class Form_Contact extends Zend_Form
             'label'      => 'Votre message : ',
             'required'   => true,
 			'rows' 		 => 15,
-			'cols'       => 70,
+			'cols'       => 100,
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(10, 1000))
                 )

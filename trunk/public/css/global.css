@@ -167,6 +167,15 @@ h3 {
 	padding-bottom: 6px;
 }
 
+
+#content-total {
+	float: left;
+	width: 846px;
+	padding-left: 11px;
+	padding-right: 11px;
+	padding-bottom: 6px;
+}
+
 #footer {
 	float: left;
 	width: 868px;
@@ -180,6 +189,7 @@ h3 {
 	float: left;
 	width: 868px;
 	text-align: center;
+	padding-bottom: 15px;
 }
 
 /*----------------------------------------------------------------------------------------------------------- */
@@ -265,6 +275,11 @@ h3 {
 	width: 603px;
 }
 
+.content-total-princ {
+	float: left;
+	width: 845px;
+}
+
 .content-right-princ {
 	float: left;
 	width: 250px;
@@ -302,6 +317,44 @@ h3 {
 .content-left-text {
 	float: left;
 	width: 583px;
+	clear:left;
+	text-align: justify;
+	padding-top:5px;
+	padding-bottom: 1px;
+}
+
+.content-total-top {
+	float: left;
+	width: 845px;
+	height: 8px;
+	background-image: url('../images/site/content_total_top.png');
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+
+.content-total-middle {
+	float: left;
+	width: 845px;
+	background-image: url('../images/site/content_total_middle.png');
+	background-position: left top;
+	background-repeat: repeat-y;
+	padding-left:8px;
+	clear: left;
+}
+
+.content-total-bottom {
+	float: left;
+	width: 845px;
+	height: 8px;
+	background-image: url('../images/site/content_total_bottom.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+	clear: left;
+}
+
+.content-total-text {
+	float: left;
+	width: 823px;
 	clear:left;
 	text-align: justify;
 	padding-top:5px;
@@ -384,6 +437,10 @@ h3 {
 	width: 554px;
 }
 
+.content-title-middle-total {
+	width: 795px;
+}
+
 .content-title-middle-right {
 	width: 186px;
 }
@@ -395,6 +452,7 @@ h3 {
 /*----------------------------------------------------------------------------------------------------------- */
 /*   Footer                                                                                                   */
 /*----------------------------------------------------------------------------------------------------------- */
+
 #footer-link {
 	font-size: 11px;
 	color: #FFFFFF;
@@ -426,24 +484,24 @@ h3 {
 /*   Liste                                                                                                    */
 /*----------------------------------------------------------------------------------------------------------- */
 
-#content-left ul {
+#content ul {
 	list-style: square;
 	padding-left: 30px;
 	padding-top: 8px;
 	padding-bottom: 8px;
 }
 
-#content-left hr {
+#content hr {
 	border: 0px;
 	height: 0px;
 	border-top: dotted 1px #AAAAAA;
 }
 
-#content-left a:link, #content-left a:visited {
+#content a:link, #content a:visited {
 	color: #000000;
 }
 
-#content-left a:hover {
+#content a:hover {
 	color: #d51414;
 	text-decoration: underline;
 }
@@ -502,7 +560,7 @@ h3 {
 	border-bottom: dotted 1px #AAAAAA;
 	padding-bottom: 10px;
 	margin-bottom: 10px;
-	width: 585px;
+	width: 823px;
 }
 
 .staff-personne img {
