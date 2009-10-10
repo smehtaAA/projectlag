@@ -607,11 +607,12 @@ CREATE TABLE IF NOT EXISTS `news` (
   `img` varchar(200) DEFAULT NULL,
   `description` longtext,
   PRIMARY KEY (`idNews`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `news`
 --
+INSERT INTO `news` VALUES(1, 0, 0, 'La LAG ', '2009-10-10', 'Association', NULL, '<p>&nbsp;</p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">Salut &agrave; tous,</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">Nous avons le plaisir de vous pr&eacute;senter notre petite prot&eacute;g&eacute;e, la <strong>Local Arena Games</strong>. En effet, les anciens membres de l&rsquo;association Golden Nethix Lan (GNL pour les intimes) ont d&eacute;cid&eacute;s de se regrouper sous le nom d&rsquo;une nouvelle association, la <strong>LAG</strong> !&nbsp; :D. Le si&egrave;ge social ayant chang&eacute;, les &eacute;v&eacute;nements se d&eacute;rouleront maintenant dans une salle plus grande, o&ugrave; nous pourrons accueillir plus de joueurs. Nous pouvons donc mettre &agrave; disposition des joueurs, des &laquo;plus&raquo; tels qu&rsquo;un coin restauration, ou encore des activit&eacute;s sur console (PS2, Wii, ...)</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">La LAG est donc pleine de PGM ... euh plut&ocirc;t <strong>d&rsquo;enthousiasme</strong> et esp&egrave;re vous voir nombreux lors de ses &eacute;v&eacute;nements.</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">Bon, parlons plus s&eacute;rieusement, la premier &eacute;v&eacute;nement organisait par la LAG sera, comme &agrave; son habitude, une LAN <strong>enti&egrave;rement</strong> au profit du t&eacute;l&eacute;thon. Cet &eacute;v&eacute;nement porte le nom de &laquo;<strong>LAG T&eacute;l&eacute;thon 2009</strong>&raquo; et se d&eacute;roulera &agrave; la salle Poniatowsky de Mont Notre Dame (02220). Cette LAN aura pour but de r&eacute;unir des joueurs afin de jouer &agrave; un maximum de jeux diff&eacute;rents. En effet, aucun &laquo;vrai&raquo; tournoi ne sera organis&eacute;, la lan vise des jeux plus &laquo;<strong>fun</strong>&raquo; et dont la jouabilit&eacute; en multi-joueurs est plus que remarquable (Quake 3, Trackmania, Left 4 Dead et bien plus encore ...). L&rsquo;&eacute;quipe de la LAG esp&egrave;re que cette initiative vous plaira et reste &agrave; votre disposition pour toutes questions ou propositions.</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">@ bient&ocirc;t</span></p>\r\n<p style=\\"\\\\\\"><span style=\\"\\\\\\">L&rsquo;&eacute;quipe de la LAG</span></p>\r\n<p>&nbsp;</p>');
 
 
 -- --------------------------------------------------------
