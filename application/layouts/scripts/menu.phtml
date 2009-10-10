@@ -1,13 +1,20 @@
-		<div id="menu">
+<?php $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName(); echo "\n" ?>
 			<ul>
-				<li><a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'index'),'default', true) ?>">Accueil</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'staff', 'action' => 'index'),'default', true) ?>">Staff</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'index'),'default', true) ?>">Lan</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'charte', 'action' => 'index'),'default', true) ?>">Chartes</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'inscription', 'action' => 'index'),'default', true) ?>">Inscription</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'jeux', 'action' => 'index'),'default', true) ?>">Jeux</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'index'),'default', true) ?>">Forum</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'partenaire', 'action' => 'index'),'default', true) ?>">Partenaire</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'log', 'action' => 'index'),'default', true) ?>">Log Admin</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="accueil") { ?>id="menu-active"<?php } ?>>Home</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'staff', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="staff") { ?>id="menu-active"<?php } ?>>Staff</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="lan") { ?>id="menu-active"<?php } ?>>Lan</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'charte', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="charte") { ?>id="menu-active"<?php } ?>>Chartes</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'inscription', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="inscription") { ?>id="menu-active"<?php } ?>>Inscription</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="forum") { ?>id="menu-active"<?php } ?>>Forum</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'partenaire', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="partenaire") { ?>id="menu-active"<?php } ?>>Partenaires</a></li>
+				<li class="separator"></li>
+				<li><a href="<?= $this->url(array('controller' => 'contact', 'action' => 'form'),'default', true) ?>" <?php if($controllerName=="contact") { ?>id="menu-active"<?php } ?>>Contact</a></li>
+				<li class="separator"></li>
 			</ul>
-		</div>
