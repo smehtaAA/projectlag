@@ -72,10 +72,32 @@
 
 </div>
 <div id="content-right">
-
+	{if $log_joueur == 1}
+	<div class="content-right-princ">
+        <div class="content-right-top"></div>
+        <div class="content-right-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-right"><h3>Mon Menu</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-right-text">
+            		<ul>
+						<li><a href="{$base_url}/compte/form">Mon Compte</a></li>
+						<li><a href="{$base_url}/lan/indexjoueur">Mes Inscriptions</a></li>
+						<!--<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'indexjoueur'),'default', true) ?>">Mes messages</a></li>-->
+						<li><a href="{$base_url}/log/deconnexion">Deconnexion</a></li>
+					</ul>
+            </div>
+        </div>
+        <div class="content-right-bottom"></div>
+    </div>
+	{/if}
     
     {if $lan != -1}
-    <div class="content-princ">
+        {if $log_joueur == 1}
+            <div class="content-princ content-separator">
+        {else}
+            <div class="content-princ">
+        {/if}
     	<div class="content-right-top"></div>
         <div class="content-right-middle">
             <div class="content-title-left"></div>

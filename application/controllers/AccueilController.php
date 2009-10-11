@@ -21,7 +21,9 @@ class AccueilController extends Zend_Controller_Action
 		
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('joueur')) {
-			return $this->_helper->redirector('indexjoueur', 'accueil');
+			$smarty->assign('log_joueur', 1);
+		} else {
+			$smarty->assign('log_joueur', 0);
 		}
 		
 		if($id == 0)

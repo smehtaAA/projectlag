@@ -34,11 +34,24 @@ $frontController = Zend_Controller_Front::getInstance();
 $frontController->setParam('noViewRenderer', true);
 $frontController->setControllerDirectory(APPLICATION_PATH . '/controllers');
 $frontController->setParam('env', APPLICATION_ENVIRONMENT);
+/*
+$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); 
+$actionName = $frontController->getRequest()->getActionName();
 
+$interface_admin = Zend_Registry::get('interface_admin');
+if (empty($interface_admin) || ($controllerName=='accueil' && $actionName=='index') ) {
+	$interface_admin = false;
+	Zend_Registry::set('interface_admin', $interface_admin);
+}
+if($interface_admin || ($controllerName=='accueil' && $actionName=='indexadminmenu')){
+	$interface_admin = true;
+	Zend_Registry::set('interface_admin', $interface_admin);
+}
 
+*/
 $defaultNamespace = new Zend_Session_Namespace();
 if(isset($defaultNamespace->userid)) {
-	if($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin')
+	if(($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin'))
 		$layoutname = 'layout_admin';
 	elseif($defaultNamespace->type == 'joueur')
 		$layoutname = 'layout_joueur';
