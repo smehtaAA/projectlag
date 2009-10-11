@@ -171,18 +171,20 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `actif` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idCompte`),
   KEY `idGrade` (`idGrade`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `compte`
 --
 
-INSERT INTO `compte` (`idCompte`, `idGrade`, `login`, `password`, `nom`, `prenom`, `email`, `datenaissance`, `dateins`, `dateco`, `temps`, `ip`, `jeuxprefere`, `site`, `configpc`, `citationpreferee`, `description`, `nbconnexion`, `keyvalidation`, `actif`) VALUES
-(1, 1, 'Sieg', 'a16585fa2acbfe4761048c52d5987f166c027279', 'Méhault', 'Maxime', 'lag.sieg@gmail.com', '1988-02-09', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(2, 1, 'Ash', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Moraux', 'Antoine', 'lag.ash@gmail.com', '1988-06-14', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(3, 1, 'Ryzen', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Bourgeois', 'Steevens', 'lag.ryzen@gmail.com', '1987-07-25', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4, 1, 'Belette', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Frayon', 'Johan', 'belette_0161@hotmail.com', '1987-05-26', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(5, 1, 'Risk.Breaker', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Barrat', 'Eric', 'parodius02@msn.com', '1973-09-06', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `compte` (`idCompte`, `idGrade`, `login`, `password`, `nom`, `prenom`, `email`, `msn`, `img`, `phone`, `datenaissance`, `dateins`, `dateco`, `temps`, `ip`, `jeuxprefere`, `site`, `configpc`, `citationpreferee`, `description`, `nbconnexion`, `keyvalidation`, `actif`) VALUES
+(1, 1, 'Sieg', 'a16585fa2acbfe4761048c52d5987f166c027279', 'Méhault', 'Maxime', 'lag.sieg@gmail.com', '', '', '', '1988-02-09', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(2, 1, 'Ash', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Moraux', 'Antoine', 'lag.ash@gmail.com', '', '', '', '1988-06-14', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3, 1, 'Ryzen', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Bourgeois', 'Steevens', 'lag.ryzen@gmail.com', '', '', '', '1987-07-25', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4, 1, 'Belette', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Frayon', 'Johan', 'belette_0161@hotmail.com', '', '', '', '1987-05-26', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(5, 1, 'Risk.Breaker', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Barrat', 'Eric', 'parodius02@msn.com', '', '', '', '1973-09-06', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(6, 1, 'toto', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'toto', 'toto', 'toto@toto.Fr', NULL, 'toto.jpg', NULL, '1989-10-05', '2009-10-11 16:12:21', '2009-10-11', 0, '127.0.0.1', 'teatgzegzegezgez', 'gezgzegezg', 'ezgezgezg', 'ezgezgze', 'gzegzegzegzegzegz', NULL, '9f96af676008813094ddde0e6adff9cf8396d803', 1);
+
 
 -- --------------------------------------------------------
 
@@ -276,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `fonctioncompte` (
   PRIMARY KEY (`idFonctionCompte`),
   KEY `idFonction` (`idFonction`),
   KEY `idCompte` (`idCompte`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=6;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=7;
 
 --
 -- Contenu de la table `fonctioncompte`
@@ -287,7 +289,8 @@ INSERT INTO `fonctioncompte` (`idFonctionCompte`, `idFonction`, `idCompte`) VALU
 (2, 1, 2),
 (3, 2, 3),
 (4, 2, 4),
-(5, 2, 5);
+(5, 2, 5),
+(6, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -379,6 +382,7 @@ CREATE TABLE IF NOT EXISTS `lan` (
   `idLan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
   `adresse` varchar(60) NOT NULL,
+  `ville` varchar(60) NOT NULL,
   `datedeb` datetime NOT NULL,
   `datefin` datetime NOT NULL,
   `nbmaxpers` int(10) NOT NULL,
@@ -388,17 +392,20 @@ CREATE TABLE IF NOT EXISTS `lan` (
   `telethon` boolean NOT NULL DEFAULT FALSE,
   `prepaiement` boolean NOT NULL DEFAULT FALSE,
   `prix_prepaiement` int(10) NOT NULL,
+  `prix_prepaiement_paypal` int(10) NOT NULL,
+  `extra` longtext,
   `description` longtext,
   `nbclick` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idLan`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `lan`
 --
 
-INSERT INTO `lan` (`idLan`, `nom`, `adresse`, `datedeb`, `datefin`, `nbmaxpers`, `prix`, `inscription`, `telethon`, `prepaiement`, `prix_prepaiement`, `description`, `nbclick`) VALUES
-(1, 'LAG Téléthon 2009', '<p>Salle Poniatowsky <br/> Mont Notre Dame </p>', '2009-12-04 20:00:00', '2009-12-05 17:00:00', 75, 5, 0, 1, 1, 5, '<p>LAG organise sa première Lan au profit du téléthon</p>', NULL);
+INSERT INTO `lan` (`idLan`, `nom`, `adresse`, `ville`, `datedeb`, `datefin`, `nbmaxpers`, `prix`, `inscription`, `date_inscription`, `telethon`, `prepaiement`, `prix_prepaiement`, `prix_prepaiement_paypal`, `extra`, `description`, `nbclick`) VALUES
+(1, 'LAG Téléthon 2009', 'Salle Poniatowsky', 'Mont Notre Dame', '2009-12-04 20:00:00', '2009-12-05 17:00:00', 75, 9, 1, '2009-10-11', 1, 1, 5, 6, '<p>LAG organise sa premi&egrave;re Lan au profit du t&eacute;l&eacute;thon. Celle-ci porte le nom de&nbsp;<strong>LAG T&eacute;l&eacute;thon 2009</strong>. Afin de bien r&eacute;aliser l\'&eacute;v&eacute;nement, la LAG a demand&eacute; &nbsp;un agr&eacute;ment aupr&egrave;s de l\'<strong>AFM T&eacute;l&eacute;thon</strong>. Cet agr&eacute;ment vous promet que l''ensemble des dons et entr&eacute;es r&eacute;alis&eacute; lors de cet &eacute;v&eacute;nement sera revers&eacute; dans son int&eacute;gralit&eacute; &agrave; l\'AFM.</p>', '<p>Pour cet &eacute;v&eacute;nement, la LAG a r&eacute;fl&eacute;chi afin de mettre &agrave; votre disposition des "activit&eacute;s" suppl&eacute;mentaires. Apr&egrave;s quelques cerveaux grill&eacute;s, l''&eacute;quipe des administrateurs a sorti quelques id&eacute;es (seules 3 id&eacute;es sont ressorties sur l''ensemble des &nbsp;... autres) :</p>\r\n<ul>\r\n<li>Un tournoi&nbsp;<strong>Dance Dance Revolution&nbsp;</strong>(DDR), il s''agit d''un jeu sur PS2 o&ugrave; l''on jouera sur un vid&eacute;o-projecteur. Pour ceux qu''il ne connaisse pas, regardez quelques vid&eacute;os sur youtube.</li>\r\n<li><strong>Bowling sur Wii</strong>, en effet, un tournoi bowling sur Wii est susceptible d''&ecirc;tre propos&eacute;. Le tournoi se r&eacute;alisera &agrave; l''aide d''une Wii (.. heureusement !!) et un vid&eacute;o-projecteur !</li>\r\n<li>Le meilleur pour la faim : un coin <strong>restauration</strong>, comme lors de la lan G4, un coin restauration sera mis &agrave; disposition avec vente de sandwichs et de boissons.</li>\r\n</ul>\r\n<p>Voici les meilleures id&eacute;es sorties par notre &eacute;quipe d''administrateur. Mais bon, si vous en avez, n''h&eacute;sitez pas en proposer, elles seront peut &ecirc;tre accept&eacute;es et r&eacute;alisables !! &nbsp;:D</p>', NULL);
+
 
 -- --------------------------------------------------------
 

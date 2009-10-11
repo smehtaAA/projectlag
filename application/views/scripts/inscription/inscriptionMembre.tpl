@@ -3,24 +3,40 @@
 $(document).ready(function() {
 	$('#datenaissance').datepicker({
 			format:'dd/mm/Y',
-			date: $('#datedeb').val(),
-			current: $('#datedeb').val(),
-			numberOfMonths: 3,
+			date: $('#datenaissance').val(),
+			current: $('#datenaissance').val(),
 			showButtonPanel: true,
+			changeMonth: true,
+			changeYear: true,
 			starts: 1,
 			position: 'right',
 			onBeforeShow: function(){
-				$('#datedeb').DatePickerSetDate($('#datedeb').val(), true);
+				$('#datenaissance').DatePickerSetDate($('#datenaissance').val(), true);
 			},
 			onChange: function(formated, dates){
-				$('#datedeb').val(formated);
-				$('#datedeb').DatePickerHide();
+				$('#datenaissance').val(formated);
+				$('#datenaissance').DatePickerHide();
 			}
 	});	
 }); 
 </script>
 {/literal}
 
-<h2> {$titre} </h2>
 
-{$form}
+<div id="content-total">
+    <div class="content-total-princ">
+        <div class="content-total-top"></div>
+        <div class="content-total-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$titre}</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-total-text">
+               {$form}   
+            </div>
+        </div>
+        <div class="content-total-bottom"></div>
+    </div>
+</div>
+
+
+

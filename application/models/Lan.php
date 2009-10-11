@@ -69,6 +69,21 @@ class Model_Lan
         $table = $this->getTable();
 		$select = $table->select()
 							->from(array('lj' => 'lanjoueur'), array('COUNT(DISTINCT lj.idLanJoueur) as insc'))
+							->where('lj.validation = 1')
+							->where('lj.idLan = ?', $idLan)
+							->setIntegrityCheck(false);
+		
+		
+		$row = $table->fetchRow($select);
+        return $row->insc;
+    }
+	
+	public function fetchEntriesCountPreInscrits($idLan)
+    {
+        $table = $this->getTable();
+		$select = $table->select()
+							->from(array('lj' => 'lanjoueur'), array('COUNT(DISTINCT lj.idLanJoueur) as insc'))
+							->where('lj.validation = 0')
 							->where('lj.idLan = ?', $idLan)
 							->setIntegrityCheck(false);
 		

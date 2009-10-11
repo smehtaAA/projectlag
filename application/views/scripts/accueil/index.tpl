@@ -32,6 +32,7 @@
                 Nom : {$lan.nom}<br />
                 Date de d&eacute;but : {$lan.datedeb|date_format:"%d/%m/%Y a %H:%M"}<br />
                 Lieux : {$lan.adresse}<br />
+                Nb. pr&eacute;-inscrits : {$nb_preinscrits}<br />
                 Nb. inscrits : {$nb_inscrits}
                 <br /><br />
                 <a href="{$base_url}/lan/">Plus d'information...</a>
