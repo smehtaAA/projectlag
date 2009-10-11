@@ -66,7 +66,7 @@ class Form_Compte extends My_CreationCompte
 		
 		$this->addElement('text', 'msn', array(
             'label'      => 'MSN : ',
-            'required'   => true,
+            'required'   => false,
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(2, 60), 'EmailAddress')
             )
@@ -74,7 +74,7 @@ class Form_Compte extends My_CreationCompte
 		
 		$this->addElement('text', 'phone', array(
             'label'      => 'Telephone : ',
-            'required'   => true,
+            'required'   => false,
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(10,10))
             )
@@ -92,37 +92,40 @@ class Form_Compte extends My_CreationCompte
             'required'    => false
         ));
 		
-		$this->addElement('textarea', 'jeuxprefere', array(
+		$this->addElement('text', 'jeuxprefere', array(
             'label'      => 'Jeux préférés : ',
             'RegisterInArrayValidator' => false,
-            'required'   => true
+            'required'   => false
         ));
 		
 		$this->addElement('text', 'site', array(
             'label'      => 'Site : ',
             'RegisterInArrayValidator' => false,
-            'required'   => true
+            'required'   => false
         ));
 		
 		$this->addElement('text', 'configpc', array(
             'label'      => 'Config PC : ',
             'RegisterInArrayValidator' => false,
-            'required'   => true
+            'required'   => false
         ));
 		
 		$this->addElement('text', 'citationpreferee', array(
             'label'      => 'Citation préférée : ',
             'RegisterInArrayValidator' => false,
-            'required'   => true
+            'required'   => false
         ));
 
         $this->addElement('textarea', 'description', array(
             'label'      => 'Description : ',
-            'required'   => true
+			'rows'       => 5,
+			'cols'       => 40,
+            'required'   => false
         ));
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
+			'class'    => 'button'
         ));
     }
 }

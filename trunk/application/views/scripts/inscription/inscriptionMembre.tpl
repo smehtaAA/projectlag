@@ -31,15 +31,16 @@ $(document).ready(function() {
             <div class="content-title-middle content-title-middle-total"><h3>{$titre}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-            	<br/>
                 {if $login_existant==1}
-                <br/>
+                    <br/>
                 	<span class="rouge"> Erreur : <ul>
                 	<li>Le login choisit existe d&eacute;j&agrave; !!!</li></ul></span>
                     <br/><br/>
                 {/if}
             	
-               {$form}   
+                <div style="margin-left: 270px; width: 305px;">
+                    {$form} 
+                </div>  
             </div>
         </div>
         <div class="content-total-bottom"></div>

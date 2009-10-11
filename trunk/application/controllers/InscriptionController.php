@@ -105,8 +105,11 @@ class InscriptionController extends Zend_Controller_Action
 	
 	public function validationAction()
 	{
-		$smarty = Zend_Registry::get('view');
+		$smarty = Zend_Registry::get('view');		
+		$request = $this->getRequest();
+		
 		$smarty->assign('valid', 0);
+		$smarty->assign('base_url', $request->getBaseUrl());
 		$smarty->display('inscription/validation.tpl');
 	}
 	
@@ -158,6 +161,7 @@ class InscriptionController extends Zend_Controller_Action
 		$login = $modelCompte->fetchEntryByLogin('toti');
 		$form    = $this->_getCompteForm();
 		$smarty->assign('test', $login);
+		$login_existant = 0;		
 		
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($request->getPost())) {
@@ -202,7 +206,6 @@ class InscriptionController extends Zend_Controller_Action
 					$f['idCompte'] = $compte['idCompte'];
 					$f['idFonction'] = 3;
 					$modelFonctionCompte->save(0,$f);
-					
 	
 					
 					$this->sendMailInscriptionMembre($dataform['keyvalidation']);
@@ -221,12 +224,13 @@ class InscriptionController extends Zend_Controller_Action
 					$modelLanJoueur->save(0,$insc);
 					*/
 				} else {
-					$smarty->assign('login_existant', 1);
+					$login_existant = 1;
 				}
 			}
 		}
 				
-			
+		
+		$smarty->assign('login_existant', $login_existant);	
 		$smarty->assign('titre', 'Inscription pour la lan '.$lan['nom']);
 		$smarty->assign('form', $form);
 		$smarty->display('inscription/inscriptionMembre.tpl');

@@ -508,9 +508,10 @@ h3 {
 
 #inscription-charte {
 	overflow:scroll;
-	width: 830px;
+	width: 815px;
 	height: 500px;
-	background-color: #CCCCCC;
+	border: solid 1px #DDDDDD;
+	padding: 5px;
 }
 
 .right {
@@ -573,6 +574,22 @@ h3 {
 	padding: 1px;
 }
 
+.content-total-princ input {
+	width:300px;
+	font-size: 11px;
+}
+
+.content-total-princ .log {
+	width: 130px;
+	height: 16px;
+	font-size: 11px;
+}
+
+.content-total-princ .button {
+	width: 70px;
+	height: 20px;
+	font-size: 11px;
+}
 
 .content-right-text input {
 	width:136px;
