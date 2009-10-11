@@ -43,6 +43,14 @@ class Model_Information
         return $table->fetchRow($select)->toArray();
     }
 	
+	public function fetchEntriesAccueil()
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('affiche = 1')->limit(3);
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
 	public function countEntries()
 	{
 		$table = $this->getTable();

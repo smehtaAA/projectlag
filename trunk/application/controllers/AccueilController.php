@@ -6,6 +6,7 @@ class AccueilController extends Zend_Controller_Action
 	protected $_modelNews;
 	protected $_modelPartenaire;
 	protected $_modelConfig;
+	protected $_modelInformation;
 	
 	public function indexAction()
 	{
@@ -14,6 +15,7 @@ class AccueilController extends Zend_Controller_Action
 		$modelNews = $this->_getModelNews();
 		$modelConfig = $this->_getModelConfig();
 		$modelPartenaire = $this->_getModelPartenaire();
+		$modelInformation = $this->_getModelInformation();
 		
 		$request     = $this->getRequest();
 		$page        = $request->page;
@@ -66,6 +68,10 @@ class AccueilController extends Zend_Controller_Action
 			foreach($partenaires as $p)
 				$part[$p['idPartenaire']]=$p['titre'];
 				
+			// Récupération des 3 informations
+			$infos = $modelInformation->fetchEntriesAccueil();
+				
+			$smarty->assign('infos', $infos);	
 			$smarty->assign('lan', $lan);
 			$smarty->assign('partenaire', $partenaire);
 			$smarty->assign('partenaires', $part);
@@ -213,6 +219,15 @@ class AccueilController extends Zend_Controller_Action
 			$this->_modelConfig = new Model_Config();
 		}
 		return $this->_modelConfig;
+	}
+	
+	protected function _getModelInformation()
+	{
+		if (null === $this->_modelInformation) {
+			require_once APPLICATION_PATH . '/models/Information.php';
+			$this->_modelInformation = new Model_Information();
+		}
+		return $this->_modelInformation;
 	}
     
 }
