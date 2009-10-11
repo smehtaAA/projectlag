@@ -11,6 +11,9 @@
                 <strong>Date de fin &nbsp;:</strong>&nbsp; Le {$l.datefin|date_format:"%A %e %B %Y"|capitalize|utf8_encode} &agrave; {$l.datefin|date_format:"%H:%M"}<br /><br />
                 <strong>Nombre d'inscrits &nbsp;:</strong>&nbsp; {$chiffre[$l.idLan].insc}<br />
                 <strong>Nombre de pr&eacute;sents :</strong>&nbsp; {$chiffre[$l.idLan].present}<br /><br />
+                
+                {$l.description|nl2br}
+                <br/><br/>
     
                 <strong>Liste des jeux :</strong> 
                 <ul>
@@ -18,8 +21,9 @@
                     <li>{$j.nom}</li>
                 {/foreach}
                 </ul>
-                <br />
-                {$l.description|nl2br}
+                <br/><br/>
+                {$l.extra|nl2br}
+                
             </div>
         </div>
         <div class="content-total-bottom"></div>
