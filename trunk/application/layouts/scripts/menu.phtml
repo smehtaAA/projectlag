@@ -1,7 +1,7 @@
 <?php $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName(); echo "\n" ?>
 			<ul>
 				<li class="separator"></li>
-				<li><a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="accueil") { ?>id="menu-active"<?php } ?>>Home</a></li>
+				<li><a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="accueil"||$controllerName=="news") { ?>id="menu-active"<?php } ?>>Home</a></li>
 				<li class="separator"></li>
 				<li><a href="<?= $this->url(array('controller' => 'staff', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="staff") { ?>id="menu-active"<?php } ?>>Association</a></li>
 				<li class="separator"></li>

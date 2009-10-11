@@ -8,7 +8,7 @@
             <div class="content-title-right"></div>
             <div class="content-total-text">
      			
-				<p style="font-size:14px"><span class="rouge">Local Arena Games</span> est une association loi 1901 &agrave; but non lucratif cr&eacute;&eacute;e en 2009. Son si&egrave;ge social est bas&eacute; &agrave; Mont Notre Dame dans l'Aisne (02220).</p> <br/> 
+				<p style="font-size:14px"><span class="rouge"><strong>Local Arena Games</strong></span> est une association loi 1901 &agrave; but non lucratif cr&eacute;&eacute;e en 2009. Son si&egrave;ge social est bas&eacute; &agrave; Mont Notre Dame dans l'Aisne (02220).</p> <br/> 
                 <p style="font-size:14px">Cette assocation a pour but :
                 	<ul style="font-size:14px">
                     	<li> d'offrir la possibilit&eacute; &agrave; des joueurs ou passion&eacute;s de se r&eacute;unir autour d'un r&eacute;seau local en les faisant b&eacute;n&eacute;ficier de conditions optimales. </li>
@@ -26,7 +26,7 @@
     </div>
 
 
-    <div class="content-total-princ">
+    <div class="content-total-princ content-separator">
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>

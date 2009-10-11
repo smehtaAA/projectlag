@@ -111,7 +111,7 @@
             <div class="content-title-middle content-title-middle-right"><h3>Partenaires</h3></div>
             <div class="content-title-right"></div>
             <div class="content-right-text">
-    
+    			<center><img src="{$base_url}/images/partenaires/{$partenaire[0].logo}" name="{$partenaire[0].titre}" alt="{$partenaire[0].titre}" /></center>
             </div>
         </div>
         <div class="content-right-bottom"></div>
@@ -124,7 +124,15 @@
             <div class="content-title-middle content-title-middle-right"><h3>News Partenaire</h3></div>
             <div class="content-title-right"></div>
             <div class="content-right-text">
-    
+    			{foreach from=$newsp item=np name=np}
+                	<span class="rouge"><strong>{$partenaires[$np.idPartenaire]} : {$np.titre}</strong></span> <br/> <br/>
+                    {$np.description|truncate:200:'..'} <br/> <br/>
+                    <a href="{$base_url}/news/index?id={$np.idNews}"><span class="rouge">Voir la suite ...</span></a>
+                    <hr />
+                    {if $smarty.foreach.np.last}
+                    	<a href="{$base_url}/news/indexpartenaire"><span class="rouge"><strong>Voir l'ensemble des news partenaires</strong></span></a>
+                    {/if}
+                {/foreach}
             </div>
         </div>
         <div class="content-right-bottom"></div>
