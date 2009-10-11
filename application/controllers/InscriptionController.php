@@ -154,66 +154,75 @@ class InscriptionController extends Zend_Controller_Action
 		$modelLan = $this->_getModelLan();
 		$request = $this->getRequest();
 		$lan = $modelLan->fetchEntryOuverte();
-		
+		$modelCompte = $this->_getModelCompte();
+		$login = $modelCompte->fetchEntryByLogin('toti');
 		$form    = $this->_getCompteForm();
+		$smarty->assign('test', $login);
 		
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($request->getPost())) {
 				$modelCompte = $this->_getModelCompte();
 				$modelLanJoueur = $this->_getModelLanJoueur();
 				$dataform=$form->getValues();
-				$datenaissance = $dataform['datenaissance'];
-				$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
-				$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
-				$dataform['keyvalidation']=sha1(time()+rand());
-				
-				if(empty($dataform['img']))
-					unset($dataform['img']);
-				else {
-					$nom_image = $dataform["login"];
-					require_once '../library/My/Utils.php';
-					$chaine_valide = valideChaine($nom_image);
-					$ext = explode('.',$dataform["img"]);
-					$ancien_nom = $dataform['img'];
-					$dataform['img']=$chaine_valide.'.'.$ext[1];
+				$login = $modelCompte->fetchEntryByLogin($dataform['login']);
+				if($login==-1) {
+					$datenaissance = $dataform['datenaissance'];
+					$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
+					$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
+					$dataform['keyvalidation']=sha1(time()+rand());
+					
+					if(empty($dataform['img']))
+						unset($dataform['img']);
+					else {
+						$nom_image = $dataform["login"];
+						require_once '../library/My/Utils.php';
+						$chaine_valide = valideChaine($nom_image);
+						$ext = explode('.',$dataform["img"]);
+						$ancien_nom = $dataform['img'];
+						$dataform['img']=$chaine_valide.'.'.$ext[1];
+					}
+					
+					
+					
+					$modelCompte->save(0,$dataform);
+					
+					// resize picture si image dans formulaire
+					if(!empty($dataform['img']))
+					{
+						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
+						$thumb = PhpThumbFactory::create('../public/images/comptes/'.$ancien_nom);
+						$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"]);
+						if(file_exists('../public/images/comptes/'.$ancien_nom))
+							unlink('../public/images/comptes/'.$ancien_nom);
+					}
+					
+					$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
+					
+					$modelFonctionCompte = $this->_getModelFonctionCompte();
+					$f['idCompte'] = $compte['idCompte'];
+					$f['idFonction'] = 3;
+					$modelFonctionCompte->save(0,$f);
+					
+	
+					
+					$this->sendMailInscriptionMembre($dataform['keyvalidation']);
+					
+					return $this->_redirect('/inscription/validation');
+					
+					
+					/* Code permettant l'inscription à une LAN
+					Ce morceau de code doit etre déplacé à l'endroit voulu
+					$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
+					$insc['idLan']=$lan['idLan'];
+					$insc['idCompte']=$compte['idCompte'];
+					$insc['paiement']=0;
+					$insc['validation']=false;
+					
+					$modelLanJoueur->save(0,$insc);
+					*/
+				} else {
+					$smarty->assign('login_existant', 1);
 				}
-				
-				$modelCompte->save(0,$dataform);
-				
-				// resize picture si image dans formulaire
-				if(!empty($dataform['img']))
-				{
-					require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
-					$thumb = PhpThumbFactory::create('../public/images/comptes/'.$ancien_nom);
-					$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"]);
-					if(file_exists('../public/images/comptes/'.$ancien_nom))
-						unlink('../public/images/comptes/'.$ancien_nom);
-				}
-				
-				$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
-				
-				$modelFonctionCompte = $this->_getModelFonctionCompte();
-				$f['idCompte'] = $compte['idCompte'];
-				$f['idFonction'] = 3;
-				$modelFonctionCompte->save(0,$f);
-				
-
-				
-				$this->sendMailInscriptionMembre($dataform['keyvalidation']);
-				
-				return $this->_redirect('/inscription/validation');
-				
-				
-				/* Code permettant l'inscription à une LAN
-				Ce morceau de code doit etre déplacé à l'endroit voulu
-				$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
-				$insc['idLan']=$lan['idLan'];
-				$insc['idCompte']=$compte['idCompte'];
-				$insc['paiement']=0;
-				$insc['validation']=false;
-				
-				$modelLanJoueur->save(0,$insc);
-				*/
 			}
 		}
 				

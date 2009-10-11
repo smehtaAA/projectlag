@@ -67,6 +67,7 @@ class AccueilController extends Zend_Controller_Action
 			$smarty->assign('lan', $lan);
 			$smarty->assign('partenaire', $partenaire);
 			$smarty->assign('partenaires', $part);
+			$smarty->assign('logos', $partenaires);
 			$smarty->assign('nb_inscrits', $nb_inscrits);
 			$smarty->assign('nb_preinscrits', $nb_preinscrits);
 			$smarty->assign('base_url', $request->getBaseUrl());

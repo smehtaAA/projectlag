@@ -70,6 +70,27 @@
         {/foreach}
     </center>
 </div>
+<br/><br/>
+
+    <div class="content-princ-total content-separator">
+        <div class="content-total-top"></div>
+        <div class="content-total-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Partenaires</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-total-text">
+            <center>
+                {foreach from=$logos item=logo name=logo}
+                	
+                    <img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre}" name="{$logo.titre}" style="margin:10px" />
+                
+                {/foreach}
+            </center>
+            </div>
+        </div>
+        <div class="content-total-bottom"></div>
+    </div>
+
 </div>
 <div id="content-right">
     <div class="content-right-princ">
@@ -138,4 +159,8 @@
         </div>
         <div class="content-right-bottom"></div>
     </div>
+    
+    
+
+    
 </div>
