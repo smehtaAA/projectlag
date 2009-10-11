@@ -1,7 +1,6 @@
 <div id="content-total">
     <div class="content-total-princ">
-    <table align="left">
-    	<tr> <td>
+
         <div class="content-left-top"></div>
         <div class="content-left-middle">
             <div class="content-title-left"></div>
@@ -12,8 +11,7 @@
             </div>
         </div>
         <div class="content-left-bottom"></div>
-    </td>
-    <td>
+    
         <div class="content-left-top"></div>
         <div class="content-left-middle">
             <div class="content-title-left"></div>
@@ -24,12 +22,11 @@
             </div>
         </div>
         <div class="content-left-bottom"></div>
-    </td>
-    </tr>
+
     
     
     
     
-    </table>
+
     </div>
 </div>

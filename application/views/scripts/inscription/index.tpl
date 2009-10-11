@@ -14,11 +14,11 @@
                             {$art.description|nl2br}      
                             <br/>  
                         {/foreach}
-                        </div>
+                     </div>
                             <center>
                         <input name="action" value="J'accepte" onClick="location='{$url_valide}'" type="submit" /> - 
                         <input name="action" value="Je refuse" onClick="location='{$url_nonvalide}'" type="submit" /></center>
-                    </div>
+                    
                 {/if}     
             </div>
         </div>
