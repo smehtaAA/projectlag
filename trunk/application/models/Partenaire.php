@@ -61,7 +61,7 @@ class Model_Partenaire
 	public function fetchEntriesL()
     {
         $table = $this->getTable();
-        $select = $table->select()->distinct()->from(array('p' => 'partenaire'), array('titre', 'idPartenaire'))->setIntegrityCheck(false);
+        $select = $table->select()->distinct()->from(array('p' => 'partenaire'), array('titre', 'idPartenaire', 'logo'))->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();
     }

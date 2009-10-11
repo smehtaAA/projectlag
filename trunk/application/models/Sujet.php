@@ -1,14 +1,14 @@
 <?php
 
-class Model_SousCategorie
+class Model_Sujet
 {
     protected $_table;
 
     public function getTable()
     {
         if (null === $this->_table) {
-            require_once APPLICATION_PATH . '/models/DbTable/SousCategorie.php';
-            $this->_table = new Model_DbTable_SousCategorie;
+            require_once APPLICATION_PATH . '/models/DbTable/Sujet.php';
+            $this->_table = new Model_DbTable_Sujet;
         }
         return $this->_table;
     }
@@ -23,7 +23,7 @@ class Model_SousCategorie
             }
         }
 		if($id > 0) {
-			$where = $table->getAdapter()->quoteInto('idSousCategorie = ?', $id);
+			$where = $table->getAdapter()->quoteInto('idSujet = ?', $id);
 			return $table->update($data,$where);
 		}
 		else
@@ -44,26 +44,18 @@ class Model_SousCategorie
 		return $stmt->fetchAll();
     }
 	
-	public function fetchEntryByOrdreAndCategorie($ordre, $idCat)
+	public function fetchEntryBySousCategorie($idssCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->where('idCategorie = ?', $idCat)->where('ordre = ?', $ordre);
-
-		return $table->fetchRow($select)->toArray();
-    }
-	
-	public function fetchEntryByCategorie($idCat)
-    {
-		$table = $this->getTable();
-		$select = $table->select()->where('idCategorie = ?', $idCat)->order('ordre');
+		$select = $table->select()->where('idSousCategorie = ?', $idssCat)->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }
 	
-	public function fetchEntryByCategorieVisibles($idCat)
+	public function fetchEntryByCategorieVisibles($idssCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->where('idCategorie = ?', $idCat)->where('visible=1')->order('ordre');
+		$select = $table->select()->where('idSousCategorie = ?', $idssCat)->where('visible=1')->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }
@@ -71,7 +63,7 @@ class Model_SousCategorie
     public function fetchEntry($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->where('idSousCategorie = ?', $id);
+        $select = $table->select()->where('idSujet = ?', $id);
 
         return $table->fetchRow($select)->toArray();
     }
@@ -79,15 +71,15 @@ class Model_SousCategorie
 	public function countEntries()
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('souscategorie','COUNT(idSousCategorie) AS num');
+		$select = $table->select()->from('sujet','COUNT(idSujet) AS num');
 		$row = $table->fetchRow($select);
         return $row->num;
 	}
 	
-	public function countEntriesbyCategorie($idCat)
+	public function countEntriesbySousCategorie($idssCat)
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('souscategorie','COUNT(idSousCategorie) AS num')->where('idCategorie = ?', $idCat);
+		$select = $table->select()->from('sujet','COUNT(idSujet) AS num')->where('idSousCategorie = ?', $idssCat);
 		$row = $table->fetchRow($select);
         return $row->num;
 	}
@@ -95,7 +87,7 @@ class Model_SousCategorie
 	public function delete($id)
     {	
 		$table  = $this->getTable();
-		$where = $table->getAdapter()->quoteInto('idSousCategorie = ?', $id);
+		$where = $table->getAdapter()->quoteInto('idSujet = ?', $id);
 		return $table->delete($where);
 
     }
