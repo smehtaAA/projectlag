@@ -1,20 +1,59 @@
+{literal}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.img-spec').click(function () { 
+     alert('test'+this.name);
+	 switch (this.name)
+	 {
+		 case '1': 
+			$("#info_1").attr("style","");
+			$("#info_2").attr("style","display:none;");
+			$("#info_3").attr("style","display:none;");
+			break;
+		case '2': 
+			$("#info_2").attr("style","");
+			$("#info_1").attr("style","display:none;");
+			$("#info_3").attr("style","display:none;");
+			break;
+		case '3': 
+			$("#info_3").attr("style","");
+			$("#info_2").attr("style","display:none;");
+			$("#info_1").attr("style","display:none;");
+			break;
+	 }
+    });			   
+}); 
+</script>
+{/literal}
+
 <div id="content-left">
 <div class="content-princ">
 	<div class="content-left-top"></div>
     <div class="content-left-middle">
     	<div class="content-left-text">
         	<div style="float:left;width: 80px;padding-left:10px;">
-        		<img src="{$base_url}/images/info/thumb/information_1.jpg" class="img-spec" />
-                <br /><br />
-                <img src="{$base_url}/images/info/thumb/information_2.jpg" class="img-spec" />
+            	{foreach from=$infos item=info name=in}
+        			<img src="{$base_url}/images/info/thumb/{$info.img}" class="img-spec" name="{$smarty.foreach.in.iteration}" />
+                    {if $smarty.foreach.in.last == false}
+                		<br /><br />
+                    {/if}
+                {/foreach}
             </div>
             <div style="float:right;">
-    			<img src="{$base_url}/images/info/information_1.jpg" align="right" class="img-spec" />
-                <div style="float:left;padding-right:5px;position: absolute;width: 402px;background-color:#000000; height:45px;margin-left:25px;margin-top:150px;opacity:0.7; color: #FFFFFF;padding:15px;">
-                	<h4>Local Arena Games</h4>
-                    <br />
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci mauris, auctor sit amet placerat non, adipiscing ac lacus.
-                </div>
+            	{foreach from=$infos item=info name=info}
+                    {if $smarty.foreach.info.first}
+                        <div id="info_{$smarty.foreach.info.iteration}">
+                    {else}
+                        <div id="info_{$smarty.foreach.info.iteration}" style="display:none;">
+                    {/if}
+                    <img src="{$base_url}/images/info/{$info.img}" align="right" class="img-spec" id="image_info" />
+                    <div style="float:left;padding-right:5px;position: absolute;width: 402px;background-color:#000000; height:45px;margin-left:25px;margin-top:150px;opacity:0.7; color: #FFFFFF;padding:15px;">
+                        <h4>{$info.titre}</h4>
+                        <br />
+                        {$info.description}
+                    </div>
+                    </div>
+                {/foreach}
             </div>
         </div>
     </div>
