@@ -88,6 +88,11 @@ class Form_Lan extends Zend_Form
             'RegisterInArrayValidator' => false,
             'required'   => true
         ));
+		
+        $this->addElement('textarea', 'extra', array(
+            'label'      => 'Extra : ',
+            'required'   => false
+        ));
 
         $this->addElement('textarea', 'description', array(
             'label'      => 'Description : ',

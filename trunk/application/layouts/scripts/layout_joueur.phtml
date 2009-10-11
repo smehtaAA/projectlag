@@ -3,31 +3,43 @@
 	<head>  
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 		<title>LAG - Local Arena Games</title>
-		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-ui-1.7.2.custom.min.js"></script>
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/global.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/jquery/jquery.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/uploadify/uploadify.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/calendar/calendar.css" />
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-ui-1.7.2.custom.min.js"></script>
 	</head> 
 	<body>
 		<div id="global">
-<?= utf8_encode($this->render('header.phtml')) ?>		
+			<div id="header">
+				<div id="search">
+					<form method="post" action="">
+						<table border="0">
+							<tr>
+								<td valign="middle" width="24"><img src="<?php echo $this->baseUrl();?>/images/icones/icon-search.png" alt="Recherche" title="Recherche" /></td>
+								<td width="60" valign="middle">Recherche</td>
+								<td valign="middle"> : </td>
+								<td valign="middle"> <input type="text" /> <input type="submit" value="ok" class="button" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div id="menu">
+					<?= utf8_encode($this->render('menu.phtml')) ?>
+				</div>
 
-		<div id="menu_joueur">
-			<ul>
-				<li><a href="<?= $this->url(array('controller' => 'compte', 'action' => 'form'),'default', true) ?>">Mon Compte</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'indexjoueur'),'default', true) ?>">Mes Inscriptions</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'indexjoueur'),'default', true) ?>">Mes messages</a></li>
-				<li><a href="<?= $this->url(array('controller' => 'log', 'action' => 'deconnexion'),'default', true) ?>">Deconnexion</a></li>
-			</ul>
-		</div>
-
-<?= utf8_encode($this->render('menu.phtml')) ?>		
+				<div id="submenu">
+					<?= utf8_encode($this->render('submenu.phtml')) ?>
+				</div>
+			</div>
 			<div id="content">
 				<?= $this->layout()->content ?>
 			</div>
-<?= utf8_encode($this->render('footer.phtml'))  ?>	
+			<div id="footer">
+			
+			</div>
+			<div id="footer-link">
+				<?= utf8_encode($this->render('footer.phtml'))  ?>
+			</div>
 		</div>
 	</body>
 </html>

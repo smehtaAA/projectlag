@@ -9,14 +9,15 @@
                 {if $ouverte==true}
                     <div id="inscription-charte">
                         {foreach from=$articles item=art name=art}   
-                            <h3>{$smarty.foreach.art.index+1} - {$art.titre}</h3>       
+                            <h3>{$smarty.foreach.art.index+1} - {$art.titre}</h3>   
+                            <br/><br/>    
                             {$art.description|nl2br}      
                             <br/>  
                         {/foreach}
                         </div>
-                            
+                            <center>
                         <input name="action" value="J'accepte" onClick="location='{$url_valide}'" type="submit" /> - 
-                        <input name="action" value="Je refuse" onClick="location='{$url_nonvalide}'" type="submit" />
+                        <input name="action" value="Je refuse" onClick="location='{$url_nonvalide}'" type="submit" /></center>
                     </div>
                 {/if}     
             </div>

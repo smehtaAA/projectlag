@@ -27,6 +27,7 @@ class LanController extends Zend_Controller_Action
 		$smarty->assign('chiffre', $chiffre);
 		$smarty->assign('jeux', $jeux);
 		$smarty->assign('titre', 'Lans');
+		$smarty->assign('base_url', $request->getBaseUrl());
 		
 		$smarty->display('lan/index.tpl');
 	}

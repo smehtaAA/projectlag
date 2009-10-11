@@ -62,7 +62,7 @@ class CompteController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			
 			if($log->_getTypeConnected('joueur')) {
-				$this->redirection = 'accueil/indexjoueurmenu';
+				$this->redirection = 'accueil/indexjoueur';
 				$id = $log->_getUser();
 			} else {
 				$this->redirection = 'compte/indexadmin';

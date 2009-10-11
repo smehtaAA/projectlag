@@ -17,14 +17,26 @@ class InscriptionController extends Zend_Controller_Action
 		$smarty = Zend_Registry::get('view');
 		
 		$modelLan = $this->_getModelLan();
+		$modelLanJoueur = $this->_getModelLanJoueur();
 		$request = $this->getRequest();
-		
+		$deja_inscrit=false;
 		$lan = $modelLan->fetchEntryOuverte();
-		
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('joueur')) {
+			$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
+			
+			foreach($lans as $l) {
+				if($l['idLan'] == $lan['idLan'])
+					$deja_inscrit=true;
+			}
+		}
 		if($lan==-1) {
 			$smarty->assign('titre', 'Aucune Inscription n\'est actuellement ouverte');
 			$smarty->assign('ouverte', false);
-		} else {
+		} elseif($deja_inscrit){
+			$smarty->assign('titre', 'Vous &ecirc;tes d&eacute;j&agrave; inscrit pour cette lan');
+			$smarty->assign('ouverte', false);
+		} else{
 			$modelCharte=$this->_getModelCharte();
 			
 			$charte = $modelCharte->fetchEntryAsso();
@@ -57,7 +69,9 @@ class InscriptionController extends Zend_Controller_Action
 		
 				if ($this->getRequest()->isPost()) {
 					if ($form->isValid($request->getPost())) {
-						$existlog = $model->existLog($form->getValues());
+						$dataform=$form->getValues();
+						$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
+						$existlog = $model->existLog($dataform);
 						if($existlog != NULL) {
 							$userid = 'idCompte';
 							$fonction = $modelFonctionCompte->fetchFonction($existlog[$userid]);
@@ -92,6 +106,7 @@ class InscriptionController extends Zend_Controller_Action
 	public function validationAction()
 	{
 		$smarty = Zend_Registry::get('view');
+		$smarty->assign('valid', 0);
 		$smarty->display('inscription/validation.tpl');
 	}
 	
@@ -108,6 +123,7 @@ class InscriptionController extends Zend_Controller_Action
 		$compte['actif'] = 1;
 		
 		$modelCompte->save($compte['idCompte'],$compte);
+		$smarty->assign('valid', 1);
 		
 		$smarty->display('inscription/validation.tpl');
 		} else {
@@ -226,6 +242,13 @@ class InscriptionController extends Zend_Controller_Action
 			$jeux=$modelLanJeux->fetchEntriesByLan($lan['idLan']);
 			$teams=$modelLanJeuxJoueurTeam->fetchTeam($lan['idLan']);
 			
+			foreach ($jeux as $j) {
+				if($j['tournoi'])
+					$tournoi=true;
+				else
+					$tournoi=false;
+			}
+			
 			$form=$this->_getInscriptionLanForm();
 			
 			$form->RemplirJeux($jeux);
@@ -270,6 +293,7 @@ class InscriptionController extends Zend_Controller_Action
 			$smarty->assign('lan', $lan);
 			$smarty->assign('teams', $teams);
 			$smarty->assign('jeux', $jeux);
+			$smarty->assign('tournoi', $tournoi);
 			$smarty->assign('joueur', $joueur);
 			$smarty->display('inscription/inscriptionlan.tpl');
 		} else {
