@@ -34,11 +34,13 @@ class Form_InscriptionLan extends My_InscriptionLan
 		
 		$this->addElement('multicheckbox', 'jeux', array(
             'label'      => 'Jeux : ',
+			'class'    => 'check',
             'required'   => true
         ));	
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
+			'class'    => 'button',
         ));
     }
 	

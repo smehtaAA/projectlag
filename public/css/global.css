@@ -585,6 +585,15 @@ h3 {
 	font-size: 11px;
 }
 
+.content-total-princ .check {
+	width: 20px;
+}
+
+.content-total-princ .paypal {
+	width: 118px;
+	height: 47px;
+}
+
 .content-total-princ .button {
 	width: 70px;
 	height: 20px;
