@@ -43,7 +43,7 @@ class LogController extends Zend_Controller_Action
 						if($min<=2)
 							return $this->_redirect('/accueil/indexadminmenu');
 						else
-							return $this->_redirect('/accueil/indexjoueur');
+							return $this->_redirect('/accueil/index');
 					} else {
 						$message = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
 						$smarty->assign('message', $message);
