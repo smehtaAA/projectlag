@@ -102,7 +102,7 @@ class Smarty
      *
      * @var boolean
      */
-    var $debugging       =  false;
+    var $debugging       =  true;
 
     /**
      * When set, smarty does uses this value as error_reporting-level.

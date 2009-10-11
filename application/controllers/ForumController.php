@@ -7,7 +7,7 @@ class ForumController extends Zend_Controller_Action
 	{
 		$smarty = Zend_Registry::get('view');
 		
-		$smarty->display('news/index.tpl');
+		$smarty->display('forum/index.tpl');
 	}
 	
     public function indexadminAction() 

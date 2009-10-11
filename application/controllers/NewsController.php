@@ -13,55 +13,25 @@ class NewsController extends Zend_Controller_Action
 		$model  = $this->_getModel();
 		$modelConfig = $this->_getModelConfig();
 		$request = $this->getRequest();
-		$page = $request->page;
+		$id = $request->getParam('id', 0);
 
-		$config = $modelConfig->fetchEntrySetting('nb_max_news_page');
-
- 		$nb_max_news_page = $config['valeur'];
+		$news = $model->fetchEntry($id);
 		
-		if($nb_max_news_page == 0)
-		{
-			$nb_max_news_page = 4;
-		}
-		
-		// Récupération du nombre d'enregistrement
-		$nb = $model->countEntries();
-		// Arrondi à l'entier supérieur
-		$nb_page = ceil($nb/$nb_max_news_page);
-		// Bloque l'accès au page supérieure au nombre total de page
-		if($page > $nb_page) 
-		{
-			$page=1;
-		}
-		
-		// Récupération du nombre de ligne pour la page voulue
-		$datas  = $model->fetchEntriesLimitPage($page,$nb_max_news_page);
-		
-		$pages = null;
-		
-		for($i=1; $i<=$nb_page; $i++)
-		{
-			$pages[$i] = $i;
-		}
-
-		
-		$smarty->assign('datas', $datas);
-		$smarty->assign('pages', $pages);
-		$smarty->assign('url','?page=');
+		$smarty->assign('base_url', $request->getBaseUrl());
+		$smarty->assign('news', $news);
 		$smarty->display('news/index.tpl');
 	}
 	
-	public function newspartenaireAction()
+	public function indexpartenaireAction()
 	{
 		$smarty = Zend_Registry::get('view');
 		
 		$model  = $this->_getModel();
 		$modelConfig = $this->_getModelConfig();
-		$modelPartenaire = $this->_getModelPartenaire();
 		$request = $this->getRequest();
 		$page = $request->page;
 
-		$config = $modelConfig->fetchEntrySetting('nb_max_news_page');
+		$config = $modelConfig->fetchEntrySetting('nb_max_news_partenaire_page');
 
  		$nb_max_news_page = $config['valeur'];
 		
@@ -71,7 +41,7 @@ class NewsController extends Zend_Controller_Action
 		}
 		
 		// Récupération du nombre d'enregistrement
-		$nb = $model->countEntriesPartenaire();
+		$nb = $model->countEntriesPartenaires();
 		// Arrondi à l'entier supérieur
 		$nb_page = ceil($nb/$nb_max_news_page);
 		// Bloque l'accès au page supérieure au nombre total de page
@@ -90,13 +60,11 @@ class NewsController extends Zend_Controller_Action
 			$pages[$i] = $i;
 		}
 
-		$partenaires=$modelPartenaire->fetchEntries();
-		
-		$smarty->assign('partenaires', $partenaires);
+		$smarty->assign('base_url', $request->getBaseUrl());
 		$smarty->assign('datas', $datas);
 		$smarty->assign('pages', $pages);
 		$smarty->assign('url','?page=');
-		$smarty->display('news/newspartenaire.tpl');
+		$smarty->display('news/indexPartenaire.tpl');
 	}
 	
 	public function indexadminAction()
@@ -157,7 +125,10 @@ class NewsController extends Zend_Controller_Action
 					{
 						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
 						$thumb = PhpThumbFactory::create('../public/images/news/'.$ancien_nom);
-						$thumb->resize(140, 140)->save('../public/images/news/'.$dataform["img"]);
+						if ($dataform['idPartenaire']!=0)
+							$thumb->resize(300, 300)->save('../public/images/news/'.$dataform["img"]);
+						else
+							$thumb->resize(140, 140)->save('../public/images/news/'.$dataform["img"]);
 						if(file_exists('../public/images/news/'.$ancien_nom))
 							unlink('../public/images/news/'.$ancien_nom);
 					}

@@ -35,6 +35,12 @@ class Form_News extends Zend_Form
 			'registerInArrayValidator' => false
         ));
 		
+		$this->addElement('text', 'lien', array(
+            'label'          => 'Source de la News : ',
+            'required'       => false,
+			'registerInArrayValidator' => false
+        ));
+		
 		//$test = $this->getElement('creer_type_n');
 		/*$test->setAttrib('style','display:none;');
 		$this->addDisplayGroup(array(

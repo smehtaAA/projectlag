@@ -4,6 +4,7 @@ class AccueilController extends Zend_Controller_Action
 {
 	protected $_modelLan;
 	protected $_modelNews;
+	protected $_modelPartenaire;
 	protected $_modelConfig;
 	
 	public function indexAction()
@@ -12,6 +13,7 @@ class AccueilController extends Zend_Controller_Action
 		$modelLan = $this->_getModelLan();
 		$modelNews = $this->_getModelNews();
 		$modelConfig = $this->_getModelConfig();
+		$modelPartenaire = $this->_getModelPartenaire();
 		
 		$request     = $this->getRequest();
 		$page        = $request->page;
@@ -47,7 +49,16 @@ class AccueilController extends Zend_Controller_Action
 			if($lan!=-1)
 				$nb_inscrits = $modelLan->fetchEntriesCount($lan['idLan']);
 				
+			// Récupération du partenaire aleatoire
+			$partenaire=$modelPartenaire->fetchEntryRandom();
+			
+			$partenaires=$modelPartenaire->fetchEntriesL();
+			foreach($partenaires as $p)
+				$part[$p['idPartenaire']]=$p['titre'];
+				
 			$smarty->assign('lan', $lan);
+			$smarty->assign('partenaire', $partenaire);
+			$smarty->assign('partenaires', $part);
 			$smarty->assign('nb_inscrits', $nb_inscrits);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('pages', $pages);
@@ -122,6 +133,15 @@ class AccueilController extends Zend_Controller_Action
             $this->_modelNews = new Model_News();
         }
         return $this->_modelNews;
+    }
+	
+	protected function _getModelPartenaire()
+	{
+		if (null === $this->_modelPartenaire) {
+            require_once APPLICATION_PATH . '/models/Partenaire.php';
+            $this->_modelPartenaire = new Model_Partenaire();
+        }
+        return $this->_modelPartenaire;
     }
 	
 	protected function _getModelConfig()
