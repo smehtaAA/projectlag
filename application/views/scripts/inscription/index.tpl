@@ -15,10 +15,11 @@
                             <br/>  
                         {/foreach}
                      </div>
-                            <center>
-                        <input name="action" value="J'accepte" onClick="location='{$url_valide}'" type="submit" /> - 
-                        <input name="action" value="Je refuse" onClick="location='{$url_nonvalide}'" type="submit" /></center>
-                    
+                    <center>
+                    	<br />
+                        <input name="action" value="Je refuse" onClick="location='{$url_nonvalide}'" type="submit" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    	<input name="action" value="J'accepte" onClick="location='{$url_valide}'" type="submit" />
+                    </center>
                 {/if}     
             </div>
         </div>
