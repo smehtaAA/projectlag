@@ -1,6 +1,6 @@
 <?php
 
-class Form_Compte extends Zend_Form
+class Form_Compte extends My_CreationCompte
 {
     public function init()
     {
@@ -63,6 +63,22 @@ class Form_Compte extends Zend_Form
                  array('validator' => 'StringLength', 'options' => array(2, 60), 'EmailAddress')
             )
         ));	
+		
+		$this->addElement('text', 'msn', array(
+            'label'      => 'MSN : ',
+            'required'   => true,
+            'validators' => array(
+                 array('validator' => 'StringLength', 'options' => array(2, 60), 'EmailAddress')
+            )
+        ));	
+		
+		$this->addElement('text', 'phone', array(
+            'label'      => 'Telephone : ',
+            'required'   => true,
+            'validators' => array(
+                 array('validator' => 'StringLength', 'options' => array(10,10))
+            )
+        ));
 		
 		$this->addElement('text', 'datenaissance', array(
             'label'      => 'Date de naissance : ',
