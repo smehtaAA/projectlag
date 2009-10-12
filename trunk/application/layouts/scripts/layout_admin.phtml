@@ -54,7 +54,7 @@
 						<a href="<?= $this->url(array('controller' => 'jeux', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/games.png" alt="Jeux" class="textalignm" /> Jeux</a>
 					</li>
 					<li <?php if(($controllerName=="charte" || $controllerName=="chartearticle") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
-						<a href="<?= $this->url(array('controller' => 'chartearticle', 'action' => 'indexadmin', 'id' => '1'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/charte.gif" alt="Chartes" class="textalignm" /> Charte</a>
+						<a href="<?= $this->url(array('controller' => 'charte', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/charte.gif" alt="Chartes" class="textalignm" /> Charte</a>
 					</li>
 					<li <?php if(($controllerName=="compte" || $controllerName=="fonction" || $controllerName=="staff") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'compte', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/users.png" alt="Comptes" class="textalignm" /> Comptes</a>
@@ -108,7 +108,7 @@
 						<li><a href="<?= $this->url(array('controller' => 'categorie', 'action' => 'indexadmin'),'default', true) ?>">Categorie</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'grade', 'action' => 'indexadmin'),'default', true) ?>">Grade</a></li>
 						<?php }  if($controllerName=="charte"||$controllerName=="chartearticle") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'chartearticle', 'action' => 'indexadmin', 'id' => '1'),'default', true) ?>">Asso</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'charte', 'action' => 'indexadmin'),'default', true) ?>">Asso</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'charte', 'action' => 'indexjeuxadmin'),'default', true) ?>">Jeux</a></li>
 						<?php } ?>
 						<li>&nbsp;</li>

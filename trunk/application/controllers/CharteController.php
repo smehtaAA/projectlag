@@ -169,7 +169,7 @@ class CharteController extends Zend_Controller_Action
 			
 			$smarty = Zend_Registry::get('view');
 	
-			$datas   = $model->fetchEntriesOrderByOrdre();
+			$datas   = $model->fetchEntriesOrderByOrdreJeux();
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('titre','Charte');
 			$smarty->assign('urladd','form/');
