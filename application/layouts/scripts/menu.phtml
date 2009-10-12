@@ -11,7 +11,7 @@
 				<li class="separator"></li>
 				<li><a href="<?= $this->url(array('controller' => 'inscription', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="inscription") { ?>id="menu-active"<?php } ?>>Inscription</a></li>
 				<li class="separator"></li>
-				<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="forum") { ?>id="menu-active"<?php } ?>>Forum</a></li>
+				<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="forum"||$controllerName=="categorie"||$controllerName=="souscategorie"||$controllerName=="sujet"||$controllerName=="message") { ?>id="menu-active"<?php } ?>>Forum</a></li>
 				<li class="separator"></li>
 				<li><a href="<?= $this->url(array('controller' => 'partenaire', 'action' => 'index'),'default', true) ?>" <?php if($controllerName=="partenaire") { ?>id="menu-active"<?php } ?>>Partenaires</a></li>
 				<li class="separator"></li>

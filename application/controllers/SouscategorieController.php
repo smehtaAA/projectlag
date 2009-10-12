@@ -3,12 +3,35 @@
 class SousCategorieController extends Zend_Controller_Action 
 {
 	protected $_model;
+	protected $_modelSujet;
 	
 	public function indexAction()
 	{
 		$smarty = Zend_Registry::get('view');
-		
-		$smarty->display('forum/souscategorie/index.tpl');
+		$request = $this->getRequest();
+		$id = $request->getParam('id',0);
+		if($id>0) {
+			$modelSousCategorie = $this->_getModel();
+			$modelSujet = $this->_getModelSujet();
+			$log = new SessionLAG();
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
+				$login=1;
+			else
+				$login=0;
+			
+			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
+			$souscat = $modelSousCategorie->fetchEntry($id);
+			
+			$smarty->assign('sujets', $sujets);
+			$smarty->assign('login', $login);
+			$smarty->assign('souscat', $souscat);
+			$smarty->assign('url_addsujet', $request->getBaseUrl().'/sujet/form?idSsCat='.$id);
+			$smarty->assign('url_viewsujet', $request->getBaseUrl().'/sujet/index?id=');
+			
+			$smarty->display('forum/souscategorie/index.tpl');
+		} else{
+			return $this->_helper->redirector('index', 'forum');
+		}
 	}
 	
     public function indexadminAction() 
@@ -119,5 +142,12 @@ class SousCategorieController extends Zend_Controller_Action
 			$form->setAction($this->_helper->url('form?idCat='.$idCat));
         return $form;
     }
-  
+	
+	protected function _getModelSujet() {
+		if (null === $this->_modelSujet) {
+			require_once APPLICATION_PATH . '/models/Sujet.php';
+			$this->_modelSujet = new Model_Sujet();
+		}
+		return $this->_modelSujet;
+	}
 }

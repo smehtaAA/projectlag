@@ -43,6 +43,17 @@ class Model_Compte
         return $table->fetchRow($select)->toArray();
     }
 	
+	public function fetchEntryForum($id)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from(array('c'=>'compte'), array('idCompte','login', 'img'))
+								->join(array('g' => 'grade'),'g.idGrade=c.idGrade')
+								->where('c.idCompte = ?', $id)
+								->setIntegrityCheck(false);
+		
+        return $table->fetchRow($select)->toArray();
+    }
+	
 	public function fetchEntryByLogin($login)
     {
         $table = $this->getTable();
