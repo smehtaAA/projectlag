@@ -79,6 +79,15 @@ dd {
 	margin-bottom: 10px;
 }
 
+h1 {
+	display:none;
+}
+
+h2 {
+	display:inline;
+	float:left;
+}
+
 h3 {
 	display:inline;
 	float:left;
