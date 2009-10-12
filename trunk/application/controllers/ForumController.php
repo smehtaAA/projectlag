@@ -17,8 +17,14 @@ class ForumController extends Zend_Controller_Action
 		$modelSujet = $this->_getModelSujet();
 		$modelMessage = $this->_getModelMessage();
 		
+		$forum_ouvert=0;
+		$nb=null;
+		$last_messages=null;
+		$sscat=null;
+		
 		$categories=$modelCategorie->fetchEntriesVisibles();
 		foreach ($categories as $cat) {
+			$forum_ouvert = 1;
 			$sscat[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorieVisibles($cat['idCategorie']);
 			
 			foreach ($sscat[$cat['idCategorie']] as $sc) {
@@ -34,6 +40,7 @@ class ForumController extends Zend_Controller_Action
 		$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');
 		$smarty->assign('nb', $nb);
 		$smarty->assign('categories', $categories);
+		$smarty->assign('forum_ouvert', $forum_ouvert);
 		
 		$smarty->display('forum/index.tpl');
 	}
