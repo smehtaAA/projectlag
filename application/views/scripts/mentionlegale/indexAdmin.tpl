@@ -20,7 +20,7 @@
 </script>
 {/literal}
 
-<h2>{$titre}</h2>
+<h2>{$titre|utf8_encode}</h2>
 
 <a href="{$urladd}"><img src="{$base_url}/images/admin/add.png" alt="Ajouter une mention l&eacute;gale" class="textalignm" title="Ajouter" /> Ajouter une Mention L&eacute;gale</a>
 <br /><br />
@@ -35,7 +35,7 @@
   </tr>
 {foreach from=$datas key=myId item=i name=foo}
   <tr id="ligne_{$i.ordre}">
-    <td>{$i.titre}</td>
+    <td>{$i.titre|utf8_encode}</td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}
     		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter la mention" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up')" />

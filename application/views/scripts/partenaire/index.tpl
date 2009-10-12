@@ -9,7 +9,7 @@
                 <ul>
                     <li><a href="{$base_url}/partenaire/">Tous</a></li>
                     {foreach from=$types item=type name=type}
-                    <li><a href="{$base_url}/partenaire/?type={$type.type}">{$type.type}</a></li>
+                    <li><a href="{$base_url}/partenaire/?type={$type.type}">{$type.type|utf8_encode}</a></li>
                     {/foreach}
                 </ul>
             </div>
@@ -24,12 +24,12 @@
                 <div class="content-total-top"></div>
                 <div class="content-total-middle">
                     <div class="content-title-left"></div>
-                    <div class="content-title-middle content-title-middle-total"><h3>{$partenaire.titre|capitalize}</h3></div>
+                    <div class="content-title-middle content-title-middle-total"><h3>{$partenaire.titre|capitalize|utf8_encode}</h3></div>
                     <div class="content-title-right"></div>
                     <div class="content-total-text">
-                        <img src="{$base_url}/images/partenaires/{$partenaire.logo}" align="right" alt="{$partenaire.titre|capitalize}" title="{$partenaire.titre|capitalize}" />
-                        {$partenaire.description|nl2br}<br />
-                        <a href="http://{$partenaire.lien}"><strong>Voir le site</strong></a>
+                        <a href="{$partenaire.lien}"><img src="{$base_url}/images/partenaires/{$partenaire.logo}" align="right" alt="{$partenaire.titre|capitalize|utf8_encode}" title="{$partenaire.titre|capitalize|utf8_encode}" /></a>
+                        {$partenaire.description|nl2br|utf8_encode}<br />
+                        <a href="{$partenaire.lien}"><strong>Voir le site</strong></a>
                     </div>
                 </div>
                 <div class="content-total-bottom"></div>

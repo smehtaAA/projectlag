@@ -8,13 +8,13 @@
             <div class="content-title-right"></div>
             <div class="content-total-text">
             	{if $new.img}
-                	<img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre}" tittle="{$new.titre}" width="20%" />
+                	<img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre|utf8_encode}" tittle="{$new.titre|utf8_encode}" width="20%" />
                 {/if}
                 {$new.description|nl2br|truncate:400:'..'} <br/>
                 <br/><br/>
                 <a href="{$base_url}/news/index?id={$new.idNews}">Lire la suite ...</a>
                 <hr />
-                <span class="tag">Tag : {$new.type_n}</span>
+                <span class="tag">Tag : {$new.type_n|utf8_encode}</span>
             </div>
         </div>
         <div class="content-total-bottom"></div>

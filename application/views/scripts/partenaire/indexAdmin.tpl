@@ -20,9 +20,9 @@
 </script>
 {/literal}
 
-<h2>{$title}</h2>
+<h2>{$title|utf8_encode}</h2>
 
-<a href="{$urladd}"><img src="{$baseurl}/images/admin/add.png" alt="Ajouter une news" class="textalignm" title="Ajouter" /> Ajouter {$title}</a>
+<a href="{$urladd}"><img src="{$baseurl}/images/admin/add.png" alt="Ajouter une news" class="textalignm" title="Ajouter" /> Ajouter {$title|utf8_encode}</a>
 <br /><br />
 <div id="tab_content">
 <table align="center" id="tab_record">
@@ -40,8 +40,8 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.titre}</td>
-    <td>{$i.type}</td>
+    <td>{$i.titre|utf8_encode}</td>
+    <td>{$i.type|utf8_encode}</td>
     <td><a href="http://{$i.lien}" target="_blank">{$i.lien}</a></td>
     <td align="center"><a href="{$urlphoto}{$i.img}" target="_blank">ici</a></td>
         <td align="center">

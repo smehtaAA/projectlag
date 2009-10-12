@@ -1,18 +1,18 @@
-<h2> {$title} </h2>
+<h2> {$title|utf8_encode} </h2>
 
 <br/>
-Titre : {$data.titre}
+Titre : {$data.titre|utf8_encode}
 <br/>
 Date : {$data.datebug|date_format:'%d/%m/%Y'}
 <br/>
-Navigateur : {$data.navigateur}
+Navigateur : {$data.navigateur|utf8_encode}
 <br/>
-Categorie : {$data.categorie}
+Categorie : {$data.categorie|utf8_encode}
 <br/>
 
 
 
-Description : {$data.description|nl2br}
+Description : {$data.description|nl2br|utf8_encode}
 
 <br/>
 <br/>

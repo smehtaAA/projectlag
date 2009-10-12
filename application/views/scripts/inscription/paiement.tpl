@@ -51,8 +51,8 @@
                         <input type="hidden" name="currency_code" value="EUR" />
                         Prix : <input type="text" name="amount" align="right" value="{$lan.prix_prepaiement_paypal}" size="5" style="width:20px;" /> &euro;
                         <input type="hidden" name="email" value="{$compte.email}" />
-                        <input type="hidden" name="first_name" value="{$compte.prenom}" />
-                        <input type="hidden" name="last_name" value="{$compte.nom}" />
+                        <input type="hidden" name="first_name" value="{$compte.prenom|utf8_encode}" />
+                        <input type="hidden" name="last_name" value="{$compte.nom|utf8_encode}" />
                         <input type="hidden" name="address1" value="" />
                         <input type="hidden" name="city" value="" />
                         <input type="hidden" name="state" value="FR" />

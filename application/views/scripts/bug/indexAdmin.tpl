@@ -26,8 +26,8 @@
   	<td>{$smarty.foreach.bug.index+1} - </td>
     <td>{$bug.datebug|date_format:'%d/%m/%Y'}</td>
     <td>{$priorite[$bug.priorite]}</td>
-    <td>{$bug.titre}</td>
-    <td>{$bug.statut}</td>
+    <td>{$bug.titre|utf8_encode}</td>
+    <td>{$bug.statut|utf8_encode}</td>
 
     <td></td>
     <td align="center"><a href="{$urlview}{$bug.idBug}"><img src="{$base_url}/images/admin/read.png" alt="Consulter" class="textalignm" title="Consulter" /></a></td>
@@ -71,8 +71,8 @@
     <td>{$bug_corrige.datebug|date_format:'%d/%m/%Y'}</td>
     <td>{$bug_corrige.datedebug|date_format:'%d/%m/%Y'}</td>
     <td>{$priorite[$bug_corrige.priorite]}</td>
-    <td>{$bug_corrige.titre}</td>
-    <td>{$bug_corrige.statut}</td>
+    <td>{$bug_corrige.titre|utf8_encode}</td>
+    <td>{$bug_corrige.statut|utf8_encode}</td>
 
     <td></td>
     <td align="center"><a href="{$urlview}{$bug_corrige.idBug}"><img src="{$base_url}/images/admin/read.png" alt="Consulter" class="textalignm" title="Consulter" /></a></td>

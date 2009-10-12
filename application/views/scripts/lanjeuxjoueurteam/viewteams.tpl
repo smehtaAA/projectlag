@@ -20,7 +20,7 @@
 </script>
 {/literal}
 
-<h2>{$title}</h2>
+<h2>{$title|utf8_encode}</h2>
 <br/><br/>
 A Faire !! : Lien pour lier un compte a une team et un jeux
 <br /><br /><br /><br />
@@ -40,14 +40,14 @@ A Faire !! : Lien pour lier un compte a une team et un jeux
 {foreach from=$jeux key=myjeu item=i name=jeux}
   <tr>
   	<td align="right">{$smarty.foreach.jeux.index+1} - </td>
-    <td>{$i.nom}</td>
+    <td>{$i.nom|utf8_encode}</td>
   </tr>
   
   {foreach from=$teams[$i.idJeux] key=myteam item=team name=team}
     <tr>
     	<td></td>
     	<td></td>
-    	<td align="center"> {$team.nom} </td> 
+    	<td align="center"> {$team.nom|utf8_encode} </td> 
 	</tr>
     
     {foreach from=$compte[$i.idJeux][$team.idTeam] key=mycompte item=cpt name=compte}
@@ -55,8 +55,8 @@ A Faire !! : Lien pour lier un compte a une team et un jeux
     		<td></td>
     		<td></td>
     		<td></td>
-            <td align="center"> {$cpt.login} </td>
-            <td align="center"> {$cpt.prenom} </td>
+            <td align="center"> {$cpt.login|utf8_encode} </td>
+            <td align="center"> {$cpt.prenom|utf8_encode} </td>
                 <td align="center">
                 {if $cpt.validation==1}
                     <img src="{$base_url}/images/admin/ball_green.png" name="{$cpt.idLanJeuxJoueurTeam}" alt="Desactiver" class="textalignm" title="Desactiver" onclick="javascript:activationjoueur(this,'d',{$cpt.idLan}, '{$base_url}/lanjeuxjoueurteam/activationjoueurteam')" />

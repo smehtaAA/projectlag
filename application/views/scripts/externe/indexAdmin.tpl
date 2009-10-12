@@ -1,1 +1,1 @@
-{$title}
+{$title|utf8_encode}

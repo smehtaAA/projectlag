@@ -18,28 +18,28 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>Inscription &agrave; la lan {$lan.nom}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Inscription &agrave; la lan {$lan.nom|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             
             <!-- Informations sur la lan -->
-            <span class="rouge"><h2> Informations sur {$lan.nom} </h2></span>
+            <span class="rouge"><h2> Informations sur {$lan.nom|utf8_encode} </h2></span>
             	<br/>
             
                 Date de la lan : du <strong>{$lan.datedeb|date_format:"%A %e %B %Y a %H:%M"|capitalize|utf8_encode}</strong> au <strong>{$lan.datefin|date_format:"%A %e %B %Y a %H:%M"|capitalize|utf8_encode}</strong> <br/>
-				Lieu : {$lan.adresse|nl2br} &agrave; {$lan.ville}<br/>
+				Lieu : {$lan.adresse|nl2br|utf8_encode} &agrave; {$lan.ville|utf8_encode}<br/>
                 
                 
                 <a href="http://maps.google.fr/maps?f=q&source=s_q&hl=fr&geocode=&q=Mont Notre Dame&sll=49.293001,3.584118&sspn=0.043159,0.087891&g=Mont+notre+dame+02220&ie=UTF8&hq=&hnear=Mont-Notre-Dame,+Aisne,+Picardie&ll=49.29468,3.609009&spn=0.690516,1.40625&z=10" target="_blank"> Lien Google </a> <br/>
                 <br/>
                 
-                {$lan.extra}
+                {$lan.extra|utf8_encode}
                 <hr />
                 
 			<!-- Informations sur le joueur -->
-            <span class="rouge"><h2> Informations sur {$joueur.login} </h2></span>
+            <span class="rouge"><h2> Informations sur {$joueur.login|utf8_encode} </h2></span>
                 <br/>
-                Login : {$joueur.login} <br/>
+                Login : {$joueur.login|utf8_encode} <br/>
                 Email : {$joueur.email} <br/><br/>
                 
                 Si il y a une erreur dans votre email, veuillez la corriger dans le profil de votre compte <strong>avant</strong> de vous inscrire.

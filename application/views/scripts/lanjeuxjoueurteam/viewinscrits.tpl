@@ -20,7 +20,7 @@
 </script>
 {/literal}
 
-<h2>{$title}</h2>
+<h2>{$title|utf8_encode}</h2>
 
 <br /><br />
 <div id="tab_content">
@@ -40,10 +40,10 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.login}</td>
-    <td align="center">{$i.nom}</td>
-    <td align="center">{$i.prenom}</td>
-    <td align="center">{$i.nom}</td>
+    <td>{$i.login|utf8_encode}</td>
+    <td align="center">{$i.nom|utf8_encode}</td>
+    <td align="center">{$i.prenom|utf8_encode}</td>
+    <td align="center">{$i.nom|utf8_encode}</td>
     <td align="center">{$i.dateins|date_format:"%d/%m/%Y"}</td>
     <td align="center">
     {if $i.validation==1}

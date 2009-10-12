@@ -14,8 +14,8 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.nom}</td>
-    <td>{$i.type}</td>
+    <td>{$i.nom|utf8_encode}</td>
+    <td>{$i.type|utf8_encode}</td>
     <td>{$i.datesortie|date_format:"%d/%m/%Y"}</td>
     <td align="center"><a href="{$urlupd}{$i.idJeux}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idJeux}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>

@@ -3,10 +3,10 @@
 
  {foreach from=$datas item=news name=news}
 	Partenaire {$partenaires[$news.idPartenaire].titre} <br/>
- 	{$news.titre}<br/>
+ 	{$news.titre|utf8_encode}<br/>
     {$news.date|date_format:"%A %e %B %Y"|capitalize}<br/>
-    {$news.type_n}<br/>
-    {$news.description}<br/>
+    {$news.type_n|utf8_encode}<br/>
+    {$news.description|utf8_encode|nl2br}<br/>
 
  {/foreach}
 

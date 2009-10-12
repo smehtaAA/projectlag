@@ -38,7 +38,7 @@
   </tr>
 {foreach from=$datas key=myId item=i name=foo}
   <tr id="ligne_{$i.ordre}">
-    <td>{$i.nom}</td>
+    <td>{$i.nom|utf8_encode}</td>
     <td>{$i.idJeux}</td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}

@@ -1,4 +1,4 @@
-<h2>{$title}</h2>
+<h2>{$title|utf8_encode}</h2>
 
 <a href="{$urladd}"><img src="{$base_url}/images/admin/add.png" alt="Ajouter un mail" class="textalignm" /> Ajouter un mail</a>
 <br /><br />

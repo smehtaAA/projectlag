@@ -35,17 +35,21 @@
             <div class="content-total-text">
      			{foreach from=$staffs name=staff item=s}
                 <div class="staff-personne">
-                    <h4><span class="rouge">{$s.nom}</span></h4>
+                    <h4><span class="rouge">{$s.nom|utf8_encode}</span></h4>
                     <br />
                     {foreach from=$comptes[$s.idStaff] name=compte item=c}
-                        <img src="{$base_url}/images/staff/{$c.prenom|lower}.jpg" align="right" alt="{$c.nom|capitalize} {$c.prenom}" title="{$c.nom} {$c.prenom}" />
-                        &nbsp;&nbsp;<strong>Nom :</strong> {$c.nom|upper} {$c.prenom} <br/>
-                        &nbsp;&nbsp<strong>Pseudo :</strong> {$c.login|capitalize} <br/>
+                        <img src="{$base_url}/images/staff/{$c.prenom|lower}.jpg" align="right" alt="{$c.nom|capitalize|utf8_encode} {$c.prenom|utf8_encode}" title="{$c.nom|utf8_encode} {$c.prenom|utf8_encode}" />
+                        &nbsp;&nbsp;<strong>Nom :</strong> {$c.nom|upper|utf8_encode} {$c.prenom|utf8_encode} <br/>
+                        &nbsp;&nbsp<strong>Pseudo :</strong> {$c.login|capitalize|utf8_encode} <br/>
                         &nbsp;&nbsp<strong>Age : </strong> {$datedujour-$c.datenaissance}<br/>
                         &nbsp;&nbsp<strong>Mail : </strong> {$c.email} <br/>
+                        {if $c.msn != null}
                         &nbsp;&nbsp<strong>Msn : </strong> {$c.msn} <br/>
-                        &nbsp;&nbsp<strong>Site : </strong> {$c.site} <br/>
-                        &nbsp;&nbsp<strong>Description : </strong> {$c.description} <br/>
+                        {/if}
+                        {if $c.site != null}
+                        &nbsp;&nbsp<strong>Site : </strong> <a href="{$c.site}" target="_blank">{$c.site}</a><br/>
+                        {/if}
+                        &nbsp;&nbsp<strong>Description : </strong> {$c.description|utf8_encode|nl2br} <br/>
                     {/foreach}
                 </div>
                 {/foreach}

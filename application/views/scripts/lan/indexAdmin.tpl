@@ -1,6 +1,6 @@
 <h2>{$title}</h2>
 
-<a href="{$urladd}"><img src="{$baseurl}/images/admin/add.png" alt="Ajouter une lan" class="textalignm" title="Ajouter" /> Ajouter une {$title|strtolower}</a>
+<a href="{$urladd}"><img src="{$baseurl}/images/admin/add.png" alt="Ajouter une lan" class="textalignm" title="Ajouter" /> Ajouter une {$title|strtolower|utf8_encode}</a>
 <br /><br />
 <table align="center">
   <tr>
@@ -18,7 +18,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td><a href="{$urldescription}{$i.idLan}">{$i.nom}</a></td>
+    <td><a href="{$urldescription}{$i.idLan}">{$i.nom|utf8_encode}</a></td>
     <td>{$i.datedeb|date_format:"%d/%m/%Y"}</td>
     {if $i.inscription == true}
     <td align="center">Oui</td>
@@ -27,8 +27,8 @@
     {/if}
     <td></td>
     <td align="center"><a href="{$urlinscrits}{$i.idLan}">{$chiffre[$i.idLan][0].valide}/{$chiffre[$i.idLan][0].insc}</a></td>
-    <td align="center"><a href="{$urlteams}{$i.idLan}">{$chiffre[$i.idLan][0].teams}</a></td>
-    <td align="center"><a href="{$urljeux}{$i.idLan}">{$chiffre[$i.idLan][0].jeux}</a></td>
+    <td align="center"><a href="{$urlteams}{$i.idLan}">{$chiffre[$i.idLan][0].teams|utf8_encode}</a></td>
+    <td align="center"><a href="{$urljeux}{$i.idLan}">{$chiffre[$i.idLan][0].jeux|utf8_encode}</a></td>
     <td align="center"><a href="{$urlupd}{$i.idLan}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idLan}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>
