@@ -5,6 +5,7 @@ class MessageController extends Zend_Controller_Action
 	protected $_model;
 	protected $_modelMessage;
 	protected $_modelCompte;
+	protected $_modelGrade;
 	
 	public function indexAction()
 	{
@@ -43,6 +44,8 @@ class MessageController extends Zend_Controller_Action
 			$idSujet   = (int)$request->getParam('idSujet', 0);
 			$form    = $this->_getMessageForm($id,$idSujet);
 			$modelMessage   = $this->_getModelMessage();
+			$modelCompte = $this->_getModelCompte();
+			$modelGrade   = $this->_getModelGrade();
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
@@ -50,6 +53,16 @@ class MessageController extends Zend_Controller_Action
 					$dataform['idSujet'] = $idSujet;
 					$dataform['idCompte'] = $log->_getUser();
 					$modelMessage->save($id,$dataform);
+					
+					$compte = $modelCompte->fetchEntry($log->_getUser());
+					$compte['nb_messages']++;
+					$grade = $modelGrade->fetchEntry($compte['idGrade']);
+					if($compte['nb_messages']>$grade['nbmessages_maxi']) {
+						$new_grade = $modelGrade->fetchEntryByNbMessages($compte['nb_messages']);
+						$compte['idGrade']=$new_grade['idGrade'];
+					}
+					$modelCompte->save($log->_getUser(), $compte);
+					
 					return $this->_helper->redirector('index','sujet','',array('id'=>$idSujet));
 				}
 			} else {
@@ -115,6 +128,15 @@ class MessageController extends Zend_Controller_Action
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
+    }
+	
+	protected function _getModelGrade()
+    {
+        if (null === $this->_modelGrade) {
+            require_once APPLICATION_PATH . '/models/Grade.php';
+            $this->_modelGrade = new Model_Grade();
+        }
+        return $this->_modelGrade;
     }
 	
 	protected function _getMessageForm($id,$idSujet)

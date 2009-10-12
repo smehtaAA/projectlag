@@ -23,7 +23,8 @@ class ForumController extends Zend_Controller_Action
 			
 			foreach ($sscat[$cat['idCategorie']] as $sc) {
 				$nb[$sc['idSousCategorie']]['nb_sujets'] = $modelSujet->countEntriesbySousCategorie($sc['idSousCategorie']);
-				$nb[$sc['idSousCategorie']]['nb_reponses'] = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
+				$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
+				$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
 				$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
 			}
 		}

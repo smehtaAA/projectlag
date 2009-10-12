@@ -21,22 +21,26 @@
                 	<img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}"  /><br/>
                     <span class="rouge"><strong>{$comptes[$m.idCompte].login}</strong></span><br/>
                     {$comptes[$m.idCompte].nom}<br/>
+                    Messages : {$comptes[$m.idCompte].nb_messages}<br/>
                 
                 </td>
                 <td width="620px">
                 	<span style="font-size:16px"><strong>{$sujet.titre|utf8_encode}</strong></span> >
                     <em>
-                	{if ($datedujour-$m.date)==0}
+                	{if ($datedujour-$m.date_m)==0}
                     	Aujourd'hui
-                    {elseif ($datedujour-$m.date)==1}
+                    {elseif ($datedujour-$m.date_m)==1}
                     	Hier
                     {else}
-                    	{$datedujour-$m.date+1} 
+                    	{$datedujour-$m.date_m+1} 
                     {/if}
                     </em>
                     <br/>
                     <hr />
             		{$m.description|nl2br} <br/> <br/>
+                    <hr />
+                    {$comptes[$m.idCompte].citationpreferee}
+                    <br/><br/>
                 </td>
             </tr>
             

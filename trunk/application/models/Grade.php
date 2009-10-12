@@ -52,6 +52,14 @@ class Model_Grade
         return $table->fetchRow($select)->toArray();
     }
 	
+    public function fetchEntryByNbMessages($nb)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('nbmessages_mini <= ?', $nb)->where('nbmessages_maxi >= ?', $nb);
+
+        return $table->fetchRow($select)->toArray();
+    }
+	
 	public function countEntries()
 	{
 		$table = $this->getTable();
