@@ -46,7 +46,7 @@ class Model_Compte
 	public function fetchEntryForum($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->from(array('c'=>'compte'), array('idCompte','login', 'img'))
+        $select = $table->select()->from(array('c'=>'compte'), array('idCompte','login', 'img', 'citationpreferee', 'nb_messages'))
 								->join(array('g' => 'grade'),'g.idGrade=c.idGrade')
 								->where('c.idCompte = ?', $id)
 								->setIntegrityCheck(false);

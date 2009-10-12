@@ -5,6 +5,7 @@ class SujetController extends Zend_Controller_Action
 	protected $_model;
 	protected $_modelMessage;
 	protected $_modelCompte;
+	protected $_modelGrade;
 	
 	public function indexAction()
 	{
@@ -64,6 +65,7 @@ class SujetController extends Zend_Controller_Action
 			$form    = $this->_getSujetForm($id,$idSsCat);
 			$model   = $this->_getModel();
 			$modelMessage   = $this->_getModelMessage();
+			$modelGrade   = $this->_getModelGrade();
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
@@ -74,6 +76,14 @@ class SujetController extends Zend_Controller_Action
 					$dataform['idSujet'] = $idSujet;
 					$modelMessage->save(0,$dataform);
 					
+					$compte = $modelCompte->fetchEntry($log->_getUser());
+					$compte['nb_messages']++;
+					$grade = $modelGrade->fetchEntry($compte['idGrade']);
+					if($compte['nb_messages']>$grade['nbmessages_maxi']) {
+						$new_grade = $modelGrade->fetchEntryByNbMessages($compte['nb_messages']);
+						$compte['idGrade']=$new_grade['idGrade'];
+					}
+					$modelCompte->save($log->_getUser(), $compte);
 					
 					return $this->_helper->redirector('index','sujet','',array('id'=>$idSujet));
 				}
@@ -131,6 +141,15 @@ class SujetController extends Zend_Controller_Action
             $this->_modelMessage = new Model_Message();
         }
         return $this->_modelMessage;
+    }
+	
+	protected function _getModelGrade()
+    {
+        if (null === $this->_modelGrade) {
+            require_once APPLICATION_PATH . '/models/Grade.php';
+            $this->_modelGrade = new Model_Grade();
+        }
+        return $this->_modelGrade;
     }
 	
 	protected function _getModelCompte()

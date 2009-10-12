@@ -39,7 +39,7 @@ class Model_Message
     {
 		$table = $this->getTable();
 		$select = $table->select()
-						->from(array('m' => 'message'), array('idMessage', 'idCompte', 'description', 'date'))
+						->from(array('m' => 'message'), array('idMessage', 'idCompte', 'description', 'date_m'))
 						->where('idSujet = ?', $idSujet)
 						->order('date_m');
 

@@ -167,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `citationpreferee` varchar(140) DEFAULT NULL,
   `description` longtext,
   `nbconnexion` int(10) unsigned DEFAULT NULL,
+  `nb_messages` int(10) unsigned DEFAULT 0,
   `keyvalidation` varchar(45) DEFAULT NULL,
   `actif` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idCompte`),
@@ -302,7 +303,8 @@ DROP TABLE IF EXISTS `grade`;
 CREATE TABLE IF NOT EXISTS `grade` (
   `idGrade` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
-  `nbmessages` int(10) NOT NULL,
+  `nbmessages_mini` int(10) NOT NULL,
+  `nbmessages_maxi` int(10) NOT NULL,
   PRIMARY KEY (`idGrade`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
