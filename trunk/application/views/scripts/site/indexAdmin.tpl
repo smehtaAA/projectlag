@@ -1,1 +1,1 @@
-<h3> {$titre} </h3>
+<h3> {$titre|utf8_encode} </h3>

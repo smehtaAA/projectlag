@@ -1,4 +1,4 @@
-<h2> {$title} </h2>
+<h2> {$title|utf8_encode} </h2>
 
 
 <br/> <br/>
@@ -16,7 +16,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.nom}</td>
+    <td>{$i.nom|utf8_encode}</td>
     <td align="center"><a href="{$urlvoir}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/read.png" alt="Voir" class="textalignm" title="Voir" /></a></td>
     <td align="center"><a href="{$urlupd}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>

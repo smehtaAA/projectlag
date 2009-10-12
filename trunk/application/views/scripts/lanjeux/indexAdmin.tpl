@@ -20,7 +20,7 @@
 </script>
 {/literal}
 
-<h2>{$title}</h2>
+<h2>{$title|utf8_encode}</h2>
 
 <a href="{$urladd}"><img src="{$base_url}/images/admin/add.png" alt="Ajouter une team" class="textalignm" title="Ajouter" /> Ajouter un Jeux &agrave; cette Lan</a>
 <br /><br />
@@ -41,7 +41,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.nom}</td>
+    <td>{$i.nom|utf8_encode}</td>
     <td align="center">{$i.nbmaxteam}</td>
     <td align="center">{$i.nbmaxjoueur}</td>
     <td align="center">{$i.nbmaxjoueurparteam}</td>

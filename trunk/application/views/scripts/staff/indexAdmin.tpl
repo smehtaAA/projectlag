@@ -20,7 +20,7 @@
 </script>
 {/literal}
 
-<h2> {$titre} </h2>
+<h2> {$titre|utf8_encode} </h2>
 
 <br />
 
@@ -43,7 +43,7 @@
 
 	<tr> 
     	<td>{$smarty.foreach.s.index+1}</td>
-    	<td><h3> {$s.nom} </h3></td>
+    	<td><h3> {$s.nom|utf8_encode} </h3></td>
         <td colspan="2">   
     		{if $nb[$s.idStaff] == 0 || ($nb[$s.idStaff] != 0 && $s.unik!=true)}<a href="{$urllinkcompte}{$s.idStaff}"> Lier un compte </a>{/if}
         </td>

@@ -3,7 +3,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$lan.nom}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$lan.nom|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-left-text">
             <br/>

@@ -3,7 +3,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$titre}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$titre|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
                 {if $ouverte==true}
@@ -11,7 +11,7 @@
                         {foreach from=$articles item=art name=art}   
                             <h3>{$smarty.foreach.art.index+1} - {$art.titre}</h3>   
                             <br/><br/>    
-                            {$art.description|nl2br}      
+                            {$art.description|nl2br|utf8_encode}      
                             <br/>  
                         {/foreach}
                      </div>

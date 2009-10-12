@@ -11,7 +11,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.titre}</td>
+    <td>{$i.titre|utf8_encode}</td>
     <td>{$i.mail}</td>
     <td align="center"><a href="{$urlview}{$i.idContact}"><img src="{$baseurl}/images/admin/read.png" alt="Lire" class="textalignm" title="Lire" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idContact}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>

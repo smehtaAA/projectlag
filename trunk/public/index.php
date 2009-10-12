@@ -12,7 +12,7 @@ set_include_path(APPLICATION_PATH . '/../library' . PATH_SEPARATOR . get_include
 require_once "Zend/Loader.php";
 Zend_Loader::registerAutoload();
 
-header('Content-type: text/html; charset=UTF-8'); 
+header('Content-type: text/html; charset=utf-8'); 
 
 // REQUIRE APPLICATION BOOTSTRAP: Perform application-specific setup
 // This allows you to setup the MVC environment to utilize. Later you 

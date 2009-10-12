@@ -1,6 +1,6 @@
-<h2>{$title}</h2>
+<h2>{$title|utf8_encode}</h2>
 
-<a href="{$urladd}"><img src="{$baseurl}/images/admin/add.png" alt="Ajouter une information" class="textalignm" title="Ajouter" /> Ajouter une {$title|strtolower}</a>
+<a href="{$urladd}"><img src="{$baseurl}/images/admin/add.png" alt="Ajouter une information" class="textalignm" title="Ajouter" /> Ajouter une {$title|strtolower|utf8_encode}</a>
 <br /><br />
 <table align="center">
   <tr>
@@ -14,7 +14,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.titre}</td>
+    <td>{$i.titre|utf8_encode}</td>
     <td align="center">{if $i.affiche==1}Oui{else}Non{/if}</td>
     <td align="center"><a href="{$urlphoto}{$i.img}" target="_blank">ici</a></td>
     <td align="center"><a href="{$urlupd}{$i.idInformation}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>

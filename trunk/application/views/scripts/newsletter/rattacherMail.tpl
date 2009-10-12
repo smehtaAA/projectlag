@@ -139,9 +139,9 @@
         <select id="typeMail">
         {foreach from=$types item=type name=type}
         	{if $type.idNewsletterType==$id}
-            <option value="{$type.idNewsletterType}" selected="selected"> {$type.nom} </option>
+            <option value="{$type.idNewsletterType}" selected="selected"> {$type.nom|utf8_encode} </option>
             {else}
-        	<option value="{$type.idNewsletterType}"> {$type.nom} </option>
+        	<option value="{$type.idNewsletterType}"> {$type.nom|utf8_encode} </option>
             {/if}
         {/foreach}
         </select>

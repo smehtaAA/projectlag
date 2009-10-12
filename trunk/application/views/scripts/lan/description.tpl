@@ -1,11 +1,11 @@
-<h2>{$titre}</h2>
+<h2>{$titre|utf8_encode}</h2>
 <br/>
 
 {$lan.datedeb|date_format:"%d/%m/%Y"} - {$lan.datefin|date_format:"%d/%m/%Y"}
 
 <br/>
 
-{$lan.adresse}
+{$lan.adresse|utf8_encode}
 
 <br/>
 
@@ -19,7 +19,7 @@ Lan T&eacute;l&eacute;thon : {if $lan.telethon==1} Oui {else} Non {/if}
 <br/>
 Activation Pre paiement: {if $lan.prepaiement==1} Oui <br/> Prix : {$lan.prix_prepaiement}{else} Non {/if}
 
-{$lan.description|nl2br}
+{$lan.description|nl2br|utf8_encode}
 
 <br/>
 
@@ -31,6 +31,6 @@ Joueurs Présents : {$chiffre.present}
 Jeux joués :
 <ul>
 	{foreach from=$jeux item=j name=jeu}
-    	<li>{$j.nom}</li>
+    	<li>{$j.nom|utf8_encode}</li>
     {/foreach}
 </ul>

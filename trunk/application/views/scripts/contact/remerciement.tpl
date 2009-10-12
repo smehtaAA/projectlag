@@ -1,1 +1,13 @@
-La LAG vous remercie et répondra dans les plus brefs délais à vos questions.
+<div id="content-total">
+    <div class="content-princ-total">
+        <div class="content-total-top"></div>
+        <div class="content-total-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Contact</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-total-text">
+                La LAG vous remercie et r&eacute;pondra dans les plus brefs d&eacute;lais &acirc; vos questions.
+            </div>
+        </div>
+    </div>
+</div>

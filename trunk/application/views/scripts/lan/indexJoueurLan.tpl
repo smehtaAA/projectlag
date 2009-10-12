@@ -3,11 +3,11 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$title}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$title|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <br/>
-               <span class="rouge"><strong>{$lan.nom}</strong></span>
+               <span class="rouge"><strong>{$lan.nom|utf8_encode}</strong></span>
 
                 <br/><br/>
                 <a href="{$urladdjeu}"> S'inscrire &agrave; un nouveau jeu </a>
@@ -21,7 +21,7 @@
                 <ul>
                 {foreach from=$jeux item=jeu name=jeu}
                 
-                    <li>{$jeu.nom}</li>
+                    <li>{$jeu.nom|utf8_encode}</li>
                 
 				{/foreach}   
                 </ul>
