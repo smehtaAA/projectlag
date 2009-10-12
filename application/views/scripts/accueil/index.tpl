@@ -68,7 +68,7 @@ $(document).ready(function() {
             <div class="content-title-right"></div>
             <div class="content-left-text">
             	{if $new.img}
-                	<img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre|utf8_encode}" tittle="{$new.titre|utf8_encode}" />
+                	<img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre|utf8_encode}" title="{$new.titre|utf8_encode}" />
                 {/if}
                 {$new.description|nl2br|utf8_encode}
                 <hr />
@@ -98,7 +98,7 @@ $(document).ready(function() {
             <div class="content-total-text">
                 <center>
                 {foreach from=$logos item=logo name=logo}
-                    <a href="{$logo.lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre|utf8_encode}" name="{$logo.titre|utf8_encode}" style="margin-right:50px;vertical-align:middle;" /></a>
+                    <a href="{$logo.lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre|utf8_encode}" title="{$logo.titre|utf8_encode}" style="margin-right:50px;vertical-align:middle;" /></a>
                 {/foreach}
                 </center>
             </div>
@@ -212,7 +212,7 @@ $(document).ready(function() {
             <div class="content-title-middle content-title-middle-right"><h3>Partenaire al&eacute;atoire</h3></div>
             <div class="content-title-right"></div>
             <div class="content-right-text">
-    			<center><a href="{$partenaire[0].lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$partenaire[0].logo}" name="{$partenaire[0].titre|utf8_encode}" alt="{$partenaire[0].titre|utf8_encode}" /></a></center>
+    			<center><a href="{$partenaire[0].lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$partenaire[0].logo}" title="{$partenaire[0].titre|utf8_encode}" alt="{$partenaire[0].titre|utf8_encode}" /></a></center>
             </div>
         </div>
         <div class="content-right-bottom"></div>

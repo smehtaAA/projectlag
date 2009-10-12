@@ -50,6 +50,7 @@ class Form_Contact extends Zend_Form
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
+			'class'    => 'button', 
         ));
     }
 }
