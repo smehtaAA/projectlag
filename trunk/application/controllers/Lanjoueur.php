@@ -7,8 +7,8 @@ class Model_LanJoueur
     public function getTable()
     {
         if (null === $this->_table) {
-            require_once APPLICATION_PATH . '/models/DbTable/LanJoueur.php';
-            $this->_table = new Model_DbTable_LanJoueur;
+            require_once APPLICATION_PATH . '/models/DbTable/lanjoueur.php';
+            $this->_table = new Model_DbTable_lanjoueur;
         }
         return $this->_table;
     }
@@ -52,8 +52,8 @@ class Model_LanJoueur
 	{
         $table = $this->getTable();
         $select = $table->select()
-						->from(array('lj' => 'lanjoueur'))
-						->join(array('c' => 'compte'),'c.idCompte=lj.idCompte')
+						->from(array('lj' => 'LanJoueur'))
+						->join(array('c' => 'Compte'),'c.idCompte=lj.idCompte')
 						->where('idLan = ?', $idLan)
 						->setIntegrityCheck(false);
 
@@ -64,7 +64,7 @@ class Model_LanJoueur
 	{
         $table = $this->getTable();
         $select = $table->select()
-						->from(array('lj' => 'lanjoueur'))
+						->from(array('lj' => 'LanJoueur'))
 						->where('idLan = ?', $idLan)
 						->where('idCompte = ?', $idCompte)
 						->setIntegrityCheck(false);
