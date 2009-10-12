@@ -61,7 +61,7 @@ class Model_Partenaire
 	public function fetchEntriesL()
     {
         $table = $this->getTable();
-        $select = $table->select()->distinct()->from(array('p' => 'partenaire'), array('titre', 'idPartenaire', 'logo'))->setIntegrityCheck(false);
+        $select = $table->select()->distinct()->from(array('p' => 'partenaire'), array('titre', 'idPartenaire', 'logo', 'lien'))->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();
     }
@@ -86,7 +86,7 @@ class Model_Partenaire
 	{
 		$table = $this->getTable();
 				
-		$sql = 'SELECT idPartenaire, logo, titre FROM partenaire ORDER BY RAND() LIMIT 1';
+		$sql = 'SELECT idPartenaire, logo, titre, lien FROM partenaire ORDER BY RAND() LIMIT 1';
 		
 		$stmt = $table->getAdapter()->query($sql);
 

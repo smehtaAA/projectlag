@@ -98,7 +98,7 @@ $(document).ready(function() {
             <div class="content-total-text">
                 <center>
                 {foreach from=$logos item=logo name=logo}
-                    <img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre|utf8_encode}" name="{$logo.titre|utf8_encode}" style="margin-right:50px;vertical-align:middle;" />
+                    <a href="{$logo.lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre|utf8_encode}" name="{$logo.titre|utf8_encode}" style="margin-right:50px;vertical-align:middle;" /></a>
                 {/foreach}
                 </center>
             </div>
@@ -185,10 +185,10 @@ $(document).ready(function() {
         <div class="content-right-top"></div>
         <div class="content-right-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-right"><h3>Partenaires</h3></div>
+            <div class="content-title-middle content-title-middle-right"><h3>Partenaire al&eacute;atoire</h3></div>
             <div class="content-title-right"></div>
             <div class="content-right-text">
-    			<center><img src="{$base_url}/images/partenaires/{$partenaire[0].logo}" name="{$partenaire[0].titre|utf8_encode}" alt="{$partenaire[0].titre|utf8_encode}" /></center>
+    			<center><a href="{$partenaire[0].lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$partenaire[0].logo}" name="{$partenaire[0].titre|utf8_encode}" alt="{$partenaire[0].titre|utf8_encode}" /></a></center>
             </div>
         </div>
         <div class="content-right-bottom"></div>
