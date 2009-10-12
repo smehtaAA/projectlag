@@ -38,9 +38,41 @@ class Model_Message
 	public function fetchEntryBySujet($idSujet)
     {
 		$table = $this->getTable();
-		$select = $table->select()->where('idSujet = ?', $idSujet)->order('date');
+		$select = $table->select()
+						->from(array('m' => 'message'), array('idMessage', 'idCompte', 'description', 'date'))
+						->where('idSujet = ?', $idSujet)
+						->order('date_m');
 
 		return $table->fetchAll($select)->toArray();
+    }
+	
+	public function fetchEntryCompteBySujet($idSujet)
+    {
+		$table = $this->getTable();
+		$select = $table->select()
+						->from(array('m' => 'message'), array('idCompte'))
+						->where('idSujet = ?', $idSujet)
+						->distinct('idCompte')
+						->order('date_m');
+
+		return $table->fetchAll($select)->toArray();
+    }
+	
+	public function fetchEntryLast($idSsCat)
+    {
+		$table = $this->getTable();
+		$select = $table->select()->from('message')
+									->join('sujet', 'sujet.idSujet=message.idSujet')
+									->join('compte', 'compte.idCompte=message.idCompte')
+									->where('idSousCategorie = ?', $idSsCat)
+									->order('message.date_m DESC')->limit(1)
+									->setIntegrityCheck(false);
+
+		$table = $table->fetchRow($select);
+		if(!empty($table))
+			return $table->toArray();
+		else
+			return -1;
     }
 	
     public function fetchEntry($id)
@@ -59,10 +91,10 @@ class Model_Message
         return $row->num;
 	}
 	
-	public function countEntriesbySujet($idSujet)
+	public function countEntriesbySsCat($idSsCat)
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('message','COUNT(idMessage) AS num')->join('sujet', 'sujet.idSujet=message.idSujet')->where('idSousCategorie = ?', $idSujet)->setIntegrityCheck(false);;
+		$select = $table->select()->from('message','COUNT(idMessage) AS num')->join('sujet', 'sujet.idSujet=message.idSujet')->where('idSousCategorie = ?', $idSsCat)->setIntegrityCheck(false);
 		$row = $table->fetchRow($select);
         return $row->num;
 	}

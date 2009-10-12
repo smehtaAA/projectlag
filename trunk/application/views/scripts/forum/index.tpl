@@ -5,7 +5,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$cat.titre}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$cat.titre|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <table border=1>
@@ -18,10 +18,15 @@
             
             	{foreach from=$sscat[$cat.idCategorie] item=sc name=sc}
             		<tr height="40px">
-                    	<td><span class="rouge"><strong>{$sc.titre}</strong></span> <br/> {$sc.description}</td>
+                    	<td><a href="{$url_sscat}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode}</strong></span></a> <br/> {$sc.description|utf8_encode}</td>
                         <td align="center">{$nb[$sc.idSousCategorie].nb_sujets}</td>
                         <td align="center">{$nb[$sc.idSousCategorie].nb_reponses}</td>
-                        <td></td>
+                        <td>{if $last_messages[$sc.idSousCategorie] == -1} 
+                        		Aucun Message 
+                            {else}
+                            	<span class="rouge"><strong>{$last_messages[$sc.idSousCategorie].titre}</strong></span><br/>
+                           		par <span class="rouge">{$last_messages[$sc.idSousCategorie].login}</span> | {$last_messages[$sc.idSousCategorie].date_m|date_format:"%d/%m/%Y %H:%M"}
+                            {/if}</td>
                     </tr>
             	{/foreach}
             </table>

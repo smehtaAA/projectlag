@@ -47,7 +47,7 @@ class Model_Sujet
 	public function fetchEntryBySousCategorie($idssCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->where('idSousCategorie = ?', $idssCat)->order('ordre');
+		$select = $table->select()->where('idSousCategorie = ?', $idssCat)->order('date DESC');
 
 		return $table->fetchAll($select)->toArray();
     }
