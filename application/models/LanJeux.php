@@ -7,7 +7,7 @@ class Model_LanJeux
     public function getTable()
     {
         if (null === $this->_table) {
-            require_once APPLICATION_PATH . '/models/DbTable/LanJeux.php';
+            require_once APPLICATION_PATH . '/models/DbTable/lanjeux.php';
             $this->_table = new Model_DbTable_LanJeux;
         }
         return $this->_table;
