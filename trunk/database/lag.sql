@@ -332,8 +332,9 @@ CREATE TABLE IF NOT EXISTS `information` (
 -- Contenu de la table `information`
 --
 INSERT INTO `information` VALUES
-(1, 'Local Arena Games', 'La Local Arena Games (LAG) est une association loi 1901 qui a pour but de regrouper un maximum de joueurs.', '2009-10-10 11:00:00', 'information_1.jpg', true),
-(2, 'LAG Téléthon 2009', 'La LAG organise une LAN au profit du téléthon, de nombreux jeux seront joués lors de cette nuit de folie.', '2009-10-10 11:00:00', 'information_2.jpg', true);
+(1, 'Local Arena Games', 'La Local Arena Games (LAG) est une association loi 1901 qui a pour but de regrouper un maximum de joueurs.', '2009-10-10 11:00:00', 'Local_Arena_Games.jpg', 1),
+(2, 'LAG Téléthon 2009', 'La LAG organise une LAN au profit du téléthon, de nombreux jeux seront joués lors de cette nuit de folie.', '2009-10-10 11:00:00', 'LAG_Telethon_2009.jpg', 1);
+
 
 -- --------------------------------------------------------
 

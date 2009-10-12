@@ -82,8 +82,9 @@
 			<div id="main">
 				<div id="submenu">
 					<ul>
-						<?php if($controllerName=="accueil" || $controllerName=="news") { ?>
+						<?php if($controllerName=="accueil" || $controllerName=="news" || $controllerName=="information") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'news', 'action' => 'indexadmin'),'default', true) ?>">News</a></li>
+						<li><a href="<?= $this->url(array('controller' => 'information', 'action' => 'indexadmin'),'default', true) ?>">Information</a></li>
 						<?php }  if(($controllerName=="lan" || $controllerName=="team" || $controllerName=="lanjeux" || $controllerName=="lanjeuxjoueurteam") && $actionName != "indexuser") { ?>
 						<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'indexadmin'),'default', true) ?>">Lan</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'team', 'action' => 'indexadmin'),'default', true) ?>">Team</a></li>
