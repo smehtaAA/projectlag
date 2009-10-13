@@ -149,13 +149,28 @@ class Model_LanJeuxJoueurTeam
         return $table->fetchAll($select)->toArray();
     }
 	
+	public function fetchEntriesByLanJoueur_Jeux($idLan, $idJoueur)
+    {
+        $table = $this->getTable();
+        $select = $table->select()
+							->from(array('ljjt' => 'lanjeuxjoueurteam'), array(''))
+							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux', array('nom as nom_jeux'))
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur', array(''))
+							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam', array('nom as nom_team'))
+							->where('lj.idCompte = ?', $idJoueur)
+							->where('lj.idLan = ?', $idLan)
+							->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
 	public function fetchEntriesJeuxByLan($idLan)
     {
         $table = $this->getTable();
         $select = $table->select()
 							->from(array('ljjt' => 'lanjeuxjoueurteam'))
-							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
-							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux')
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur', array(''))
+							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux', array('idJeux','nom'))
 							->where('lj.idLan = ?', $idLan)
 							->setIntegrityCheck(false);
 

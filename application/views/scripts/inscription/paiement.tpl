@@ -6,7 +6,7 @@
             <div class="content-title-middle content-title-middle-total"><h3>Pré-inscription</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-                Votre pré-inscription pour la lan {$lan.nom} a bien &eacute;t&eacute; enregistr&eacute;.<br/>
+                Votre pré-inscription pour la lan {$lan.nom|utf8_encode} a bien &eacute;t&eacute; enregistr&eacute;.<br/>
 
                 Afin de terminer votre inscription, il vous est demandé de nous faire parvenir par chèque ou PayPal un règlement équivalant au tarif de la LAN soit
                 {if $lan.telethon == true}

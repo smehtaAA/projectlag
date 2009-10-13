@@ -25,6 +25,9 @@
                 
 				{/foreach}   
                 </ul>
+                <br/> <br/>
+                <!--Venir &agrave; la lan-->
+                <br/><br/>
             </div>
         </div>
         <div class="content-total-bottom"></div>
