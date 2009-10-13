@@ -10,7 +10,8 @@
             {if $login==1}
             	<a href="{$url_addsujet}"><span class="rouge"><strong> Ajouter un Sujet </strong></span> </a> <br/><br/>
             {else}
-            	Connectez vous !!! <br/><br/>
+            	Bienvenue, Invité <br/>
+				Merci de vous identifier ou de vous inscrire. <br/><br/>
             {/if}
             
             <table border=1>

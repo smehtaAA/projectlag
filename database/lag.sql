@@ -58,12 +58,15 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `visible` tinyint(4) NOT NULL,
   `ordre` int(10) NOT NULL,
   PRIMARY KEY (`idCategorie`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `categorie`
 --
-
+INSERT INTO `categorie` (`idCategorie`, `titre`, `description`, `visible`, `ordre`) VALUES
+(1, 'Local Arena Games', '<p>Forum G&eacute;n&eacute;ral Local Arena Games</p>', 1, 1),
+(2, 'Lan', '<p>Pr&eacute;sentation des lans</p>', 1, 2),
+(3, 'Games', '<p>Jeux PC ou ... pas</p>', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -808,12 +811,17 @@ CREATE TABLE IF NOT EXISTS `souscategorie` (
   `ordre` int(10) NOT NULL,
   PRIMARY KEY (`idSousCategorie`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `souscategorie`
 --
-
+INSERT INTO `souscategorie` (`idSousCategorie`, `idCategorie`, `titre`, `description`, `visible`, `ordre`) VALUES
+(1, 1, 'Taverne', '<p>Tout et n''importe quoi !!</p>', 1, 1),
+(2, 1, 'Présentation', '<p>Pr&eacute;sentation des joueurs</p>', 1, 2),
+(3, 1, 'Règles', '<p>Parce qu''il le faut bien !!!</p>', 1, 3),
+(4, 2, 'LAG Téléthon 2009', '<p>Tout ce qui se rapporte &agrave; la LAG T&eacute;l&eacute;thon 2009</p>', 1, 1),
+(5, 3, 'Warcraft III TFT', '<p>Tout ce qui est li&eacute; &agrave; Warcraft III TFT se pose ici</p>', 1, 1);
 
 -- --------------------------------------------------------
 
