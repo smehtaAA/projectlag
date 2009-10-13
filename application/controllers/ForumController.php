@@ -8,6 +8,7 @@ class ForumController extends Zend_Controller_Action
 	protected $_modelSujet;
 	protected $_modelMessage;
 	protected $_modelConfig;
+	protected $_modelCompte;
 	
 	public function indexAction()
 	{
@@ -22,14 +23,13 @@ class ForumController extends Zend_Controller_Action
 			$modelSousCategorie = $this->_getModelSousCategorie();
 			$modelSujet = $this->_getModelSujet();
 			$modelMessage = $this->_getModelMessage();
+			$modelCompte = $this->_getModelCompte();
 			
 			$forum_ouvert['valeur'] = 0;
 			$nb=null;
 			$last_messages=null;
 			$sscat=null;
 
-
-			
 			$log = new SessionLAG();
 			
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
@@ -65,6 +65,7 @@ class ForumController extends Zend_Controller_Action
 			$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');
 			$smarty->assign('nb', $nb);
 			$smarty->assign('categories', $categories);
+			$smarty->assign('base_url', $request->getBaseUrl());
 		}
 		$smarty->assign('forum_ouvert', $forum_ouvert);
 		
@@ -125,6 +126,14 @@ class ForumController extends Zend_Controller_Action
 			$this->_modelMessage = new Model_Message();
 		}
 		return $this->_modelMessage;
+	}
+	
+	protected function _getModelCompte() {
+		if (null === $this->_modelCompte) {
+			require_once APPLICATION_PATH . '/models/Compte.php';
+			$this->_modelCompte = new Model_Compte();
+		}
+		return $this->_modelCompte;
 	}
   
 }
