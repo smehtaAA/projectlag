@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 	<head>  
 		<title>LAG - Local Arena Games</title>
-		<meta name="description" content="LAG - Local Arena Games est association de jeux en réseau dans l'aisne " />
+		<meta name="description" content="LAG - Local Arena Games est une association loi 1901 de jeux en réseau dans l'aisne (02) qui a pour but de regrouper un maximum de joueurs." />
 		<meta name="keywords" content="lag, local, arena, games, lan, reseau, informatique, ordinateur, jeux, picardie, aisne, mont notre dame, soissons, reims, compiegne, 02, trackmania, css, warcraft, frozen throne, wolfenstein, Antoine MORAUX, Johan FRAILLON, Steevens BOURGEOIS, Maxime MEHAULT, Eric BARATH" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 		<meta name="robots" content="all" />
 		<meta name="revisit-after" content="7 days" />
 		<meta name="author" content="Local Arena Games" />
 		<meta name="copyright" content="Local Arena Games" />
+		<link rel="icon" type="image/png" href="<?php echo $this->baseUrl();?>/images/favicon.png" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/global.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/jquery/jquery.css" />
 		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-1.3.2.min.js"></script>
@@ -55,7 +56,18 @@
 						</table>	
 					</form>
 				</div>
-				<?php } ?>
+				<?php } else { ?>
+					<div class="connexion-active">
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-user2.png" alt="Mon Compte" title="Mon Compte" class="absmiddle img-separator" /> <a href="<?php echo $this->baseUrl();?>/compte/form">Mon Compte</a></div>
+                        <?php if($defaultNamespace->type == "superadmin" || $defaultNamespace->type == "admin") { ?>
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-lock.png" alt="Administration" title="Administration" class="absmiddle img-separator" /> <a href="<?php echo $this->baseUrl();?>/accueil/indexadmin">Administration</a></div>
+						<?php } else { ?>
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-modify.png" alt="Mes Inscriptions" title="Mes Inscriptions" class="absmiddle img-separator" />
+						<a href="<?php echo $this->baseUrl();?>/lan/indexjoueur">Mes Inscriptions</a></div>
+						<?php } ?>
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-close.png" alt="Deconnexion" title="Deconnexion" class="absmiddle img-separator" /> <a href="<?php echo $this->baseUrl();?>/log/deconnexion">Deconnexion</a></div>
+					</div>
+				<?php } ?>				
 				<div id="menu">
 					<?= utf8_encode($this->render('menu.phtml')) ?>
 				</div>

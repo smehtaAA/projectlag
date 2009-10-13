@@ -7,6 +7,7 @@ SetEnv MAGIC_QUOTES 0
 
 SetEnv SESSION_AUTO_START 0
 SetEnv SESSION_USE_TRANS_SID 1
+SetEnv ZEND_OPTIMIZER 1
 
 # Let's make sure that we have setup the timezone for this application,
 # In some php.ini files, this value is not set.  This will ensure it exists

@@ -14,6 +14,7 @@ class Form_Mdp extends Zend_Form
 		$this->addElement('password', 'oldpassword', array(
             'label'      => 'Ancien mot de passe : ',
             'required'   => true,
+			'class'      => 'inputlog',
 			'filters'     => array(
 				array('filter' => 'md5')
 			)
@@ -22,6 +23,7 @@ class Form_Mdp extends Zend_Form
 		$this->addElement('password', 'newpassword', array(
             'label'      => 'Nouveau mot de passe : ',
             'required'   => true,
+			'class'      => 'inputlog',
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(6, 20))
             )
@@ -30,13 +32,15 @@ class Form_Mdp extends Zend_Form
 		$this->addElement('password', 'newpasswordconf', array(
             'label'      => 'Confirmation nouveau mot de passe : ',
             'required'   => true,
+			'class'      => 'inputlog',
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(6, 20))
             )
         ));
 
         $this->addElement('submit', 'submit', array(
-            'label'    => 'Envoyer',
+            'label'    => 'Modifier',
+			'class'      => 'inputbut',
         ));
 		
 		$stringEquals = new Zend_Validate_StringEquals('newpassword', 'newpasswordconf');

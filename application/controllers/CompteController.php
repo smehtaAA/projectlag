@@ -119,6 +119,7 @@ class CompteController extends Zend_Controller_Action
 					$date = new Zend_Date($data['datenaissance']);
 					$data['datenaissance'] = $date->toString('dd/MM/Y');
 					$form->populate($data);
+					$smarty->assign('img',$data['img']);
 				}
 			}
 			
@@ -132,7 +133,7 @@ class CompteController extends Zend_Controller_Action
 			}			
 			
 	
-			
+			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('form', $form);
 			$smarty->assign('formmdp', $formmdp);
 			$smarty->display('compte/form.tpl');
