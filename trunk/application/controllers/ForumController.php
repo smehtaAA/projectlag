@@ -39,8 +39,16 @@ class ForumController extends Zend_Controller_Action
 			
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 				$categories=$modelCategorie->fetchEntriesVisiblesAdmin();
+				$stats['nb_messages'] = $modelMessage->countEntries();
+				$stats['nb_sujets'] = $modelSujet->countEntries();
+				$stats['nb_sscat'] = $modelSousCategorie->countEntries();
+				$stats['nb_cat'] = $modelCategorie->countEntries();
 			} else {
 				$categories=$modelCategorie->fetchEntriesVisibles();
+				$stats['nb_messages'] = $modelMessage->countEntriesNonAdmin();
+				$stats['nb_sujets'] = $modelSujet->countEntriesNonAdmin();
+				$stats['nb_sscat'] = $modelSousCategorie->countEntriesNonAdmin();
+				$stats['nb_cat'] = $modelCategorie->countEntriesNonAdmin();
 			}
 			foreach ($categories as $cat) {
 				$forum_ouvert['valeur'] = 1;
@@ -58,12 +66,17 @@ class ForumController extends Zend_Controller_Action
 				}
 			}
 			
+			// Recuperation Stats Forum
+			$stats['nb'] = $modelCompte->CountEntries();
+			$stats['last'] = $modelCompte->fetchEntryLast();
+			
 			$smarty->assign('sscat', $sscat);
 			$smarty->assign('login', $login);
 			$smarty->assign('last_messages', $last_messages);
 			$smarty->assign('url_cat', $request->getBaseUrl().'/categorie?id=');
 			$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');
 			$smarty->assign('nb', $nb);
+			$smarty->assign('stats', $stats);
 			$smarty->assign('categories', $categories);
 			$smarty->assign('base_url', $request->getBaseUrl());
 		}

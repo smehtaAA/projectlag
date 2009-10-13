@@ -6,7 +6,15 @@
             <div class="content-title-middle content-title-middle-total"><h3>Info Forum</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-            	<a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"> {$fil_arianne.cat.nom|utf8_encode}</a>
+            	<a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"><strong> {$fil_arianne.cat.nom|utf8_encode}</strong></a> <br/> <br/>
+                
+                {if $login.login!=''}
+                    Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span> <br/><br/>
+                {else}
+                    Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
+                    Merci de vous identifier ou de vous inscrire. <br/><br/>
+                {/if}
+                
             </div>
         </div>
         <div class="content-total-bottom"></div>
@@ -21,13 +29,6 @@
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <br/>
-            {if $login.login!=''}
-            	Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span> <br/><br/>
-            {else}
-            	Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
-				Merci de vous identifier ou de vous inscrire. <br/><br/>
-            {/if}
-            
             <table border=1>
             <tr height="35px" bgcolor="#555555">
                     <th width="450px"> Forum </th>
@@ -55,4 +56,27 @@
         </div>
         <div class="content-total-bottom"></div>
     </div>
+    
+            <!-- Affichage des Statistiques -->
+        
+        <div class="content-total-princ content-separator">
+            <div class="content-total-top"></div>
+            <div class="content-total-middle">
+                <div class="content-title-left"></div>
+                <div class="content-title-middle content-title-middle-total"><h3>Forum Stats</h3></div>
+                <div class="content-title-right"></div>
+                <div class="content-total-text">
+                <p> 
+                	Nb total d'utilisateurs: <span class="rouge">{$stats.nb}</span>  Dernier inscrit: <span class="rouge"><em>{$stats.last.login}</em></span> <br/>
+                	Nb total de messages:{$stats.nb_messages} Nb total de sujets:{$stats.nb_sujets} Nb total de cat&eacute;gories:{$stats.nb_cat} Nb total de sous-cat&eacute;gories:{$stats.nb_sscat}
+                
+                
+                </p>
+                	
+                
+                </div>
+            </div>
+            <div class="content-total-bottom"></div>
+        </div>
+    
 </div>

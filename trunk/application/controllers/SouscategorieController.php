@@ -6,6 +6,7 @@ class SousCategorieController extends Zend_Controller_Action
 	protected $_modelSujet;
 	protected $_modelCompte;
 	protected $_modelCategorie;
+	protected $_modelMessage;
 	
 	public function indexAction()
 	{
@@ -17,6 +18,7 @@ class SousCategorieController extends Zend_Controller_Action
 			$modelSujet = $this->_getModelSujet();
 			$modelCompte = $this->_getModelCompte();
 			$modelCategorie = $this->_getModelCategorie();
+			$modelMessage = $this->_getModelMessage();
 			$log = new SessionLAG();
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
 				$login=$modelCompte->fetchEntryForum($log->_getUser());
@@ -24,6 +26,15 @@ class SousCategorieController extends Zend_Controller_Action
 				$login=0;
 			
 			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
+			foreach ($sujets as $s) {
+				
+				$nb[$s['idSujet']]['reponses'] = $modelMessage->countEntriesBySujet($s['idSujet']);
+				$last_messages[$s['idSujet']] = $modelMessage->fetchEntryLastBySujet($s['idSujet']);
+				
+			}
+			
+			
+			
 			$souscat = $modelSousCategorie->fetchEntryL($id);
 			
 			$categorie = $modelCategorie->fetchEntryField($souscat['idCategorie'], array('idCategorie', 'titre'));
@@ -32,6 +43,8 @@ class SousCategorieController extends Zend_Controller_Action
 			$fil_arianne['sscat'] = array('id'=>$souscat['idSousCategorie'],'nom'=>$souscat['titre']);
 			
 			$smarty->assign('fil_arianne', $fil_arianne);
+			$smarty->assign('nb', $nb);
+			$smarty->assign('last_messages', $last_messages);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('sujets', $sujets);
 			$smarty->assign('login', $login);
@@ -178,5 +191,13 @@ class SousCategorieController extends Zend_Controller_Action
 			$this->_modelSujet = new Model_Sujet();
 		}
 		return $this->_modelSujet;
+	}
+	
+	protected function _getModelMessage() {
+		if (null === $this->_modelMessage) {
+			require_once APPLICATION_PATH . '/models/Message.php';
+			$this->_modelMessage = new Model_Message();
+		}
+		return $this->_modelMessage;
 	}
 }

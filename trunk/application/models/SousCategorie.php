@@ -116,6 +116,14 @@ class Model_SousCategorie
         return $row->num;
 	}
 	
+	public function countEntriesNonAdmin()
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('souscategorie','COUNT(idSousCategorie) AS num')->where('admin=0');
+		$row = $table->fetchRow($select);
+        return $row->num;
+	}
+	
 	public function countEntriesbyCategorie($idCat)
 	{
 		$table = $this->getTable();

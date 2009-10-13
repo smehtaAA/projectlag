@@ -1,5 +1,28 @@
 <div id="content-total">
+
 	<div class="content-total-princ">
+            <div class="content-total-top"></div>
+            <div class="content-total-middle">
+                <div class="content-title-left"></div>
+                <div class="content-title-middle content-title-middle-total"><h3>Info Forum</h3></div>
+                <div class="content-title-right"></div>
+                <div class="content-total-text">
+                <a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.idCategorie}"> {$fil_arianne.titre_cat|utf8_encode}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.idSousCategorie}"> {$fil_arianne.titre_sscat|utf8_encode}</a> > <a href="{$base_url}/sujet?id={$fil_arianne.idSujet}"> <strong>{$fil_arianne.titre_s|utf8_encode}</strong></a>  <br/><br/>
+                
+                {if $login.login!=''}
+            		Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span> <br/><br/>
+            	{else}
+            		Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
+					Merci de vous identifier ou de vous inscrire. <br/><br/>
+            	{/if}
+                	
+                
+                </div>
+            </div>
+            <div class="content-total-bottom"></div>
+       </div>
+
+	<div class="content-total-princ content-separator">
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>

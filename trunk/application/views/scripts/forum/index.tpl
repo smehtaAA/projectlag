@@ -1,7 +1,7 @@
 <div id="content-total">
 	{if $forum_ouvert.valeur==1}
     
-         <div class="content-total-princ content-separator">
+         <div class="content-total-princ">
             <div class="content-total-top"></div>
             <div class="content-total-middle">
                 <div class="content-title-left"></div>
@@ -73,7 +73,12 @@
                 <div class="content-title-middle content-title-middle-total"><h3>Forum Stats</h3></div>
                 <div class="content-title-right"></div>
                 <div class="content-total-text">
-                <p> Le forum est actuellement en maintenance, veuillez revenir ult&eacute;rieurement ! </p>
+                <p> 
+                	Nb total d'utilisateurs: <span class="rouge">{$stats.nb}</span>  Dernier inscrit: <span class="rouge"><em>{$stats.last.login}</em></span> <br/>
+                	Nb total de messages:{$stats.nb_messages} Nb total de sujets:{$stats.nb_sujets} Nb total de cat&eacute;gories:{$stats.nb_cat} Nb total de sous-cat&eacute;gories:{$stats.nb_sscat}
+                
+                
+                </p>
                 	
                 
                 </div>
