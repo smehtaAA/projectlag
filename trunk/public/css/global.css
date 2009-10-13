@@ -60,13 +60,14 @@ body {
 }
 
 a:link, a:visited {
+	color: #000000;
 	text-decoration: none;
-	color:#000000;
+	font-size:12px;
 }
 
 a:hover {
+	color: #d51414;
 	text-decoration: underline;
-	color:#0000FF;
 }
 
 .default_display_none {
@@ -127,6 +128,25 @@ h3 {
 	margin-left: 595px;
 	color: #000000;
 	font-size: 11px;
+}
+
+.connexion-active {
+	float: left;
+	position: absolute;
+	margin-top: 48px;
+	margin-left: 600px;
+	padding-top: 12px;
+	padding-left: 120px;
+	color: #000000;
+	font-size: 11px;
+	height: 94px;
+	background-image: url('../images/site/blood.gif');
+	background-position: left top ;
+	background-repeat: no-repeat;
+}
+
+.padding-joueur {
+	padding-top: 25px;
 }
 
 #menu {
@@ -515,6 +535,14 @@ h3 {
 	text-decoration: underline;
 }
 
+#content .content-title-middle a:link, #content .content-title-middle a:visited {
+	color: #FFFFFF;
+}
+
+#content .content-title-middle a:hover {
+	color: #000000;
+}
+
 #inscription-charte {
 	overflow:scroll;
 	width: 815px;
@@ -619,4 +647,50 @@ h3 {
 	width: 30px;
 	height: 20px;
 	font-size: 11px;
+}
+
+.absmiddle {
+	vertical-align:middle;
+}
+
+.img-separator {
+	margin-right: 4px;
+}
+
+.connexion-active div {
+	margin-bottom: 8px;
+}
+
+.content-princ .content-left-text dl {
+	margin-left: 30px;
+}
+
+.content-princ .content-left-text dt {
+	float: left;
+	width: 140px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.content-princ .content-left-text textarea {
+	width: 300px;
+}
+
+.content-left-text input {
+	width: 300px;
+	font-size: 11px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.content-right-text .inputlog {
+	width: 213px ;
+}
+
+.content-right-text .inputbut {
+	width: 220px ;
+	height: 20px;
+	
 }

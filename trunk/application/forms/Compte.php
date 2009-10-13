@@ -9,13 +9,14 @@ class Form_Compte extends My_CreationCompte
 		$modeform = Zend_Registry::get('modeform');
 		
 		$this->addElement('text', 'login', array(
-            'label'      => 'Login : ',
+			'label'=>'Login : ',                   
             'required'   => true,
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(2, 30))
             )
         ));	
 		
+		$this->obligatoire('login');
 		
 		if($modeform=='inscription') {
 			
@@ -26,6 +27,8 @@ class Form_Compte extends My_CreationCompte
 					 array('validator' => 'StringLength', 'options' => array(2, 30))
 				)
 			));	
+		
+			$this->obligatoire('password');
 			
 			$this->addElement('password', 'passwordconf', array(
 				'label'      => 'Confirmation mot de passe : ',
@@ -34,6 +37,8 @@ class Form_Compte extends My_CreationCompte
 					 array('validator' => 'StringLength', 'options' => array(2, 30))
 				)
 			));	
+		
+			$this->obligatoire('passwordconf');
 			
 			$stringEquals = new Zend_Validate_StringEquals('password', 'passwordconf');
 			$this->getElement('passwordconf')->addValidator($stringEquals);
@@ -48,6 +53,8 @@ class Form_Compte extends My_CreationCompte
             )
         ));	
 		
+		$this->obligatoire('nom');
+		
 		$this->addElement('text', 'prenom', array(
             'label'      => 'Prénom : ',
             'required'   => true,
@@ -56,6 +63,8 @@ class Form_Compte extends My_CreationCompte
             )
         ));
 		
+		$this->obligatoire('prenom');
+		
 		$this->addElement('text', 'email', array(
             'label'      => 'Email : ',
             'required'   => true,
@@ -63,6 +72,8 @@ class Form_Compte extends My_CreationCompte
                  array('validator' => 'StringLength', 'options' => array(2, 60), 'EmailAddress')
             )
         ));	
+		
+		$this->obligatoire('email');
 		
 		$this->addElement('text', 'msn', array(
             'label'      => 'MSN : ',
@@ -85,6 +96,8 @@ class Form_Compte extends My_CreationCompte
             'RegisterInArrayValidator' => false,
             'required'   => true
         ));
+		
+		$this->obligatoire('datenaissance');
 		
 		$this->addElement('file', 'img', array(
             'label'       => 'Avatar : ',
@@ -128,4 +141,15 @@ class Form_Compte extends My_CreationCompte
 			'class'    => 'button'
         ));
     }
+	
+	private function obligatoire($id) {
+		$element = $this->getElement($id);
+		$element->setDecorators(array(
+			'ViewHelper',
+			'Description',
+			'Errors',
+			array('HtmlTag', array('tag' => 'dd')),
+			array('Label', array('tag' => 'dt','class'=>'rouge bold')),
+		));
+	}
 }
