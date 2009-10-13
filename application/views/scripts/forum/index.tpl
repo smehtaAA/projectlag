@@ -2,11 +2,11 @@
 	{if $forum_ouvert.valeur==1}
         {foreach from=$categories item=cat name=cat}
     
-        <div class="content-princ-total">
+        <div class="content-total-princ">
             <div class="content-total-top"></div>
             <div class="content-total-middle">
                 <div class="content-title-left"></div>
-                <div class="content-title-middle content-title-middle-total"><h3>{$cat.titre|utf8_encode}</h3></div>
+                <div class="content-title-middle content-title-middle-total"><a href="{$url_cat}{$cat.idCategorie}"><h3>{$cat.titre|utf8_encode}</h3></a></div>
                 <div class="content-title-right"></div>
                 <div class="content-total-text">
                 
@@ -39,7 +39,7 @@
         </div>
         {/foreach}
     {else}
-    	<div class="content-princ-total">
+    	<div class="content-total-princ">
             <div class="content-total-top"></div>
             <div class="content-total-middle">
                 <div class="content-title-left"></div>
