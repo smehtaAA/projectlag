@@ -130,6 +130,20 @@ class LanController extends Zend_Controller_Action
 			$modelLanJoueur = $this->_getModelLanJoueur();
 			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
 			
+			require('../library/My/GoogleMapAPI.class.php');
+			
+			//(2) On créer une nouvelle carte ici notre carte sera $map
+			$map = new GoogleMapAPI('map');
+			
+			//(3) On ajoute la clef de Google Maps
+			$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+				
+			//(4) On ajoute les caractéristiques que l'on désire à notre carte
+			$map->setWidth("800px");
+			$map->setHeight("200px");
+			$map->setCenterCoords('2', '48');
+			$map->setZoomLevel(10);
+			
 			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville'));
 			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville'));
 			foreach($joueurs as $j) {
@@ -140,6 +154,7 @@ class LanController extends Zend_Controller_Action
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('joueurs', $joueurs);
 			$smarty->assign('jeux', $jeux);
+			$smarty->assign('map', $map);
 			$smarty->assign('title', 'Inscrits de la lan '.$lan['nom']);
 			$smarty->display('lan/viewinscrits.tpl');
 			
