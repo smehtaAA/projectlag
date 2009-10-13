@@ -61,9 +61,9 @@ class Model_Message
 	public function fetchEntryLast($idSsCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->from('message')
-									->join('sujet', 'sujet.idSujet=message.idSujet')
-									->join('compte', 'compte.idCompte=message.idCompte')
+		$select = $table->select()->from('message', array('idCompte', 'date_m'))
+									->join('sujet', 'sujet.idSujet=message.idSujet', array('titre', 'idSujet'))
+									->join('compte', 'compte.idCompte=message.idCompte', array('idCompte', 'login'))
 									->where('idSousCategorie = ?', $idSsCat)
 									->order('message.date_m DESC')->limit(1)
 									->setIntegrityCheck(false);
@@ -94,7 +94,7 @@ class Model_Message
 	public function countEntriesbySsCat($idSsCat)
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('message','COUNT(idMessage) AS num')->join('sujet', 'sujet.idSujet=message.idSujet')->where('idSousCategorie = ?', $idSsCat)->setIntegrityCheck(false);
+		$select = $table->select()->from('message','COUNT(idMessage) AS num')->join('sujet', 'sujet.idSujet=message.idSujet', array('idSujet'))->where('idSousCategorie = ?', $idSsCat)->setIntegrityCheck(false);
 		$row = $table->fetchRow($select);
         return $row->num;
 	}

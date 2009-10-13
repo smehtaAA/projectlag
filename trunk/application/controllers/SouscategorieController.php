@@ -20,7 +20,7 @@ class SousCategorieController extends Zend_Controller_Action
 				$login=0;
 			
 			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
-			$souscat = $modelSousCategorie->fetchEntry($id);
+			$souscat = $modelSousCategorie->fetchEntryL($id);
 			
 			$smarty->assign('sujets', $sujets);
 			$smarty->assign('login', $login);
