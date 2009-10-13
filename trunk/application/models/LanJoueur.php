@@ -60,6 +60,19 @@ class Model_LanJoueur
         return $table->fetchAll($select)->toArray();
 	}
 	
+	public function fetchEntriesByLanField($idLan, $array)
+	{
+        $table = $this->getTable();
+        $select = $table->select()
+						->from(array('lj' => 'lanjoueur'),array('idLanJoueur', 'validation'))
+						->join(array('c' => 'compte'),'c.idCompte=lj.idCompte', $array)
+						->where('idLan = ?', $idLan)
+						->order('login')
+						->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+	}	
+
 	public function fetchEntriesByLanAndJoueur($idLan,$idCompte)
 	{
         $table = $this->getTable();

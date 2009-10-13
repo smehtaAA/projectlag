@@ -92,7 +92,7 @@ class LanController extends Zend_Controller_Action
 				$modelLanJeux = $this->_getModelLanJeux();
 				$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
 				
-				$lan=$model->fetchEntry($id);
+				$lan=$model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville'));
 				// recuperation des jeus où le joueur s'est inscrit
 				$jeux = $modelLanJeuxJoueurTeam->fetchEntriesJeuxByLan($id);
 				$jeux_libres = $modelLanJeuxJoueurTeam->fetchEntriesJeuxLibresByLanJoueur($id, $log->_getUser());
@@ -118,6 +118,35 @@ class LanController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}  
     }
+	
+	public function viewinscritsAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$request = $this->getRequest();
+		$id =(int)$request->getParam('id', 0);
+		if($id>0) {
+		
+			$model  = $this->_getModel();
+			$modelLanJoueur = $this->_getModelLanJoueur();
+			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
+			
+			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville'));
+			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville'));
+			foreach($joueurs as $j) {
+				$jeux[$j['idCompte']] = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
+			}
+			
+			$smarty->assign('lan', $lan);
+			$smarty->assign('base_url', $request->getBaseUrl());
+			$smarty->assign('joueurs', $joueurs);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('title', 'Inscrits de la lan '.$lan['nom']);
+			$smarty->display('lan/viewinscrits.tpl');
+			
+		} else {
+			return $this->_helper->redirector('index');
+		}
+	}
 	
 	public function descriptionAction()
 	{
