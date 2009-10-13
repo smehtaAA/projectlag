@@ -45,7 +45,7 @@
                         <td>{if $last_messages[$sc.idSousCategorie] == -1} 
                             	Aucun Message 
                             {else}
-                                <span class="rouge"><strong>{$last_messages[$sc.idSousCategorie].titre}</strong></span><br/>
+                                <span class="rouge"><strong><a href="{$base_url}/sujet?id={$last_messages[$sc.idSousCategorie].idSujet}">{$last_messages[$sc.idSousCategorie].titre|utf8_encode}</a></strong></span><br/>
                                 par <span class="rouge">{$last_messages[$sc.idSousCategorie].login}</span> | {$last_messages[$sc.idSousCategorie].date_m|date_format:"%d/%m/%Y %H:%M"}
                             {/if}
                         </td>
