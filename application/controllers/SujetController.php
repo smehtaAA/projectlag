@@ -24,6 +24,9 @@ class SujetController extends Zend_Controller_Action
 				$login=0;
 			
 			$sujet = $model->fetchEntry($id);
+			$sujet['vu']++;
+			$model->save($id, $sujet);
+			
 			$messages = $modelMessage->fetchEntryBySujet($id);
 			$compte = $modelMessage->fetchEntryCompteBySujet($id);
 			foreach($compte as $c) {
