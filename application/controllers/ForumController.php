@@ -28,10 +28,19 @@ class ForumController extends Zend_Controller_Action
 			$last_messages=null;
 			$sscat=null;
 			
-			$categories=$modelCategorie->fetchEntriesVisibles();
+			$log = new SessionLAG();
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+				$categories=$modelCategorie->fetchEntriesVisiblesAdmin();
+			} else {
+				$categories=$modelCategorie->fetchEntriesVisibles();
+			}
 			foreach ($categories as $cat) {
 				$forum_ouvert['valeur'] = 1;
-				$sscat[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorieVisibles($cat['idCategorie']);
+				if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+					$sscat[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorieVisiblesAdmin($cat['idCategorie']);
+				} else {
+					$sscat[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorieVisibles($cat['idCategorie']);
+				}
 				
 				foreach ($sscat[$cat['idCategorie']] as $sc) {
 					$nb[$sc['idSousCategorie']]['nb_sujets'] = $modelSujet->countEntriesbySousCategorie($sc['idSousCategorie']);

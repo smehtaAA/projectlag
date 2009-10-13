@@ -35,13 +35,22 @@ class Model_Categorie
         return $this->getTable()->fetchAll('1')->toArray();
     }
 	
-	public function fetchEntriesVisibles()
+	public function fetchEntriesVisiblesAdmin()
 	{
 		$table = $this->getTable();
-		$select = $table->select()->where('visible=1')->order('ordre');
+		$select = $table->select()->from('categorie', array('idCategorie', 'titre'))->where('visible=1')->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }
+	
+	public function fetchEntriesVisibles()
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('categorie', array('idCategorie', 'titre'))->where('visible=1')->where('admin=0')->order('ordre');
+
+		return $table->fetchAll($select)->toArray();
+    }
+	
 	public function fetchEntriesOrderByOrdre()
     {
 		$table = $this->getTable();

@@ -11,7 +11,7 @@
             	Bienvenue <br/>
             	<a href="{$url_addsujet}"><span class="rouge"><strong> Ajouter un Sujet </strong></span> </a> <br/><br/>
             {else}
-            	Bienvenue, Invit&eacute; <br/>
+            	Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
 				Merci de vous identifier ou de vous inscrire. <br/><br/>
             {/if}
             

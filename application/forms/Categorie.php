@@ -19,6 +19,11 @@ class Form_Categorie extends Zend_Form
             'label'      => 'Visible : ',
             'required'   => true
         ));
+		
+		$this->addElement('checkbox', 'admin', array(
+            'label'      => 'Administration : ',
+            'required'   => true
+        ));
 
         $this->addElement('textarea', 'description', array(
             'label'      => 'Description : ',
