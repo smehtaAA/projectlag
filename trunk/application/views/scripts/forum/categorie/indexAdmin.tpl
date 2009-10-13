@@ -83,7 +83,7 @@
   {section name=souscategorie loop=$datasSousCategorie[$cat.idCategorie] step=1}
    <tr>
   	<td>{$smarty.foreach.categorie.index+1}.{$smarty.section.souscategorie.index+1} - </td>
-  	<td align="center">{$datasSousCategorie[$cat.idCategorie][souscategorie].titre}</td>
+  	<td align="center">{$datasSousCategorie[$cat.idCategorie][souscategorie].titre|utf8_encode}</td>
     <td>{$datasSousCategorie[$cat.idCategorie][souscategorie].visible}</td>
     <td align="center">
     	{if $smarty.section.souscategorie.index+1 != 1}

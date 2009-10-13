@@ -8,9 +8,10 @@
             <div class="content-total-text">
             <br/>
             {if $login==1}
+            	Bienvenue <br/>
             	<a href="{$url_addsujet}"><span class="rouge"><strong> Ajouter un Sujet </strong></span> </a> <br/><br/>
             {else}
-            	Bienvenue, Invité <br/>
+            	Bienvenue, Invit&eacute; <br/>
 				Merci de vous identifier ou de vous inscrire. <br/><br/>
             {/if}
             
