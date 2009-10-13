@@ -27,8 +27,16 @@ class ForumController extends Zend_Controller_Action
 			$nb=null;
 			$last_messages=null;
 			$sscat=null;
+
+
 			
 			$log = new SessionLAG();
+			
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
+				$login=$modelCompte->fetchEntryForum($log->_getUser());
+			else
+				$login=0;
+			
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 				$categories=$modelCategorie->fetchEntriesVisiblesAdmin();
 			} else {
@@ -51,6 +59,7 @@ class ForumController extends Zend_Controller_Action
 			}
 			
 			$smarty->assign('sscat', $sscat);
+			$smarty->assign('login', $login);
 			$smarty->assign('last_messages', $last_messages);
 			$smarty->assign('url_cat', $request->getBaseUrl().'/categorie?id=');
 			$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');

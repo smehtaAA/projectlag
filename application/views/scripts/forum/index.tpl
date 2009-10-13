@@ -1,8 +1,33 @@
 <div id="content-total">
 	{if $forum_ouvert.valeur==1}
-        {foreach from=$categories item=cat name=cat}
     
-        <div class="content-total-princ">
+         <div class="content-total-princ content-separator">
+            <div class="content-total-top"></div>
+            <div class="content-total-middle">
+                <div class="content-title-left"></div>
+                <div class="content-title-middle content-title-middle-total"><h3>Info Forum</h3></div>
+                <div class="content-title-right"></div>
+                <div class="content-total-text">
+                <a href="{$base_url}/forum"> Forum </a>
+                <br/><br/>
+                
+                {if $login.login!=''}
+            		Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span> <br/><br/>
+            	{else}
+            		Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
+					Merci de vous identifier ou de vous inscrire. <br/><br/>
+            	{/if}
+                	
+                
+                </div>
+            </div>
+            <div class="content-total-bottom"></div>
+        </div>
+    
+    
+        {foreach from=$categories item=cat name=cat}
+    	
+        	<div class="content-total-princ content-separator">
             <div class="content-total-top"></div>
             <div class="content-total-middle">
                 <div class="content-title-left"></div>
@@ -38,6 +63,29 @@
             <div class="content-total-bottom"></div>
         </div>
         {/foreach}
+        
+        <!-- Affichage des Statistiques -->
+        
+        <div class="content-total-princ content-separator">
+            <div class="content-total-top"></div>
+            <div class="content-total-middle">
+                <div class="content-title-left"></div>
+                <div class="content-title-middle content-title-middle-total"><h3>Forum Stats</h3></div>
+                <div class="content-title-right"></div>
+                <div class="content-total-text">
+                <p> Le forum est actuellement en maintenance, veuillez revenir ult&eacute;rieurement ! </p>
+                	
+                
+                </div>
+            </div>
+            <div class="content-total-bottom"></div>
+        </div>
+        
+        
+        
+        
+        
+        
     {else}
     	<div class="content-total-princ">
             <div class="content-total-top"></div>
@@ -55,4 +103,5 @@
         </div>
        	
     {/if}
+
 </div>
