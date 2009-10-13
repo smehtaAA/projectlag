@@ -66,6 +66,7 @@ class SujetController extends Zend_Controller_Action
 			$model   = $this->_getModel();
 			$modelMessage   = $this->_getModelMessage();
 			$modelGrade   = $this->_getModelGrade();
+			$modelCompte   = $this->_getModelCompte();
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
