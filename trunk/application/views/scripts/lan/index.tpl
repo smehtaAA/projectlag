@@ -1,6 +1,6 @@
 <div id="content-total">
     {foreach from=$lans item=l name=lan}
-    <div class="content-princ-total">
+    <div class="content-total-princ">
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>

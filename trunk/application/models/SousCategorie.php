@@ -55,6 +55,22 @@ class Model_SousCategorie
 	public function fetchEntryByCategorie($idCat)
     {
 		$table = $this->getTable();
+		$select = $table->select()->from('souscategorie', $array)->where('idCategorie = ?', $idCat)->order('ordre');
+
+		return $table->fetchAll($select)->toArray();
+    }
+	
+	public function fetchEntryByCategorieField($idCat, $array)
+    {
+		$table = $this->getTable();
+		$select = $table->select()->where('idCategorie = ?', $idCat)->where('admin=0')->order('ordre');
+
+		return $table->fetchAll($select)->toArray();
+    }
+	
+	public function fetchEntryByCategorieAdminField($idCat, $array)
+    {
+		$table = $this->getTable();
 		$select = $table->select()->where('idCategorie = ?', $idCat)->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
@@ -87,7 +103,7 @@ class Model_SousCategorie
     public function fetchEntryL($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre'))->where('idSousCategorie = ?', $id);
+        $select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'idCategorie'))->where('idSousCategorie = ?', $id);
 
         return $table->fetchRow($select)->toArray();
     }

@@ -5,6 +5,7 @@ class SousCategorieController extends Zend_Controller_Action
 	protected $_model;
 	protected $_modelSujet;
 	protected $_modelCompte;
+	protected $_modelCategorie;
 	
 	public function indexAction()
 	{
@@ -15,6 +16,7 @@ class SousCategorieController extends Zend_Controller_Action
 			$modelSousCategorie = $this->_getModel();
 			$modelSujet = $this->_getModelSujet();
 			$modelCompte = $this->_getModelCompte();
+			$modelCategorie = $this->_getModelCategorie();
 			$log = new SessionLAG();
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
 				$login=$modelCompte->fetchEntryForum($log->_getUser());
@@ -24,6 +26,13 @@ class SousCategorieController extends Zend_Controller_Action
 			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
 			$souscat = $modelSousCategorie->fetchEntryL($id);
 			
+			$categorie = $modelCategorie->fetchEntryField($souscat['idCategorie'], array('idCategorie', 'titre'));
+			
+			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre']);
+			$fil_arianne['sscat'] = array('id'=>$souscat['idSousCategorie'],'nom'=>$souscat['titre']);
+			
+			$smarty->assign('fil_arianne', $fil_arianne);
+			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('sujets', $sujets);
 			$smarty->assign('login', $login);
 			$smarty->assign('souscat', $souscat);
@@ -132,6 +141,15 @@ class SousCategorieController extends Zend_Controller_Action
             $this->_model = new Model_SousCategorie();
         }
         return $this->_model;
+    }
+	
+	protected function _getModelCategorie()
+    {
+        if (null === $this->_modelCategorie) {
+            require_once APPLICATION_PATH . '/models/Categorie.php';
+            $this->_modelCategorie = new Model_Categorie();
+        }
+        return $this->_modelCategorie;
     }
 	
 	protected function _getModelCompte()

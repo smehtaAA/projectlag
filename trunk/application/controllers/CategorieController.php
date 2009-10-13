@@ -4,12 +4,60 @@ class CategorieController extends Zend_Controller_Action
 {
 	protected $_model;
 	protected $_modelSousCategorie;
+	protected $_modelCompte;
+	protected $_modelSujet;
+	protected $_modelMessage;
 	
 	public function indexAction()
 	{
 		$smarty = Zend_Registry::get('view');
 		
-		$smarty->display('forum/categorie/index.tpl');
+		$smarty = Zend_Registry::get('view');
+		$request = $this->getRequest();
+		$id = $request->getParam('id',0);
+		if($id>0) {
+			$modelSousCategorie = $this->_getModelSousCategorie();
+			$modelSujet = $this->_getModelSujet();
+			$modelCompte = $this->_getModelCompte();
+			$modelCategorie = $this->_getModel();
+			$modelMessage = $this->_getModelMessage();
+			$log = new SessionLAG();
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
+				$login=$modelCompte->fetchEntryForum($log->_getUser());
+			else
+				$login=0;
+			
+			
+			$categorie = $modelCategorie->fetchEntryField($id, array('idCategorie', 'titre'));
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+				$sscat = $modelSousCategorie->fetchEntryByCategorieAdminField($id, array('idSousCategorie', 'titre'));
+			} else {
+				$sscat = $modelSousCategorie->fetchEntryByCategorieField($id, array('idSousCategorie', 'titre'));
+			}
+			
+			foreach ($sscat as $sc) {
+					$nb[$sc['idSousCategorie']]['nb_sujets'] = $modelSujet->countEntriesbySousCategorie($sc['idSousCategorie']);
+					$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
+					$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
+					$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
+			}
+			
+			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre']);
+			
+			$smarty->assign('fil_arianne', $fil_arianne);
+			$smarty->assign('base_url', $request->getBaseUrl());
+			$smarty->assign('login', $login);
+			$smarty->assign('categorie', $categorie);
+			$smarty->assign('sscat', $sscat);
+			$smarty->assign('last_messages', $last_messages);
+			$smarty->assign('nb', $nb);
+			$smarty->assign('url_viewsc', $request->getBaseUrl().'/souscategorie?id=');
+			
+			$smarty->display('forum/categorie/index.tpl');
+			
+		} else{
+			return $this->_helper->redirector('index', 'forum');
+		}
 	}
 	
     public function indexadminAction() 
@@ -245,5 +293,30 @@ class CategorieController extends Zend_Controller_Action
 			$form->setAction($this->_helper->url('form'));
         return $form;
     }
+	
+	protected function _getModelCompte()
+    {
+        if (null === $this->_modelCompte) {
+            require_once APPLICATION_PATH . '/models/Compte.php';
+            $this->_modelCompte = new Model_Compte();
+        }
+        return $this->_modelCompte;
+    }
+	
+	protected function _getModelSujet() {
+		if (null === $this->_modelSujet) {
+			require_once APPLICATION_PATH . '/models/Sujet.php';
+			$this->_modelSujet = new Model_Sujet();
+		}
+		return $this->_modelSujet;
+	}
+	
+	protected function _getModelMessage() {
+		if (null === $this->_modelMessage) {
+			require_once APPLICATION_PATH . '/models/Message.php';
+			$this->_modelMessage = new Model_Message();
+		}
+		return $this->_modelMessage;
+	}
   
 }

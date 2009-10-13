@@ -52,6 +52,7 @@ class ForumController extends Zend_Controller_Action
 			
 			$smarty->assign('sscat', $sscat);
 			$smarty->assign('last_messages', $last_messages);
+			$smarty->assign('url_cat', $request->getBaseUrl().'/categorie?id=');
 			$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');
 			$smarty->assign('nb', $nb);
 			$smarty->assign('categories', $categories);
