@@ -37,23 +37,27 @@ $frontController->setParam('env', APPLICATION_ENVIRONMENT);
 /*
 $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); 
 $actionName = $frontController->getRequest()->getActionName();
-
+try {
 $interface_admin = Zend_Registry::get('interface_admin');
-if (empty($interface_admin) || ($controllerName=='accueil' && $actionName=='index') ) {
+} catch (Exception $e) {
+}
+if (empty($interface_admin)) {
 	$interface_admin = false;
 	Zend_Registry::set('interface_admin', $interface_admin);
 }
-if($interface_admin || ($controllerName=='accueil' && $actionName=='indexadminmenu')){
+if($interface_admin){
 	$interface_admin = true;
 	Zend_Registry::set('interface_admin', $interface_admin);
 }
-
 */
+
+//Zend_Registry::set('interface_admin', 'toto');
+
 $defaultNamespace = new Zend_Session_Namespace();
 if(isset($defaultNamespace->userid)) {
-	if(($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin'))
+	if(($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin') && $defaultNamespace->interface_admin)
 		$layoutname = 'layout_admin';
-	elseif($defaultNamespace->type == 'joueur')
+	elseif($defaultNamespace->type == 'joueur' || $defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin')
 		$layoutname = 'layout_joueur';
 }
 else

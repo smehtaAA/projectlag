@@ -10,6 +10,7 @@ class LogController extends Zend_Controller_Action
 		$defaultNamespace = new Zend_Session_Namespace();
 		$defaultNamespace->userid = $userid;
 		$defaultNamespace->type = $type;
+		$defaultNamespace->interface_admin = false;
 	}
 	
 	public function indexAction()
@@ -40,10 +41,7 @@ class LogController extends Zend_Controller_Action
 							}
 						}
 						$this->connexion($existlog[$userid],$nom);
-						if($min<=2)
-							return $this->_redirect('/accueil/indexadminmenu');
-						else
-							return $this->_redirect('/accueil/index');
+						return $this->_redirect('/accueil/index');
 					} else {
 						$message = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
 						$smarty->assign('message', $message);
@@ -67,6 +65,7 @@ class LogController extends Zend_Controller_Action
 			$defaultNamespace = new Zend_Session_Namespace();
 			$defaultNamespace->userid = '';
 			$defaultNamespace->type = '';
+			$defaultNamespace->interface_admin = '';
 			Zend_Session::destroy();
 			return $this->_redirect('/accueil/index');
 		}
