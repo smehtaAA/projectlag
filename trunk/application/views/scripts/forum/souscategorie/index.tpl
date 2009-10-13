@@ -3,12 +3,26 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Info Forum</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-total-text">
+            	Forum > Test > Plop > Antoine le peon > MAxime le PGM
+            </div>
+        </div>
+        <div class="content-total-bottom"></div>
+    </div>
+
+
+	<div class="content-princ-total content-separator">
+        <div class="content-total-top"></div>
+        <div class="content-total-middle">
+            <div class="content-title-left"></div>
             <div class="content-title-middle content-title-middle-total"><h3>{$souscat.titre|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <br/>
-            {if $login==1}
-            	Bienvenue <br/>
+            {if $login.login!=''}
+            	Bienvenue, <span class="rouge"><em>{$login.login}</em></span> <br/><br/>
             	<a href="{$url_addsujet}"><span class="rouge"><strong> Ajouter un Sujet </strong></span> </a> <br/><br/>
             {else}
             	Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>

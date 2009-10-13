@@ -4,6 +4,7 @@ class SousCategorieController extends Zend_Controller_Action
 {
 	protected $_model;
 	protected $_modelSujet;
+	protected $_modelCompte;
 	
 	public function indexAction()
 	{
@@ -13,9 +14,10 @@ class SousCategorieController extends Zend_Controller_Action
 		if($id>0) {
 			$modelSousCategorie = $this->_getModel();
 			$modelSujet = $this->_getModelSujet();
+			$modelCompte = $this->_getModelCompte();
 			$log = new SessionLAG();
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
-				$login=1;
+				$login=$modelCompte->fetchEntryForum($log->_getUser());
 			else
 				$login=0;
 			
@@ -130,6 +132,15 @@ class SousCategorieController extends Zend_Controller_Action
             $this->_model = new Model_SousCategorie();
         }
         return $this->_model;
+    }
+	
+	protected function _getModelCompte()
+    {
+        if (null === $this->_modelCompte) {
+            require_once APPLICATION_PATH . '/models/Compte.php';
+            $this->_modelCompte = new Model_Compte();
+        }
+        return $this->_modelCompte;
     }
 	
 	protected function _getCategorieForm($id,$idCat)
