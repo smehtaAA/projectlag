@@ -108,7 +108,7 @@ $(document).ready(function() {
 
 </div>
 <div id="content-right">
-	{if $log_joueur==1}
+	{if $log_joueur>=1}
     <div class="content-right-princ">
         <div class="content-right-top"></div>
         <div class="content-right-middle">
@@ -117,9 +117,13 @@ $(document).ready(function() {
             <div class="content-title-right"></div>
             <div class="content-right-text">
             		<ul>
+                    	{if $log_joueur==2}
+                        <li><a href="{$base_url}/accueil/indexadmin">Administration</a></li>
+                        {else}
 						<li><a href="{$base_url}/compte/form">Mon Compte</a></li>
 						<li><a href="{$base_url}/lan/indexjoueur">Mes Inscriptions</a></li>
 						<!--<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'indexjoueur'),'default', true) ?>">Mes messages</a></li>-->
+                        {/if}
 						<li><a href="{$base_url}/log/deconnexion">Deconnexion</a></li>
 					</ul>
             </div>
