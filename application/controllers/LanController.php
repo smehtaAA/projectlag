@@ -130,26 +130,34 @@ class LanController extends Zend_Controller_Action
 			$modelLanJoueur = $this->_getModelLanJoueur();
 			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
 			
-			require('../library/My/GoogleMapAPI.class.php');
-			
-			//(2) On créer une nouvelle carte ici notre carte sera $map
-			$map = new GoogleMapAPI('map');
-			
-			//(3) On ajoute la clef de Google Maps
-			$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
-				
-			//(4) On ajoute les caractéristiques que l'on désire à notre carte
-			$map->setWidth("800px");
-			$map->setHeight("200px");
-			$map->setCenterCoords('2', '48');
-			$map->setZoomLevel(10);
 			
 			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville'));
+			
+			require('../library/My/GoogleMapAPI.class.php');
+			$map = new GoogleMapAPI('map');
+			$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+
+			$map->setHeight("500");
+			$map->setWidth("830");
+			$map->disableTypeControls();
+			$map->setMapType('map');
+			$map->disableDirections();
+			$map->disableZoomEncompass();
+			$map->setZoomLevel(8);
+			$map->disableOverviewControl();
+			
 			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville'));
+			$jeux = null;
 			foreach($joueurs as $j) {
 				$jeux[$j['idCompte']] = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
+				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "", $j['login']);
+				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/users.png',$request->getBaseUrl().'/images/admin/users.png',0,0,10,10);
 			}
 			
+			
+			$map->addMarkerByAddress( $lan['ville'], $lan['nom'], "", $lan['nom']);
+			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer.png',$request->getBaseUrl().'/images/admin/computer.png',0,0,10,10);
+
 			$smarty->assign('lan', $lan);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('joueurs', $joueurs);

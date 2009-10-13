@@ -47,9 +47,9 @@ class Model_LanJeux
     {
         $table = $this->getTable();
         $select = $table->select()
-							->from(array('lj' => 'lanjeux'))
-							->join(array('l'=>'lan'),'l.idLan=lj.idLan')
-							->join(array('j'=>'jeux'),'j.idJeux=lj.idJeux')
+							->from(array('lj' => 'lanjeux'), array(''))
+							->join(array('l'=>'lan'),'l.idLan=lj.idLan', array(''))
+							->join(array('j'=>'jeux'),'j.idJeux=lj.idJeux', array('idJeux', 'nom'))
 							->where('lj.idLan = ?', $idLan)
 							->order('ordre')
 							->setIntegrityCheck(false);
