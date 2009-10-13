@@ -168,7 +168,7 @@ class Model_LanJeuxJoueurTeam
     {
         $table = $this->getTable();
         $select = $table->select()
-							->from(array('ljjt' => 'lanjeuxjoueurteam'))
+							->from(array('ljjt' => 'lanjeuxjoueurteam'), array(''))
 							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur', array(''))
 							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux', array('idJeux','nom'))
 							->where('lj.idLan = ?', $idLan)
