@@ -1,5 +1,5 @@
 <div id="content-total">
-	{if $forum_ouvert==1}
+	{if $forum_ouvert.valeur==1}
         {foreach from=$categories item=cat name=cat}
     
         <div class="content-princ-total">

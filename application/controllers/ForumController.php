@@ -7,39 +7,46 @@ class ForumController extends Zend_Controller_Action
 	protected $_modelSousCategorie;
 	protected $_modelSujet;
 	protected $_modelMessage;
+	protected $_modelConfig;
 	
 	public function indexAction()
 	{
 		$smarty = Zend_Registry::get('view');
-		$request = $this->getRequest();
-		$modelCategorie = $this->_getModelCategorie();
-		$modelSousCategorie = $this->_getModelSousCategorie();
-		$modelSujet = $this->_getModelSujet();
-		$modelMessage = $this->_getModelMessage();
+		$modelConfig = $this->_getModelConfig();
 		
-		$forum_ouvert=0;
-		$nb=null;
-		$last_messages=null;
-		$sscat=null;
+		$forum_ouvert = $modelConfig->fetchEntrySetting('ouverture_forum');
 		
-		$categories=$modelCategorie->fetchEntriesVisibles();
-		foreach ($categories as $cat) {
-			$forum_ouvert = 1;
-			$sscat[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorieVisibles($cat['idCategorie']);
+		if ($forum_ouvert['valeur'] == 1) {
+			$request = $this->getRequest();
+			$modelCategorie = $this->_getModelCategorie();
+			$modelSousCategorie = $this->_getModelSousCategorie();
+			$modelSujet = $this->_getModelSujet();
+			$modelMessage = $this->_getModelMessage();
 			
-			foreach ($sscat[$cat['idCategorie']] as $sc) {
-				$nb[$sc['idSousCategorie']]['nb_sujets'] = $modelSujet->countEntriesbySousCategorie($sc['idSousCategorie']);
-				$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
-				$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
-				$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
+			$forum_ouvert['valeur'] = 0;
+			$nb=null;
+			$last_messages=null;
+			$sscat=null;
+			
+			$categories=$modelCategorie->fetchEntriesVisibles();
+			foreach ($categories as $cat) {
+				$forum_ouvert['valeur'] = 1;
+				$sscat[$cat['idCategorie']] = $modelSousCategorie->fetchEntryByCategorieVisibles($cat['idCategorie']);
+				
+				foreach ($sscat[$cat['idCategorie']] as $sc) {
+					$nb[$sc['idSousCategorie']]['nb_sujets'] = $modelSujet->countEntriesbySousCategorie($sc['idSousCategorie']);
+					$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
+					$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
+					$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
+				}
 			}
+			
+			$smarty->assign('sscat', $sscat);
+			$smarty->assign('last_messages', $last_messages);
+			$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');
+			$smarty->assign('nb', $nb);
+			$smarty->assign('categories', $categories);
 		}
-		
-		$smarty->assign('sscat', $sscat);
-		$smarty->assign('last_messages', $last_messages);
-		$smarty->assign('url_sscat', $request->getBaseUrl().'/souscategorie?id=');
-		$smarty->assign('nb', $nb);
-		$smarty->assign('categories', $categories);
 		$smarty->assign('forum_ouvert', $forum_ouvert);
 		
 		$smarty->display('forum/index.tpl');
@@ -83,6 +90,14 @@ class ForumController extends Zend_Controller_Action
 			$this->_modelSujet = new Model_Sujet();
 		}
 		return $this->_modelSujet;
+	}
+
+	protected function _getModelConfig() {
+		if (null === $this->_modelConfig) {
+			require_once APPLICATION_PATH . '/models/Config.php';
+			$this->_modelConfig = new Model_Config();
+		}
+		return $this->_modelConfig;
 	}
 	
 	protected function _getModelMessage() {

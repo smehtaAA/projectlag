@@ -200,14 +200,15 @@ CREATE TABLE IF NOT EXISTS `config` (
   `cle` varchar(45) DEFAULT NULL,
   `valeur` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`idConfig`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `config`
 --
 INSERT INTO `config` (`idConfig`, `titre`, `cle`, `valeur`) VALUES
 (1,'Nombre max de news par page', 'nb_max_news_page', 2),
-(2,'Nombre max de news partenaire par page', 'nb_max_news_partenaire_page', 2);
+(2,'Nombre max de news partenaire par page', 'nb_max_news_partenaire_page', 2),
+(3,'Ouverture du Forum', 'ouverture_forum', false);
 
 -- --------------------------------------------------------
 
