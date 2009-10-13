@@ -58,7 +58,7 @@ if(isset($defaultNamespace->userid)) {
 	if(($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin') && $defaultNamespace->interface_admin)
 		$layoutname = 'layout_admin';
 	elseif($defaultNamespace->type == 'joueur' || $defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin')
-		$layoutname = 'layout_joueur';
+		$layoutname = 'layout';  
 }
 else
 	$layoutname = 'layout';
