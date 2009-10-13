@@ -17,6 +17,12 @@ class SujetController extends Zend_Controller_Action
 			$modelMessage = $this->_getModelMessage();
 			$modelCompte = $this->_getModelCompte();
 			
+			$log = new SessionLAG();
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
+				$login=$modelCompte->fetchEntryForum($log->_getUser());
+			else
+				$login=0;
+			
 			$sujet = $model->fetchEntry($id);
 			$messages = $modelMessage->fetchEntryBySujet($id);
 			$compte = $modelMessage->fetchEntryCompteBySujet($id);
@@ -25,11 +31,16 @@ class SujetController extends Zend_Controller_Action
 			}
 			$date = new Zend_Date();
 			
+			$fil_arianne = $model->fetchFilArianne($id);
+			
+			$smarty->assign('fil_arianne', $fil_arianne);
 			$smarty->assign('datedujour', $date->toString('YYYY-M-dd HH:mm:ss'));
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('sujet', $sujet);
+			$smarty->assign('login', $login);
 			$smarty->assign('comptes', $comptes);
 			$smarty->assign('messages', $messages);
+			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('url_reponse', $request->getBaseUrl().'/message/form?idSujet='.$sujet['idSujet']);
 			
 			$smarty->display('forum/sujet/index.tpl');

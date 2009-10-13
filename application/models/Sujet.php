@@ -47,7 +47,7 @@ class Model_Sujet
 	public function fetchEntryBySousCategorie($idssCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->from('sujet', array('idSujet', 'titre'))->where('idSousCategorie = ?', $idssCat)->order('date_s DESC');
+		$select = $table->select()->from('sujet', array('idSujet', 'titre', 'vu'))->where('idSousCategorie = ?', $idssCat)->order('date_s DESC');
 
 		return $table->fetchAll($select)->toArray();
     }
@@ -68,10 +68,35 @@ class Model_Sujet
         return $table->fetchRow($select)->toArray();
     }
 	
+	public function fetchFilArianne($id)
+	{
+		$table = $this->getTable();
+        $select = $table->select()->from('sujet', array('idSujet', 'titre as titre_s'))
+								->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array('idSousCategorie', 'titre as titre_sscat'))
+								->join('categorie', 'souscategorie.idCategorie=Categorie.idCategorie', array('idCategorie', 'titre as titre_cat'))
+								->where('idSujet = ?', $id)
+								->setIntegrityCheck(false);
+
+        return $table->fetchRow($select)->toArray();
+    }
+	
 	public function countEntries()
 	{
 		$table = $this->getTable();
 		$select = $table->select()->from('sujet','COUNT(idSujet) AS num');
+		$row = $table->fetchRow($select);
+        return $row->num;
+	}
+	
+	public function countEntriesNonAdmin()
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('sujet','COUNT(idSujet) AS num')
+								->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array('idSousCategorie'))
+								->join('categorie', 'categorie.idCategorie=souscategorie.idCategorie', array('idCategorie'))
+								->where('categorie.admin=0')
+								->where('souscategorie.admin=0')
+								->setIntegrityCheck(false);
 		$row = $table->fetchRow($select);
         return $row->num;
 	}

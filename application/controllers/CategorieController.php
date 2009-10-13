@@ -31,8 +31,16 @@ class CategorieController extends Zend_Controller_Action
 			$categorie = $modelCategorie->fetchEntryField($id, array('idCategorie', 'titre'));
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 				$sscat = $modelSousCategorie->fetchEntryByCategorieAdminField($id, array('idSousCategorie', 'titre'));
+				$stats['nb_messages'] = $modelMessage->countEntries();
+				$stats['nb_sujets'] = $modelSujet->countEntries();
+				$stats['nb_sscat'] = $modelSousCategorie->countEntries();
+				$stats['nb_cat'] = $modelCategorie->countEntries();
 			} else {
 				$sscat = $modelSousCategorie->fetchEntryByCategorieField($id, array('idSousCategorie', 'titre'));
+				$stats['nb_messages'] = $modelMessage->countEntriesNonAdmin();
+				$stats['nb_sujets'] = $modelSujet->countEntriesNonAdmin();
+				$stats['nb_sscat'] = $modelSousCategorie->countEntriesNonAdmin();
+				$stats['nb_cat'] = $modelCategorie->countEntriesNonAdmin();
 			}
 			
 			foreach ($sscat as $sc) {
@@ -44,11 +52,18 @@ class CategorieController extends Zend_Controller_Action
 			
 			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre']);
 			
+			
+			// Recuperation Stats Forum
+			$stats['nb'] = $modelCompte->CountEntries();
+			$stats['last'] = $modelCompte->fetchEntryLast();
+			
+			
 			$smarty->assign('fil_arianne', $fil_arianne);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('login', $login);
 			$smarty->assign('categorie', $categorie);
 			$smarty->assign('sscat', $sscat);
+			$smarty->assign('stats', $stats);
 			$smarty->assign('last_messages', $last_messages);
 			$smarty->assign('nb', $nb);
 			$smarty->assign('url_viewsc', $request->getBaseUrl().'/souscategorie?id=');

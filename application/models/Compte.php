@@ -43,6 +43,14 @@ class Model_Compte
         return $table->fetchRow($select)->toArray();
     }
 	
+    public function fetchEntryLast()
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('compte', array('idCompte', 'login'))->order('dateins DESC')->limit(1);
+		
+        return $table->fetchRow($select)->toArray();
+    }
+	
 	public function fetchEntryForum($id)
     {
         $table = $this->getTable();

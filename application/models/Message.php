@@ -75,6 +75,22 @@ class Model_Message
 			return -1;
     }
 	
+	public function fetchEntryLastBySujet($id)
+    {
+		$table = $this->getTable();
+		$select = $table->select()->from('message', array('idCompte', 'date_m'))
+									->join('compte', 'compte.idCompte=message.idCompte', array('idCompte', 'login'))
+									->where('idSujet = ?', $id)
+									->order('message.date_m DESC')->limit(1)
+									->setIntegrityCheck(false);
+
+		$table = $table->fetchRow($select);
+		if(!empty($table))
+			return $table->toArray();
+		else
+			return -1;
+    }
+	
     public function fetchEntry($id)
     {
         $table = $this->getTable();
@@ -83,10 +99,32 @@ class Model_Message
         return $table->fetchRow($select)->toArray();
     }
 	
+	public function countEntriesNonAdmin()
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('message','COUNT(idMessage) AS num')
+								->join('sujet', 'sujet.idSujet=message.idSujet', array('idSujet'))
+								->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array('idSousCategorie'))
+								->join('categorie', 'categorie.idCategorie=souscategorie.idCategorie', array('idCategorie'))
+								->where('categorie.admin=0')
+								->where('souscategorie.admin=0')
+								->setIntegrityCheck(false);
+		$row = $table->fetchRow($select);
+        return $row->num;
+	}
+	
 	public function countEntries()
 	{
 		$table = $this->getTable();
 		$select = $table->select()->from('message','COUNT(idMessage) AS num');
+		$row = $table->fetchRow($select);
+        return $row->num;
+	}
+	
+	public function countEntriesBySujet($id)
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('message','COUNT(idMessage) AS num')->where('idSujet=?', $id);
 		$row = $table->fetchRow($select);
         return $row->num;
 	}
