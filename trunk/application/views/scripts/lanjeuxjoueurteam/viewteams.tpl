@@ -25,7 +25,7 @@
 A Faire !! : Lien pour lier un compte a une team et un jeux
 <br /><br /><br /><br />
 <div id="tab_content">
-<table align="center" id="tab_record">
+<table align="center" id="tab_record" width="950">
   <tr>
   	<th align="right" width="30"></th>
     <th align="left" width="200">Jeux</th>
@@ -48,6 +48,12 @@ A Faire !! : Lien pour lier un compte a une team et un jeux
     	<td></td>
     	<td></td>
     	<td align="center"> {$team.nom|utf8_encode} </td> 
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center"></td>
+        <td align="center"><!--<a href="{$urldelteam}{$team.idTeam}&idJeux={$i.idJeux}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a>--></td>
 	</tr>
     
     {foreach from=$compte[$i.idJeux][$team.idTeam] key=mycompte item=cpt name=compte}

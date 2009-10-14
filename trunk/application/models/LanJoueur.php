@@ -64,9 +64,12 @@ class Model_LanJoueur
 	{
         $table = $this->getTable();
         $select = $table->select()
-						->from(array('lj' => 'lanjoueur'),array('idLanJoueur', 'validation'))
+						->from(array('lj' => 'lanjoueur'),array('idLanJoueur', 'validation', 'idLan'))
 						->join(array('c' => 'compte'),'c.idCompte=lj.idCompte', $array)
+						->join(array('ljjt' => 'lanjeuxjoueurteam'),'ljjt.idLanJoueur=lj.idLanJoueur', array(''))
+						->join(array('t' => 'team'),'ljjt.idTeam=t.idTeam', array('nom as nom_t'))
 						->where('idLan = ?', $idLan)
+						->distinct()
 						->order('login')
 						->setIntegrityCheck(false);
 
@@ -89,6 +92,14 @@ class Model_LanJoueur
     {
         $table = $this->getTable();
         $select = $table->select()->where('idLanJoueur = ?', $id);
+
+        return $table->fetchRow($select)->toArray();
+    }
+	
+    public function fetchEntryField($id, $array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('lanjoueur', $array)->where('idLanJoueur = ?', $id);
 
         return $table->fetchRow($select)->toArray();
     }

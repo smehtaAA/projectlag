@@ -24,14 +24,14 @@
 
 <br /><br />
 <div id="tab_content">
-<table align="center" id="tab_record">
+<table align="center" id="tab_record" width="950">
   <tr>
   	<th></th>
-    <th align="left" width="80">Login</th>
+    <th align="left" width="100">Login</th>
     <th align="center" width="80">Nom</th>
     <th align="center" width="80">Pr&eacute;nom</th>
-    <th align="center" width="80">Team</th>
-    <th align="center" width="80">Date Ins</th>
+    <th align="center" width="150">Team</th>
+    <th align="center" width="100">Date Ins</th>
     <th align="center" width="80">Actif</th>
     <th width="70"> </th>
     <th align="center">Modifier</th>
@@ -43,7 +43,7 @@
     <td>{$i.login|utf8_encode}</td>
     <td align="center">{$i.nom|utf8_encode}</td>
     <td align="center">{$i.prenom|utf8_encode}</td>
-    <td align="center">{$i.nom|utf8_encode}</td>
+    <td align="center">{$i.nom_t|utf8_encode}</td>
     <td align="center">{$i.dateins|date_format:"%d/%m/%Y"}</td>
     <td align="center">
     {if $i.validation==1}

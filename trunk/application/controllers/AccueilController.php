@@ -57,7 +57,7 @@ class AccueilController extends Zend_Controller_Action
 				
 			$nb_inscrits=0;
 			$nb_preinscrits=0;
-			$lan=$modelLan->fetchEntryOuverte();
+			$lan=$modelLan->fetchEntryOuverteField(array('idLan', 'nom', 'adresse', 'cp', 'ville', 'datedeb', 'datefin'));
 			if($lan!=-1){
 				$nb_inscrits = $modelLan->fetchEntriesCount($lan['idLan']);
 				$nb_preinscrits = $modelLan->fetchEntriesCountPreInscrits($lan['idLan']);

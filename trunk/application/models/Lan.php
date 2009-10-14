@@ -72,12 +72,24 @@ class Model_Lan
 			return -1;
     }
 	
+	public function fetchEntryOuverteField($array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('lan', $array)->where('inscription = true');
+		
+		$temp = $table->fetchRow($select);
+
+		if(isset($temp))
+        	return $temp->toArray();
+		else
+			return -1;
+    }
+	
 	public function fetchEntriesCount($idLan)
     {
         $table = $this->getTable();
 		$select = $table->select()
 							->from(array('lj' => 'lanjoueur'), array('COUNT(DISTINCT lj.idLanJoueur) as insc'))
-							->where('lj.validation = 1')
 							->where('lj.idLan = ?', $idLan)
 							->setIntegrityCheck(false);
 		

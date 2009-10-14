@@ -65,6 +65,26 @@ class Form_Compte extends My_CreationCompte
 		
 		$this->obligatoire('prenom');
 		
+		$this->addElement('text', 'cp', array(
+            'label'      => 'Code Postal : ',
+            'required'   => true,
+            'validators' => array(
+                 array('validator' => 'StringLength', 'options' => array(5, 5))
+            )
+        ));
+		
+		$this->obligatoire('cp');
+		
+		$this->addElement('text', 'ville', array(
+            'label'      => 'Ville : ',
+            'required'   => true,
+            'validators' => array(
+                 array('validator' => 'StringLength', 'options' => array(2, 60))
+            )
+        ));
+		
+		$this->obligatoire('ville');
+		
 		$this->addElement('text', 'email', array(
             'label'      => 'Email : ',
             'required'   => true,

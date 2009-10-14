@@ -137,6 +137,10 @@ $(document).ready(function() {
                         <td>{$lan.adresse|utf8_encode}</td>
                     </tr>
                     <tr>
+                    	<td colspan="3"></td>
+                        <td> {$lan.ville|utf8_encode} ({$lan.cp|utf8_encode}) </td>
+                    </tr>
+                    <tr>
                     	<td colspan="4" height="20"></td>
                     </tr>
                     <tr>
