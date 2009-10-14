@@ -43,6 +43,14 @@ class Model_Compte
         return $table->fetchRow($select)->toArray();
     }
 	
+    public function fetchEntryField($id,$array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('compte', $array)->where('idCompte = ?', $id);
+		
+        return $table->fetchRow($select)->toArray();
+    }
+	
     public function fetchEntryLast()
     {
         $table = $this->getTable();

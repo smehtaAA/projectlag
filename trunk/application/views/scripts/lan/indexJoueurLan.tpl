@@ -1,3 +1,6 @@
+{$map->printHeaderJS()}
+{$map->printMapJS()}
+
 <div id="content-total">
     <div class="content-total-princ">
         <div class="content-total-top"></div>
@@ -28,6 +31,21 @@
                 <br/> <br/>
                 <!--Venir &agrave; la lan-->
                 <br/><br/>
+            </div>
+        </div>
+        <div class="content-total-bottom"></div>
+    </div>
+    
+    <div class="content-total-princ content-separator">
+        <div class="content-total-top"></div>
+        <div class="content-total-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Itin&eacute;raire</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-total-text">
+            
+            	{$map->printMap()}
+               
             </div>
         </div>
         <div class="content-total-bottom"></div>
