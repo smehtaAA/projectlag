@@ -173,7 +173,6 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `citationpreferee` varchar(140) DEFAULT NULL,
   `description` longtext,
   `nbconnexion` int(10) unsigned DEFAULT NULL,
-  `nb_messages` int(10) unsigned DEFAULT 0,
   `keyvalidation` varchar(45) DEFAULT NULL,
   `actif` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idCompte`),
