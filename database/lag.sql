@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `msn` varchar(60),
   `cp` varchar(5),
   `ville` varchar(60),
-  `img` varchar(200),
+  `img` varchar(200) DEFAULT 'no_logo.png',
   `phone` varchar(10),
   `datenaissance` date NOT NULL,
   `dateins` datetime NOT NULL,

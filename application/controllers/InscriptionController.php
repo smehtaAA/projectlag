@@ -188,15 +188,15 @@ class InscriptionController extends Zend_Controller_Action
 					
 					
 					
-					$modelCompte->save(0,$dataform);
+					$new_id=$modelCompte->save(0,$dataform);
 					
 					// resize picture si image dans formulaire
 					if(!empty($dataform['img']))
 					{
 						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
 						$thumb = PhpThumbFactory::create('../public/images/comptes/tmp/'.$ancien_nom);
-						$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"]);
-						$thumb->resize(25, 25)->save('../public/images/comptes/thumb/'.$dataform["img"]);
+						$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"].'_'.$new_id);
+						$thumb->resize(25, 25)->save('../public/images/comptes/thumb/'.$dataform["img"].'_'.$new_id);
 						if(file_exists('../public/images/comptes/tmp/'.$ancien_nom))
 							unlink('../public/images/comptes/tmp/'.$ancien_nom);
 					}

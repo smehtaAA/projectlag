@@ -16,14 +16,19 @@ class LanController extends Zend_Controller_Action
 		$modelLanJeux = $this->_getModelLanJeux();
 		$request = $this->getRequest();
 		$lans  = $model->fetchEntriesorderByDate();
+		$lan_ouverte = $model->fetchEntryOuverteField(array('idLan'));
 		
 		foreach($lans as $lan)
 		{			
-			$chiffre[$lan['idLan']]['insc'] = $model->fetchEntriesCount($lan['idLan']);
+			$chiffre[$lan['idLan']]['insc'] = $model->fetchEntriesCountValide($lan['idLan']);
 			$chiffre[$lan['idLan']]['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
+			if($lan['idLan']==$lan_ouverte['idLan'])
+				$chiffre[$lan['idLan']]['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
 			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLan($lan['idLan']);
 		}
 		
+		
+		$smarty->assign('lan_ouverte', $lan_ouverte);
 		$smarty->assign('lans', $lans);
 		$smarty->assign('chiffre', $chiffre);
 		$smarty->assign('jeux', $jeux);
@@ -176,13 +181,13 @@ class LanController extends Zend_Controller_Action
 				// ajout d'un marqueur joueur sur la carte
 				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "<span class='rouge'><strong>$j[login]</strong></span><br/>$j[ville] ($j[cp])", $j['login']);
 				// met cet icone pour le dernier marqueur posé
-				$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/'.$j['img'],$request->getBaseUrl().'/images/admin/users.png',0,0,10,10);
+				$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/'.$j['img'],$request->getBaseUrl().'/images/comptes/thumb/'.$j['img'],0,0,10,10);
 			}
 			
 			// ajout du marqueur lan sur la carte
 			$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 			// utilisation d'un icone different pour la lan
-			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer.png',$request->getBaseUrl().'/images/admin/computer.png',0,0,10,10);
+			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
 
 			$smarty->assign('lan', $lan);
 			$smarty->assign('base_url', $request->getBaseUrl());
