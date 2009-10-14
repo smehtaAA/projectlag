@@ -63,6 +63,9 @@
                     	{$datedujour-$m.date_m+1} 
                     {/if}
                     </em>
+                    {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
+                     	! A deplacer a droite ! <a href="{$url_del_message}{$m.idMessage}"> Supprimer </a>
+                    {/if}
                     <br/>
                     <hr />
             		{$m.description|nl2br} <br/> <br/>

@@ -66,7 +66,11 @@ class MessageController extends Zend_Controller_Action
 			} else {
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
-					$form->populate($data);
+					if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$data['idCompte']==$log->_getUser()) {
+						$form->populate($data);
+					} else {
+						$smarty->display('error/errorconnexion.tpl');
+					}
 				}
 			}
 			
@@ -91,11 +95,20 @@ class MessageController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
-				$model = $this->_getModel();
+				$model = $this->_getModelMessage();
+				$modelGrade = $this->_getModelGrade();
+				$modelCompte = $this->_getModelCompte();
 				$data = $model->fetchEntry($id);
 				$model->delete($id);
+				
+				$nb_messages = $model->countEntriesByCompte($data['idCompte']);
+				if(($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) && $nb_messages!=-1) {
+					$new_grade = $modelGrade->fetchEntryByNbMessages($nb_messages);
+					$compte['idGrade']=$new_grade['idGrade'];
+					$modelCompte->save($data['idCompte'], $compte);
+				}
 			}
-			return $this->_helper->redirector('indexadmin','categorie');
+			return $this->_helper->redirector('index','sujet','',array('id'=>$data['idSujet']));
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
