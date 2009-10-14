@@ -110,7 +110,7 @@ $(document).ready(function() {
 <div id="content-right">
    
     {if $lan != -1}
-    <div class="content-princ content-separator">
+    <div class="content-princ">
     	<div class="content-right-top"></div>
         <div class="content-right-middle">
             <div class="content-title-left"></div>
