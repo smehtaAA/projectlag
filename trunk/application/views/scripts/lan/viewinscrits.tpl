@@ -10,16 +10,18 @@
             <div class="content-title-right"></div>
             <div class="content-total-text">
             	<br/>
-                <table border=1 width="830px">
+                <table width="825px">
                 	<tr>
-                    	<th width="140px">Login</th>
-                        <th width="140px">Team</th>
-                        <th width="500px">Jeux</th>
+                    	<th width="40px"></th>
+                    	<th width="140px" align="left">Login</th>
+                        <th width="140px" align="left">Team</th>
+                        <th width="500px" align="left">Jeux</th>
                         <th>Actif</th>
                     </tr>
                     
                     {foreach from=$joueurs item=j name=joueur}
                     	<tr>
+                        	<td align="center"><img src="{$base_url}/images/comptes/thumb/{$j.img}" name="{$j.login|capitalize|utf8_encode}" alt="{$j.login|capitalize|utf8_encode}" class="textalignm" title="{$j.login|capitalize|utf8_encode}" /></td>
                         	<td width="100px">{$j.login|capitalize|utf8_encode}</td>
                             <td>{$jeux[$j.idCompte][0].nom_team|utf8_encode}</td>
                             <td><em>
