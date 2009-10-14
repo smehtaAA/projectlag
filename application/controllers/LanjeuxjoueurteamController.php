@@ -54,7 +54,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$idLan   = (int)$request->getParam('idLan', 0);
 			
-			$datas  = $modelLanJoueur->fetchEntriesByLan($idLan);
+			$datas  = $modelLanJoueur->fetchEntriesByLanField($idLan, array('idCompte', 'login', 'nom', 'prenom', 'dateins'));
 			$lan = $modelLan->fetchEntry($idLan);
 			
 			$smarty->assign('base_url',$request->getBaseUrl());
@@ -107,6 +107,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$smarty->assign('compte', $compte);
 			$smarty->assign('total',$model->countEntries());
 			$smarty->assign('title','Inscrits de la Lan '.$lan['nom']);
+			$smarty->assign('urldelteam',$request->getBaseUrl().'/lanjeuxjoueurteam/delteam/?idLan='.$idLan.'&id=');
 			$smarty->assign('urlupd',$request->getBaseUrl().'/lanjeuxjoueurteam/form/?idLan='.$idLan.'&id=');
 			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeuxjoueurteam/del/?idLan='.$idLan.'&id=');
 			$smarty->assign('datas',$datas);
@@ -184,9 +185,29 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			$idLan   = (int)$request->getParam('idLan', 0);
 			if ($id > 0) {
 				$model = $this->_getModel();
-				$model->delete($id);
+				$modelLanJoueur = $this->_getModelLanJoueur();
+				$modelLanJoueur->delete($id);
+				$model->deleteByLanJoueur($id);
 			}
 			return $this->_helper->redirector('viewinscrits','lanjeuxjoueurteam','',array('idLan'=>$idLan));
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+    }
+	
+	public function delteamAction()
+    {
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$idTeam  = (int)$request->getParam('id', 0);
+			$idJeux  = (int)$request->getParam('idJeux', 0);
+			$idLan   = (int)$request->getParam('idLan', 0);
+			if ($id > 0) {
+				$model = $this->_getModel();
+				$model->deleteByTeamAndJeu($idTeam, $idJeux);
+			}
+			return $this->_helper->redirector('viewteams','lanjeuxjoueurteam','',array('idLan'=>$idLan));
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
@@ -218,7 +239,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 			
 			$smarty = Zend_Registry::get('view');
 	
-			$datas  = $modelLanJoueur->fetchEntriesByLan($idLan);
+			$datas  = $modelLanJoueur->fetchEntriesByLanField($idLan, array('idCompte', 'login', 'nom', 'prenom', 'dateins'));
 			$lan = $modelLan->fetchEntry($idLan);
 			
 			$smarty->assign('base_url',$request->getBaseUrl());

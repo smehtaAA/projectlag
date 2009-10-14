@@ -234,4 +234,20 @@ class Model_LanJeuxJoueurTeam
 		return $table->delete($where);
 
     }
+	
+	public function deleteByLanJoueur($id)
+    {	
+		$table  = $this->getTable();
+		$where = $table->getAdapter()->quoteInto('idLanJoueur= ?', $id);
+		return $table->delete($where);
+
+    }
+	
+	public function deleteByTeamAndJeu($idTeam, $idJeu)
+    {	
+		$table  = $this->getTable();
+		$where = $table->getAdapter()->quoteInto('idTeam= ?', $idTeam)->quoteInto('idJeux= ?', $idJeu);
+		return $table->delete($where);
+
+    }
 }
