@@ -27,11 +27,35 @@ class LanController extends Zend_Controller_Action
 			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLan($lan['idLan']);
 		}
 		
+		// API Google Map
+		require('../library/My/GoogleMapAPI.class.php');
+		$map = new GoogleMapAPI('map','driving_directions');
+		$map->setMapType('map');
+		$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+		// fixe les dimensions de la carte
+		$map->setHeight("250");
+		$map->setWidth("400");
+		// gestion des services
+		$map->DisableTypeControls();
+		$map->DisableDirections();
+		$map->disableZoomEncompass();
+		$map->disableOverviewControl();
+		$map->disableScaleControl();
+		$map->setControlSize('small');
+		$map->disableMapControls();
+		// definition du zoom
+		$map->setZoomLevel(8);
+		// ajout du marqueur lan sur la carte
+		$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
+		// utilisation d'un icone different pour la lan
+		$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
+		
 		
 		$smarty->assign('lan_ouverte', $lan_ouverte);
 		$smarty->assign('lans', $lans);
 		$smarty->assign('chiffre', $chiffre);
 		$smarty->assign('jeux', $jeux);
+		$smarty->assign('map', $map);
 		$smarty->assign('titre', 'Lans');
 		$smarty->assign('base_url', $request->getBaseUrl());
 		
