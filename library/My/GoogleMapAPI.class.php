@@ -62,6 +62,14 @@ class GoogleMapAPI {
      * @var string
      */
     var $map_id = null;
+	
+    /**
+     * current directions id, set when you instantiate
+     * the GoogleMapAPI object.
+     *
+     * @var string
+     */
+    var $directions_id = null;
 
     /**
      * sidebar <div> used along with this map.
@@ -171,6 +179,13 @@ class GoogleMapAPI {
      * @var integer
      */
     var $height = '500px';
+	
+    /**
+     * determines the driving direction width
+     *
+     * @var integer
+     */
+    var $dir_width = '0';
 
     /**
      * message that pops up when the browser is incompatible with Google Maps.
@@ -232,13 +247,13 @@ class GoogleMapAPI {
     
     var $driving_dir_text = array(
             'dir_to' => 'Adresse de départ: (Adresse, ville et pays)',
-            'to_button_value' => 'Itinéraire',
+            'to_button_value' => 'Itin&eacute;raire',
             'to_button_type' => 'submit',
-            'dir_from' => "Adresse d\'arrivée: (Adresse, ville et pays)",
-            'from_button_value' => "Itinéraire",
+            'dir_from' => "Adresse d\'arriv&eacute;e: (Adresse, ville et pays)",
+            'from_button_value' => "Itin&eacute;raire",
             'from_button_type' => 'submit',
-            'dir_text' => 'Itinéraire : ',
-            'dir_tohere' => "Jusqu\'à ici",
+            'dir_text' => 'Itin&eacute;raire : ',
+            'dir_tohere' => "Jusqu\'&agrave; ici",
             'dir_fromhere' => "D\'ici"
             );             
                
@@ -327,7 +342,22 @@ class GoogleMapAPI {
      * @var string
      */
     var $_db_cache_table = 'GEOCODES';
-        
+	
+	/**
+	 * enable driving directions
+	 *
+	 * @var boolean
+	 */
+	 var $driving_directions = false;
+	 
+     /**
+	  * directions for driving directions*
+	  *
+	  *@var array
+	  *		1 -> from
+	  *		2 -> to
+	  */
+	 var $_directions = array();
         
     /**
      * class constructor
@@ -335,10 +365,11 @@ class GoogleMapAPI {
      * @param string $map_id the id for this map
      * @param string $app_id YOUR Yahoo App ID
      */
-    function GoogleMapAPI($map_id = 'map', $app_id = 'MyMapApp') {
+    function GoogleMapAPI($map_id = 'map', $directions_id = '', $app_id = 'MyMapApp') {
         $this->map_id = $map_id;
         $this->sidebar_id = 'sidebar_' . $map_id;
         $this->app_id = $app_id;
+        $this->directions_id = $directions_id;
     }
    
     /**
@@ -395,7 +426,26 @@ class GoogleMapAPI {
             $this->height = $_height . 'px';
         
         return true;
-    }        
+    }     
+	
+    /**
+     * sets the width of the driving direction div
+     *
+     * @param string $width
+     */
+    function setDirWidth($width) {
+        if(!preg_match('!^(\d+)(.*)$!',$width,$_match))
+            return false;
+
+        $_width = $_match[1];
+        $_type = $_match[2];
+        if($_type == '%')
+            $this->dir_width = $_width . '%';
+        else
+            $this->dir_width = $_width . 'px';
+        
+        return true;
+    } 
 
     /**
      * sets the default map zoom level
@@ -614,8 +664,31 @@ class GoogleMapAPI {
      */
     function disableOverviewControl() {
         $this->overview_control = false;
-     }    
-    
+     }   
+	 
+    /**
+     * enables the overview map control
+     *
+     */
+    function enableDrivingDirections() {
+        $this->driving_directions = true;
+    }
+
+    /**
+     * disables the overview map control
+     *
+     */
+    function disableDrivingDirections() {
+        $this->driving_directions = false;
+     }
+	 
+	/**
+	 * set directions for driving directions
+	 *
+	 */
+	function setDrivingDirection($dir) {
+		$this->_directions = $dir;
+	}
     
     /**
      * set the lookup service to use for geocode lookups
@@ -927,6 +1000,13 @@ class GoogleMapAPI {
 			// Special care for decimal point in lon and lat, would get lost if "wrong" locale is set; applies to (s)printf only
 			$_output .= sprintf('map.setCenter(new GLatLng(%s, %s), %d, %s);', number_format($this->center_lat, 6, ".", ""), number_format($this->center_lon, 6, ".", ""), $this->zoom, $this->map_type) . "\n";
         }
+		
+		// print driving directions
+		if($this->driving_directions) {
+			$_output .= sprintf('var directionsPanel = document.getElementById("%s");', $this->directions_id)."\n";
+			$_output .= sprintf('var directions = new GDirections(map, directionsPanel);')."\n";
+			$_output .= sprintf('directions.load("from: %s to: %s");', $this->_directions[0], $this->_directions[1])."\n";
+		}
         
         // zoom so that all markers are in the viewport
         if($this->zoom_encompass && count($this->_markers) > 1) {
@@ -1161,11 +1241,16 @@ class GoogleMapAPI {
         $_output = '<script type="text/javascript" charset="utf-8">' . "\n" . '//<![CDATA[' . "\n";
         $_output .= 'if (GBrowserIsCompatible()) {' . "\n";
         if(strlen($this->width) > 0 && strlen($this->height) > 0) {
-            $_output .= sprintf('document.write(\'<div id="%s" style="width: %s; height: %s"><\/div>\');',$this->map_id,$this->width,$this->height) . "\n";
+            $_output .= sprintf('document.write(\'<div id="%s" style="width: %s; height: %s; float:left"><\/div>\');',$this->map_id,$this->width,$this->height) . "\n";
         } else {
-            $_output .= sprintf('document.write(\'<div id="%s"><\/div>\');',$this->map_id) . "\n";     
+            $_output .= sprintf('document.write(\'<div id="%s" style="float:left"><\/div>\');',$this->map_id) . "\n";     
         }
-        $_output .= '}';
+        if(strlen($this->dir_width) > 0) {
+            $_output .= sprintf('document.write(\'<div id="%s" style="width: %s; float:right"><\/div>\');',$this->directions_id,$this->dir_width) . "\n";
+        } else {
+            $_output .= sprintf('document.write(\'<div id="%s" style="float:right"><\/div>\');',$this->directions_id) . "\n";     
+        }
+		$_output .= '}';
 
         if(!empty($this->js_alert)) {
             $_output .= ' else {' . "\n";
