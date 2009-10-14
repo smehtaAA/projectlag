@@ -194,10 +194,11 @@ class InscriptionController extends Zend_Controller_Action
 					if(!empty($dataform['img']))
 					{
 						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
-						$thumb = PhpThumbFactory::create('../public/images/comptes/'.$ancien_nom);
+						$thumb = PhpThumbFactory::create('../public/images/comptes/tmp/'.$ancien_nom);
 						$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"]);
-						if(file_exists('../public/images/comptes/'.$ancien_nom))
-							unlink('../public/images/comptes/'.$ancien_nom);
+						$thumb->resize(25, 25)->save('../public/images/comptes/thumb/'.$dataform["img"]);
+						if(file_exists('../public/images/comptes/tmp/'.$ancien_nom))
+							unlink('../public/images/comptes/tmp/'.$ancien_nom);
 					}
 					
 					$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
