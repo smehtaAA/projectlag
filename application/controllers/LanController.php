@@ -169,14 +169,14 @@ class LanController extends Zend_Controller_Action
 			// definition du zoom
 			$map->setZoomLevel(8);
 			
-			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville'));
+			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img'));
 			$jeux = null;
 			foreach($joueurs as $j) {
 				$jeux[$j['idCompte']] = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
 				// ajout d'un marqueur joueur sur la carte
 				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "<span class='rouge'><strong>$j[login]</strong></span><br/>$j[ville] ($j[cp])", $j['login']);
 				// met cet icone pour le dernier marqueur posé
-				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/users.png',$request->getBaseUrl().'/images/admin/users.png',0,0,10,10);
+				$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/'.$j['img'],$request->getBaseUrl().'/images/admin/users.png',0,0,10,10);
 			}
 			
 			// ajout du marqueur lan sur la carte
