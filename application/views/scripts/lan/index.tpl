@@ -1,3 +1,6 @@
+{$map->printHeaderJS()}
+{$map->printMapJS()}
+
 <div id="content-total">
     {foreach from=$lans item=l name=lan}
     <div class="content-middle-princ content-separator-right">
@@ -35,7 +38,7 @@
             <div class="content-title-middle content-title-middle-middle"><h3>Plan de la lan</h3></div>
             <div class="content-title-right"></div>
             <div class="content-middle-text">
-				Ici c'est la map
+				{$map->printMap()}
 
             </div>
         </div>
