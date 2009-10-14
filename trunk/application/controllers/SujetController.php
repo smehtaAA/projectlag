@@ -31,6 +31,7 @@ class SujetController extends Zend_Controller_Action
 			$compte = $modelMessage->fetchEntryCompteBySujet($id);
 			foreach($compte as $c) {
 				$comptes[$c['idCompte']]=$modelCompte->fetchEntryForum($c['idCompte']);
+				$comptes[$c['idCompte']]['nb_messages'] = $modelMessage->countEntriesByCompte($c['idCompte']);
 			}
 			$date = new Zend_Date();
 			
@@ -91,14 +92,12 @@ class SujetController extends Zend_Controller_Action
 					$dataform['idSujet'] = $idSujet;
 					$modelMessage->save(0,$dataform);
 					
-					$compte = $modelCompte->fetchEntry($log->_getUser());
-					$compte['nb_messages']++;
-					$grade = $modelGrade->fetchEntry($compte['idGrade']);
-					if($compte['nb_messages']>$grade['nbmessages_maxi']) {
-						$new_grade = $modelGrade->fetchEntryByNbMessages($compte['nb_messages']);
+					$nb_messages = $modelMessage->countEntriesByCompte($log->_getUser());
+					if($log->_getTypeConnected('joueur') && $nb_messages!=-1) {
+						$new_grade = $modelGrade->fetchEntryByNbMessages($nb_messages);
 						$compte['idGrade']=$new_grade['idGrade'];
+						$modelCompte->save($log->_getUser(), $compte);
 					}
-					$modelCompte->save($log->_getUser(), $compte);
 					
 					return $this->_helper->redirector('index','sujet','',array('id'=>$idSujet));
 				}
@@ -116,7 +115,6 @@ class SujetController extends Zend_Controller_Action
 			
 			$smarty->assign('form', $form);
 			$smarty->display('forum/sujet/form.tpl');
-		
 		
 		} else {
 			$smarty->display('error/errorconnexion.tpl');

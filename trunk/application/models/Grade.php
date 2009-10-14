@@ -38,7 +38,7 @@ class Model_Grade
 	public function fetchEntriesOrderByNbMessages()
     {
 		$table = $this->getTable();
-		$select = $table->select()->order('nbmessages');
+		$select = $table->select()->order('nbmessages_mini');
 		$stmt = $select->query();
 
 		return $stmt->fetchAll();

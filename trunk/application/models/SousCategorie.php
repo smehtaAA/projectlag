@@ -55,7 +55,7 @@ class Model_SousCategorie
 	public function fetchEntryByCategorie($idCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->from('souscategorie', $array)->where('idCategorie = ?', $idCat)->order('ordre');
+		$select = $table->select()->from('souscategorie')->where('idCategorie = ?', $idCat)->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }

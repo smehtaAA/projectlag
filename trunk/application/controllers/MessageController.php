@@ -54,14 +54,12 @@ class MessageController extends Zend_Controller_Action
 					$dataform['idCompte'] = $log->_getUser();
 					$modelMessage->save($id,$dataform);
 					
-					$compte = $modelCompte->fetchEntry($log->_getUser());
-					$compte['nb_messages']++;
-					$grade = $modelGrade->fetchEntry($compte['idGrade']);
-					if($compte['nb_messages']>$grade['nbmessages_maxi']) {
-						$new_grade = $modelGrade->fetchEntryByNbMessages($compte['nb_messages']);
+					$nb_messages = $modelMessage->countEntriesByCompte($log->_getUser());
+					if($log->_getTypeConnected('joueur') && $nb_messages!=-1) {
+						$new_grade = $modelGrade->fetchEntryByNbMessages($nb_messages);
 						$compte['idGrade']=$new_grade['idGrade'];
+						$modelCompte->save($log->_getUser(), $compte);
 					}
-					$modelCompte->save($log->_getUser(), $compte);
 					
 					return $this->_helper->redirector('index','sujet','',array('id'=>$idSujet));
 				}

@@ -63,7 +63,9 @@ class Model_Compte
     {
         $table = $this->getTable();
         $select = $table->select()->from(array('c'=>'compte'), array('idCompte','login', 'img', 'citationpreferee', 'nb_messages'))
-								->join(array('g' => 'grade'),'g.idGrade=c.idGrade')
+								->join(array('g' => 'grade'),'g.idGrade=c.idGrade', array('nom as nom_g'))
+								->join(array('fc' => 'fonctioncompte'),'fc.idCompte=c.idCompte', array(''))
+								->join(array('f' => 'fonction'),'f.idFonction=fc.idFonction', array('nom as nom_f'))
 								->where('c.idCompte = ?', $id)
 								->setIntegrityCheck(false);
 		
