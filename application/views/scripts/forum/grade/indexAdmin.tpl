@@ -15,7 +15,7 @@
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
     <td>{$i.nom}</td>
-    <td align="center">{$i.nbmessages}</td>
+    <td align="center">{$i.nbmessages_mini}  -  {$i.nbmessages_maxi}</td>
     <td></td>
     <td align="center"><a href="{$urlupd}{$i.idGrade}"><img src="{$base_url}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idGrade}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>

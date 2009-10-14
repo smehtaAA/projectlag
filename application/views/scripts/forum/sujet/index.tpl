@@ -43,7 +43,12 @@
             	<td width="200px" align="center">
                 	<img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}"  /><br/>
                     <span class="rouge"><strong>{$comptes[$m.idCompte].login}</strong></span><br/>
-                    {$comptes[$m.idCompte].nom}<br/>
+                    {if $comptes[$m.idCompte].nom_f == 'joueur'}
+                    	{$comptes[$m.idCompte].nom_g}
+                    {else}
+                    	Administrateur
+                    {/if}
+                    <br/>
                     Messages : {$comptes[$m.idCompte].nb_messages}<br/>
                 
                 </td>

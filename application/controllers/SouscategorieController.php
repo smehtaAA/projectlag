@@ -25,6 +25,8 @@ class SousCategorieController extends Zend_Controller_Action
 			else
 				$login=0;
 			
+			$nb=null;
+			$last_messages=null;
 			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
 			foreach ($sujets as $s) {
 				

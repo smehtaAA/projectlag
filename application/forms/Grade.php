@@ -15,8 +15,13 @@ class Form_Grade extends Zend_Form
             )
         ));	
 		
-		$this->addElement('text', 'nbmessages', array(
+		$this->addElement('text', 'nbmessages_mini', array(
             'label'          => 'Nombre de Messages minimum : ',
+            'required'       => false
+        ));	
+		
+		$this->addElement('text', 'nbmessages_maxi', array(
+            'label'          => 'Nombre de Messages maximum : ',
             'required'       => false
         ));	
 
