@@ -27,7 +27,11 @@
         <div class="content-total-middle">
             <div class="content-title-left"></div>
             <div class="content-title-middle content-title-middle-total"><h3>{$sujet.titre|utf8_encode}</h3></div>
-            <div class="content-title-right"></div>
+            <div class="content-title-right">
+            	{if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
+                	<a href="{$url_del_sujet}{$sujet.idSujet}"> Supprimer </a>
+                {/if}
+            </div>
             <div class="content-total-text">
             <br/><br/>
             	<a href="{$url_reponse}"> R&eacute;pondre </a>

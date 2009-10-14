@@ -46,6 +46,7 @@ class SujetController extends Zend_Controller_Action
 			$smarty->assign('messages', $messages);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('url_del_message', $request->getBaseUrl().'/message/del?id=');
+			$smarty->assign('url_del_sujet', $request->getBaseUrl().'/sujet/del?id=');
 			$smarty->assign('url_reponse', $request->getBaseUrl().'/message/form?idSujet='.$sujet['idSujet']);
 			
 			$smarty->display('forum/sujet/index.tpl');
@@ -130,10 +131,26 @@ class SujetController extends Zend_Controller_Action
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
 				$model = $this->_getModel();
+				$modelGrade = $this->_getModelGrade();
+				$modelCompte = $this->_getModelCompte();
+				$modelMessage = $this->_getModelMessage();
 				$data = $model->fetchEntry($id);
 				$model->delete($id);
+				
+				$mess = $modelMessage->fetchEntryBySujet($data['idSujet']);
+				foreach($mess as $m) {
+					$message = $modelMessage->fetchEntry($m['idMessage']);
+					$modelMessage->delete($m['idMessage']);
+				
+					$nb_messages = $modelMessage->countEntriesByCompte($message['idCompte']);
+					if($nb_messages!=-1) {
+						$new_grade = $modelGrade->fetchEntryByNbMessages($nb_messages);
+						$compte['idGrade']=$new_grade['idGrade'];
+						$modelCompte->save($message['idCompte'], $compte);
+					}	
+				}
 			}
-			return $this->_helper->redirector('indexadmin','categorie');
+			return $this->_helper->redirector('index','souscategorie','',array('id'=>$data['idSousCategorie']));
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}

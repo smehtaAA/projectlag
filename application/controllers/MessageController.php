@@ -102,7 +102,7 @@ class MessageController extends Zend_Controller_Action
 				$model->delete($id);
 				
 				$nb_messages = $model->countEntriesByCompte($data['idCompte']);
-				if(($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) && $nb_messages!=-1) {
+				if($nb_messages!=-1) {
 					$new_grade = $modelGrade->fetchEntryByNbMessages($nb_messages);
 					$compte['idGrade']=$new_grade['idGrade'];
 					$modelCompte->save($data['idCompte'], $compte);
