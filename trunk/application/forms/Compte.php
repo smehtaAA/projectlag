@@ -121,7 +121,7 @@ class Form_Compte extends My_CreationCompte
 		
 		$this->addElement('file', 'img', array(
             'label'       => 'Avatar : ',
-			'destination' => './images/comptes/',
+			'destination' => './images/comptes/tmp/',
             'required'    => false
         ));
 		
