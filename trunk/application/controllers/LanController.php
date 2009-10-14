@@ -151,7 +151,7 @@ class LanController extends Zend_Controller_Action
 			$modelLanJoueur = $this->_getModelLanJoueur();
 			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
 			
-			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville'));
+			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville', 'cp'));
 
 			// API Google Map
 			require('../library/My/GoogleMapAPI.class.php');
@@ -174,13 +174,13 @@ class LanController extends Zend_Controller_Action
 			foreach($joueurs as $j) {
 				$jeux[$j['idCompte']] = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
 				// ajout d'un marqueur joueur sur la carte
-				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "", $j['login']);
+				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "<span class='rouge'><strong>$j[login]</strong></span><br/>$j[ville] ($j[cp])", $j['login']);
 				// met cet icone pour le dernier marqueur posé
 				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/users.png',$request->getBaseUrl().'/images/admin/users.png',0,0,10,10);
 			}
 			
 			// ajout du marqueur lan sur la carte
-			$map->addMarkerByAddress($lan['ville'], $lan['nom'], "", $lan['nom']);
+			$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 			// utilisation d'un icone different pour la lan
 			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer.png',$request->getBaseUrl().'/images/admin/computer.png',0,0,10,10);
 
