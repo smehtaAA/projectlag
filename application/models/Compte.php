@@ -62,7 +62,7 @@ class Model_Compte
 	public function fetchEntryForum($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->from(array('c'=>'compte'), array('idCompte','login', 'img', 'citationpreferee', 'nb_messages'))
+        $select = $table->select()->from(array('c'=>'compte'), array('idCompte','login', 'img', 'citationpreferee'))
 								->join(array('g' => 'grade'),'g.idGrade=c.idGrade', array('nom as nom_g'))
 								->join(array('fc' => 'fonctioncompte'),'fc.idCompte=c.idCompte', array(''))
 								->join(array('f' => 'fonction'),'f.idFonction=fc.idFonction', array('nom as nom_f'))
