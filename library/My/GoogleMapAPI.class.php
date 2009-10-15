@@ -1018,10 +1018,11 @@ class GoogleMapAPI {
             $this->_max_lon += $_len_lon * $this->bounds_fudge;
             $this->_min_lat -= $_len_lat * $this->bounds_fudge;
             $this->_max_lat += $_len_lat * $this->bounds_fudge;
-
-            $_output .= "var bds = new GLatLngBounds(new GLatLng($this->_min_lat, $this->_min_lon, true), new GLatLng($this->_max_lat, $this->_max_lon, true));\n";
-            $_output .= 'map.setZoom(map.getBoundsZoomLevel(bds));' . "\n";
-			$_output .= 'map.setZoom(5);' . "\n";
+			
+			$_output .= "var geo_min = new GLatLng(".str_replace(',','.',$this->_min_lat).", ".str_replace(',','.',$this->_min_lon).");\n";
+			$_output .= "var geo_max = new GLatLng(".str_replace(',','.',$this->_max_lat).", ".str_replace(',','.',$this->_max_lon).");\n";
+			$_output .= "var bds = new GLatLngBounds(geo_min, geo_max);\n";
+            $_output .= 'map.setZoom(map.getBoundsZoomLevel(bds)-1);' . "\n";
         }
         
         if($this->map_controls) {
