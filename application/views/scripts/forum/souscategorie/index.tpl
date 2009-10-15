@@ -64,7 +64,7 @@
             </table>
             <br /><br />
             {if $login.login!=''}
-            	<a href="{$url_addsujet}" class="sujet"><span class="rouge"><strong> Ajouter un Sujet </strong></span> </a>
+            	<a href="{$url_addsujet}" class="bouton-forum"><span class="rouge"><strong> Ajouter un Sujet </strong></span> </a>
             {/if}
             </div>
         </div>
