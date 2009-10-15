@@ -43,6 +43,14 @@ class Model_Lan
         return $table->fetchAll($select)->toArray();
     }
 	
+	public function fetchEntriesorderByDateField($array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('lan', $array)->order('datedeb DESC');
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
     public function fetchEntry($id)
     {
         $table = $this->getTable();

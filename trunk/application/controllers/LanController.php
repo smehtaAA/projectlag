@@ -15,7 +15,7 @@ class LanController extends Zend_Controller_Action
 		$model  = $this->_getModel();
 		$modelLanJeux = $this->_getModelLanJeux();
 		$request = $this->getRequest();
-		$lans  = $model->fetchEntriesorderByDate();
+		$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description'));
 		$lan_ouverte = $model->fetchEntryOuverteField(array('idLan'));
 		
 		foreach($lans as $lan)
@@ -24,32 +24,36 @@ class LanController extends Zend_Controller_Action
 			$chiffre[$lan['idLan']]['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
 			if($lan['idLan']==$lan_ouverte['idLan'])
 				$chiffre[$lan['idLan']]['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
-			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLan($lan['idLan']);
+				
+			
+			if($lan['datedeb']>date('Y-m-y h:i:s')) {
+				// API Google Map
+				require('../library/My/GoogleMapAPI.class.php');
+				$map = new GoogleMapAPI('map','driving_directions');
+				$map->setMapType('map');
+				$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+				// fixe les dimensions de la carte
+				$map->setHeight("250");
+				$map->setWidth("400");
+				// gestion des services
+				$map->DisableTypeControls();
+				$map->DisableDirections();
+				$map->disableZoomEncompass();
+				$map->disableOverviewControl();
+				$map->disableScaleControl();
+				$map->setControlSize('small');
+				$map->disableMapControls();
+				// definition du zoom
+				$map->setZoomLevel(8);
+				// ajout du marqueur lan sur la carte
+				$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
+				// utilisation d'un icone different pour la lan
+				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
+			}
+			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLanField($lan['idLan'], array(''), array(''), array('nom'));
 		}
 		
-		// API Google Map
-		require('../library/My/GoogleMapAPI.class.php');
-		$map = new GoogleMapAPI('map','driving_directions');
-		$map->setMapType('map');
-		$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
-		// fixe les dimensions de la carte
-		$map->setHeight("250");
-		$map->setWidth("400");
-		// gestion des services
-		$map->DisableTypeControls();
-		$map->DisableDirections();
-		$map->disableZoomEncompass();
-		$map->disableOverviewControl();
-		$map->disableScaleControl();
-		$map->setControlSize('small');
-		$map->disableMapControls();
-		// definition du zoom
-		$map->setZoomLevel(8);
-		// ajout du marqueur lan sur la carte
-		$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
-		// utilisation d'un icone different pour la lan
-		$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
-		
+
 		
 		$smarty->assign('lan_ouverte', $lan_ouverte);
 		$smarty->assign('lans', $lans);

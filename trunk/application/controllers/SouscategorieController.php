@@ -30,7 +30,7 @@ class SousCategorieController extends Zend_Controller_Action
 			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
 			foreach ($sujets as $s) {
 				
-				$nb[$s['idSujet']]['reponses'] = $modelMessage->countEntriesBySujet($s['idSujet']);
+				$nb[$s['idSujet']]['reponses'] = $modelMessage->countEntriesBySujet($s['idSujet'])-1;
 				$last_messages[$s['idSujet']] = $modelMessage->fetchEntryLastBySujet($s['idSujet']);
 				
 			}
