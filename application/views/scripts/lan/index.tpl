@@ -22,10 +22,10 @@
     
 
     {foreach from=$lans item=l name=lan}
-    <div id="lan_{$l.idLan}">
+
     	{if $l.datedeb > $smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
     
-        <div class="content-middle-princ content-separator-right content-separator">
+        <div class="content-middle-princ content-separator-right content-separator" id="lan_{$l.idLan}">
             <div class="content-middle-top"></div>
             <div class="content-middle-middle">
                 <div class="content-title-left"></div>
@@ -92,11 +92,11 @@
             <div class="content-total-bottom"></div>
     	</div>
         {else}
-        		<div class="content-total-princ content-separator">
+        		<div class="content-total-princ content-separator" id="lan_{$l.idLan}">
                     <div class="content-total-top"></div>
                     <div class="content-total-middle">
                         <div class="content-title-left"></div>
-                        <div class="content-title-middle content-title-middle-total"><h3>Lans</h3></div>
+                        <div class="content-title-middle content-title-middle-total"><h3>{$l.nom|utf8_encode}</h3></div>
                         <div class="content-title-right"></div>
                         <div class="content-total-text">
                         	<strong><img src="{$base_url}/images/icones/icon-city.png" alt="Lieu" title="Lieu" style="vertical-align:middle" /> &nbsp;Lieux &nbsp;:</strong>&nbsp; {$l.adresse|utf8_encode}<br />
@@ -131,6 +131,6 @@
                     <div class="content-total-bottom"></div>
                 </div>
         {/if}
-    </div>
+
     {/foreach}
 </div>
