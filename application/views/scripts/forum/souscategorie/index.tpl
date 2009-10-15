@@ -55,7 +55,7 @@
                         	{if $last_messages[$s.idSujet] == -1} 
                             	<em>Aucun Message </em>
                             {else}
-                                <span class="font-min">{$last_messages[$s.idSujet].date_m|date_format:"%d/%m/%Y à %H:%M"|utf8_encode}<br/>
+                                <span class="font-min">{$last_messages[$s.idSujet].date_m|date_format:"%d/%m/%Y à %H:%M"|utf8_encode} 
                                 par <span class="rouge">{$last_messages[$s.idSujet].login}</span></span>
                             {/if}
                         </td>
