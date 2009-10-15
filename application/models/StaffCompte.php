@@ -40,7 +40,7 @@ class Model_StaffCompte
 		$table = $this->getTable();
         $select = $table->select()
 						->from(array('sc' => 'staffcompte'))
-						->join(array('c' => 'compte'),'c.idCompte=sc.idCompte')
+						->join(array('c' => 'compte'),'c.idCompte=sc.idCompte', array('idCompte', 'nom', 'prenom', 'login', 'email', 'datenaissance', 'msn', 'description', 'site'))
 						->where('idStaff = ?', $idStaff)
 						->order('c.nom')
 						->setIntegrityCheck(false);

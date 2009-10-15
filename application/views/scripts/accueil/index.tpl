@@ -145,11 +145,11 @@ $(document).ready(function() {
                     </tr>
                     <tr>
                     	<td><img src="{$base_url}/images/icones/icon-user.png" alt="Pre-inscrits" title="Pre-inscrits" /> </td>
-                    	<td colspan="3"><a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}"><strong>{$nb_preinscrits}</strong> Pr&eacute;-inscrits</a></td>
+                    	<td colspan="3"><a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}"><strong>{$lan.nb_preinscrits}</strong> Pr&eacute;-inscrits</a></td>
                     </tr>
                     <tr>
                     	<td><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" /> </td>
-                    	<td colspan="3"><a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}"><strong>{$nb_inscrits}</strong> Inscrits</a></td>
+                    	<td colspan="3"><a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}"><strong>{$lan.nb_inscrits}</strong> Inscrits</a></td>
                     </tr>
                 </table>
                 <br /><br />

@@ -54,13 +54,10 @@ class AccueilController extends Zend_Controller_Action
 			for($i=1; $i<=$nb_page; $i++)
 				$pages[$i] = $i;
 				
-				
-			$nb_inscrits=0;
-			$nb_preinscrits=0;
 			$lan=$modelLan->fetchEntryOuverteField(array('idLan', 'nom', 'adresse', 'cp', 'ville', 'datedeb', 'datefin'));
 			if($lan!=-1){
-				$nb_inscrits = $modelLan->fetchEntriesCountValide($lan['idLan']);
-				$nb_preinscrits = $modelLan->fetchEntriesCountPreInscrits($lan['idLan']);
+				$lan['nb_inscrits'] = $modelLan->fetchEntriesCountValide($lan['idLan']);
+				$lan['nb_preinscrits'] = $modelLan->fetchEntriesCountPreInscrits($lan['idLan']);
 			}
 				
 			// Récupération du partenaire aleatoire
@@ -78,8 +75,6 @@ class AccueilController extends Zend_Controller_Action
 			$smarty->assign('partenaire', $partenaire);
 			$smarty->assign('partenaires', $part);
 			$smarty->assign('logos', $partenaires);
-			$smarty->assign('nb_inscrits', $nb_inscrits);
-			$smarty->assign('nb_preinscrits', $nb_preinscrits);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('pages', $pages);
 			$smarty->assign('url','?page=');
