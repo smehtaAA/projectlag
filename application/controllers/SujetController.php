@@ -116,6 +116,7 @@ class SujetController extends Zend_Controller_Action
 				$smarty->assign('title', 'Ajout Sujet');
 			
 			$smarty->assign('form', $form);
+			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->display('forum/sujet/form.tpl');
 		
 		} else {

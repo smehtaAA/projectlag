@@ -58,15 +58,7 @@
                 </td>
                 <td width="620px">
                 	<span style="font-size:16px"><strong>{$sujet.titre|utf8_encode}</strong></span> >
-                    <em>
-                	{if ($datedujour-$m.date_m)==0}
-                    	Aujourd'hui
-                    {elseif ($datedujour-$m.date_m)==1}
-                    	Hier
-                    {else}
-                    	{$datedujour-$m.date_m+1} 
-                    {/if}
-                    </em>
+                    <em>Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</em>
                     {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
                      	! A deplacer a droite ! <a href="{$url_del_message}{$m.idMessage}"> Supprimer </a>
                     {/if}
