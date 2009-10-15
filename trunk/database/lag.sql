@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `config` (
   `cle` varchar(45) DEFAULT NULL,
   `valeur` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`idConfig`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `config`
@@ -213,7 +213,9 @@ CREATE TABLE IF NOT EXISTS `config` (
 INSERT INTO `config` (`idConfig`, `titre`, `cle`, `valeur`) VALUES
 (1,'Nombre max de news par page', 'nb_max_news_page', 2),
 (2,'Nombre max de news partenaire par page', 'nb_max_news_partenaire_page', 2),
-(3,'Ouverture du Forum', 'ouverture_forum', false);
+(3,'Ouverture du Forum', 'ouverture_forum', false),
+(4,'Mail de Contact', 'mail_contact', 'association.lag@gmail.com'),
+(5,'Key API Google Map', 'key_google', 'ABQIAAAADNrtNEKC87esbJai0XIwcRQWCLFO9fZBImejaIh1nL6hobfpIxTSenKP_pi6irnYBRQbOxSEfQ1HfA');
 
 -- --------------------------------------------------------
 

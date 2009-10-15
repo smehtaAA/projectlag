@@ -8,12 +8,14 @@ class LanController extends Zend_Controller_Action
 	protected $_modelLanJoueur;
 	protected $_modelLanJeuxJoueurTeam;
 	protected $_modelCompte;
+	protected $_modelConfig;
 	
 	public function indexAction()
 	{
 		$smarty = Zend_Registry::get('view');			
 		$model  = $this->_getModel();
 		$modelLanJeux = $this->_getModelLanJeux();
+		$modelConfig = $this->_getModelConfig();
 		$request = $this->getRequest();
 		$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description'));
 		$lan_ouverte = $model->fetchEntryOuverteField(array('idLan'));
@@ -25,13 +27,16 @@ class LanController extends Zend_Controller_Action
 			if($lan['idLan']==$lan_ouverte['idLan'])
 				$chiffre[$lan['idLan']]['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
 				
+				
+			$key_google = $modelConfig->fetchEntrySetting('key_google');
+				
 			
 			if($lan['datedeb']>date('Y-m-y h:i:s')) {
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
 				$map->setMapType('map');
-				$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+				$map->setAPIKey($key_google);
 				// fixe les dimensions de la carte
 				$map->setHeight("250");
 				$map->setWidth("400");
@@ -126,6 +131,7 @@ class LanController extends Zend_Controller_Action
 				$modelLanJeux = $this->_getModelLanJeux();
 				$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
 				$modelCompte = $this->_getModelCompte();
+				$modelConfig = $this->_getModelConfig();
 				
 				$lan=$model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville', 'cp', 'adresse'));
 				$joueur = $modelCompte->fetchEntryField($log->_getUser(),array('ville', 'cp'));
@@ -137,11 +143,13 @@ class LanController extends Zend_Controller_Action
 				else
 					$jeuxlibres=0;
 				
+				
+				$key_google = $modelConfig->fetchEntrySetting('key_google');
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
 				$map->setMapType('map');
-				$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+				$map->setAPIKey($key_google);
 				// fixe les dimensions de la carte
 				$map->setHeight("500");
 				$map->setWidth("500");
@@ -152,7 +160,7 @@ class LanController extends Zend_Controller_Action
 				$map->disableZoomEncompass();
 				$map->disableOverviewControl();
 				// definition du zoom
-				$map->setZoomLevel(8);
+				// $map->setZoomLevel(5);
 				// gestion de l'itineraire
 				$map->enableDrivingDirections();
 				$map->setDrivingDirection(array($joueur['ville'].' '.$joueur['cp'], $lan['adresse'].' '.$lan['ville'].' '.$lan['cp']));
@@ -181,26 +189,28 @@ class LanController extends Zend_Controller_Action
 		if($id>0) {
 		
 			$model  = $this->_getModel();
+			$modelConfig = $this->_getModelConfig();
 			$modelLanJoueur = $this->_getModelLanJoueur();
 			$modelLanJeuxJoueurTeam = $this->_getModelLanJeuxJoueurTeam();
 			
 			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville', 'cp'));
-
+			
+			$key_google = $modelConfig->fetchEntrySetting('key_google');
 			// API Google Map
 			require('../library/My/GoogleMapAPI.class.php');
 			$map = new GoogleMapAPI('map');
 			$map->setMapType('map');
-			$map->setAPIKey('ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA');
+			$map->setAPIKey($key_google);
 			// fixe les dimensions de la carte
 			$map->setHeight("500");
 			$map->setWidth("830");
 			// gestion des services
 			$map->disableTypeControls();
 			$map->disableDirections();
-			$map->disableZoomEncompass();
+			$map->enableZoomEncompass();
 			$map->disableOverviewControl();
 			// definition du zoom
-			$map->setZoomLevel(8);
+			//$map->setZoomLevel(8);
 			
 			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img'));
 			$jeux = null;
@@ -360,6 +370,15 @@ class LanController extends Zend_Controller_Action
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
+    }
+	
+	protected function _getModelConfig()
+    {
+        if (null === $this->_modelConfig) {
+            require_once APPLICATION_PATH . '/models/Config.php';
+            $this->_modelConfig = new Model_Config();
+        }
+        return $this->_modelConfig;
     }
 	
 	protected function _getModelLanJeuxJoueurTeam()

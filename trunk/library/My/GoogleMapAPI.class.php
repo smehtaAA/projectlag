@@ -995,7 +995,7 @@ class GoogleMapAPI {
 
         $_output .= sprintf('var mapObj = document.getElementById("%s");',$this->map_id) . "\n";
         $_output .= 'if (mapObj != "undefined" && mapObj != null) {' . "\n";
-        $_output .= sprintf('map = new GMap2(document.getElementById("%s"));',$this->map_id) . "\n";
+        $_output .= sprintf('map = new google.maps.Map(document.getElementById("%s"));',$this->map_id) . "\n";
         if(isset($this->center_lat) && isset($this->center_lon)) {
 			// Special care for decimal point in lon and lat, would get lost if "wrong" locale is set; applies to (s)printf only
 			$_output .= sprintf('map.setCenter(new GLatLng(%s, %s), %d, %s);', number_format($this->center_lat, 6, ".", ""), number_format($this->center_lon, 6, ".", ""), $this->zoom, $this->map_type) . "\n";
@@ -1019,8 +1019,9 @@ class GoogleMapAPI {
             $this->_min_lat -= $_len_lat * $this->bounds_fudge;
             $this->_max_lat += $_len_lat * $this->bounds_fudge;
 
-            $_output .= "var bds = new GLatLngBounds(new GLatLng($this->_min_lat, $this->_min_lon), new GLatLng($this->_max_lat, $this->_max_lon));\n";
+            $_output .= "var bds = new GLatLngBounds(new GLatLng($this->_min_lat, $this->_min_lon, true), new GLatLng($this->_max_lat, $this->_max_lon, true));\n";
             $_output .= 'map.setZoom(map.getBoundsZoomLevel(bds));' . "\n";
+			$_output .= 'map.setZoom(5);' . "\n";
         }
         
         if($this->map_controls) {
