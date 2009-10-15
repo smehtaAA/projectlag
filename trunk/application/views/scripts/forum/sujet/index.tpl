@@ -7,16 +7,16 @@
                 <div class="content-title-middle content-title-middle-total"><h3>Info Forum</h3></div>
                 <div class="content-title-right"></div>
                 <div class="content-total-text">
-                <a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.idCategorie}"> {$fil_arianne.titre_cat|utf8_encode}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.idSousCategorie}"> {$fil_arianne.titre_sscat|utf8_encode}</a> > <a href="{$base_url}/sujet?id={$fil_arianne.idSujet}"> <strong>{$fil_arianne.titre_s|utf8_encode}</strong></a>  <br/><br/>
-                
                 {if $login.login!=''}
-            		Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span> <br/><br/>
+            		Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span>
             	{else}
             		Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
-					Merci de vous identifier ou de vous <a href="{$base_url}/inscription/inscriptionmembre">inscrire</a>. <br/><br/>
+					Merci de vous identifier ou de vous <a href="{$base_url}/inscription/inscriptionmembre">inscrire</a>.
             	{/if}
-                	
-                
+                   
+                <ul>
+                	<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.idCategorie}"> {$fil_arianne.titre_cat|utf8_encode}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.idSousCategorie}"> {$fil_arianne.titre_sscat|utf8_encode}</a> > <a href="{$base_url}/sujet?id={$fil_arianne.idSujet}"> <strong>{$fil_arianne.titre_s|utf8_encode}</strong></a></li>
+                </ul>     	
                 </div>
             </div>
             <div class="content-total-bottom"></div>
@@ -26,55 +26,57 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$sujet.titre|utf8_encode}</h3></div>
-            <div class="content-title-right">
-            	{if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
-                	<a href="{$url_del_sujet}{$sujet.idSujet}"> Supprimer </a>
+            <div class="content-title-middle content-title-middle-total"><h3>{$sujet.titre|utf8_encode}</h3>
+            
+            {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
+                	 <div style="float:right"><a href="{$url_del_sujet}{$sujet.idSujet}" onclick="return(confirm('Etes-vous sur de vouloir supprimer ce sujet ?'));"> Supprimer le sujet</a></div>
                 {/if}
             </div>
+            <div class="content-title-right">
+            </div>
             <div class="content-total-text">
-            <br/><br/>
-            	<a href="{$url_reponse}"> R&eacute;pondre </a>
-            <br/><br/>
+            <br/>
+                 <a href="{$url_reponse}" class="bouton-forum"><span class="rouge bold"> R&eacute;pondre </span></a>
+            <br/><br/><br/>
             
           <table border="1">
-          	<tr>
-            	<th></th>
-                <th></th>
-            </tr>
           {foreach from=$messages item=m name=message}
           	<tr>
-            	<td width="200px" align="center">
-                	<img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}"  /><br/>
-                    <span class="rouge"><strong>{$comptes[$m.idCompte].login}</strong></span><br/>
+            	<td width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">
+                	{if $comptes[$m.idCompte].img != ""}
+                        <img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}" />
+                    {else}
+                        <img src="{$base_url}/images/comptes/no_logo.png" />
+                    {/if}
+                    <br/>
+                    <span class="rouge"><strong>{$comptes[$m.idCompte].login|utf8_encode}</strong></span><br/>
                     {if $comptes[$m.idCompte].nom_f == 'joueur'}
-                    	{$comptes[$m.idCompte].nom_g}
+                    	{$comptes[$m.idCompte].nom_g|utf8_encode}
                     {else}
                     	Administrateur
                     {/if}
                     <br/>
-                    Messages : {$comptes[$m.idCompte].nb_messages}<br/>
+                    <span class="italic">Messages : {$comptes[$m.idCompte].nb_messages}</span><br/>
                 
                 </td>
-                <td width="620px">
-                	<span style="font-size:16px"><strong>{$sujet.titre|utf8_encode}</strong></span> >
-                    <em>Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</em>
+                <td width="643" valign="top" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-impaire">
+                	<span style="font-size:14px" class="bold rouge">{$sujet.titre|utf8_encode}</span> >
+                    <span class="italic font-min">Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</span>
                     {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
-                     	! A deplacer a droite ! <a href="{$url_del_message}{$m.idMessage}"> Supprimer </a>
+                     	<div style="float:right;"><a href="{$url_del_message}{$m.idMessage}" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette reponse ?'));"> Supprimer </a></div>
                     {/if}
                     <br/>
                     <hr />
-            		{$m.description|nl2br} <br/> <br/>
+            		{$m.description|nl2br|utf8_encode} <br /> <br />
                     <hr />
-                    {$comptes[$m.idCompte].citationpreferee}
-                    <br/><br/>
+                    <div class="italic font-min" style="float:right">{$comptes[$m.idCompte].citationpreferee|utf8_encode}</div>
                 </td>
             </tr>
             
           {/foreach}
           </table>
-                      <br/><br/>
-            	<a href="{$url_reponse}"> R&eacute;pondre </a>
+              <br/><br/>
+                  <a href="{$url_reponse}" class="bouton-forum"><span class="rouge bold"> R&eacute;pondre </span></a>
             <br/><br/>
           
             </div>

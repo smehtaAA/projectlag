@@ -388,7 +388,7 @@ h3 {
 
 .content-total-text {
 	float: left;
-	width: 823px;
+	width: 828px;
 	clear:left;
 	text-align: justify;
 	padding-top:5px;
@@ -782,4 +782,51 @@ h3 {
 
 .form-inscription2 input {
 	width: 100px;
+}
+
+.content-total-text table tr td {
+	padding-left:3px;
+	padding-right:3px;
+	line-height: 1.3;
+	border: solid 1px #999999;
+}
+
+.table-th {
+	background-color: #BBBBBB;
+}
+
+.td-paire {
+	background-color: #DDDDDD;
+}
+
+.td-impaire {
+	background-color: #EEEEEE;
+}
+
+.content-total-text table {
+	border: solid 1px #999999;
+}
+
+.content-total-text table tr th {
+	color: #555555;
+	border: solid 1px #999999;
+}
+
+.content-total-text {
+	line-height: 1.3;
+}
+
+.font-min {
+	font-size: 11px;
+}
+
+.bouton-forum {
+	width: 112px;
+	height: 19px;
+	float: left;
+	text-align: center;
+	padding-top: 3px;
+	background-image: url('../images/site/sujet.png');
+	background-position: left bottom;
+	background-repeat: no-repeat; 
 }

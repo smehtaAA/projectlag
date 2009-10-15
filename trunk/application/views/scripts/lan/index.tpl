@@ -12,7 +12,7 @@
             <div class="content-total-text">
             	<ul>
 				{foreach from=$lans item=la name=lan_ancre}
-                	<li><a href="#lan_{$la.idLan}">{$la.nom}</a></li>
+                	<li><a href="#lan_{$la.idLan}">{$la.nom|utf8_encode}</a></li>
                 {/foreach}
                 </ul>
             </div>
@@ -31,7 +31,7 @@
                 <div class="content-title-left"></div>
                 <div class="content-title-middle content-title-middle-middle"><h3>{$l.nom|utf8_encode}</h3></div>
                 <div class="content-title-right"></div>
-                <div class="content-middle-text">
+                <div class="content-middle-text" style="height:260px;">
                     <strong><img src="{$base_url}/images/icones/icon-city.png" alt="Lieu" title="Lieu" style="vertical-align:middle" /> &nbsp;Lieux &nbsp;:</strong>&nbsp; {$l.adresse|utf8_encode}<br />
                     <div style="padding-left:62px;"></strong>&nbsp; {$l.ville|utf8_encode} ({$l.cp})</div>
                     <br /><br />
@@ -48,6 +48,13 @@
                     {if $l.datedeb < $smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
                         <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Presents" title="Presents" style="vertical-align:middle" /> &nbsp;{$chiffre[$l.idLan].present}</strong> Pr&eacute;sents<br />
                     {/if}
+                    
+                    <strong><img src="{$base_url}/images/icones/icon-games.png" alt="Jeux" title="Jeux" style="vertical-align:middle" /> &nbsp;Liste des jeux :</strong> 
+                    <ul>
+                    {foreach from=$jeux[$l.idLan] item=j name=jeu}
+                        <li>{$j.nom|utf8_encode}</li>
+                    {/foreach}
+                    </ul>
                 </div>
             </div>
             <div class="content-middle-bottom"></div>
@@ -59,7 +66,7 @@
                 <div class="content-title-left"></div>
                 <div class="content-title-middle content-title-middle-middle"><h3>Plan de la lan</h3></div>
                 <div class="content-title-right"></div>
-                <div class="content-middle-text">
+                <div class="content-middle-text" style="height:260px;">
                     {$map->printMap()}
     
                 </div>
@@ -76,14 +83,7 @@
                 <div class="content-title-right"></div>
                 <div class="content-total-text">
                     {$l.description|nl2br|utf8_encode}
-                    <br/><br/>
         
-                    <strong><img src="{$base_url}/images/icones/icon-games.png" alt="Jeux" title="Jeux" style="vertical-align:middle" /> &nbsp;Liste des jeux :</strong> 
-                    <ul>
-                    {foreach from=$jeux[$l.idLan] item=j name=jeu}
-                        <li>{$j.nom|utf8_encode}</li>
-                    {/foreach}
-                    </ul>
                     <br/><br/>
                     {$l.extra|nl2br|utf8_encode}
                     
