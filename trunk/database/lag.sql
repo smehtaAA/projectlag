@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `config` (
   `idConfig` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `titre` varchar(60) DEFAULT NULL,
   `cle` varchar(45) DEFAULT NULL,
-  `valeur` varchar(15) DEFAULT NULL,
+  `valeur` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idConfig`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
