@@ -29,6 +29,7 @@ class LanController extends Zend_Controller_Action
 				
 				
 			$key_google = $modelConfig->fetchEntrySetting('key_google');
+			$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
 				
 			
 			if($lan['datedeb']>date('Y-m-y h:i:s')) {
@@ -51,7 +52,7 @@ class LanController extends Zend_Controller_Action
 				// definition du zoom
 				$map->setZoomLevel(8);
 				// ajout du marqueur lan sur la carte
-				$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
+				$map->addMarkerByAddress($lan['adresse'].' '.$lan['ville'].' '.$lan['cp'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 				// utilisation d'un icone different pour la lan
 				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
 			}
@@ -145,6 +146,7 @@ class LanController extends Zend_Controller_Action
 				
 				
 				$key_google = $modelConfig->fetchEntrySetting('key_google');
+			$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
@@ -196,6 +198,9 @@ class LanController extends Zend_Controller_Action
 			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville', 'cp'));
 			
 			$key_google = $modelConfig->fetchEntrySetting('key_google');
+			
+			$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
+			
 			// API Google Map
 			require('../library/My/GoogleMapAPI.class.php');
 			$map = new GoogleMapAPI('map');
@@ -210,7 +215,7 @@ class LanController extends Zend_Controller_Action
 			$map->enableZoomEncompass();
 			$map->disableOverviewControl();
 			// definition du zoom
-			//$map->setZoomLevel(8);
+			$map->setZoomLevel(8);
 			
 			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img'));
 			$jeux = null;
@@ -223,7 +228,7 @@ class LanController extends Zend_Controller_Action
 			}
 			
 			// ajout du marqueur lan sur la carte
-			$map->addMarkerByAddress($lan['ville'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
+			$map->addMarkerByAddress($lan['adresse'].' '.$lan['ville'].' '.$lan['cp'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 			// utilisation d'un icone different pour la lan
 			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
 
