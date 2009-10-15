@@ -145,9 +145,37 @@ class InscriptionController extends Zend_Controller_Action
 			$id=$log->_getUser();
 			$compte = $modelCompte->fetchEntry($id);
 			$lan=$modelLan->fetchEntryOuverte();
+			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('compte',$compte);
 			$smarty->assign('lan', $lan);
 			$smarty->display('inscription/paiement.tpl');
+		}
+	}
+	
+	public function paiementselecAction()
+	{
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('joueur')) {
+			
+			$request = $this->getRequest();
+			$modelLan = $this->_getModelLan();
+			$modelLanJoueur = $this->_getModelLanJoueur();
+			$idpaiement = $request->getParam('idp', 0);
+			
+			$id = $log->_getUser();
+			$lan = $modelLan->fetchEntryOuverte();			
+			$lanJoueur = $modelLanJoueur->fetchEntriesByLanAndJoueur($lan['idLan'],$id);
+			$lanJoueur['modepaiement'] = $idpaiement;
+			$modelLanJoueur->save($lanJoueur['idLanJoueur'],$lanJoueur);
+			
+			$smarty->assign('base_url', $request->getBaseUrl());
+			$smarty->assign('idp',$idpaiement);
+			$smarty->assign('lan', $lan);
+			$smarty->display('inscription/paiementselec.tpl');
+			
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
 		}
 	}
 	

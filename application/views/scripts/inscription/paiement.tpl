@@ -6,7 +6,7 @@
             <div class="content-title-middle content-title-middle-total"><h3>Pré-inscription</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-                Votre pré-inscription pour la lan {$lan.nom|utf8_encode} a bien &eacute;t&eacute; enregistr&eacute;.<br/>
+                Votre pré-inscription pour la lan {$lan.nom|utf8_encode} a bien &eacute;t&eacute; enregistr&eacute;.<br /><br />
 
                 Afin de terminer votre inscription, il vous est demandé de nous faire parvenir par chèque ou PayPal un règlement équivalant au tarif de la LAN soit
                 {if $lan.telethon == true}
@@ -14,7 +14,7 @@
                 {/if}
                 <strong>{$lan.prix_prepaiement} &euro;</strong>
                 {if $lan.telethon == true}
-                	par chèque ou <strong>{$lan.prix_prepaiement_paypal} &euro; par PayPal</strong> (dans le but de compenser le fee)</strong>
+                	par chèque ou <strong>{$lan.prix_prepaiement_paypal} &euro; par PayPal</strong> (dans le but de compenser le fee (frais engendr&eacute; par paypal) )</strong>
                 {/if}
                 <br/>
                 {if $lan.telethon == true}
@@ -24,11 +24,11 @@
                 {/if}
                 <br/>
                 <ul>
-                    <li><span class="rouge"><strong> Par Ch&egrave;que </strong> </span></li>
+                    <li><a href="{$base_url}/inscription/paiementselec/?idp=1"><span class="rouge bold">Je paye par ch&egrave;que </span></a></li>
                     <ul>
                       <li> Il vous suffit de nous faire parvenir un ch&egrave;que au montant minimum de <strong>{$lan.prix_prepaiement} &euro;</strong> &agrave; l'ordre de 
                       {if $lan.telethon == true}
-                        <strong>AFM Telethon</strong>
+                        <strong>AFM T&eacute;l&eacute;thon</strong>
                       {else}
                       	<strong> LAG </strong>
                      {/if}
@@ -40,7 +40,7 @@
                       </ul>
                     </ul>
                     <br/>
-                    <li><span class="rouge"><strong> Par PayPal</strong> </span></li>
+                    <li><span class="rouge bold">Je paye par PayPal</span></li>
                     <ul>
                       <li> Il vous suffit de choisir le montant de votre don. Il est not&eacute; que le montant minimum est de <strong>{$lan.prix_prepaiement_paypal} &euro; </strong>.<br/>
                      <form action="https://www.paypal.com/fr/cgi-bin/webscr" method="post" name="f">
@@ -64,7 +64,7 @@
                      </li>
                      </ul>
                      <br/>
-                    <li> <span class="rouge"><strong>Sur Place</strong> </span> </li>
+                    <li><a href="{$base_url}/inscription/paiementselec/?idp=3"><span class="rouge bold">Je paye sur place</span></a></li>
                     <ul>
                       <li> Il vous est possible de payer directement sur place mais dans ce cas là, le tarif sera supérieur.</li>
                       <li> Un tarif de <strong> {$lan.prix} &euro;</strong> sera appliqué pour toutes inscriptions sur place. </li>
