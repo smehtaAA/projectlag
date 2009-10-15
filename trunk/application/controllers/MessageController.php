@@ -61,7 +61,7 @@ class MessageController extends Zend_Controller_Action
 						$modelCompte->save($log->_getUser(), $compte);
 					}
 					
-					return $this->_helper->redirector('index','sujet','',array('id'=>$idSujet));
+					return $this->_redirect('/sujet?id='.$idSujet);
 				}
 			} else {
 				if ($id > 0) {
