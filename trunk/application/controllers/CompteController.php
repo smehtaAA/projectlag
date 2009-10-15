@@ -65,8 +65,13 @@ class CompteController extends Zend_Controller_Action
 				$this->redirection = 'accueil/index';
 				$id = $log->_getUser();
 			} else {
-				$this->redirection = 'compte/indexadmin';
-				$id = (int)$request->getParam('id', 0);
+				if($log->_getInterfaceAdmin()) {
+					$this->redirection = 'compte/indexadmin';
+					$id = (int)$request->getParam('id', 0);
+				} else {
+					$this->redirection = 'accueil/index';
+					$id = $log->_getUser();
+				}
 			}
 			
 			$form    = $this->_getCompteForm($id, $log->_getType());

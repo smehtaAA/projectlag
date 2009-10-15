@@ -26,4 +26,9 @@ class SessionLAG
 		$defaultNamespace = new Zend_Session_Namespace();
 		$defaultNamespace->interface_admin = $interface; 
 	}
+	
+	public function _getInterfaceAdmin() {
+		$defaultNamespace = new Zend_Session_Namespace();
+		return $defaultNamespace->interface_admin; 
+	}
 }

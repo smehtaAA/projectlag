@@ -7,9 +7,12 @@ var EmotionsDialog = {
 
 	insert : function(file, title) {
 		var ed = tinyMCEPopup.editor, dom = ed.dom;
+		
+		var pa = window.location.pathname;
+		var sp = pa.split('/');
 
 		tinyMCEPopup.execCommand('mceInsertContent', false, dom.createHTML('img', {
-			src : tinyMCEPopup.getWindowArg('plugin_url') + '/img/' + file,
+			src : 'http://'+sp[1]+'/images/smilies/'+file,
 			alt : ed.getLang(title),
 			title : ed.getLang(title),
 			border : 0
