@@ -31,6 +31,12 @@ $(document).ready(function() {
             <div class="content-title-middle content-title-middle-total"><h3>{$titre|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
+            	<br/>
+				<center>
+                    <span class="bold">Attention :</span> Il est important d'indiquer un <strong>email valide</strong> pour confirmer son inscription au site.<br/>
+                                <div style="margin-left:60px;">Les champs en <span class="rouge bold">rouge</span> sont obligatoires.</div>
+                </center>
+            	<br/><br/><br/>
                 {if $login_existant==1}
                     <br/>
                 	<span class="rouge"> Erreur : <ul>
@@ -38,7 +44,7 @@ $(document).ready(function() {
                     <br/><br/>
                 {/if}
             	
-                <div style="margin-left: 270px; width: 305px;">
+                <div class="form-inscription">
                     {$form} 
                 </div>  
             </div>

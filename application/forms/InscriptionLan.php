@@ -27,9 +27,11 @@ class Form_InscriptionLan extends My_InscriptionLan
 		
 		$element = $this->getElement('newteam');
 		$element->setDecorators(array(
-					array('ViewHelper'),
-		            array('Label'),
-		            array('HtmlTag', array('tag' => 'div', 'id'=>'hide_new_team', 'class'=>'default_display_none'))
+					'ViewHelper',
+					'Description',
+					'Errors',
+					array('HtmlTag', array('tag' => 'dd', 'class'=>'cacheme default_display_none')),
+		            array('Label', array('tag' => 'dt', 'class'=>'cacheme default_display_none')),
 		));
 		
 		$this->addElement('multicheckbox', 'jeux', array(

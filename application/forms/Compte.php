@@ -169,7 +169,7 @@ class Form_Compte extends My_CreationCompte
 			'Description',
 			'Errors',
 			array('HtmlTag', array('tag' => 'dd')),
-			array('Label', array('tag' => 'dt','class'=>'rouge bold')),
+			array('Label', array('tag' => 'dt','class'=>'rouge bold'))
 		));
 	}
 }

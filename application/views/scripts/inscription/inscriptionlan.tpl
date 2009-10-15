@@ -2,13 +2,10 @@
 	<script type="text/javascript">
 		function verif_clan()
 		{
-			if (document.getElementById('team').value == "0") {
-				document.getElementById('hide_new_team').style.display = "";
-				document.getElementById('hide_new_team').className="";
-			}else {
-				document.getElementById('hide_new_team').style.display = "none";
-				document.getElementById('hide_new_team').className="default_display_none";
-			}
+			if ($('#team').val() == "0")		
+				$('.cacheme').attr('class','cacheme');
+			else			
+				$('.cacheme').attr('class','cacheme default_display_none');
 		}
 	</script>
 {/literal}
@@ -24,53 +21,57 @@
             
             <!-- Informations sur la lan -->
             <span class="rouge"><h2> Informations sur {$lan.nom|utf8_encode} </h2></span>
-            	<br/>
+            	<br /><br />
             
-                Date de la lan : du <strong>{$lan.datedeb|date_format:"%A %e %B %Y a %H:%M"|capitalize|utf8_encode}</strong> au <strong>{$lan.datefin|date_format:"%A %e %B %Y a %H:%M"|capitalize|utf8_encode}</strong> <br/>
-				Lieu : {$lan.adresse|nl2br|utf8_encode} &agrave; {$lan.ville|utf8_encode}<br/>
+                <img src="{$base_url}/images/icones/icon-date.png" alt="Date" title="Date" style="vertical-align:middle;margin-bottom:3px;" /> &nbsp;<strong>Date</strong> : {$lan.datedeb|date_format:"%A %e %B %Y"|capitalize|utf8_encode} &agrave; {$lan.datedeb|date_format:"%H:%M"|capitalize|utf8_encode} au {$lan.datefin|date_format:"%A %e %B %Y"|capitalize|utf8_encode} &agrave; {$lan.datefin|date_format:"%H:%M"|capitalize|utf8_encode} <br/>
+				<img src="{$base_url}/images/icones/icon-city.png" alt="Lieu" title="Lieu" style="vertical-align:middle;margin-bottom:3px;" /> &nbsp;<strong>Lieu</strong> : {$lan.adresse|nl2br|utf8_encode} &agrave; {$lan.ville|utf8_encode} ({$lan.cp|utf8_encode})<br/>
                 
                 
-                <a href="http://maps.google.fr/maps?f=q&source=s_q&hl=fr&geocode=&q=Mont Notre Dame&sll=49.293001,3.584118&sspn=0.043159,0.087891&g=Mont+notre+dame+02220&ie=UTF8&hq=&hnear=Mont-Notre-Dame,+Aisne,+Picardie&ll=49.29468,3.609009&spn=0.690516,1.40625&z=10" target="_blank"> Lien Google </a> <br/>
+                <img src="{$base_url}/images/icones/icon-google.png" alt="Google" title="Google" style="vertical-align:middle;" /> &nbsp;<strong>Plan</strong> : <a href="http://maps.google.fr/maps?f=q&source=s_q&hl=fr&geocode=&q=Mont Notre Dame&sll=49.293001,3.584118&sspn=0.043159,0.087891&g=Mont+notre+dame+02220&ie=UTF8&hq=&hnear=Mont-Notre-Dame,+Aisne,+Picardie&ll=49.29468,3.609009&spn=0.690516,1.40625&z=10" target="_blank"> Lien Google </a> <br/>
                 <br/>
                 
                 {$lan.extra|utf8_encode}
                 <hr />
                 
 			<!-- Informations sur le joueur -->
-            <span class="rouge"><h2> Informations sur {$joueur.login|utf8_encode} </h2></span>
-                <br/>
-                Login : {$joueur.login|utf8_encode} <br/>
-                Email : {$joueur.email} <br/><br/>
+            <span class="rouge"><h2> Informations sur votre compte </h2></span>
+                <br /><br />
+                <img src="{$base_url}/images/icones/icon-user2.png" alt="Login" title="Login" style="vertical-align:middle;margin-bottom:3px;" /> &nbsp;<strong>Login :</strong> {$joueur.login|utf8_encode} <br/>
+                <img src="{$base_url}/images/icones/icon-contact.png" alt="Mail" title="Mail" style="vertical-align:middle;margin-bottom:3px;" /> &nbsp;<strong>Email :</strong> {$joueur.email} <br/><br/>
                 
                 Si il y a une erreur dans votre email, veuillez la corriger dans le profil de votre compte <strong>avant</strong> de vous inscrire.
                 <hr/>
 
 			<!-- Informations sur l'inscription -->
             <span class="rouge"><h2> Votre inscription </h2></span>
-            	<br/>
-            	{if $tournoi}
-            		Tournois Organisés :
-                    <ul>
-                    {foreach from=$jeux name=jeu item=jeu}
-                    
-                        <li>
-                        {if $jeu.tournoi==true}
-                            {$jeu.nom} ({$jeu.nbmaxjoueurparteam}vs{$jeu.nbmaxjoueurparteam})
-                        {/if}
+            	<br /><br />
+                <div class="form-inscription2">
+                	<center>
+                    {if $tournoi}
+                        <strong>Tournois Organisés :</strong>
+                        <ul>
+                        {foreach from=$jeux name=jeu item=jeu}
                         
-                        </li>
+                            <li>
+                            {if $jeu.tournoi==true}
+                                {$jeu.nom} ({$jeu.nbmaxjoueurparteam}vs{$jeu.nbmaxjoueurparteam})
+                            {/if}
+                            
+                            </li>
+                        
+                        
+                        {/foreach}
+                        </ul>
+                    {else}
+                        <strong>Aucun tournoi (lan "Fun")</strong>
+                    {/if}
+                    </center>
                     
-                    
-                    {/foreach}
-                {else}
-                	Aucun tournoi (lan "Fun")
-                {/if}
                 
-                </ul>
-            
-                <br/><br/><br/>
+                    <br/><br/><br/>
                 
-                {$form}
+                    {$form}
+                </div>
             </div>
         </div>
         <div class="content-total-bottom"></div>
