@@ -751,3 +751,35 @@ h3 {
 	height: 20px;
 	
 }
+
+.form-inscription dl {
+	margin-left: 150px;
+}
+
+.form-inscription dt {
+	float: left;
+	width: 180px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.form-inscription2 dl {
+	margin-left: 170px;
+}
+
+.form-inscription2 dt {
+	float: left;
+	clear: left;
+	width: 180px;
+	text-align: right;
+	margin-right: 10px;
+	padding-top:5px;
+}
+
+.form-inscription2 dd {
+	float: left;
+}
+
+.form-inscription2 input {
+	width: 100px;
+}

@@ -305,6 +305,7 @@ class InscriptionController extends Zend_Controller_Action
 			$smarty->assign('form', $form);
 			
 			$smarty->assign('lan', $lan);
+			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('teams', $teams);
 			$smarty->assign('jeux', $jeux);
 			$smarty->assign('tournoi', $tournoi);

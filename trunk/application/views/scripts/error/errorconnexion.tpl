@@ -5,7 +5,7 @@
             <div class="content-title-left"></div>
             <div class="content-title-middle content-title-middle-total"><h3>Erreur de connexion</h3></div>
             <div class="content-title-right"></div>
-            <div class="content-left-text">
+            <div class="content-total-text">
                 {$message|utf8_encode}
             </div>
         </div>

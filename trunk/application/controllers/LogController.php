@@ -43,7 +43,7 @@ class LogController extends Zend_Controller_Action
 						$this->connexion($existlog[$userid],$nom);
 						return $this->_redirect('/accueil/index');
 					} else {
-						$message = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
+						$message = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Vous n'avez peut &ecirc;tre pas encore activ&eacute; votre compte via le mail que vous avez re&ccedil;u lors de votre inscription.";
 						$smarty->assign('message', $message);
 						$smarty->display('error/errorconnexion.tpl');
 						return NULL;
