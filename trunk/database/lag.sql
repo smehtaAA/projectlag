@@ -185,12 +185,12 @@ CREATE TABLE IF NOT EXISTS `compte` (
 --
 
 INSERT INTO `compte` (`idCompte`, `idGrade`, `login`, `password`, `nom`, `prenom`, `email`, `msn`, `cp`, `ville`, `img`, `phone`, `datenaissance`, `dateins`, `dateco`, `temps`, `ip`, `jeuxprefere`, `site`, `configpc`, `citationpreferee`, `description`, `nbconnexion`, `keyvalidation`, `actif`) VALUES
-(1, 1, 'Sieg', 'a16585fa2acbfe4761048c52d5987f166c027279', 'Méhault', 'Maxime', 'lag.sieg@gmail.com', '', '51100', 'Reims', '', '', '1988-02-09', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(2, 1, 'Ash', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Moraux', 'Antoine', 'lag.4sh@gmail.com', '', '38100', 'Grenoble', '', '', '1988-06-14', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(3, 1, 'Ryzen', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Bourgeois', 'Steevens', 'lag.ryzen@gmail.com', '', '', '', '', '', '1987-07-25', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4, 1, 'Belette', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Frayon', 'Johan', 'belette_0161@hotmail.com', '', '', '', '', '', '1987-05-26', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(5, 1, 'Risk.Breaker', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Barrat', 'Eric', 'parodius02@msn.com', '', '', '', '', '', '1973-09-06', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(6, 1, 'toto', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'toto', 'toto', 'toto@toto.Fr', NULL, '02200', 'Soissons', 'toto.jpg', NULL, '1989-10-05', '2009-10-11 16:12:21', '2009-10-11', 0, '127.0.0.1', 'teatgzegzegezgez', 'gezgzegezg', 'ezgezgezg', 'ezgezgze', 'gzegzegzegzegzegz', NULL, '9f96af676008813094ddde0e6adff9cf8396d803', 1);
+(1, 1, 'Sieg', 'a16585fa2acbfe4761048c52d5987f166c027279', 'Méhault', 'Maxime', 'lag.sieg@gmail.com', '', '51100', 'Reims', 'no_logo.png', '', '1988-02-09', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(2, 1, 'Ash', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Moraux', 'Antoine', 'lag.4sh@gmail.com', '', '38100', 'Grenoble', 'no_logo.png', '', '1988-06-14', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3, 1, 'Ryzen', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Bourgeois', 'Steevens', 'lag.ryzen@gmail.com', '', '', '', 'no_logo.png', '', '1987-07-25', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4, 1, 'Belette', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Frayon', 'Johan', 'belette_0161@hotmail.com', '', '', '', 'no_logo.png', '', '1987-05-26', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(5, 1, 'Risk.Breaker', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'Barrat', 'Eric', 'parodius02@msn.com', '', '', '', 'no_logo.png', '', '1973-09-06', '2009-09-06', '2009-09-07', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(6, 1, 'toto', '43b474c03a22dc04541159cc1d424a62c33c6ef7', 'toto', 'toto', 'toto@toto.Fr', NULL, '02200', 'Soissons', 'no_logo.png', NULL, '1989-10-05', '2009-10-11 16:12:21', '2009-10-11', 0, '127.0.0.1', 'teatgzegzegezgez', 'gezgzegezg', 'ezgezgezg', 'ezgezgze', 'gzegzegzegzegzegz', NULL, '9f96af676008813094ddde0e6adff9cf8396d803', 1);
 
 
 -- --------------------------------------------------------
