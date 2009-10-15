@@ -12,7 +12,7 @@
                     Bienvenue, <span class="rouge"><em>{$login.login|utf8_encode}</em></span> <br/><br/>
                 {else}
                     Bienvenue, <span class="rouge"><em>Invit&eacute;</em></span> <br/>
-                    Merci de vous identifier ou de vous inscrire. <br/><br/>
+                    Merci de vous identifier ou de vous <a href="{$base_url}/inscription/inscriptionmembre">inscrire</a>. <br/><br/>
                 {/if}
                 
             </div>
