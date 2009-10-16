@@ -512,6 +512,23 @@ CREATE TABLE IF NOT EXISTS `lanjeuxjoueurteam` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `lecture`
+--
+
+DROP TABLE IF EXISTS `lecture`;
+CREATE TABLE IF NOT EXISTS `lecture` (
+  `idCompte` int(10) unsigned NOT NULL,
+  `idSujet` int(10) unsigned NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+
+--
+-- Contenu de la table `lien`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `lien`
 --
 

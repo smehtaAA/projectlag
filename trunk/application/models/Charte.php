@@ -73,7 +73,7 @@ class Model_Charte
 	{
 		$table = $this->getTable();
 		$select = $table->select()
-						->from(array('ca' => 'CharteArticle'))
+						->from(array('ca' => 'chartearticle'))
 						->where('idCharte = 1')
 						->order('ordre')
 						->setIntegrityCheck(false);
