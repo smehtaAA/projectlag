@@ -7,6 +7,7 @@ class CategorieController extends Zend_Controller_Action
 	protected $_modelCompte;
 	protected $_modelSujet;
 	protected $_modelMessage;
+	protected $_modelLecture;
 	
 	public function indexAction()
 	{
@@ -21,10 +22,11 @@ class CategorieController extends Zend_Controller_Action
 			$modelCompte = $this->_getModelCompte();
 			$modelCategorie = $this->_getModel();
 			$modelMessage = $this->_getModelMessage();
+			$modelLecture = $this->_getModelLecture();
 			$log = new SessionLAG();
-			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')){
 				$login=$modelCompte->fetchEntryForum($log->_getUser());
-			else
+			} else
 				$login=0;
 			
 			
@@ -48,6 +50,13 @@ class CategorieController extends Zend_Controller_Action
 					$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
 					$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
 					$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
+					
+					if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')){
+						$lecture[$sc['idSousCategorie']] = $modelLecture->fetchEntriesByCompteAndSousCategorie($log->_getUser(),$sc['idSousCategorie']);
+						$smarty->assign('lecture', $lecture);
+					}
+					
+					
 			}
 			
 			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre']);
@@ -332,6 +341,14 @@ class CategorieController extends Zend_Controller_Action
 			$this->_modelMessage = new Model_Message();
 		}
 		return $this->_modelMessage;
+	}
+	
+	protected function _getModelLecture() {
+		if (null === $this->_modelLecture) {
+			require_once APPLICATION_PATH . '/models/Lecture.php';
+			$this->_modelLecture = new Model_Lecture();
+		}
+		return $this->_modelLecture;
 	}
   
 }
