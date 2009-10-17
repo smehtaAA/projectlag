@@ -517,9 +517,11 @@ CREATE TABLE IF NOT EXISTS `lanjeuxjoueurteam` (
 
 DROP TABLE IF EXISTS `lecture`;
 CREATE TABLE IF NOT EXISTS `lecture` (
+  `idLecture` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idCompte` int(10) unsigned NOT NULL,
-  `idSujet` int(10) unsigned NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+  `idSujet` int(10) unsigned NOT NULL,
+  PRIMARY KEY(`idLecture`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `lien`
