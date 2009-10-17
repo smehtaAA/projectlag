@@ -45,6 +45,38 @@ class Model_Lecture
 		else
 			return 0;
     }
+	
+	public function fetchEntriesByCompteAndSousCategorie($idCompte, $idSousCategorie)
+    {
+		$table = $this->getTable();
+		$select = $table->select()
+						->from('lecture', array(''))
+						->join('sujet', 'sujet.idSujet=lecture.idSujet', array(''))
+						->where('lecture.idCompte = ?', $idCompte)
+						->where('sujet.idSousCategorie = ?', $idSousCategorie)
+						->setIntegrityCheck(false);
+		$temp = $table->fetchRow($select);
+		if(isset($temp))
+			return 1;
+		else
+			return 0;
+    }
+	
+	public function fetchEntriesByCompteAndCategorie($idCompte, $idCategorie)
+    {
+		$table = $this->getTable();
+		$select = $table->select()
+						->from('sujet', array(''))
+						->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array('idSousCategorie'))
+						->where('idCompte = ?', $idCompte)
+						->where('idCategorie = ?', $idCategorie)
+						->setIntegrityCheck(false);
+		$temp = $table->fetchAll($select);
+		if(isset($temp))
+			return $temp->toArray();
+		else
+			return 0;
+    }
     
     public function deleteBySujet($idSujet)
     {	

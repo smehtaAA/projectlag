@@ -7,6 +7,7 @@ class SousCategorieController extends Zend_Controller_Action
 	protected $_modelCompte;
 	protected $_modelCategorie;
 	protected $_modelMessage;
+	protected $_modelLecture;
 	
 	public function indexAction()
 	{
@@ -19,6 +20,7 @@ class SousCategorieController extends Zend_Controller_Action
 			$modelCompte = $this->_getModelCompte();
 			$modelCategorie = $this->_getModelCategorie();
 			$modelMessage = $this->_getModelMessage();
+			$modelLecture = $this->_getModelLecture();
 			$log = new SessionLAG();
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
 				$login=$modelCompte->fetchEntryForum($log->_getUser());
@@ -32,6 +34,11 @@ class SousCategorieController extends Zend_Controller_Action
 				
 				$nb[$s['idSujet']]['reponses'] = $modelMessage->countEntriesBySujet($s['idSujet'])-1;
 				$last_messages[$s['idSujet']] = $modelMessage->fetchEntryLastBySujet($s['idSujet']);
+				
+				if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')){
+					$lecture[$s['idSujet']] = $modelLecture->fetchEntriesByCompteAndSujet($log->_getUser(),$s['idSujet']);
+					$smarty->assign('lecture', $lecture);
+				}
 				
 			}
 			
@@ -201,5 +208,13 @@ class SousCategorieController extends Zend_Controller_Action
 			$this->_modelMessage = new Model_Message();
 		}
 		return $this->_modelMessage;
+	}
+	
+	protected function _getModelLecture() {
+		if (null === $this->_modelLecture) {
+			require_once APPLICATION_PATH . '/models/Lecture.php';
+			$this->_modelLecture = new Model_Lecture();
+		}
+		return $this->_modelLecture;
 	}
 }
