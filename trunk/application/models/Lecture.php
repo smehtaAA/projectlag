@@ -59,4 +59,11 @@ class Model_Lecture
 		$where = $table->getAdapter()->quoteInto('idCompte = ?', $idCompte);
 		return $table->delete($where);
     }
+	
+	public function deleteBySujetNotCompte($idSujet,$idCompte)
+    {	
+		$table  = $this->getTable();
+		$where = $table->getAdapter()->quoteInto('idSujet = '.$idSujet , 'idCompte != '.$idCompte);
+		return $table->delete($where);
+    }
 }

@@ -6,6 +6,7 @@ class SujetController extends Zend_Controller_Action
 	protected $_modelMessage;
 	protected $_modelCompte;
 	protected $_modelGrade;
+	protected $_modelLecture;
 	
 	public function indexAction()
 	{
@@ -16,11 +17,14 @@ class SujetController extends Zend_Controller_Action
 			$model   = $this->_getModel();
 			$modelMessage = $this->_getModelMessage();
 			$modelCompte = $this->_getModelCompte();
+			$modelLecture = $this->_getModelLecture();
 			
 			$log = new SessionLAG();
-			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))
+			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')) {
 				$login=$modelCompte->fetchEntryForum($log->_getUser());
-			else
+				if($modelLecture->fetchEntriesByCompteAndSujet($log->_getUser(),$id)==0)
+					$modelLecture->save(0,array('idCompte'=>$log->_getUser(),'idSujet'=>$id));
+			} else
 				$login=0;
 			
 			$sujet = $model->fetchEntry($id);
@@ -191,6 +195,15 @@ class SujetController extends Zend_Controller_Action
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
+    }
+	
+	protected function _getModelLecture()
+    {
+        if (null === $this->_modelLecture) {
+            require_once APPLICATION_PATH . '/models/Lecture.php';
+            $this->_modelLecture = new Model_Lecture();
+        }
+        return $this->_modelLecture;
     }
 	
 	protected function _getSujetForm($id,$idSsCat)

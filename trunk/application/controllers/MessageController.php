@@ -6,6 +6,7 @@ class MessageController extends Zend_Controller_Action
 	protected $_modelMessage;
 	protected $_modelCompte;
 	protected $_modelGrade;
+	protected $_modelLecture;
 	
 	public function indexAction()
 	{
@@ -46,6 +47,7 @@ class MessageController extends Zend_Controller_Action
 			$modelMessage   = $this->_getModelMessage();
 			$modelCompte = $this->_getModelCompte();
 			$modelGrade   = $this->_getModelGrade();
+			$modelLecture   = $this->_getModelLecture();
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
@@ -60,6 +62,9 @@ class MessageController extends Zend_Controller_Action
 						$compte['idGrade']=$new_grade['idGrade'];
 						$modelCompte->save($log->_getUser(), $compte);
 					}
+					
+					$modelLecture->deleteBySujetNotCompte($idSujet,$log->_getUser());
+					
 					
 					return $this->_redirect('/sujet?id='.$idSujet);
 				}
@@ -148,6 +153,15 @@ class MessageController extends Zend_Controller_Action
             $this->_modelGrade = new Model_Grade();
         }
         return $this->_modelGrade;
+    }
+	
+	protected function _getModelLecture()
+    {
+        if (null === $this->_modelLecture) {
+            require_once APPLICATION_PATH . '/models/Lecture.php';
+            $this->_modelLecture = new Model_Lecture();
+        }
+        return $this->_modelLecture;
     }
 	
 	protected function _getMessageForm($id,$idSujet)
