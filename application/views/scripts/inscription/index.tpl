@@ -9,7 +9,7 @@
                 {if $ouverte==true}
                     <div id="inscription-charte">
                         {foreach from=$articles item=art name=art}   
-                            <h3>{$smarty.foreach.art.index+1} - {$art.titre}</h3>   
+                            <h3>{$smarty.foreach.art.index+1} - {$art.titre|utf8_encode}</h3>   
                             <br/><br/>    
                             {$art.description|nl2br|utf8_encode}      
                             <br/>  
