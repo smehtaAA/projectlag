@@ -214,7 +214,14 @@ class InscriptionController extends Zend_Controller_Action
 						$dataform['img']=$chaine_valide.'.'.$ext[1];
 					}
 					
-					
+						$dataform['nom'] = utf8_decode($dataform['nom']);
+						$dataform['prenom'] = utf8_decode($dataform['prenom']);
+						$dataform['jeuxprefere'] = utf8_decode($dataform['jeuxprefere']);
+						$dataform['configpc'] = utf8_decode($dataform['configpc']);
+						$dataform['citationpreferee'] = utf8_decode($dataform['citationpreferee']);
+						$dataform['description'] = utf8_decode($dataform['description']);
+						$dataform['ville'] = utf8_decode($dataform['ville']);
+						$dataform['login'] = utf8_decode($dataform['login']);
 					
 					$new_id=$modelCompte->save(0,$dataform);
 					
@@ -301,7 +308,7 @@ class InscriptionController extends Zend_Controller_Action
 					$dataform = $form->getValues();
 					// Sauvegarde Team si n'existe pas
 					if($dataform['team'] == '0'){
-						$t['nom'] = $dataform['newteam'];
+						$t['nom'] = utf8_decode($dataform['newteam']);
 						$ljjt['idTeam'] = $modelTeam->save(0,$t);
 					} else {
 						$ljjt['idTeam'] = $dataform['team'];

@@ -96,6 +96,15 @@ class CompteController extends Zend_Controller_Action
 							$dataform['img']=$chaine_valide.'.'.$ext[1];
 						}
 						
+						$dataform['nom'] = utf8_decode($dataform['nom']);
+						$dataform['prenom'] = utf8_decode($dataform['prenom']);
+						$dataform['jeuxprefere'] = utf8_decode($dataform['jeuxprefere']);
+						$dataform['configpc'] = utf8_decode($dataform['configpc']);
+						$dataform['citationpreferee'] = utf8_decode($dataform['citationpreferee']);
+						$dataform['description'] = utf8_decode($dataform['description']);
+						$dataform['ville'] = utf8_decode($dataform['ville']);
+						$dataform['login'] = utf8_decode($dataform['login']);
+						
 						$model->save($id,$dataform);
 						
 						// resize picture si image dans formulaire
@@ -124,6 +133,14 @@ class CompteController extends Zend_Controller_Action
 					$data = $model->fetchEntry($id);
 					$date = new Zend_Date($data['datenaissance']);
 					$data['datenaissance'] = $date->toString('dd/MM/Y');
+					$data['nom'] = utf8_encode($data['nom']);
+					$data['prenom'] = utf8_encode($data['prenom']);
+					$data['jeuxprefere'] = utf8_encode($data['jeuxprefere']);
+					$data['configpc'] = utf8_encode($data['configpc']);
+					$data['citationpreferee'] = utf8_encode($data['citationpreferee']);
+					$data['description'] = utf8_encode($data['description']);
+					$data['ville'] = utf8_encode($data['ville']);
+					$data['login'] = utf8_encode($data['login']);
 					$form->populate($data);
 					$smarty->assign('img',$data['img']);
 				}
