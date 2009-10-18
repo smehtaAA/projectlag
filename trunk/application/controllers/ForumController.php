@@ -9,6 +9,7 @@ class ForumController extends Zend_Controller_Action
 	protected $_modelMessage;
 	protected $_modelConfig;
 	protected $_modelCompte;
+	protected $_modelLecture;
 	
 	public function indexAction()
 	{
@@ -24,6 +25,7 @@ class ForumController extends Zend_Controller_Action
 			$modelSujet = $this->_getModelSujet();
 			$modelMessage = $this->_getModelMessage();
 			$modelCompte = $this->_getModelCompte();
+			$modelLecture = $this->_getModelLecture();
 			
 			$forum_ouvert['valeur'] = 0;
 			$nb=null;
@@ -63,6 +65,12 @@ class ForumController extends Zend_Controller_Action
 					$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
 					$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
 					$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
+					$lecture[$sc['idSousCategorie']] = 1;
+					if(($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')) && $nb[$sc['idSousCategorie']]['nb_sujets'] != 0) {
+						$lecture[$sc['idSousCategorie']] = $modelLecture->fetchEntriesByCompteAndSousCategorie($log->_getUser(),$sc['idSousCategorie']);	
+						if($nb[$sc['idSousCategorie']]['nb_sujets']>$lecture[$sc['idSousCategorie']])
+							$lecture[$sc['idSousCategorie']]=0;
+					}		
 				}
 			}
 			
@@ -70,6 +78,7 @@ class ForumController extends Zend_Controller_Action
 			$stats['nb'] = $modelCompte->CountEntries();
 			$stats['last'] = $modelCompte->fetchEntryLast();
 			
+			$smarty->assign('lecture', $lecture);
 			$smarty->assign('sscat', $sscat);
 			$smarty->assign('login', $login);
 			$smarty->assign('last_messages', $last_messages);
@@ -147,6 +156,14 @@ class ForumController extends Zend_Controller_Action
 			$this->_modelCompte = new Model_Compte();
 		}
 		return $this->_modelCompte;
+	}
+	
+	protected function _getModelLecture() {
+		if (null === $this->_modelLecture) {
+			require_once APPLICATION_PATH . '/models/Lecture.php';
+			$this->_modelLecture = new Model_Lecture();
+		}
+		return $this->_modelLecture;
 	}
   
 }
