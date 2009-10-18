@@ -29,6 +29,7 @@ class LogController extends Zend_Controller_Action
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
 					$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
+					$dataform['login'] = utf8_decode($dataform['login']);
 					$existlog = $model->existLog($dataform);
 					if($existlog != NULL) {
 						$userid = 'idCompte';

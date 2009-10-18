@@ -123,7 +123,7 @@ class CompteController extends Zend_Controller_Action
 				} else {
 					if ($formmdp->isValid($request->getPost())) {
 						$val         = $formmdp->getValues();
-						$val2        = array('password' => md5($val['newpassword']));
+						$val2['password'] = sha1('l@g8?'.$val['newpassword'].'pe6r!e8');
 						$model->save($id,$val2);
 						return $this->_redirect($this->redirection);
 					}
