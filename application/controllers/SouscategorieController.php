@@ -29,15 +29,15 @@ class SousCategorieController extends Zend_Controller_Action
 			
 			$nb=null;
 			$last_messages=null;
+			$lecture=null;
 			$sujets=$modelSujet->fetchEntryBySousCategorie($id);
 			foreach ($sujets as $s) {
 				
 				$nb[$s['idSujet']]['reponses'] = $modelMessage->countEntriesBySujet($s['idSujet'])-1;
 				$last_messages[$s['idSujet']] = $modelMessage->fetchEntryLastBySujet($s['idSujet']);
 				
-				if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')){
+				if(($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur'))) {
 					$lecture[$s['idSujet']] = $modelLecture->fetchEntriesByCompteAndSujet($log->_getUser(),$s['idSujet']);
-					$smarty->assign('lecture', $lecture);
 				}
 				
 			}
@@ -51,6 +51,7 @@ class SousCategorieController extends Zend_Controller_Action
 			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre']);
 			$fil_arianne['sscat'] = array('id'=>$souscat['idSousCategorie'],'nom'=>$souscat['titre']);
 			
+			$smarty->assign('lecture', $lecture);
 			$smarty->assign('fil_arianne', $fil_arianne);
 			$smarty->assign('nb', $nb);
 			$smarty->assign('last_messages', $last_messages);

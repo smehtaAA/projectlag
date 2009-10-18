@@ -50,14 +50,14 @@ class Model_Lecture
     {
 		$table = $this->getTable();
 		$select = $table->select()
-						->from('lecture', array(''))
+						->from('lecture', 'COUNT(lecture.idSujet) AS num')
 						->join('sujet', 'sujet.idSujet=lecture.idSujet', array(''))
 						->where('lecture.idCompte = ?', $idCompte)
 						->where('sujet.idSousCategorie = ?', $idSousCategorie)
 						->setIntegrityCheck(false);
 		$temp = $table->fetchRow($select);
 		if(isset($temp))
-			return 1;
+			return $temp->num;
 		else
 			return 0;
     }

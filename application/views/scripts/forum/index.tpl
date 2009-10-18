@@ -48,7 +48,13 @@
                         {else}
                         <tr height="40" class="td-impaire">
                         {/if}
-                        	<td style="vertical-align:bottom;"><img src="images/icones/icon-forum.png" /></td>
+                        	<td style="vertical-align:bottom;">
+								{if $lecture[$sc.idSousCategorie] >= 1}
+									<img src="images/icones/icon-forum-gris.png" />
+								{else}
+									<img src="images/icones/icon-forum.png" />
+								{/if}
+							</td>
                             <td><a href="{$url_sscat}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode}</strong></span></a> <br/> <span class="font-min">{$sc.description|utf8_encode}</span></td>
                             <td align="center">{$nb[$sc.idSousCategorie].nb_sujets}</td>
                             <td align="center">{$nb[$sc.idSousCategorie].nb_reponses}</td>
@@ -79,7 +85,7 @@
                 <div class="content-total-text">
                 	<ul>
                 		<li>Nb total d'utilisateurs: <span class="rouge">{$stats.nb}</span></li>
-                    	<li>Dernier inscrit: <span class="rouge italic">{$stats.last.login}</span></li>
+                    	<li>Dernier inscrit: <span class="rouge italic">{$stats.last.login|utf8_encode}</span></li>
                 		<li>Nb total de messages: <strong>{$stats.nb_messages}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sujets: <strong>{$stats.nb_sujets}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de cat&eacute;gories: <strong>{$stats.nb_cat}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sous-cat&eacute;gories: <strong>{$stats.nb_sscat}</strong></li>
                 	</ul>
                 </div>

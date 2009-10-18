@@ -29,6 +29,7 @@ class CategorieController extends Zend_Controller_Action
 			} else
 				$login=0;
 			
+			$lecture=null;
 			
 			$categorie = $modelCategorie->fetchEntryField($id, array('idCategorie', 'titre'));
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
@@ -50,10 +51,11 @@ class CategorieController extends Zend_Controller_Action
 					$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);
 					$nb[$sc['idSousCategorie']]['nb_reponses'] = $nb_message-$nb[$sc['idSousCategorie']]['nb_sujets'];
 					$last_messages[$sc['idSousCategorie']] = $modelMessage->fetchEntryLast($sc['idSousCategorie']);
-					
-					if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')){
-						$lecture[$sc['idSousCategorie']] = $modelLecture->fetchEntriesByCompteAndSousCategorie($log->_getUser(),$sc['idSousCategorie']);
-						$smarty->assign('lecture', $lecture);
+					$lecture[$sc['idSousCategorie']] = 1;
+					if(($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')||$log->_getTypeConnected('joueur')) && $nb[$sc['idSousCategorie']]['nb_sujets'] != 0) {
+						$lecture[$sc['idSousCategorie']] = $modelLecture->fetchEntriesByCompteAndSousCategorie($log->_getUser(),$sc['idSousCategorie']);	
+						if($nb[$sc['idSousCategorie']]['nb_sujets']>$lecture[$sc['idSousCategorie']])
+							$lecture[$sc['idSousCategorie']]=0;
 					}
 					
 					
@@ -66,7 +68,7 @@ class CategorieController extends Zend_Controller_Action
 			$stats['nb'] = $modelCompte->CountEntries();
 			$stats['last'] = $modelCompte->fetchEntryLast();
 			
-			
+			$smarty->assign('lecture', $lecture);
 			$smarty->assign('fil_arianne', $fil_arianne);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('login', $login);

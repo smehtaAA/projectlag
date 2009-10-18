@@ -47,8 +47,14 @@
                     {else}
                     <tr height="40" class="td-impaire">
                     {/if}
-                        <td style="vertical-align:bottom;"><img src="images/icones/icon-forum.png" /></td>
-                    	<td><a href="{$url_viewsujet}{$s.idSujet}"><span class="rouge"><strong>{$s.titre|utf8_encode}</strong></span></a></td>
+                        <td style="vertical-align:bottom;">
+							{if $lecture[$s.idSujet] == 1}
+								<img src="images/icones/icon-forum-gris.png" />
+							{else}
+								<img src="images/icones/icon-forum.png" />
+							{/if}
+						</td>
+						<td><a href="{$url_viewsujet}{$s.idSujet}"><span class="rouge"><strong>{$s.titre|utf8_encode}</strong></span></a></td>
                         <td align="center">{$nb[$s.idSujet].reponses}</td>
                         <td align="center">{$s.vu}</td>
                         <td>
