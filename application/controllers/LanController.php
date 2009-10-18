@@ -29,7 +29,7 @@ class LanController extends Zend_Controller_Action
 				
 				
 			$key_google = $modelConfig->fetchEntrySetting('key_google');
-			$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
+			//$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
 				
 			
 			if($lan['datedeb']>date('Y-m-y h:i:s')) {
@@ -37,7 +37,7 @@ class LanController extends Zend_Controller_Action
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
 				$map->setMapType('map');
-				$map->setAPIKey($key_google);
+				$map->setAPIKey($key_google['valeur']);
 				// fixe les dimensions de la carte
 				$map->setHeight("250");
 				$map->setWidth("400");
@@ -146,12 +146,12 @@ class LanController extends Zend_Controller_Action
 				
 				
 				$key_google = $modelConfig->fetchEntrySetting('key_google');
-			$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
+				//$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
 				$map->setMapType('map');
-				$map->setAPIKey($key_google);
+				$map->setAPIKey($key_google['valeur']);
 				// fixe les dimensions de la carte
 				$map->setHeight("500");
 				$map->setWidth("500");
@@ -199,13 +199,13 @@ class LanController extends Zend_Controller_Action
 			
 			$key_google = $modelConfig->fetchEntrySetting('key_google');
 			
-			$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
+			//$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
 			
 			// API Google Map
 			require('../library/My/GoogleMapAPI.class.php');
 			$map = new GoogleMapAPI('map');
 			$map->setMapType('map');
-			$map->setAPIKey($key_google);
+			$map->setAPIKey($key_google['valeur']);
 			// fixe les dimensions de la carte
 			$map->setHeight("500");
 			$map->setWidth("830");
@@ -294,6 +294,8 @@ class LanController extends Zend_Controller_Action
 						$dataform['date_inscription'] = $d->toString('YYYY-MM-dd');
 					}
 					
+					$dataform['nom'] = utf8_decode($dataform['nom']);
+					
 					$model->save($id,$dataform);
 					return $this->_helper->redirector('indexadmin');
 				}
@@ -308,6 +310,7 @@ class LanController extends Zend_Controller_Action
 					$data['datefin'] = $datef->toString('dd/MM/Y');
 					$data['heurefin'] = $datef->toString('H');
 					$data['minutefin'] = $datef->toString('mm');
+					$data['nom'] = utf8_encode($data['nom']);
 					$form->populate($data);
 				}
 			}
