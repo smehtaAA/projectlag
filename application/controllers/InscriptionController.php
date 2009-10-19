@@ -103,6 +103,15 @@ class InscriptionController extends Zend_Controller_Action
 		$defaultNamespace->type = $type;
 	}
 	
+	public function attentevalidationAction()
+	{
+		$smarty = Zend_Registry::get('view');		
+		$request = $this->getRequest();
+		
+		$smarty->assign('base_url', $request->getBaseUrl());
+		$smarty->display('inscription/attentevalidation.tpl');
+	}
+	
 	public function validationAction()
 	{
 		$smarty = Zend_Registry::get('view');		
@@ -200,6 +209,7 @@ class InscriptionController extends Zend_Controller_Action
 				if($login==-1) {
 					$datenaissance = $dataform['datenaissance'];
 					$dataform['datenaissance'] = substr($datenaissance, 6, 4)."-".substr($datenaissance, 3, 2)."-".substr($datenaissance, 0, 2)." 00:00:00";
+					$passwordsave = $dataform['password'];
 					$dataform['password'] = sha1('l@g8?'.$dataform['password'].'pe6r!e8');
 					$dataform['keyvalidation']=sha1(time()+rand());
 					
@@ -243,10 +253,10 @@ class InscriptionController extends Zend_Controller_Action
 					$f['idFonction'] = 3;
 					$modelFonctionCompte->save(0,$f);
 	
+					$dataform['passwordsave'] = $passwordsave;
+					$this->sendMailInscriptionMembre($dataform);
 					
-					$this->sendMailInscriptionMembre($dataform['keyvalidation']);
-					
-					return $this->_redirect('/inscription/validation');
+					return $this->_redirect('/inscription/attentevalidation');
 					
 					
 					/* Code permettant l'inscription à une LAN
@@ -332,9 +342,7 @@ class InscriptionController extends Zend_Controller_Action
 					else
 						return $this->_helper->redirector('index','accueil');
 				}
-			}
-			
-			
+			}	
 			
 			
 			$smarty->assign('form', $form);
@@ -419,11 +427,37 @@ class InscriptionController extends Zend_Controller_Action
 		
 	}
 	
-	protected function sendMailInscriptionMembre($key)
+	protected function sendMailInscriptionMembre($membre)
 	{
-		
-		
-		
+		$destinataire = $membre['email']; 
+		$subject = "Activation Compte Local Arena Games";
+		$from  = "From: Local Arena Games <contact@asso-lag.fr>\n";
+		$from .= "MIME-version: 1.0\n";
+		$from .= "Content-type: text/html; charset=iso-8859-1\n";	
+		$msg = "<html><head></head><body>
+				<div style='font: normal 12px Arial;'>
+				<b>Association - Local Arena Games</b><br />
+				<b>Email :</b> contact@asso-lag.fr<br />
+				<b>Site  :</ <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a><br /><br />
+
+				Cher Gamer ou Gameuse,<br /><br />
+				
+				Vous venez de vous créer votre compte sur le site de l'assocation Local Arena Games.<br /> Il vous permettra de vous inscrire aux lans de l'association et de participer à la vie du site tel que le forum.<br /> Nous vous rappelons que vos informations resteront confidentielles.<br /><br />
+				
+				Pour <b>activer votre compte</b> cliquez sur le lien suivant : <br />
+				<a href='http://www.asso-lag.fr/inscription/validationmembre/?key=".$membre['keyvalidation']."'>ACTIVATION ICI</a>
+				<br /><br />
+				
+				<b>Votre login :</b> ".$membre['login']."<br />
+				<b>Votre mot de passe :</b> ".$membre['passwordsave']."<br /><br />
+				
+				Au plaisir de vous voir bientôt.<br /><br />
+				
+				L'équipe Local Arena Games.<br /><br />
+				
+				<div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
+				</body></html>"; 
+		mail($destinataire, $subject, $msg, $from);
 	}
 	
 	protected function _getModelCompte()
