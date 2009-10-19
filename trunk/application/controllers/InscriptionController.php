@@ -103,15 +103,6 @@ class InscriptionController extends Zend_Controller_Action
 		$defaultNamespace->type = $type;
 	}
 	
-	public function attentevalidationAction()
-	{
-		$smarty = Zend_Registry::get('view');		
-		$request = $this->getRequest();
-		
-		$smarty->assign('base_url', $request->getBaseUrl());
-		$smarty->display('inscription/attentevalidation.tpl');
-	}
-	
 	public function validationAction()
 	{
 		$smarty = Zend_Registry::get('view');		
@@ -136,6 +127,7 @@ class InscriptionController extends Zend_Controller_Action
 		
 		$modelCompte->save($compte['idCompte'],$compte);
 		$smarty->assign('valid', 1);
+		$smarty->assign('base_url', $request->getBaseUrl());
 		
 		$smarty->display('inscription/validation.tpl');
 		} else {
@@ -256,7 +248,7 @@ class InscriptionController extends Zend_Controller_Action
 					$dataform['passwordsave'] = $passwordsave;
 					$this->sendMailInscriptionMembre($dataform);
 					
-					return $this->_redirect('/inscription/attentevalidation');
+					return $this->_redirect('/inscription/validation');
 					
 					
 					/* Code permettant l'inscription à une LAN
@@ -438,7 +430,7 @@ class InscriptionController extends Zend_Controller_Action
 				<div style='font: normal 12px Arial;'>
 				<b>Association - Local Arena Games</b><br />
 				<b>Email :</b> contact@asso-lag.fr<br />
-				<b>Site  :</ <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a><br /><br />
+				<b>Site  :</b> <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a><br /><br />
 
 				Cher Gamer ou Gameuse,<br /><br />
 				
