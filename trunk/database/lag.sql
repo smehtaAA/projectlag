@@ -12,7 +12,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Base de données: `lag`
 --
-DROP DATABASE `lag`;
+DROP DATABASE IF EXISTS `lag`;
 CREATE DATABASE `lag` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `lag`;
 
