@@ -104,7 +104,25 @@ class ContactController extends Zend_Controller_Action
 	protected function sendMail($data)
 	{
 		// Fonction d'envoi du mail sur association.lag@gmail.com	
-		
+		$destinataire = 'association.lag@gmail.com'; 
+		$subject = "Contact depuis le site Local Arena Games";
+		$from  = "From: Contact <".$data['mail'].">\n";
+		$from .= "MIME-version: 1.0\n";
+		$from .= "Content-type: text/html; charset=iso-8859-1\n";	
+		$msg = "<html><head></head><body>
+				<div style='font: normal 12px Arial;'>
+				<b>Contact - Local Arena Games</b><br />
+				<b>Email :</b> ".$data['mail']."<br />
+				<b>Type :</b> ".$data['type']."<br />
+				<b>Titre :</b> ".$data['titre']."<br />
+				<b>Description :</b> ".$data['description']."
+				
+				<br/>
+				L'équipe Local Arena Games.<br /><br />
+				
+				<div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
+				</body></html>"; 
+		mail($destinataire, $subject, $msg, $from);
 	}
 
     protected function _getModel()
