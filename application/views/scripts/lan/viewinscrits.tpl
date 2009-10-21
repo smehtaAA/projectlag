@@ -23,12 +23,16 @@
                     	<tr>
                         	<td align="center"><img src="{$base_url}/images/comptes/thumb/{$j.img}" name="{$j.login|capitalize|utf8_encode}" alt="{$j.login|capitalize|utf8_encode}" class="textalignm" title="{$j.login|capitalize|utf8_encode}" /></td>
                         	<td width="100px">{$j.login|capitalize|utf8_encode}</td>
-                            <td>{$jeux[$j.idCompte][0].nom_team|utf8_encode}</td>
+                            <td>{$j.nom_t|utf8_encode}</td>
                             <td><em>
-                            	{foreach from=$jeux[$j.idCompte] item=jeu name=jeu}
-                            		{$jeu.nom_jeux|utf8_encode}
-                                    {if !$smarty.foreach.jeu.last}-{/if}
-                            	{/foreach}
+                            	{if $jeux[$j.idCompte]!=0}
+                                    {foreach from=$jeux[$j.idCompte] item=jeu name=jeu}
+                                        {$jeu.nom_jeux|utf8_encode}
+                                        {if !$smarty.foreach.jeu.last}-{/if}
+                                    {/foreach}
+                                {else}
+                                	Jeux libres
+                                {/if}
                             </em></td>
                             <td align="center">
                             	{if $j.validation==1}
