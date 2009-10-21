@@ -220,7 +220,11 @@ class LanController extends Zend_Controller_Action
 			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img'));
 			$jeux = null;
 			foreach($joueurs as $j) {
-				$jeux[$j['idCompte']] = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
+				$temp = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
+				if (sizeof($temp)>0)
+					$jeux[$j['idCompte']] = $temp;
+				else
+					$jeux[$j['idCompte']] = 0;
 				// ajout d'un marqueur joueur sur la carte
 				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "<span class='rouge'><strong>$j[login]</strong></span><br/>$j[ville] ($j[cp])", $j['login']);
 				// met cet icone pour le dernier marqueur posé
