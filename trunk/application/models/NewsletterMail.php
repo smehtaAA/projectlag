@@ -48,7 +48,11 @@ class Model_NewsletterMail
         $table = $this->getTable();
         $select = $table->select()->where('mail = ?', $mail);
 
-        return $table->fetchRow($select)->toArray();
+		$temp = $table->fetchRow($select);
+		if(isset($temp))
+        	return $temp->toArray();
+		else
+			return -1;
     }
 	
 	public function delete($id)

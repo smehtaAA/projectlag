@@ -750,12 +750,19 @@ CREATE TABLE IF NOT EXISTS `newslettermail` (
   `idNewsletterMail` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `mail` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idNewsletterMail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `newslettermail`
 --
-
+INSERT INTO `newslettermail` (`idNewsletterMail`, `mail`) VALUES
+(1, 'lag.sieg@gmail.com'),
+(2, 'lag.4sh@gmail.com'),
+(3, 'lag.ryzen@gmail.com'),
+(4, 'belette_0161@hotmail.com'),
+(5, 'parodius02@msn.com'),
+(6, 'valerie.ser@gmail.com'),
+(7, 'emmanuel1.semo@hotmail.fr');
 
 -- --------------------------------------------------------
 
@@ -769,12 +776,19 @@ CREATE TABLE IF NOT EXISTS `newslettermailtype` (
   `idNewsletterType` int(10) unsigned NOT NULL,
   `idNewsletterMail` int(10) unsigned NOT NULL,
   PRIMARY KEY (`idNewsletterMailType`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `newslettermailtype`
 --
-
+INSERT INTO `newslettermailtype` (`idNewsletterMailType`, `idNewsletterType`, `idNewsletterMail`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 2, 6),
+(7, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -787,12 +801,15 @@ CREATE TABLE IF NOT EXISTS `newslettertype` (
   `idNewsletterType` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idNewsletterType`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `newslettertype`
 --
-
+INSERT INTO `newslettertype` (`idNewsletterType`, `nom`) VALUES
+(1, 'Admins'),
+(2, 'Joueurs'),
+(3, 'Inscription');
 
 -- --------------------------------------------------------
 

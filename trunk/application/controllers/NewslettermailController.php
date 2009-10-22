@@ -3,6 +3,7 @@
 class NewsletterMailController extends Zend_Controller_Action 
 {
     protected $_model;
+	protected $_modelNewslettermailtype;
 
 	public function indexadminAction()
     {
@@ -26,6 +27,20 @@ class NewsletterMailController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
     }
+	
+	public function ajoutmailAction()
+	{
+		$model  = $this->_getModel();
+		$modelNewsletterMailType = $this->_getModelNewsletterMailType();
+		$mail = $_POST['mail'];
+		$record = $model->fetchEntryByMail($mail);
+		if($record==-1) {
+			$id_mail = $model->save(0, array('mail'=>$mail));
+			$modelNewsletterMailType->save(0, array('idNewsletterType'=>3, 'idNewsletterMail'=>$id_mail));
+		}
+		
+		return $this->_redirect('/');
+	}
 
     public function formAction()
     {
@@ -83,6 +98,15 @@ class NewsletterMailController extends Zend_Controller_Action
             $this->_model = new Model_NewsletterMail();
         }
         return $this->_model;
+    }
+
+    protected function _getModelNewsletterMailType()
+    {
+        if (null === $this->_modelNewslettermailtype) {
+            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            $this->_modelNewslettermailtype = new Model_NewsletterMailType();
+        }
+        return $this->_modelNewslettermailtype;
     }
 
     protected function _getNewsletterMailForm($id)
