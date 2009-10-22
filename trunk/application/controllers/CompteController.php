@@ -4,6 +4,8 @@ class CompteController extends Zend_Controller_Action
 {
 	
 	protected $_model;
+	protected $_modelNewslettermail;
+	protected $_modelNewslettermailtype;
 	
 	public function indexAction()
 	{
@@ -77,6 +79,8 @@ class CompteController extends Zend_Controller_Action
 			$form    = $this->_getCompteForm($id, $log->_getType());
 			$formmdp = $this->_getMdpForm($id, $log->_getType());
 			$model   = $this->_getModel();
+			$modelNewsletterMail = $this->_getModelNewsletterMail();
+			$modelNewsletterMailType = $this->_getModelNewsletterMailType();
 
 			if ($this->getRequest()->isPost()) {
 				if($request->getParam('f') != 'mdp') {
@@ -104,8 +108,19 @@ class CompteController extends Zend_Controller_Action
 						$dataform['description'] = utf8_decode($dataform['description']);
 						$dataform['ville'] = utf8_decode($dataform['ville']);
 						$dataform['login'] = utf8_decode($dataform['login']);
+						$dataform['email'] = utf8_decode($dataform['email']);
+						
+						$save = $model->fetchEntryField($id, array('email'));
 						
 						$model->save($id,$dataform);
+						
+						
+						// Ajout du mail dans la table Newsletter si il n'est pas déjà présent dedans
+						$record = $modelNewsletterMail->fetchEntryByMail($dataform['email']);
+						if($record==-1) {
+							$ancien_mail = $modelNewsletterMail->fetchEntryByMail($save['email']);
+							$modelNewsletterMail->save($ancien_mail['idNewsletterMail'], array('mail'=>$dataform['email']));
+						} 
 						
 						// resize picture si image dans formulaire
 						if(!empty($dataform['img']))
@@ -189,6 +204,24 @@ class CompteController extends Zend_Controller_Action
             $this->_model = new Model_Compte();
         }
         return $this->_model;
+    }
+	
+    protected function _getModelNewsletterMail()
+    {
+        if (null === $this->_modelNewslettermail) {
+            require_once APPLICATION_PATH . '/models/NewsletterMail.php';
+            $this->_modelNewslettermail = new Model_NewsletterMail();
+        }
+        return $this->_modelNewslettermail;
+    }
+	
+    protected function _getModelNewsletterMailType()
+    {
+        if (null === $this->_modelNewslettermailtype) {
+            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            $this->_modelNewslettermailtype = new Model_NewsletterMailType();
+        }
+        return $this->_modelNewslettermailtype;
     }
 
     protected function _getCompteForm($id,$type)
