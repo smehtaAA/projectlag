@@ -96,4 +96,12 @@ class Model_NewsletterMailType
 		return $table->delete($where);
 
     }
+	
+	public function deleteByMail($idMail)
+    {	
+		$table  = $this->getTable();
+		$where = $table->getAdapter()->quoteInto('idNewsletterMail = ?', $idMail);
+		return $table->delete($where);
+
+    }
 }
