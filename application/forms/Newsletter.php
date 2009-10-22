@@ -21,7 +21,7 @@ class Form_Newsletter extends Zend_Form
             'required'    => false
         ));
 		
-		$this->addElement('Multicheckbox', 'types', array(
+		$this->addElement('multiCheckbox', 'types', array(
 			'label'		  => 'Types : ',
 			'required'	  => true
 		));
