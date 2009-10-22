@@ -39,9 +39,9 @@ class Model_NewsletterMailType
     {
         $table = $this->getTable();
         $select = $table->select()
-				->from(array('m' => 'NewsletterMail'), array('mail'))
-				->join(array('mt' => 'NewsletterMailType'),'mt.idNewsletterMail=m.idNewsletterMail')
-				->join(array('t' => 'NewsletterType'),'mt.idNewsletterType=t.idNewsletterType')
+				->from(array('m' => 'newslettermail'), array('mail'))
+				->join(array('mt' => 'newslettermailtype'),'mt.idNewsletterMail=m.idNewsletterMail')
+				->join(array('t' => 'newslettertype'),'mt.idNewsletterType=t.idNewsletterType')
 				->where('mt.idNewsletterType = ?', $id)
 				->setIntegrityCheck(false);
 
@@ -52,9 +52,9 @@ class Model_NewsletterMailType
     {
         $table = $this->getTable();
         $select = $table->select()
-				->from(array('m' => 'NewsletterMail'), array('mail'))
-				->join(array('mt' => 'NewsletterMailType'),'mt.idNewsletterMail=m.idNewsletterMail')
-				->join(array('t' => 'NewsletterType'),'mt.idNewsletterType=t.idNewsletterType')
+				->from(array('m' => 'newslettermail'), array('mail'))
+				->join(array('mt' => 'newslettermailtype'),'mt.idNewsletterMail=m.idNewsletterMail')
+				->join(array('t' => 'newslettertype'),'mt.idNewsletterType=t.idNewsletterType')
 				->where('mt.idNewsletterMail = ?', $id)
 				->setIntegrityCheck(false);
 

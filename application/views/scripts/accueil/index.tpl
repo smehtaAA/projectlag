@@ -171,7 +171,7 @@ $(document).ready(function() {
             <div class="content-title-middle content-title-middle-right"><h3>Newsletter</h3></div>
             <div class="content-title-right"></div>
             <div class="content-right-text">
-                <form method="post" action="">
+                <form method="post" action="{$base_url}/newslettermail/ajoutmail">
                     <table border="0">
                         <tr>
                             <td valign="middle">Email</td>

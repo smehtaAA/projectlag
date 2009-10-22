@@ -19,7 +19,11 @@
     <td>{$i.nom|utf8_encode}</td>
     <td align="center"><a href="{$urlvoir}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/read.png" alt="Voir" class="textalignm" title="Voir" /></a></td>
     <td align="center"><a href="{$urlupd}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
-    <td align="center"><a href="{$urldel}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
+    <td align="center">
+    	{if $i.idNewsletterType>3}
+        	<a href="{$urldel}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a>
+        {/if}    
+    </td>
   </tr>
 {/foreach}
 </table>
