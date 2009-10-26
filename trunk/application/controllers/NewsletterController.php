@@ -47,8 +47,26 @@ class NewsletterController extends Zend_Controller_Action
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$this->sendMail($form->getValues());
-					$model->save($id,$form->getValues());
+					$dataform = $form->getValues();
+					$model->save($id,$dataform);
+					
+					if(!empty($dataform['img'])) {
+						$nom_image = $dataform["titre"];
+						require_once '../library/My/Utils.php';
+						$chaine_valide = valideChaine($nom_image);
+						$ext = explode('.',$dataform["img"]);
+						$ancien_nom = $dataform['img'];
+						$dataform['img'] = $chaine_valide.'.'.$ext[1];
+
+						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
+						$thumb = PhpThumbFactory::create('../www/images/newsletter/tmp/'.$ancien_nom);
+							$thumb->resize(400, 400)->save('../www/images/newsletter/'.$dataform["img"]);
+						//if(file_exists('../../www/images/newsletter/tmp/'.$ancien_nom))
+						//	unlink('../../www/images/newsletter/tmp/'.$ancien_nom);
+					}
+					
+					$this->sendMail($dataform);
+					
 					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
@@ -69,6 +87,29 @@ class NewsletterController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
     }
+	
+	protected function sendMail($info) 
+	{
+		$destinataire = "antoine.moraux@gmail.com"; 
+		$subject = $info['titre'];
+		$from  = "From: Local Arena Games <contact@asso-lag.fr>\n";
+		$from .= "MIME-version: 1.0\n";
+		$from .= "Content-type: text/html; charset=iso-8859-1\n";	
+		$msg = "<html><head></head><body>
+				<div style='font: normal 12px Arial;'>
+				<b>Association - Local Arena Games</b><br />
+				<b>Site  :</b> <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a><br /><br />
+
+				".$info["description"];
+				
+		if(!empty($info["img"]))
+			$msg .=	"<br /><br /><img src='http://www.asso-lag.fr/images/newsletter/".$info["img"]."' align='center' border='0' />";
+			
+				
+		$msg .=	"<br /><br /><div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
+				</body></html>"; 
+		mail($destinataire, $subject, $msg, $from);
+	}
 	
 	public function delAction()
     {
@@ -123,30 +164,4 @@ class NewsletterController extends Zend_Controller_Action
 			$form->setAction($this->_helper->url('form'));
         return $form;
     }
-	
-	protected function sendMail($form)
-	{
-		// Fonction d'envoi du mail sur association.lag@gmail.com	
-		/*
-		$destinataire = 'association.lag@gmail.com'; 
-		$subject = "Contact depuis le site Local Arena Games";
-		$from  = "From: Contact <".$data['mail'].">\n";
-		$from .= "MIME-version: 1.0\n";
-		$from .= "Content-type: text/html; charset=iso-8859-1\n";	
-		$msg = "<html><head></head><body>
-				<div style='font: normal 12px Arial;'>
-				<b>Contact - Local Arena Games</b><br />
-				<b>Email :</b> ".$data['mail']."<br />
-				<b>Type :</b> ".$data['type']."<br />
-				<b>Titre :</b> ".$data['titre']."<br />
-				<b>Description :</b> ".$data['description']."
-				
-				<br/>
-				L'équipe Local Arena Games.<br /><br />
-				
-				<div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
-				</body></html>"; 
-		mail($destinataire, $subject, $msg, $from);
-		*/
-	}
 }
