@@ -113,7 +113,7 @@ class NewsletterController extends Zend_Controller_Action
 		
 		$modelMail = $this->_getModelMail();
 		$personnes = $modelMail->fetchEntries();
-		foreach($personne as $personnes) {
+		foreach($personnes as $personne) {
 			mail($personne['mail'], $subject, $msg, $from);
 		}
 	}
