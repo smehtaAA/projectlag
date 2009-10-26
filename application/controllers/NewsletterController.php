@@ -4,6 +4,8 @@ class NewsletterController extends Zend_Controller_Action
 {
     protected $_model;
 	protected $_modelype;
+	protected $_modelMailType;
+	protected $_modelMail;
 	protected $_modelConfig;
 	
 	public function indexAction()
@@ -61,8 +63,8 @@ class NewsletterController extends Zend_Controller_Action
 						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
 						$thumb = PhpThumbFactory::create('../www/images/newsletter/tmp/'.$ancien_nom);
 							$thumb->resize(400, 400)->save('../www/images/newsletter/'.$dataform["img"]);
-						//if(file_exists('../../www/images/newsletter/tmp/'.$ancien_nom))
-						//	unlink('../../www/images/newsletter/tmp/'.$ancien_nom);
+						if(file_exists('../www/images/newsletter/tmp/'.$ancien_nom))
+							unlink('../www/images/newsletter/tmp/'.$ancien_nom);
 					}
 					
 					$this->sendMail($dataform);
@@ -90,7 +92,7 @@ class NewsletterController extends Zend_Controller_Action
 	
 	protected function sendMail($info) 
 	{
-		$destinataire = "antoine.moraux@gmail.com"; 
+		//$destinataire = "antoine.moraux@gmail.com"; 
 		$subject = $info['titre'];
 		$from  = "From: Local Arena Games <contact@asso-lag.fr>\n";
 		$from .= "MIME-version: 1.0\n";
@@ -108,7 +110,12 @@ class NewsletterController extends Zend_Controller_Action
 				
 		$msg .=	"<br /><br /><div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
 				</body></html>"; 
-		mail($destinataire, $subject, $msg, $from);
+		
+		$modelMail = $this->_getModelMail();
+		$personnes = $modelMail->fetchEntries();
+		foreach($personne as $personnes) {
+			mail($personne['mail'], $subject, $msg, $from);
+		}
 	}
 	
 	public function delAction()
@@ -143,6 +150,24 @@ class NewsletterController extends Zend_Controller_Action
             $this->_modelype = new Model_NewsletterType();
         }
         return $this->_modelype;
+    }
+	
+	protected function _getModelMailType()
+	{
+		if (null === $this->_modelMailType) {
+            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            $this->_modelMailType = new Model_NewsletterMailType();
+        }
+        return $this->_modelMailType;
+    }
+	
+	protected function _getModelMail()
+	{
+		if (null === $this->_modelMail) {
+            require_once APPLICATION_PATH . '/models/NewsletterMail.php';
+            $this->_modelMail = new Model_NewsletterMail();
+        }
+        return $this->_modelMail;
     }
 	
 	protected function _getModelConfig()

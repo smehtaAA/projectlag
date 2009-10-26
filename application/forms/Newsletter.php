@@ -17,7 +17,7 @@ class Form_Newsletter extends Zend_Form
 				
 		$this->addElement('file', 'img', array(
             'label'       => 'Image : ',
-			'destination' => './images/newsletter/',
+			'destination' => './images/newsletter/tmp/',
             'required'    => false
         ));
 		
