@@ -65,6 +65,7 @@
                     {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
                      	<div style="float:right;">
                         <a href="{$url_upd_message}{$m.idMessage}"> Editer </a>
+                        &nbsp;&nbsp; - &nbsp;&nbsp;
                         <a href="{$url_del_message}{$m.idMessage}" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette reponse ?'));"> Supprimer </a></div>
                     {/if}
                     <br/>

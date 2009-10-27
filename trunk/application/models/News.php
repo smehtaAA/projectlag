@@ -42,6 +42,22 @@ class Model_News
 
         return $table->fetchAll($select)->toArray();
     }
+	
+	public function fetchEntriesAsso($array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->distinct()->from(array('n' => 'news'), $array)->where('n.idPartenaire=0')->order('date');
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
+	public function fetchEntriesPart($array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->distinct()->from(array('n' => 'news'), $array)->where('n.idPartenaire!=0')->order('date');
+
+        return $table->fetchAll($select)->toArray();
+    }
 
 	public function fetchEntriesLimitPage($start,$end)
 	{
