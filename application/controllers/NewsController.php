@@ -73,11 +73,32 @@ class NewsController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin') || $log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
-			$datas  = $model->fetchEntries();
+			$datas  = $model->fetchEntriesAsso(array('idNews', 'titre', 'type_n', 'img'));
 			$request = $this->getRequest();
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			$smarty->assign('total',$model->countEntries());
-			$smarty->assign('title','News');
+			$smarty->assign('title','News Asso');
+			$smarty->assign('urladd','form/');
+			$smarty->assign('urlupd','form/?id=');
+			$smarty->assign('urldel','del/?id=');
+			$smarty->assign('datas',$datas);
+			$smarty->display('news/indexAdmin.tpl');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+    }
+	
+	public function indexadminpartenaireAction()
+    {
+		$smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin') || $log->_getTypeConnected('admin')) {
+			$model  = $this->_getModel();
+			$datas  = $model->fetchEntriesPart(array('idNews', 'titre', 'type_n', 'img'));
+			$request = $this->getRequest();
+			$smarty->assign('baseurl',$request->getBaseUrl());
+			$smarty->assign('total',$model->countEntries());
+			$smarty->assign('title','News Partenaires');
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
@@ -134,7 +155,10 @@ class NewsController extends Zend_Controller_Action
 							unlink('../public/images/news/'.$ancien_nom);
 					}
 					
-					return $this->_helper->redirector('indexadmin');
+					if(!empty($dataform['idPartenaire']))
+						return $this->_helper->redirector('indexadminpartenaire');
+					else
+						return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
