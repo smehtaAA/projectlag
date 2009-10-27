@@ -59,7 +59,9 @@ class MessageController extends Zend_Controller_Action
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
 					$dataform['idSujet'] = $idSujet;
-					$dataform['idCompte'] = $log->_getUser();
+					if ($id == 0)
+						$dataform['idCompte'] = $log->_getUser();
+						
 					$modelMessage->save($id,$dataform);
 					
 					$nb_messages = $modelMessage->countEntriesByCompte($log->_getUser());
@@ -76,7 +78,7 @@ class MessageController extends Zend_Controller_Action
 				}
 			} else {
 				if ($id > 0) {
-					$data = $model->fetchEntry($id);
+					$data = $modelMessage->fetchEntry($id);
 					if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$data['idCompte']==$log->_getUser()) {
 						$form->populate($data);
 					} else {

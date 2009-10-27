@@ -124,7 +124,7 @@ class Model_Message
 	public function countEntriesByCompte($id)
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('message','COUNT(idMessage) AS num')->where('idCompte=?', $id);
+		$select = $table->select()->from('message','COUNT(idMessage) AS num')->join('sujet', 'sujet.idSujet=message.idSujet', array(''))->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array(''))->where('admin=0')->where('message.idCompte=?', $id);
 		$row = $table->fetchRow($select);
         if(isset($row))
         	return $row->num;
