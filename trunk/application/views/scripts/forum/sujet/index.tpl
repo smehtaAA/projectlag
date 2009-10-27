@@ -43,19 +43,20 @@
           {foreach from=$messages item=m name=message}
           	<tr>
             	<td width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">
-                	{if $comptes[$m.idCompte].img != ""}
+                	<span class="rouge"><strong>{$comptes[$m.idCompte].login|utf8_encode}</strong></span><br/>
+                    {if $comptes[$m.idCompte].img != ""}
                         <img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}" />
                     {else}
                         <img src="{$base_url}/images/comptes/no_logo.png" />
                     {/if}
                     <br/>
-                    <span class="rouge"><strong>{$comptes[$m.idCompte].login|utf8_encode}</strong></span><br/>
                     {if $comptes[$m.idCompte].nom_f == 'joueur'}
                     	{$comptes[$m.idCompte].nom_g|utf8_encode}
                     {else}
                     	Administrateur
                     {/if}
                     <br/>
+                    <span class="italic">Inscrit le : {$comptes[$m.idCompte].dateins|date_format:"%d.%m.%Y"}</span><br/>
                     <span class="italic">Messages : {$comptes[$m.idCompte].nb_messages}</span><br/>
                 
                 </td>
@@ -64,7 +65,7 @@
                     <span class="italic font-min">Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</span>
                     {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
                      	<div style="float:right;">
-                        <a href="{$url_upd_message}{$m.idMessage}"> Editer </a>
+                        <a href="{$url_upd_message}{$m.idMessage}">Editer</a>
                         &nbsp;&nbsp; - &nbsp;&nbsp;
                         <a href="{$url_del_message}{$m.idMessage}" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette reponse ?'));"> Supprimer </a></div>
                     {/if}
