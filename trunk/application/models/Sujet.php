@@ -68,6 +68,14 @@ class Model_Sujet
         return $table->fetchRow($select)->toArray();
     }
 	
+    public function fetchEntryField($id,$array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('sujet', $array)->where('idSujet = ?', $id);
+
+        return $table->fetchRow($select)->toArray();
+    }
+	
 	public function fetchFilArianne($id)
 	{
 		$table = $this->getTable();

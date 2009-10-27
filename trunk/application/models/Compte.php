@@ -101,6 +101,14 @@ class Model_Compte
         return $row->num;
 	}
 	
+	public function countEntriesActif()
+	{
+		$table = $this->getTable();
+		$select = $table->select()->from('compte','COUNT(idCompte) AS num')->where('actif = 1');
+		$row = $table->fetchRow($select);
+        return $row->num;
+	}
+	
 	public function delete($id)
     {	
 		$table  = $this->getTable();

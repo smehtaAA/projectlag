@@ -35,13 +35,13 @@ class Model_Message
         return $this->getTable()->fetchAll('1')->toArray();
     }
 	
-	public function fetchEntryBySujet($idSujet)
+	public function fetchEntryBySujet($idSujet, $ordre)
     {
 		$table = $this->getTable();
 		$select = $table->select()
 						->from(array('m' => 'message'), array('idMessage', 'idCompte', 'description', 'date_m'))
 						->where('idSujet = ?', $idSujet)
-						->order('date_m');
+						->order($ordre);
 
 		return $table->fetchAll($select)->toArray();
     }
