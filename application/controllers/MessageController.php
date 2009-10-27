@@ -88,7 +88,7 @@ class MessageController extends Zend_Controller_Action
 			}
 			
 			if($id > 0)
-				$smarty->assign('title','Modification Sujet');
+				$smarty->assign('title','Modification Message');
 			else
 				$smarty->assign('title', 'Ajout Message');
 				
