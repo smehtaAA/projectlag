@@ -48,6 +48,12 @@ class MessageController extends Zend_Controller_Action
 			$modelCompte = $this->_getModelCompte();
 			$modelGrade   = $this->_getModelGrade();
 			$modelLecture   = $this->_getModelLecture();
+			$modelSujet = $this->_getModel();
+			
+
+	
+	
+	
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
@@ -83,7 +89,23 @@ class MessageController extends Zend_Controller_Action
 				$smarty->assign('title','Modification Sujet');
 			else
 				$smarty->assign('title', 'Ajout Message');
+				
+				
+				
+				
+			$sujet = $modelSujet->fetchEntryField($idSujet, array('idSujet', 'titre', 'date_s'));
 			
+			$messages = $modelMessage->fetchEntryBySujet($idSujet, 'date_m DESC');
+			$compte = $modelMessage->fetchEntryCompteBySujet($idSujet);
+			foreach($compte as $c) {
+				$comptes[$c['idCompte']]=$modelCompte->fetchEntryForum($c['idCompte']);
+				$comptes[$c['idCompte']]['nb_messages'] = $modelMessage->countEntriesByCompte($c['idCompte']);
+			}
+				
+			$smarty->assign('comptes', $comptes);
+			$smarty->assign('messages', $messages);
+			$smarty->assign('base_url', $request->getBaseUrl());
+			$smarty->assign('sujet', $sujet);
 			$smarty->assign('form', $form);
 			$smarty->display('forum/message/form.tpl');
 		

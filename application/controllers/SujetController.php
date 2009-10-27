@@ -31,7 +31,7 @@ class SujetController extends Zend_Controller_Action
 			$sujet['vu']++;
 			$model->save($id, $sujet);
 			
-			$messages = $modelMessage->fetchEntryBySujet($id);
+			$messages = $modelMessage->fetchEntryBySujet($id, 'date_m');
 			$compte = $modelMessage->fetchEntryCompteBySujet($id);
 			foreach($compte as $c) {
 				$comptes[$c['idCompte']]=$modelCompte->fetchEntryForum($c['idCompte']);
@@ -142,7 +142,7 @@ class SujetController extends Zend_Controller_Action
 				$data = $model->fetchEntry($id);
 				$model->delete($id);
 				
-				$mess = $modelMessage->fetchEntryBySujet($data['idSujet']);
+				$mess = $modelMessage->fetchEntryBySujet($data['idSujet'], 'date_m');
 				foreach($mess as $m) {
 					$message = $modelMessage->fetchEntry($m['idMessage']);
 					$modelMessage->delete($m['idMessage']);
