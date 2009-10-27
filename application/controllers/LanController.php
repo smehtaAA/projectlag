@@ -145,13 +145,13 @@ class LanController extends Zend_Controller_Action
 					$jeuxlibres=0;
 				
 				
-				$key_google = $modelConfig->fetchEntrySetting('key_google');
-				//$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
+				//$key_google = $modelConfig->fetchEntrySetting('key_google');
+				$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
 				$map->setMapType('map');
-				$map->setAPIKey($key_google['valeur']);
+				$map->setAPIKey($key_google);
 				// fixe les dimensions de la carte
 				$map->setHeight("500");
 				$map->setWidth("500");

@@ -80,8 +80,8 @@ class Model_Sujet
 	{
 		$table = $this->getTable();
         $select = $table->select()->from('sujet', array('idSujet', 'titre as titre_s'))
-								->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array('idSousCategorie', 'titre as titre_sscat'))
-								->join('categorie', 'souscategorie.idCategorie=Categorie.idCategorie', array('idCategorie', 'titre as titre_cat'))
+								->join('souscategorie', 'souscategorie.idSousCategorie=sujet.idSousCategorie', array('idSousCategorie', 'titre as titre_sscat', 'admin as admin_sscat'))
+								->join('categorie', 'souscategorie.idCategorie=categorie.idCategorie', array('idCategorie', 'titre as titre_cat', 'admin as admin_cat'))
 								->where('idSujet = ?', $id)
 								->setIntegrityCheck(false);
 

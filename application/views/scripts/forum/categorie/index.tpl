@@ -14,7 +14,7 @@
                 {/if}
             
             	<ul>
-            		<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"><strong> {$fil_arianne.cat.nom|utf8_encode}</strong></a></li>
+            		<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"><strong> {$fil_arianne.cat.nom|utf8_encode} {if $categorie.admin==1} [Admin] {/if}</strong></a></li>
                 </ul>
                 
             </div>
@@ -27,7 +27,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$categorie.titre|utf8_encode}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$categorie.titre|utf8_encode}{if $categorie.admin==1} [Admin] {/if}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <table border=1>
@@ -53,7 +53,7 @@
 								{/if}
 						</td>
 						<td>
-                        	<a href="{$url_viewsc}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode}</strong></span></a><br />
+                        	<a href="{$url_viewsc}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode} {if $sc.admin==1} [Admin] {/if}</strong></span></a><br />
                             <span class="font-min">{$sc.description|utf8_encode}</span>
                         </td>
                         <td align="center">{$nb[$sc.idSousCategorie].nb_sujets}</td>

@@ -15,7 +15,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>Messages du sujet {$sujet.titre|utf8_encode|Capitalize}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Messages du sujet {$sujet.titre|utf8_encode|capitalize}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
           		<table border="1">

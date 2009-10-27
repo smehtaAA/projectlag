@@ -46,7 +46,7 @@ class Model_Categorie
 	public function fetchEntriesVisiblesAdmin()
 	{
 		$table = $this->getTable();
-		$select = $table->select()->from('categorie', array('idCategorie', 'titre'))->where('visible=1')->order('ordre');
+		$select = $table->select()->from('categorie', array('idCategorie', 'titre', 'admin'))->where('visible=1')->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }

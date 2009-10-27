@@ -79,7 +79,7 @@ class Model_SousCategorie
 	public function fetchEntryByCategorieVisibles($idCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'description'))->where('idCategorie = ?', $idCat)->where('visible=1')->where('admin=0')->order('ordre');
+		$select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'description', 'admin'))->where('idCategorie = ?', $idCat)->where('visible=1')->where('admin=0')->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }
@@ -87,7 +87,7 @@ class Model_SousCategorie
 	public function fetchEntryByCategorieVisiblesAdmin($idCat)
     {
 		$table = $this->getTable();
-		$select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'description'))->where('idCategorie = ?', $idCat)->where('visible=1')->order('ordre');
+		$select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'description', 'admin'))->where('idCategorie = ?', $idCat)->where('visible=1')->order('ordre');
 
 		return $table->fetchAll($select)->toArray();
     }
@@ -103,7 +103,7 @@ class Model_SousCategorie
     public function fetchEntryL($id)
     {
         $table = $this->getTable();
-        $select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'idCategorie'))->where('idSousCategorie = ?', $id);
+        $select = $table->select()->from('souscategorie', array('idSousCategorie', 'titre', 'idCategorie', 'admin'))->where('idSousCategorie = ?', $id);
 
         return $table->fetchRow($select)->toArray();
     }
