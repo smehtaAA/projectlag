@@ -50,6 +50,7 @@ class SujetController extends Zend_Controller_Action
 			$smarty->assign('messages', $messages);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('url_del_message', $request->getBaseUrl().'/message/del?id=');
+			$smarty->assign('url_upd_message', $request->getBaseUrl().'/message/form?idSujet='.$sujet['idSujet'].'&id=');
 			$smarty->assign('url_del_sujet', $request->getBaseUrl().'/sujet/del?id=');
 			$smarty->assign('url_reponse', $request->getBaseUrl().'/message/form?idSujet='.$sujet['idSujet']);
 			

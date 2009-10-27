@@ -63,7 +63,9 @@
                 	<span style="font-size:14px" class="bold rouge">{$sujet.titre|utf8_encode}</span> >
                     <span class="italic font-min">Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</span>
                     {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
-                     	<div style="float:right;"><a href="{$url_del_message}{$m.idMessage}" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette reponse ?'));"> Supprimer </a></div>
+                     	<div style="float:right;">
+                        <a href="{$url_upd_message}{$m.idMessage}"> Editer </a>
+                        <a href="{$url_del_message}{$m.idMessage}" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette reponse ?'));"> Supprimer </a></div>
                     {/if}
                     <br/>
                     <hr />
