@@ -13,7 +13,7 @@
                     Merci de vous identifier ou de vous <a href="{$base_url}/inscription/inscriptionmembre">inscrire</a>.
                 {/if}
                 <ul>
-            		<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"> {$fil_arianne.cat.nom|utf8_encode}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.sscat.id}"> <strong>{$fil_arianne.sscat.nom|utf8_encode}</strong></a> </li>
+            		<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"> {$fil_arianne.cat.nom|utf8_encode}{if $fil_arianne.cat.admin==1} [Admin] {/if}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.sscat.id}"> <strong>{$fil_arianne.sscat.nom|utf8_encode}{if $fil_arianne.sscat.admin==1} [Admin] {/if}</strong></a> </li>
                 </ul>
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$souscat.titre|utf8_encode}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$souscat.titre|utf8_encode}{if $souscat.admin==1} [Admin] {/if}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <br/>

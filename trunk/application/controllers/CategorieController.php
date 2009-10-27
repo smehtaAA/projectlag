@@ -31,7 +31,7 @@ class CategorieController extends Zend_Controller_Action
 			
 			$lecture=null;
 			
-			$categorie = $modelCategorie->fetchEntryField($id, array('idCategorie', 'titre'));
+			$categorie = $modelCategorie->fetchEntryField($id, array('idCategorie', 'titre', 'admin'));
 			if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 				$sscat = $modelSousCategorie->fetchEntryByCategorieAdminField($id, array('idSousCategorie', 'titre'));
 				$stats['nb_messages'] = $modelMessage->countEntries();
@@ -46,6 +46,8 @@ class CategorieController extends Zend_Controller_Action
 				$stats['nb_cat'] = $modelCategorie->countEntriesNonAdmin();
 			}
 			
+			$nb=null;
+			$last_messages=null;
 			foreach ($sscat as $sc) {
 					$nb[$sc['idSousCategorie']]['nb_sujets'] = $modelSujet->countEntriesbySousCategorie($sc['idSousCategorie']);
 					$nb_message = $modelMessage->countEntriesbySsCat($sc['idSousCategorie']);

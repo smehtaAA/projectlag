@@ -15,7 +15,7 @@
             	{/if}
                    
                 <ul>
-                	<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.idCategorie}"> {$fil_arianne.titre_cat|utf8_encode}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.idSousCategorie}"> {$fil_arianne.titre_sscat|utf8_encode}</a> > <a href="{$base_url}/sujet?id={$fil_arianne.idSujet}"> <strong>{$fil_arianne.titre_s|utf8_encode}</strong></a></li>
+                	<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.idCategorie}"> {$fil_arianne.titre_cat|utf8_encode}{if $fil_arianne.admin_cat==1} [Admin] {/if}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.idSousCategorie}"> {$fil_arianne.titre_sscat|utf8_encode}{if $fil_arianne.admin_sscat==1} [Admin] {/if}</a> > <a href="{$base_url}/sujet?id={$fil_arianne.idSujet}"> <strong>{$fil_arianne.titre_s|utf8_encode}</strong></a></li>
                 </ul>     	
                 </div>
             </div>

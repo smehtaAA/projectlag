@@ -46,10 +46,10 @@ class SousCategorieController extends Zend_Controller_Action
 			
 			$souscat = $modelSousCategorie->fetchEntryL($id);
 			
-			$categorie = $modelCategorie->fetchEntryField($souscat['idCategorie'], array('idCategorie', 'titre'));
+			$categorie = $modelCategorie->fetchEntryField($souscat['idCategorie'], array('idCategorie', 'titre', 'admin'));
 			
-			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre']);
-			$fil_arianne['sscat'] = array('id'=>$souscat['idSousCategorie'],'nom'=>$souscat['titre']);
+			$fil_arianne['cat'] = array('id'=>$categorie['idCategorie'], 'nom'=>$categorie['titre'], 'admin'=>$categorie['admin']);
+			$fil_arianne['sscat'] = array('id'=>$souscat['idSousCategorie'],'nom'=>$souscat['titre'], 'admin'=>$categorie['admin']);
 			
 			$smarty->assign('lecture', $lecture);
 			$smarty->assign('fil_arianne', $fil_arianne);

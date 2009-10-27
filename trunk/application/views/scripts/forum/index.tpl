@@ -29,7 +29,7 @@
             <div class="content-total-top"></div>
             <div class="content-total-middle">
                 <div class="content-title-left"></div>
-                <div class="content-title-middle content-title-middle-total"><a href="{$url_cat}{$cat.idCategorie}"><h3>{$cat.titre|utf8_encode}</h3></a></div>
+                <div class="content-title-middle content-title-middle-total"><a href="{$url_cat}{$cat.idCategorie}"><h3>{$cat.titre|utf8_encode}{if $cat.admin==1} [Admin] {/if}</h3></a></div>
                 <div class="content-title-right"></div>
                 <div class="content-total-text">
                 
@@ -55,7 +55,7 @@
 									<img src="images/icones/icon-forum.png" />
 								{/if}
 							</td>
-                            <td><a href="{$url_sscat}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode}</strong></span></a> <br/> <span class="font-min">{$sc.description|utf8_encode}</span></td>
+                            <td><a href="{$url_sscat}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode} {if $sc.admin==1} [Admin] {/if}</strong></span></a> <br/> <span class="font-min">{$sc.description|utf8_encode}</span></td>
                             <td align="center">{$nb[$sc.idSousCategorie].nb_sujets}</td>
                             <td align="center">{$nb[$sc.idSousCategorie].nb_reponses}</td>
                             <td>{if $last_messages[$sc.idSousCategorie] == -1} 
