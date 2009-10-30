@@ -27,7 +27,7 @@
                     <div class="content-title-middle content-title-middle-total"><h3>{$partenaire.titre|capitalize|utf8_encode}</h3></div>
                     <div class="content-title-right"></div>
                     <div class="content-total-text">
-                        <a href="{$partenaire.lien}"><img src="{$base_url}/images/partenaires/{$partenaire.logo}" align="right" alt="{$partenaire.titre|capitalize|utf8_encode}" title="{$partenaire.titre|capitalize|utf8_encode}" /></a>
+                        <a href="{$partenaire.lien}"><img src="{$base_url}/images/partenaires/{$partenaire.logo}" align="right" style="float:right;" alt="{$partenaire.titre|capitalize|utf8_encode}" title="{$partenaire.titre|capitalize|utf8_encode}" /></a>
                         {$partenaire.description|nl2br|utf8_encode}<br />
                         <a href="{$partenaire.lien}"><strong>Voir le site</strong></a>
                     </div>

@@ -5,19 +5,19 @@ $(document).ready(function() {
 	 switch (this.name)
 	 {
 		 case '1': 
-			$("#info_1").attr("style","");
-			$("#info_2").attr("style","display:none;");
-			$("#info_3").attr("style","display:none;");
+			$("#info_1").attr("style",""); $("#com_info_1").attr("style","");
+			$("#info_2").attr("style","display:none;"); $("#com_info_2").attr("style","display:none;");
+			$("#info_3").attr("style","display:none;");  $("#com_info_3").attr("style","display:none;");
 			break;
 		case '2': 
-			$("#info_2").attr("style","");
-			$("#info_1").attr("style","display:none;");
-			$("#info_3").attr("style","display:none;");
+			$("#info_2").attr("style",""); $("#com_info_2").attr("style","");
+			$("#info_1").attr("style","display:none;");  $("#com_info_1").attr("style","display:none;");
+			$("#info_3").attr("style","display:none;");  $("#com_info_3").attr("style","display:none;");
 			break;
 		case '3': 
-			$("#info_3").attr("style","");
-			$("#info_2").attr("style","display:none;");
-			$("#info_1").attr("style","display:none;");
+			$("#info_3").attr("style",""); $("#com_info_3").attr("style","");
+			$("#info_2").attr("style","display:none;");  $("#com_info_2").attr("style","display:none;");
+			$("#info_1").attr("style","display:none;");  $("#com_info_1").attr("style","display:none;");
 			break;
 	 }
     });			   
@@ -40,17 +40,23 @@ $(document).ready(function() {
             </div>
             <div style="float:right;">
             	{foreach from=$infos item=info name=info}
+                {if $smarty.foreach.info.first}
+                    <div id="com_info_{$smarty.foreach.info.iteration}" class="commentInfo">
+                        {else}
+                    <div id="com_info_{$smarty.foreach.info.iteration}" class="commentInfo" style="display:none;">
+
+                        {/if}
+                        <h4>{$info.titre|utf8_encode}</h4>
+                        <br />
+                        {$info.description|utf8_encode}
+                    </div>
                     {if $smarty.foreach.info.first}
                         <div id="info_{$smarty.foreach.info.iteration}">
                     {else}
                         <div id="info_{$smarty.foreach.info.iteration}" style="display:none;">
                     {/if}
-                    <img src="{$base_url}/images/info/{$info.img}" align="right" class="img-spec" id="image_info" alt="{$info.titre|utf8_encode}" title="{$info.titre|utf8_encode}" />
-                    <div style="float:left;padding-right:5px;position: absolute;width: 402px;background-color:#000000; height:45px;margin-left:25px;margin-top:150px;opacity:0.7; color: #FFFFFF;padding:15px;">
-                        <h4>{$info.titre|utf8_encode}</h4>
-                        <br />
-                        {$info.description|utf8_encode}
-                    </div>
+                    <img src="{$base_url}/images/info/{$info.img}" class="img-spec" style="float:left;" id="image_info" alt="{$info.titre|utf8_encode}" title="{$info.titre|utf8_encode}" />
+                    
                     </div>
                 {/foreach}
             </div>
@@ -68,7 +74,7 @@ $(document).ready(function() {
             <div class="content-title-right"></div>
             <div class="content-left-text">
             	{if $new.img}
-                	<img src="{$base_url}/images/news/{$new.img}" align="right" alt="{$new.titre|utf8_encode}" title="{$new.titre|utf8_encode}" />
+                	<img src="{$base_url}/images/news/{$new.img}" align="right" style="float:right;" alt="{$new.titre|utf8_encode}" title="{$new.titre|utf8_encode}" />
                 {/if}
                 {$new.description|nl2br|utf8_encode}
                 <hr />
