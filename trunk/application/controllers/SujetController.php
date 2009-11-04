@@ -33,6 +33,7 @@ class SujetController extends Zend_Controller_Action
 			
 			$messages = $modelMessage->fetchEntryBySujet($id, 'date_m');
 			$compte = $modelMessage->fetchEntryCompteBySujet($id);
+			$comptes = null;
 			foreach($compte as $c) {
 				$comptes[$c['idCompte']]=$modelCompte->fetchEntryForum($c['idCompte']);
 				$comptes[$c['idCompte']]['nb_messages'] = $modelMessage->countEntriesByCompte($c['idCompte']);
@@ -95,8 +96,14 @@ class SujetController extends Zend_Controller_Action
 					$dataform = $form->getValues();
 					$dataform['idSousCategorie'] = $idSsCat;
 					$dataform['idCompte'] = $log->_getUser();
+					$dataform['titre'] = utf8_decode($dataform['titre']);
+					
+					
 					$idSujet=$model->save($id,$dataform);
 					$dataform['idSujet'] = $idSujet;
+					
+					
+					
 					$modelMessage->save(0,$dataform);
 					
 					$nb_messages = $modelMessage->countEntriesByCompte($log->_getUser());
@@ -111,6 +118,7 @@ class SujetController extends Zend_Controller_Action
 			} else {
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
+					$data['titre'] = utf8_encode($data['titre']);
 					$form->populate($data);
 				}
 			}

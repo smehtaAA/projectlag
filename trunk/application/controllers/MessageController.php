@@ -43,6 +43,11 @@ class MessageController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			$idSujet   = (int)$request->getParam('idSujet', 0);
+			if ($id==0)
+				Zend_Registry::set('modeform', 'ajout');
+			else
+				Zend_Registry::set('modeform', 'modif');
+				
 			$form    = $this->_getMessageForm($id,$idSujet);
 			$modelMessage   = $this->_getModelMessage();
 			$modelCompte = $this->_getModelCompte();
@@ -50,18 +55,17 @@ class MessageController extends Zend_Controller_Action
 			$modelLecture   = $this->_getModelLecture();
 			$modelSujet = $this->_getModel();
 			
-
-	
-	
-	
-	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
 					$dataform['idSujet'] = $idSujet;
 					if ($id == 0)
 						$dataform['idCompte'] = $log->_getUser();
-						
+					else {
+						$dataform['date_edition'] = date('Y-m-d H:i:s');
+						$dataform['auteur_edition'] = $log->_getUser();
+					}
+					
 					$modelMessage->save($id,$dataform);
 					
 					$nb_messages = $modelMessage->countEntriesByCompte($log->_getUser());
@@ -79,10 +83,11 @@ class MessageController extends Zend_Controller_Action
 			} else {
 				if ($id > 0) {
 					$data = $modelMessage->fetchEntry($id);
-					if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$data['idCompte']==$log->_getUser()) {
+					if($log->_getTypeConnected('superadmin')||$data['idCompte']==$log->_getUser()) {
 						$form->populate($data);
 					} else {
 						$smarty->display('error/errorconnexion.tpl');
+						return $this->_redirect('/sujet?id='.$idSujet);
 					}
 				}
 			}

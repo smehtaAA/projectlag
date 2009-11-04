@@ -28,7 +28,7 @@
             <div class="content-title-left"></div>
             <div class="content-title-middle content-title-middle-total"><h3>{$sujet.titre|utf8_encode}</h3>
             
-            {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
+            {if $login.nom_f == 'superadmin'}
                 	 <div style="float:right"><a href="{$url_del_sujet}{$sujet.idSujet}" onclick="return(confirm('Etes-vous sur de vouloir supprimer ce sujet ?'));"> Supprimer le sujet</a></div>
                 {/if}
             </div>
@@ -43,17 +43,19 @@
           {foreach from=$messages item=m name=message}
           	<tr>
             	<td width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">
-                	<span class="rouge"><strong>{$comptes[$m.idCompte].login|utf8_encode}</strong></span><br/>
+                	<span class="rouge bold" style="font-size:13px;">{$comptes[$m.idCompte].login|utf8_encode}</span><br/>
                     {if $comptes[$m.idCompte].img != ""}
-                        <img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}" />
+                        <img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}" alt="{$comptes[$m.idCompte].login|utf8_encode}" title="{$comptes[$m.idCompte].login|utf8_encode}" style="margin-top:8px;margin-bottom:8px;"/>
                     {else}
-                        <img src="{$base_url}/images/comptes/no_logo.png" />
+                        <img src="{$base_url}/images/comptes/no_logo.png" style="margin-top:8px;margin-bottom:8px;"/>
                     {/if}
                     <br/>
-                    {if $comptes[$m.idCompte].nom_f == 'joueur'}
-                    	{$comptes[$m.idCompte].nom_g|utf8_encode}
-                    {else}
-                    	Administrateur
+                    {if $comptes[$m.idCompte].nom_f == 'superadmin'}
+                    	<strong>God Master</strong>
+                    {elseif $comptes[$m.idCompte].nom_f == 'admin'}
+                    	<strong>Master</strong>
+					{else}
+						{$comptes[$m.idCompte].nom_g|utf8_encode}
                     {/if}
                     <br/>
                     <span class="italic">Inscrit le : {$comptes[$m.idCompte].dateins|date_format:"%d.%m.%Y"}</span><br/>
@@ -63,16 +65,23 @@
                 <td width="643" valign="top" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-impaire">
                 	<span style="font-size:14px" class="bold rouge">{$sujet.titre|utf8_encode}</span> >
                     <span class="italic font-min">Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</span>
-                    {if $login.nom_f == 'admin' || $login.nom_f == 'superadmin'}
+                    {if $login.nom_f == 'superadmin'}
                      	<div style="float:right;">
                         <a href="{$url_upd_message}{$m.idMessage}">Editer</a>
                         &nbsp;&nbsp; - &nbsp;&nbsp;
                         <a href="{$url_del_message}{$m.idMessage}" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette reponse ?'));"> Supprimer </a></div>
+                    {elseif $login.idCompte == $m.idCompte}
+                     	<div style="float:right;">
+                        <a href="{$url_upd_message}{$m.idMessage}">Editer</a></div>
                     {/if}
                     <br/>
                     <hr />
             		{$m.description|nl2br|utf8_encode} <br /> <br />
                     <hr />
+                    {if $m.date_edition != 0}
+                    <div class="italic font-min" style="float:left">Edit&eacute; le {$m.date_edition|date_format:"%d/%m/%Y"} &agrave; {$m.date_edition|date_format:"%H:%M:%S"} par {$m.auteur_edition} <br/>
+                    {$m.annotation_edition|utf8_encode}</div>
+                    {/if}
                     <div class="italic font-min" style="float:right">{$comptes[$m.idCompte].citationpreferee|utf8_encode}</div>
                 </td>
             </tr>
