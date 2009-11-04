@@ -138,12 +138,17 @@ class CategorieController extends Zend_Controller_Action
 						$nb = $model->countEntries();
 						$dataform['ordre'] = $nb+1;
 					}
+					
+					$dataform['titre'] = utf8_decode($dataform['titre']);
+					
 					$model->save($id,$dataform);
 					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
+					
+					$data['titre'] = utf8_encode($data['titre']);
 					$form->populate($data);
 				}
 			}

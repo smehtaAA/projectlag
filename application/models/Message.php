@@ -39,9 +39,11 @@ class Model_Message
     {
 		$table = $this->getTable();
 		$select = $table->select()
-						->from(array('m' => 'message'), array('idMessage', 'idCompte', 'description', 'date_m'))
+						->from(array('m' => 'message'), array('idMessage', 'idCompte', 'description', 'date_m', 'date_edition', 'annotation_edition'))
+						->joinLeft('compte', 'compte.idCompte=m.auteur_edition', 'login as auteur_edition')
 						->where('idSujet = ?', $idSujet)
-						->order($ordre);
+						->order($ordre)
+						->setIntegrityCheck(false);
 
 		return $table->fetchAll($select)->toArray();
     }
