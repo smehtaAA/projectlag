@@ -111,10 +111,12 @@ class NewsletterController extends Zend_Controller_Action
 		$msg .=	"<br /><br /><div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
 				</body></html>"; 
 		
-		$modelMail = $this->_getModelMail();
-		$personnes = $modelMail->fetchEntries();
-		foreach($personnes as $personne) {
-			mail($personne['mail'], $subject, $msg, $from);
+		$modelMail = $this->_getModelMailType();
+		foreach($info['types'] as $idType) {
+			$personnes = $modelMail->fetchEntriesMailByType($idType['types']);
+			foreach($personnes as $personne) {
+				mail($personne['mail'], $subject, $msg, $from);
+			}
 		}
 	}
 	
