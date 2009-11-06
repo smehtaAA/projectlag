@@ -164,7 +164,7 @@ class Model_LanJeuxJoueurTeam
         return $table->fetchAll($select)->toArray();
     }
 	
-	public function fetchEntriesJeuxByLan($idLan)
+	public function fetchEntriesJeuxByLan($idLan, $idCompte)
     {
         $table = $this->getTable();
         $select = $table->select()
@@ -172,6 +172,7 @@ class Model_LanJeuxJoueurTeam
 							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur', array(''))
 							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux', array('idJeux','nom'))
 							->where('lj.idLan = ?', $idLan)
+							->where('lj.idCompte = ?', $idCompte)
 							->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();

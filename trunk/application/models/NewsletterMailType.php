@@ -48,6 +48,19 @@ class Model_NewsletterMailType
         return $table->fetchAll($select)->toArray();
     }
 	
+	public function fetchEntriesMailByType($id)
+    {
+        $table = $this->getTable();
+        $select = $table->select()
+				->from(array('m' => 'newslettermail'), array('mail'))
+				->join(array('mt' => 'newslettermailtype'),'mt.idNewsletterMail=m.idNewsletterMail', array(''))
+				->join(array('t' => 'newslettertype'),'mt.idNewsletterType=t.idNewsletterType', array(''))
+				->where('mt.idNewsletterType = ?', $id)
+				->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+    }
+	
 	public function fetchEntriesByMail($id)
     {
         $table = $this->getTable();
