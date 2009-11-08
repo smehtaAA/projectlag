@@ -77,6 +77,7 @@ class ForumController extends Zend_Controller_Action
 			// Recuperation Stats Forum
 			$stats['nb'] = $modelCompte->countEntriesActif();
 			$stats['last'] = $modelCompte->fetchEntryLast();
+			$stats['log'] = $modelCompte->fetchEntriesLogField(time()-900, array('login'));
 			
 			$smarty->assign('lecture', $lecture);
 			$smarty->assign('sscat', $sscat);

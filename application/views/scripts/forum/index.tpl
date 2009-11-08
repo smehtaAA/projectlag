@@ -87,6 +87,8 @@
                 		<li>Nb total d'utilisateurs: <span class="rouge">{$stats.nb}</span></li>
                     	<li>Dernier inscrit: <span class="rouge italic">{$stats.last.login|utf8_encode}</span></li>
                 		<li>Nb total de messages: <strong>{$stats.nb_messages}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sujets: <strong>{$stats.nb_sujets}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de cat&eacute;gories: <strong>{$stats.nb_cat}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sous-cat&eacute;gories: <strong>{$stats.nb_sscat}</strong></li>
+                        <li>En ligne :  {foreach from=$stats.log item=log name=log} {if $log.idFonction<3} <span class="rouge bold"> {/if}{$log.login|lower|capitalize|utf8_encode}{if $log.idFonction<3}</span> {/if} {if !$smarty.foreach.log.last}, {/if} {/foreach}
+                        </li>
                 	</ul>
                 </div>
             </div>
