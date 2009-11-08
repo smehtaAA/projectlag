@@ -13,6 +13,7 @@ class Form_Bug extends Zend_Form
 			$this->addElement('select', 'statut', array(
 				'label'       => 'Statut : ',
 				'required'    => true,
+                'class'      => 'input-contact-text',
 				'multiOptions' => array(
 					 'Non lu'   => 'Non lu',
 					 'Pris en compte' => 'Pris en compte',
@@ -24,6 +25,7 @@ class Form_Bug extends Zend_Form
 			$this->addElement('select', 'priorite', array(
 				'label'       => 'Priorite : ',
 				'required'    => true,
+                'class'      => 'input-contact-text',
 				'multiOptions' => array(
 					 1   => 'Urgent',
 					 2 => 'Haute',
@@ -34,7 +36,9 @@ class Form_Bug extends Zend_Form
 			));
 			
 			$this->addElement('textarea', 'noteDebugger', array(
-				'label'      => 'Note : '
+				'label'      => 'Note : ',
+                'rows' 		 => 15,
+                'cols'       => 100,
 			));
 			
 			$this->addElement('hidden', 'datebug');
@@ -42,50 +46,48 @@ class Form_Bug extends Zend_Form
 			$this->addElement('hidden', 'datedebug');
 		} else {
 			
-				
-		$this->addElement('text', 'titre', array(
-            'label'      => 'Titre : ',
-            'required'   => true,
-            'validators' => array(
-                 array('validator' => 'StringLength', 'options' => array(3, 50))
-            )
-        ));
-		
-		$this->addElement('select', 'categorie', array(
-            'label'       => 'Categorie : ',
-            'required'    => true,
-            'RegisterInArrayValidator' => false,
-            'multiOptions' => array(
-				 'Faute d\'orthographe'   => 'Faute d\'orthographe',
-				 'Erreur' => 'Erreur'
-			)
-        ));
-		
-		$this->addElement('select', 'navigateur', array(
-            'label'       => 'Navigateur : ',
-            'required'    => true,
-            'RegisterInArrayValidator' => false,
-            'multiOptions' => array(
-				 'Internet Explorer'   => 'Internet Explorer',
-				 'Mozilla Firefox' => 'Mozilla Firefox',
-				 'Opera'   => 'Opera',
-				 'Safari'   => 'Safari',
-				 'Chrome'   => 'Chrome'
-			)
-        ));
 
-        $this->addElement('textarea', 'description', array(
-            'label'      => 'Description : ',
-            'required'   => true
-        ));
-		
-		
-		$this->addElement('captcha', 'captcha', array(
-					'label'      => 'Veuillez entrer les 5 caractères écrits ci-dessus :',
-					'required'   => true,
-					'captcha'    => array('captcha' => 'Figlet', 'wordLen' => 5, 'timeout' => 300)
-		));
-		
+            $this->addElement('text', 'titre', array(
+                'label'      => 'Titre : ',
+                'class'      => 'input-contact-text',
+                'required'   => true,
+                'validators' => array(
+                     array('validator' => 'StringLength', 'options' => array(3, 50))
+                )
+            ));
+
+            $this->addElement('select', 'categorie', array(
+                'label'       => 'Catégorie : ',
+                'class'      => 'input-contact-text',
+                'required'    => true,
+                'RegisterInArrayValidator' => false,
+                'multiOptions' => array(
+                     'Erreur' => 'Erreur',
+                     'Faute d\'orthographe'   => 'Faute d\'orthographe',
+                     'Autre'   => 'Autre',
+                )
+            ));
+
+            $this->addElement('select', 'navigateur', array(
+                'label'       => 'Navigateur : ',
+                'class'      => 'input-contact-text',
+                'required'    => true,
+                'RegisterInArrayValidator' => false,
+                'multiOptions' => array(
+                     'Internet Explorer'   => 'Internet Explorer',
+                     'Mozilla Firefox' => 'Mozilla Firefox',
+                     'Opera'   => 'Opera',
+                     'Safari'   => 'Safari',
+                     'Chrome'   => 'Chrome'
+                )
+            ));
+
+            $this->addElement('textarea', 'description', array(
+                'label'      => 'Description : ',
+                'rows' 		 => 15,
+                'cols'       => 100,
+                'required'   => true
+            ));
 
 		}
 
