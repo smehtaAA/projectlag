@@ -93,6 +93,18 @@ class Model_Compte
         return $table->fetchRow($select)->toArray();
     }
 	
+	public function fetchEntriesLogField($time, $array)
+	{
+		$table = $this->getTable();
+		$select = $table->select()
+							->from('compte', $array)
+							->join('fonctioncompte', 'fonctioncompte.idCompte=compte.idCompte', array('idFonction'))
+							->where('last_time_connexion > ?', $time)
+							->setIntegrityCheck(false);
+		
+		return $table->fetchAll($select)->toArray();
+	}
+	
 	public function countEntries()
 	{
 		$table = $this->getTable();

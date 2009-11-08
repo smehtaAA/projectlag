@@ -53,6 +53,7 @@ if($interface_admin){
 
 //Zend_Registry::set('interface_admin', 'toto');
 
+
 $defaultNamespace = new Zend_Session_Namespace();
 if(isset($defaultNamespace->userid)) {
 	if(($defaultNamespace->type == 'superadmin' || $defaultNamespace->type == 'admin') && $defaultNamespace->interface_admin)
@@ -88,6 +89,17 @@ Zend_Db_Table_Abstract::setDefaultAdapter($dbAdapter);
 $registry = Zend_Registry::getInstance();
 $registry->configuration = $configuration;
 $registry->dbAdapter     = $dbAdapter;
+
+require_once APPLICATION_PATH . '/models/Compte.php';
+$modelCompte = new Model_Compte();
+if(isset($defaultNamespace->userid)) {
+	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));
+}
+
+
+
+var_dump($_SESSION);
+
 
 unset($frontController, $view, $configuration, $dbAdapter, $registry);
 

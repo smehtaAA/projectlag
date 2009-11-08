@@ -167,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `dateins` datetime NOT NULL,
   `dateco` date NOT NULL,
   `temps` int(10) NOT NULL,
+  `last_time_connexion` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `ip` varchar(15) NOT NULL,
   `jeuxprefere` varchar(100) DEFAULT NULL,
   `site` varchar(100) DEFAULT NULL,
