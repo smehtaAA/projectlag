@@ -11,24 +11,34 @@
             <div class="content-total-text">
             	<br/>
                 <table width="825px">
-                	<tr>
-                    	<th width="40px"></th>
-                    	<th width="100px" align="left">Login</th>
-                    	<th width="100px" align="left">Pr&eacute;nom</th>
-                    	<th width="70px" align="left">Age</th>
-                        <th width="300px" align="left">Localit&eacute;</th>
-                        <th width="130px" align="left">Team</th>
+                	<tr height="30" class="table-th">
+                    	<th width="40"></th>
+                    	<th width="100">Login</th>
+                    	<th width="100">Pr&eacute;nom</th>
+                    	<th width="70">Age</th>
+                        <th width="300">Localit&eacute;</th>
+                        <th width="130">Team</th>
                         <th>Pay&eacute;</th>
                     </tr>
                     
                     {foreach from=$joueurs item=j name=joueur}
-                    	<tr>
+                    	{if $smarty.foreach.joueur.index%2}
+                        <tr height="40" class="td-paire">
+                        {else}
+                        <tr height="40" class="td-impaire">
+                        {/if}
                         	<td align="center"><img src="{$base_url}/images/comptes/thumb/{$j.img}" name="{$j.login|capitalize|utf8_encode}" alt="{$j.login|capitalize|utf8_encode}" class="textalignm" title="{$j.login|capitalize|utf8_encode}" /></td>
                         	<td width="100px">{$j.login|capitalize|utf8_encode}</td>
                             <td> {$j.prenom|lower|capitalize|utf8_encode} </td>
                             <td> {$datedujour-$j.datenaissance} </td>
                             <td>{$j.ville|utf8_encode|lower|capitalize} ({$j.cp})</td>
-                            <td>{$j.nom_t|utf8_encode}</td>
+                            <td>
+                                {if $j.nom_t=="Sans Team"}
+                                    <span class="italic">{$j.nom_t|utf8_encode}</span>
+                                {else}
+                                    {$j.nom_t|utf8_encode}
+                                {/if}
+                            </td>
                             <td align="center">
                             	{if $j.validation==1}
                             		<img src="{$base_url}/images/admin/ball_green.png" name="Actif" alt="Actif" class="textalignm" title="Actif" />
