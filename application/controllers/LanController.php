@@ -217,51 +217,22 @@ class LanController extends Zend_Controller_Action
 			// definition du zoom
 			$map->setZoomLevel(8);
 			
-			/*$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img'));
-			$jeux = null;
-			foreach($joueurs as $j) {
-				$temp = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
-				if (sizeof($temp)>0)
-					$jeux[$j['idCompte']] = $temp;
-				else
-					$jeux[$j['idCompte']] = 0;
-				// ajout d'un marqueur joueur sur la carte
-				$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], $j['login'], "<span class='rouge'><strong>$j[login]</strong></span><br/>$j[ville] ($j[cp])", $j['login']);
-				// met cet icone pour le dernier marqueur posé
-				$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/'.$j['img'],$request->getBaseUrl().'/images/comptes/thumb/'.$j['img'],0,0,10,10);
-			}*/
-			
 			$villes = $modelLanJoueur->fetchEntriesVille($id);
-			$jeux = null;
+			
 			foreach($villes as $v) {
 				$joueurs = $modelLanJoueur->fetchEntriesByLanVilleField($id, $v['ville'], array('idCompte', 'login', 'cp', 'ville', 'img'));
 				
 				if (sizeof($joueurs)>1) {
 					$logins = "";
 					foreach($joueurs as $j) {
-						$temp = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$j['idCompte']);
-						if (sizeof($temp)>0)
-							$jeux[$j['idCompte']] = $temp;
-						else
-							$jeux[$j['idCompte']] = 0;
-							
-							
 						$logins .= $j['login']."<br/>";
-					
 					}
-						
-						
-						// ajout d'un marqueur joueur sur la carte
-						$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], "Joueurs", "<span class='rouge'><strong>$j[ville] ($j[cp])</strong></span><br/>$logins", "Joueurs de $j[ville]");
-						// met cet icone pour le dernier marqueur posé
-						$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/no_logo.png',$request->getBaseUrl().'/images/comptes/thumb/no_logo.png',0,0,10,10);
+					// ajout d'un marqueur joueur sur la carte
+					$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], "Joueurs", "<span class='rouge'><strong>$j[ville] ($j[cp])</strong></span><br/>$logins", "Joueurs de $j[ville]");
+					// met cet icone pour le dernier marqueur posé
+					$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/no_logo.png',$request->getBaseUrl().'/images/comptes/thumb/no_logo.png',0,0,10,10);
 						
 				} else {
-					$temp = $modelLanJeuxJoueurTeam->fetchEntriesByLanJoueur_Jeux($lan['idLan'],$joueurs[0]['idCompte']);
-					if (sizeof($temp)>0)
-						$jeux[$joueurs[0]['idCompte']] = $temp;
-					else
-						$jeux[$joueurs[0]['idCompte']] = 0;
 					// ajout d'un marqueur joueur sur la carte
 					$map->addMarkerByAddress( $joueurs[0]['ville'].' '.$joueurs[0]['cp'], $joueurs[0]['login'], "<span class='rouge'><strong>".$joueurs[0]['login']."</strong></span><br/>".$joueurs[0]['ville']." (".$joueurs[0]['cp'].")", $joueurs[0]['login']);
 					// met cet icone pour le dernier marqueur posé
@@ -270,17 +241,20 @@ class LanController extends Zend_Controller_Action
 			
 			}
 			
-			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img'));
+			$joueurs = $modelLanJoueur->fetchEntriesByLanField($id, array('idCompte', 'login', 'cp', 'ville', 'img', 'prenom', 'datenaissance'));
 			
 			// ajout du marqueur lan sur la carte
 			$map->addMarkerByAddress($lan['adresse'].' '.$lan['ville'].' '.$lan['cp'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 			// utilisation d'un icone different pour la lan
 			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
 
+
+			$date = new Zend_Date();
+		
+			$smarty->assign('datedujour', $date->toString('YYYY-M-dd'));
 			$smarty->assign('lan', $lan);
 			$smarty->assign('base_url', $request->getBaseUrl());
 			$smarty->assign('joueurs', $joueurs);
-			$smarty->assign('jeux', $jeux);
 			$smarty->assign('map', $map);
 			$smarty->assign('title', 'Inscrits de la lan '.$lan['nom']);
 			$smarty->display('lan/viewinscrits.tpl');
