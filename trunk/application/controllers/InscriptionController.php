@@ -282,7 +282,7 @@ class InscriptionController extends Zend_Controller_Action
 				
 		
 		$smarty->assign('login_existant', $login_existant);	
-		$smarty->assign('titre', 'Inscription pour la lan '.$lan['nom']);
+		$smarty->assign('titre', 'Inscription sur le site la LAG);
 		$smarty->assign('form', $form);
 		$smarty->display('inscription/inscriptionMembre.tpl');
 	}
