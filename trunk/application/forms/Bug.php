@@ -52,7 +52,7 @@ class Form_Bug extends Zend_Form
                 'class'      => 'input-contact-text',
                 'required'   => true,
                 'validators' => array(
-                     array('validator' => 'StringLength', 'options' => array(3, 50))
+                     array('validator' => 'StringLength', 'options' => array(3, 60))
                 )
             ));
 

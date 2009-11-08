@@ -91,6 +91,7 @@ class BugController extends Zend_Controller_Action
 					if ($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 						return $this->_helper->redirector('indexadmin');
 					} else {
+                        $this->sendMail($form->getValues());
 						return $this->_helper->redirector('remerciement');
 					}
 				}
@@ -148,6 +149,25 @@ class BugController extends Zend_Controller_Action
 			$smarty->assign('form', $form);
 			$smarty->display('bug/resoudre.tpl');
 		
+	}
+
+	protected function sendMail($data)
+	{
+		// Fonction d'envoi du mail sur association.lag@gmail.com
+		$destinataire = 'association.lag@gmail.com';
+		$subject = "Bug depuis le site Local Arena Games";
+		$from  = "From: Bug - Local Arena Games <bug@asso-lag.fr>\n";
+		$from .= "MIME-version: 1.0\n";
+		$from .= "Content-type: text/html; charset=iso-8859-1\n";
+		$msg = "<html><head></head><body>
+				<div style='font: normal 12px Arial;'>
+				<b>Signaler bug - Local Arena Games</b><br /><br />
+				<b>Categorie :</b> ".$data['categorie']."<br />
+				<b>Navigateur :</b> ".$data['navigateur']."<br />
+				<b>Titre :</b> ".$data['titre']."<br /><br />
+				<b>Description :</b> ".$data['description']."</div>
+				</body></html>";
+		mail($destinataire, $subject, $msg, $from);
 	}
 
     protected function _getModel()
