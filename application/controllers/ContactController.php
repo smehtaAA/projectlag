@@ -114,13 +114,8 @@ class ContactController extends Zend_Controller_Action
 				<b>Contact - Local Arena Games</b><br />
 				<b>Email :</b> ".$data['mail']."<br />
 				<b>Type :</b> ".$data['type']."<br />
-				<b>Titre :</b> ".$data['titre']."<br />
-				<b>Description :</b> ".$data['description']."
-				
-				<br/>
-				L'équipe Local Arena Games.<br /><br />
-				
-				<div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
+				<b>Titre :</b> ".$data['titre']."<br /><br />
+				<b>Description :</b> ".$data['description']."</div>
 				</body></html>"; 
 		mail($destinataire, $subject, $msg, $from);
 	}
