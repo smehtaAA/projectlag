@@ -7,7 +7,7 @@
             <div class="content-title-middle content-title-middle-total"><h3>Signaler un bug</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-                {$form}>
+                {$form}
             </div>
         </div>
         <div class="content-total-bottom"></div>
