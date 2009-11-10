@@ -28,16 +28,32 @@
             <div class="content-title-left"></div>
             <div class="content-title-middle content-title-middle-total"><h3>{$sujet.titre|utf8_encode}</h3>
             
-            {if $login.nom_f == 'superadmin'}
-                	 <div style="float:right"><a href="{$url_del_sujet}{$sujet.idSujet}" onclick="return(confirm('Etes-vous sur de vouloir supprimer ce sujet ?'));"> Supprimer le sujet</a></div>
-                {/if}
+            
+            	<div style="float:right">
+                	 {if $login.nom_f == 'superadmin' || ($login.nom_f == 'admin' && ($sujet.nom=='joueur' || $sujet.nom=='admin')) || ($login.idCompte == $sujet.idCompte)}
+                     	{if $sujet.bloque==0}
+                        	<a href="{$url_cloture_sujet}{$sujet.idSujet}&a=1" onclick="return(confirm('Etes-vous sur de vouloir cloturer ce sujet ?'));"> Cloturer ce sujet</a>
+                        {/if}
+                     {/if}
+                     {if $login.nom_f == 'superadmin' || ($login.nom_f == 'admin' && ($sujet.nom=='joueur' || $login.idCompte == $sujet.idCompte))}
+                     	{if $sujet.bloque==1}
+                        	<a href="{$url_cloture_sujet}{$sujet.idSujet}&a=0" onclick="return(confirm('Etes-vous sur de vouloir ouvrir ce sujet ?'));"> Ouvrir ce sujet</a>
+                        {/if}
+                     {/if}
+                     {if $login.nom_f == 'superadmin'}
+                     	| <a href="{$url_del_sujet}{$sujet.idSujet}" onclick="return(confirm('Etes-vous sur de vouloir supprimer ce sujet ?'));"> Supprimer le sujet</a>
+                     {/if}
+            	</div>
+               
             </div>
             <div class="content-title-right">
             </div>
             <div class="content-total-text">
+            {if $sujet.bloque==0}
             <br/>
                  <a href="{$url_reponse}" class="bouton-forum"><span class="rouge bold"> R&eacute;pondre </span></a>
-            <br/><br/><br/>
+            <br/>
+            <br/>{/if}<br/>
             
           <table border="1">
           {foreach from=$messages item=m name=message}
@@ -88,9 +104,9 @@
             
           {/foreach}
           </table>
-              <br/><br/>
+              <br/>{if $sujet.bloque == 0}<br/>
                   <a href="{$url_reponse}" class="bouton-forum"><span class="rouge bold"> R&eacute;pondre </span></a>
-            <br/><br/>
+            <br/><br/>{/if}
           
             </div>
         </div>

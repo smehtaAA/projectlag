@@ -68,6 +68,19 @@ class Model_Sujet
         return $table->fetchRow($select)->toArray();
     }
 	
+    public function fetchEntryAuteur($id)
+    {
+        $table = $this->getTable();
+        $select = $table->select()
+						->from('sujet', array('idSujet', 'titre', 'bloque', 'idCompte', 'vu'))
+						->join('fonctioncompte', 'fonctioncompte.idCompte=sujet.idCompte', array(''))
+						->join('fonction', 'fonction.idFonction=fonctioncompte.idFonction', array('nom'))
+						->where('idSujet = ?', $id)
+						->setIntegrityCheck(false);
+
+        return $table->fetchRow($select)->toArray();
+    }
+	
     public function fetchEntryField($id,$array)
     {
         $table = $this->getTable();
