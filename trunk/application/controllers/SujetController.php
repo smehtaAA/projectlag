@@ -27,7 +27,7 @@ class SujetController extends Zend_Controller_Action
 			} else
 				$login=0;
 			
-			$sujet = $model->fetchEntry($id);
+			$sujet = $model->fetchEntryAuteur($id);
 			$sujet['vu']++;
 			$model->save($id, $sujet);
 			
@@ -53,6 +53,7 @@ class SujetController extends Zend_Controller_Action
 			$smarty->assign('url_del_message', $request->getBaseUrl().'/message/del?id=');
 			$smarty->assign('url_upd_message', $request->getBaseUrl().'/message/form?idSujet='.$sujet['idSujet'].'&id=');
 			$smarty->assign('url_del_sujet', $request->getBaseUrl().'/sujet/del?id=');
+			$smarty->assign('url_cloture_sujet', $request->getBaseUrl().'/sujet/cloture?id=');
 			$smarty->assign('url_reponse', $request->getBaseUrl().'/message/form?idSujet='.$sujet['idSujet']);
 			
 			$smarty->display('forum/sujet/index.tpl');
@@ -169,6 +170,40 @@ class SujetController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
     }
+	
+	public function clotureAction()
+	{
+		$log = new SessionLAG();
+		$request = $this->getRequest();
+		$idSujet      = (int)$request->getParam('id', 0);
+		$a      = (int)$request->getParam('a', 0);
+		$model = $this->_getModel();
+		$sujet = $model->fetchEntryAuteur($idSujet);
+		
+		//if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			
+		if ($a == 1) {
+			if ($log->_getTypeConnected('superadmin') || ($log->_getTypeConnected('admin') && ($sujet['nom']=='joueur' || $sujet['nom']=='admin')) || ($log->_getUser() == $sujet['idCompte']))
+			{
+				if ($idSujet > 0) {
+					$model->save($idSujet, array('bloque'=>$a));
+				}
+				return $this->_redirect('/sujet?id='.$idSujet);
+			}
+		} elseif($a==0) {
+			if ($log->_getTypeConnected('superadmin') || ($log->_getTypeConnected('admin') && ($sujet['nom']=='joueur' || $log->_getUser() == $sujet['idCompte'])))
+			{
+				if ($idSujet > 0) {
+					$model->save($idSujet, array('bloque'=>$a));
+				}
+				return $this->_redirect('/sujet?id='.$idSujet);
+			}
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+			
+		
+	}
 	
 	protected function _getModel()
     {

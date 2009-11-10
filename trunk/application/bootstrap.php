@@ -97,9 +97,5 @@ if(isset($defaultNamespace->userid)) {
 }
 
 
-
-var_dump($_SESSION);
-
-
 unset($frontController, $view, $configuration, $dbAdapter, $registry);
 
