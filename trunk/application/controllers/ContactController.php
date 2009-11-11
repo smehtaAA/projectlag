@@ -71,7 +71,7 @@ class ContactController extends Zend_Controller_Action
                 }
                 array_walk($data, 'decode');
 				$model->save($id,$data);
-				$this->sendMail($data);
+				$this->sendMail($form->getValues());
 				return $this->_helper->redirector('remerciement');
 			}
 		} 
@@ -112,8 +112,10 @@ class ContactController extends Zend_Controller_Action
 		$destinataire = 'association.lag@gmail.com'; 
 		$subject = "Contact depuis le site Local Arena Games";
 		$from  = "From: Contact <".$data['mail'].">\n";
+        $from .= "X-Priority: 1\n";
 		$from .= "MIME-version: 1.0\n";
-		$from .= "Content-type: text/html; charset=iso-8859-1\n";	
+		$from .= "Content-type: text/html; charset=utf-8\n";
+        $from .= "Content-Transfer-Encoding: 8bit\n\n";
 		$msg = "<html><head></head><body>
 				<div style='font: normal 12px Arial;'>
 				<b>Contact - Local Arena Games</b><br />

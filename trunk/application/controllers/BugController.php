@@ -95,7 +95,7 @@ class BugController extends Zend_Controller_Action
 					if ($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 						return $this->_helper->redirector('indexadmin');
 					} else {
-                        $this->sendMail($dataform);
+                        $this->sendMail($form->getValues());
 						return $this->_helper->redirector('remerciement');
 					}
 				}
@@ -131,7 +131,7 @@ class BugController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();		
-					$model->save($id,$dataform);
+					$model->save($id,$form->getValues());
 					if ($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 						return $this->_helper->redirector('indexadmin');
 					} else {
@@ -161,8 +161,10 @@ class BugController extends Zend_Controller_Action
 		$destinataire = 'association.lag@gmail.com';
 		$subject = "Bug depuis le site Local Arena Games";
 		$from  = "From: Bug - Local Arena Games <bug@asso-lag.fr>\n";
+        $from .= "X-Priority: 1\n";
 		$from .= "MIME-version: 1.0\n";
-		$from .= "Content-type: text/html; charset=iso-8859-1\n";
+		$from .= "Content-type: text/html; charset=utf-8\n";
+        $from .= "Content-Transfer-Encoding: 8bit\n\n";
 		$msg = "<html><head></head><body>
 				<div style='font: normal 12px Arial;'>
 				<b>Signaler bug - Local Arena Games</b><br /><br />
