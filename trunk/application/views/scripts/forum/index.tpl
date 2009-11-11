@@ -15,7 +15,7 @@
                         Merci de vous identifier ou de vous <a href="{$base_url}/inscription/inscriptionmembre">inscrire</a>. 
                     {/if}
                     <ul>
-                        <li><a href="{$base_url}/forum"> Forum </a></li>
+                        <li><a href="{$base_url}/forum">Forum</a></li>
                     </ul>
                 </div>
             </div>
