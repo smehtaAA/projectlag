@@ -53,10 +53,10 @@
                         </div>
                     {/if}
                 </div>
-                <table border="1">
+                <table border="0">
                   {foreach from=$messages item=m name=message}
                     <tr>
-                        <td width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">
+                        <td rowspan="3" width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">
                             <span class="rouge bold" style="font-size:13px;">{$comptes[$m.idCompte].login|utf8_encode}</span><br/>
                             {if $comptes[$m.idCompte].img != ""}
                                 <img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}" alt="{$comptes[$m.idCompte].login|utf8_encode}" title="{$comptes[$m.idCompte].login|utf8_encode}" style="margin-top:8px;margin-bottom:8px;"/>
@@ -76,7 +76,7 @@
                             <span class="italic">Messages : {$comptes[$m.idCompte].nb_messages}</span><br/>
 
                         </td>
-                        <td width="652" valign="top" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-impaire">
+                        <td width="652" height="30" valign="top" style="border:0px;padding-top:10px;padding-bottom:10px;" class="td-impaire">
                             <span style="font-size:14px" class="bold rouge">{$sujet.titre|utf8_encode}</span> >
                             <span class="italic font-min">Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</span>
                             {if $login.nom_f == 'superadmin'}
@@ -88,10 +88,15 @@
                                 <div style="float:right;">
                                 <a href="{$url_upd_message}{$m.idMessage}">Editer</a></div>
                             {/if}
-                            <br/>
-                            <hr />
-                            {$m.description|nl2br|utf8_encode} <br /> <br />
-                            <hr />
+                        </td>
+                    </tr>
+                    <tr style="border:0px;border-top: 1px dotted #999999;">
+                        <td height="140" valign="top" style="padding-top:10px;padding-bottom:10px;border:0px;" class="td-impaire border-top-pointer">
+                            {$m.description|nl2br|utf8_encode}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25" class="td-impaire" style="border-top: 1px dotted #999999;">
                             {if $m.date_edition != 0}
                             <div class="italic font-min" style="float:left">Edit&eacute; le {$m.date_edition|date_format:"%d/%m/%Y"} &agrave; {$m.date_edition|date_format:"%H:%M:%S"} par {$m.auteur_edition} <br/>
                             {$m.annotation_edition|utf8_encode}</div>
