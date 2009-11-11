@@ -76,7 +76,7 @@
                             <span class="italic">Messages : {$comptes[$m.idCompte].nb_messages}</span><br/>
 
                         </td>
-                        <td width="652" height="30" valign="top" style="border:0px;padding-top:10px;padding-bottom:10px;" class="td-impaire">
+                        <td width="652" height="20" valign="top" style="border:0px;padding-top:10px;padding-bottom:10px;" class="td-impaire">
                             <span style="font-size:14px" class="bold rouge">{$sujet.titre|utf8_encode}</span> >
                             <span class="italic font-min">Post&eacute; le {$m.date_m|date_format:"%d/%m/%Y"} &agrave; {$m.date_m|date_format:"%H:%M:%S"}</span>
                             {if $login.nom_f == 'superadmin'}
@@ -90,8 +90,8 @@
                             {/if}
                         </td>
                     </tr>
-                    <tr style="border:0px;border-top: 1px dotted #999999;">
-                        <td height="140" valign="top" style="padding-top:10px;padding-bottom:10px;border:0px;" class="td-impaire border-top-pointer">
+                    <tr>
+                        <td height="140" valign="top" style="padding-top:10px;padding-bottom:10px;border:0px;border-top: 1px dotted #999999;" class="td-impaire border-top-pointer">
                             {$m.description|nl2br|utf8_encode}
                         </td>
                     </tr>
