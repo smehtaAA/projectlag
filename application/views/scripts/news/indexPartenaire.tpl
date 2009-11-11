@@ -8,7 +8,7 @@
             <div class="content-title-right"></div>
             <div class="content-total-text">
             	{if $new.img}
-                	<img src="{$base_url}/images/news/{$new.img}" align="right" style="float:right;" alt="{$new.titre|utf8_encode}" tittle="{$new.titre|utf8_encode}" width="20%" />
+                	<img src="{$base_url}/images/news/{$new.img}" align="right" class="img-right-separator" style="float:right;" alt="{$new.titre|utf8_encode}" tittle="{$new.titre|utf8_encode}" width="20%" />
                 {/if}
                 {$new.description|nl2br|truncate:400:'..'} <br/>
                 <br/><br/>

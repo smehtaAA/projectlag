@@ -7,7 +7,7 @@
             <div class="content-title-right"></div>
             <div class="content-total-text">
                 {if $news.img}
-                	<img src="{$base_url}/images/news/{$news.img}" align="right" style="float:right;" alt="{$news.titre|utf8_encode}" tittle="{$news.titre|utf8_encode}" />
+                	<img src="{$base_url}/images/news/{$news.img}" align="right" class="img-right-separator" style="float:right;" alt="{$news.titre|utf8_encode}" tittle="{$news.titre|utf8_encode}" />
                 {/if}
                 {$news.description|nl2br|utf8_encode} <br/>
                 

@@ -74,7 +74,7 @@ $(document).ready(function() {
             <div class="content-title-right"></div>
             <div class="content-left-text">
             	{if $new.img}
-                	<img src="{$base_url}/images/news/{$new.img}" align="right" style="float:right;" alt="{$new.titre|utf8_encode}" title="{$new.titre|utf8_encode}" />
+                	<img src="{$base_url}/images/news/{$new.img}" align="right" class="img-right-separator" style="float:right;" alt="{$new.titre|utf8_encode}" title="{$new.titre|utf8_encode}" />
                 {/if}
                 {$new.description|nl2br|utf8_encode}
                 <hr />
