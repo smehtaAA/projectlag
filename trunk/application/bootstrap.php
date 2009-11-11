@@ -90,11 +90,18 @@ $registry = Zend_Registry::getInstance();
 $registry->configuration = $configuration;
 $registry->dbAdapter     = $dbAdapter;
 
-require_once APPLICATION_PATH . '/models/Compte.php';
-$modelCompte = new Model_Compte();
+//Mise à jour de la date de connexion de l'utilisateur
 if(isset($defaultNamespace->userid)) {
+    require_once APPLICATION_PATH . '/models/Compte.php';
+    $modelCompte = new Model_Compte();
 	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));
 }
+
+//Récupération des configurations de la page courante
+//require_once APPLICATION_PATH . '/models/PlanSite.php';
+//$modelPlansite = new Model_PlanSite();
+//var_dump($frontController->getBaseUrl());
+//$modelPlansite->fetchEntryByTitle($current_url);
 
 
 unset($frontController, $view, $configuration, $dbAdapter, $registry);
