@@ -65,8 +65,13 @@ class ContactController extends Zend_Controller_Action
 
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($request->getPost())) {
-				$model->save($id,$form->getValues());
-				$this->sendMail($form->getValues());
+                $data = $form->getValues();
+                function decode(&$value) {
+                    $value = utf8_decode($value);
+                }
+                array_walk($data, 'decode');
+				$model->save($id,$data);
+				$this->sendMail($data);
 				return $this->_helper->redirector('remerciement');
 			}
 		} 

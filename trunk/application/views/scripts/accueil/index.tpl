@@ -94,24 +94,6 @@ $(document).ready(function() {
             <br /><br /><br />
         </center>
     </div>
-
-    <div class="content-total-princ content-separator">
-        <div class="content-total-top"></div>
-        <div class="content-total-middle">
-            <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>Partenaires</h3></div>
-            <div class="content-title-right"></div>
-            <div class="content-total-text">
-                <center>
-                {foreach from=$logos item=logo name=logo}
-                    <a href="{$logo.lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre|utf8_encode}" title="{$logo.titre|utf8_encode}" style="margin-right:50px;vertical-align:middle;" /></a>
-                {/foreach}
-                </center>
-            </div>
-        </div>
-        <div class="content-total-bottom"></div>
-    </div>
-
 </div>
 <div id="content-right">
    
@@ -225,3 +207,22 @@ $(document).ready(function() {
         <div class="content-right-bottom"></div>
     </div>
 </div>
+
+    <div id="content-total">
+     <div class="content-total-princ content-separator">
+        <div class="content-total-top"></div>
+        <div class="content-total-middle">
+            <div class="content-title-left"></div>
+            <div class="content-title-middle content-title-middle-total"><h3>Partenaires</h3></div>
+            <div class="content-title-right"></div>
+            <div class="content-total-text">
+                <center>
+                {foreach from=$logos item=logo name=logo}
+                    <a href="{$logo.lien}" target="_blank"><img src="{$base_url}/images/partenaires/{$logo.logo}" alt="{$logo.titre|utf8_encode}" title="{$logo.titre|utf8_encode}" style="margin-right:50px;vertical-align:middle;" /></a>
+                {/foreach}
+                </center>
+            </div>
+        </div>
+        <div class="content-total-bottom"></div>
+    </div>
+    </div>
