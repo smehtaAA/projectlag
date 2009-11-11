@@ -86,12 +86,16 @@ class BugController extends Zend_Controller_Action
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$dataform = $form->getValues();		
+					$dataform = $form->getValues();
+                    function decode(&$value) {
+                        $value = utf8_decode($value);
+                    }
+                    array_walk($dataform, 'decode');
 					$model->save($id,$dataform);
 					if ($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
 						return $this->_helper->redirector('indexadmin');
 					} else {
-                        $this->sendMail($form->getValues());
+                        $this->sendMail($dataform);
 						return $this->_helper->redirector('remerciement');
 					}
 				}
