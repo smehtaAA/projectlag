@@ -13,7 +13,7 @@
                     Merci de vous identifier ou de vous <a href="{$base_url}/inscription/inscriptionmembre">inscrire</a>.
                 {/if}
                 <ul>
-            		<li><a href="{$base_url}/forum">Forum</a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}">{$fil_arianne.cat.nom|utf8_encode}{if $fil_arianne.cat.admin==1}[Admin]{/if}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.sscat.id}"><strong>{$fil_arianne.sscat.nom|utf8_encode}{if $fil_arianne.sscat.admin==1}[Admin]{/if}</strong></a> </li>
+            		<li><a href="{$base_url}/forum">Forum</a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}">{$fil_arianne.cat.nom|utf8_encode}{if $fil_arianne.cat.admin==1} [Admin]{/if}</a> > <a href="{$base_url}/souscategorie?id={$fil_arianne.sscat.id}"><strong>{$fil_arianne.sscat.nom|utf8_encode}{if $fil_arianne.sscat.admin==1} [Admin]{/if}</strong></a> </li>
                 </ul>
             </div>
         </div>

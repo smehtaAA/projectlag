@@ -14,7 +14,7 @@
                 {/if}
             
             	<ul>
-            		<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"><strong> {$fil_arianne.cat.nom|utf8_encode} {if $categorie.admin==1} [Admin] {/if}</strong></a></li>
+            		<li><a href="{$base_url}/forum"> Forum </a> > <a href="{$base_url}/categorie?id={$fil_arianne.cat.id}"><strong>{$fil_arianne.cat.nom|utf8_encode}{if $categorie.admin==1} [Admin]{/if}</strong></a></li>
                 </ul>
                 
             </div>
