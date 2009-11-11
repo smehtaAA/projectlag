@@ -42,7 +42,7 @@ class LogController extends Zend_Controller_Action
 							}
 						}
 						$this->connexion($existlog[$userid],$nom);
-						return $this->_redirect('/accueil/index');
+						return $this->_redirect($_SERVER['HTTP_REFERER']);
 					} else {
 						$message = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Vous n'avez peut &ecirc;tre pas encore activ&eacute; votre compte via le mail que vous avez re&ccedil;u lors de votre inscription.";
 						$smarty->assign('message', $message);
@@ -55,7 +55,7 @@ class LogController extends Zend_Controller_Action
 			$smarty->assign('form',$form);
 			$smarty->display('log/form.tpl');
 		} else {
-			$smarty->assign('message', 'Vous êtes déjà connecté');
+			$smarty->assign('message', 'Vous &ecirc;tes d&eacute;j&agrave; connect&eacute;(e)');
 			$smarty->display('error/errorconnexion.tpl');
 		}        
     }
