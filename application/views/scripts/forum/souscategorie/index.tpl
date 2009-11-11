@@ -32,7 +32,7 @@
             {if $login.login!=''}
             	<a href="{$url_addsujet}" class="bouton-forum"><span class="rouge bold">Ajouter un Sujet</span> </a> <br/><br/><br/>
             {/if}
-            <table border=1>
+            <table border="1">
                 <tr height="30" class="table-th">
                     <th width="40"></th>
                     <th width="450"> Forum </th>
