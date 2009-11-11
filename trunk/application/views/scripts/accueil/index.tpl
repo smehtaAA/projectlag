@@ -46,7 +46,7 @@ $(document).ready(function() {
                     <div id="com_info_{$smarty.foreach.info.iteration}" class="commentInfo" style="display:none;">
 
                         {/if}
-                        <h4>{$info.titre|utf8_encode}</h4>
+                        <h2>{$info.titre|utf8_encode}</h2>
                         <br />
                         {$info.description|utf8_encode}
                     </div>
@@ -55,7 +55,7 @@ $(document).ready(function() {
                     {else}
                         <div id="info_{$smarty.foreach.info.iteration}" style="display:none;">
                     {/if}
-                    <img src="{$base_url}/images/info/{$info.img}" class="img-spec" style="float:left;" id="image_info" alt="{$info.titre|utf8_encode}" title="{$info.titre|utf8_encode}" />
+                    <img src="{$base_url}/images/info/{$info.img}" class="img-spec" style="float:left;" alt="{$info.titre|utf8_encode}" title="{$info.titre|utf8_encode}" />
                     
                     </div>
                 {/foreach}
@@ -70,7 +70,7 @@ $(document).ready(function() {
     	<div class="content-left-top"></div>
         <div class="content-left-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-left"><h3>{$new.titre|utf8_encode}</h3><div class="right italic">{$new.date|date_format:"%A %e %B %Y"|capitalize}</div></div>
+            <div class="content-title-middle content-title-middle-left"><h2>{$new.titre|utf8_encode}</h2><div class="right italic">{$new.date|date_format:"%A %e %B %Y"|capitalize}</div></div>
             <div class="content-title-right"></div>
             <div class="content-left-text">
             	{if $new.img}

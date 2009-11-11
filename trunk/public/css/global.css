@@ -860,3 +860,8 @@ h3 {
     /*left:150px;*/
     top: 357px;
 }
+
+h2.nom-staff {
+    float:none;
+    font-weight:normal;
+}

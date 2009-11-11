@@ -39,7 +39,7 @@
                     <br />
                     {foreach from=$comptes[$s.idStaff] name=compte item=c}
                         <img src="{$base_url}/images/staff/{$c.prenom|lower}.jpg" align="right" style="float:right;" alt="{$c.nom|capitalize|utf8_encode} {$c.prenom|utf8_encode}" title="{$c.nom|utf8_encode} {$c.prenom|utf8_encode}" />
-                        &nbsp;&nbsp;<strong>Nom :</strong> {$c.nom|upper|utf8_encode} {$c.prenom|utf8_encode} <br/>
+                        &nbsp;&nbsp;<strong>Nom :</strong> <h2 class="nom-staff">{$c.nom|upper|utf8_encode} {$c.prenom|utf8_encode}</h2> <br/>
                         &nbsp;&nbsp<strong>Pseudo :</strong> {$c.login|capitalize|utf8_encode} <br/>
                         &nbsp;&nbsp<strong>Age : </strong> {$datedujour-$c.datenaissance}<br/>
                         &nbsp;&nbsp<strong>Mail : </strong> {$c.email} <br/>
