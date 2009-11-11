@@ -714,6 +714,10 @@ h3 {
 	margin-right: 4px;
 }
 
+.img-right-separator {
+	margin-left: 4px;
+}
+
 .connexion-active div {
 	margin-bottom: 8px;
 }
@@ -852,5 +856,4 @@ h3 {
     padding:15px;
     /*left:150px;*/
     top: 357px;
-
 }
