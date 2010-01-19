@@ -23,6 +23,22 @@ class Form_Lan extends Zend_Form
             )
         ));	
 		
+		$this->addElement('text', 'cp', array(
+            'label'      => 'CP : ',
+            'required'   => true,
+            'validators' => array(
+                 array('validator' => 'StringLength', 'options' => array(5, 5))
+            )
+        ));	
+		
+		$this->addElement('text', 'ville', array(
+            'label'      => 'Ville : ',
+            'required'   => true,
+            'validators' => array(
+                 array('validator' => 'StringLength', 'options' => array(3, 60))
+            )
+        ));	
+		
 		$this->addElement('text', 'datedeb', array(
             'label'      => 'Date de début : ',
             'RegisterInArrayValidator' => false,
