@@ -64,7 +64,7 @@ class LanController extends Zend_Controller_Action
 			if($lan['idLan']==$lan_ouverte['idLan'])
 				$chiffre['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
 				
-			if(true) {
+			if(false) {
 				$key_google = $modelConfig->fetchEntrySetting('key_google');
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
