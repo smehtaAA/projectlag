@@ -13,7 +13,7 @@
         </div>
         <div class="content-total-bottom"></div>
     </div>
-    	{literal}	<script type="text/javascript" src="/js/swfobject.js"></script>	<script type="text/javascript">		var flashvars = {};		flashvars.galleryURL = "/scripts/xmlphotos.php";		var params = {};					params.allowfullscreen = false;		params.allowscriptaccess = "always";		params.bgcolor = "FFFFFF";		swfobject.embedSWF("/swf/simpleviewer.swf", "flashContent", "800", "500", "9.0.124", false, flashvars, params);	</script>	{/literal}
+    	{literal}	<script type="text/javascript">		var flashvars = {};		flashvars.galleryURL = "/scripts/xmlphotos.php";		var params = {};					params.allowfullscreen = false;		params.allowscriptaccess = "always";		params.bgcolor = "FFFFFF";		swfobject.embedSWF("/swf/simpleviewer.swf", "flashContent", "800", "500", "9.0.124", false, flashvars, params);	</script>	{/literal}
    
 	<div class="content-total-princ  content-separator">
 		<div class="content-total-top"></div>
