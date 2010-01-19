@@ -61,6 +61,20 @@ class Model_LanJoueur
         return $table->fetchAll($select)->toArray();
     }
 	
+	public function fetchEntriesVillePresents($idLan)
+    {
+        $table = $this->getTable();
+        $select = $table->select()
+						->from(array('lj' => 'lanjoueur'), array(''))
+						->join(array('c' => 'compte'),'c.idCompte=lj.idCompte', array('ville'))
+						->where('idLan = ?', $idLan)
+						->where('present = 1')
+						->distinct('ville')
+						->setIntegrityCheck(false);
+		
+        return $table->fetchAll($select)->toArray();
+    }
+	
 	public function fetchEntriesByLan($idLan)
 	{
         $table = $this->getTable();
@@ -89,6 +103,23 @@ class Model_LanJoueur
         return $table->fetchAll($select)->toArray();
 	}
 	
+	public function fetchEntriesByLanPresentField($idLan, $array)
+	{
+        $table = $this->getTable();
+        $select = $table->select()
+						->from(array('lj' => 'lanjoueur'),array('idLanJoueur', 'validation', 'idLan'))
+						->join(array('c' => 'compte'),'c.idCompte=lj.idCompte', $array)
+						->join(array('ljjt' => 'lanjeuxjoueurteam'),'ljjt.idLanJoueur=lj.idLanJoueur', array(''))
+						->join(array('t' => 'team'),'ljjt.idTeam=t.idTeam', array('nom as nom_t'))
+						->where('idLan = ?', $idLan)
+						->where('present = 1')
+						->distinct()
+						->order('login')
+						->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+	}
+	
 	public function fetchEntriesByLanVilleField($idLan, $ville, $array)
 	{
         $table = $this->getTable();
@@ -99,6 +130,24 @@ class Model_LanJoueur
 						->join(array('t' => 'team'),'ljjt.idTeam=t.idTeam', array('nom as nom_t'))
 						->where('idLan = ?', $idLan)
 						->where('c.ville = ?', $ville)
+						->distinct()
+						->order('login')
+						->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+	}
+	
+	public function fetchEntriesByLanVillePresentsField($idLan, $ville, $array)
+	{
+        $table = $this->getTable();
+        $select = $table->select()
+						->from(array('lj' => 'lanjoueur'),array('idLanJoueur', 'validation', 'idLan'))
+						->join(array('c' => 'compte'),'c.idCompte=lj.idCompte', $array)
+						->join(array('ljjt' => 'lanjeuxjoueurteam'),'ljjt.idLanJoueur=lj.idLanJoueur', array(''))
+						->join(array('t' => 'team'),'ljjt.idTeam=t.idTeam', array('nom as nom_t'))
+						->where('idLan = ?', $idLan)
+						->where('c.ville = ?', $ville)
+						->where('present = 1')
 						->distinct()
 						->order('login')
 						->setIntegrityCheck(false);

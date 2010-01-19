@@ -1,5 +1,7 @@
-{if $map_google==1}{$map->printHeaderJS()}
-{$map->printMapJS()}{/if}
+{if $map_google==1}
+{$map->printHeaderJS()}
+{$map->printMapJS()}
+{/if}
 
 <div id="content-total">
 
@@ -62,8 +64,22 @@
                     <ul>
                     {foreach from=$jeux[$l.idLan] item=j name=jeu}
                         <li>{$j.nom|utf8_encode}</li>
-                    {/foreach}										<li> et bien d'autres ... </li>
-                    </ul>					<br />					<strong><img src="{$base_url}/images/icones/icon-network.png" alt="Mat&eacute;riels" title="Mat&eacute;riels" style="vertical-align:middle" /> &nbsp;Mat&eacute;riels &agrave; ramener par le joueur:</strong> 					<ul>						<li> Ordinateur (Unit&eacute; centrale, &eacute;cran, clavier ...) </li>						<li> Casque obligatoire (les enceintes sont interdites) </li>						<li> C&acirc;ble r&eacute;seaux de 5m minimum </li>						<li> Multi-prise &eacute;lectrique </li>																</ul>					
+                    {/foreach}
+					
+					<li> et bien d'autres ... </li>
+                    </ul>
+					<br />
+					<strong><img src="{$base_url}/images/icones/icon-network.png" alt="Mat&eacute;riels" title="Mat&eacute;riels" style="vertical-align:middle" /> &nbsp;Mat&eacute;riels &agrave; ramener par le joueur:</strong> 
+
+					<ul>
+						<li> Ordinateur (Unit&eacute; centrale, &eacute;cran, clavier ...) </li>
+						<li> Casque obligatoire (les enceintes sont interdites) </li>
+						<li> C&acirc;ble r&eacute;seaux de 5m minimum </li>
+						<li> Multi-prise &eacute;lectrique </li>
+						
+					
+					</ul>
+					
                 </div>
             </div>
             <div class="content-middle-bottom"></div>
@@ -115,11 +131,11 @@
                             <strong><img src="{$base_url}/images/icones/icon-date.png" alt="Date fin" title="Date fin" style="vertical-align:middle" /> &nbsp;Date de fin &nbsp;:</strong>&nbsp; Le {$l.datefin|date_format:"%A %e %B %Y"|capitalize|utf8_encode} &agrave; {$l.datefin|date_format:"%H:%M"}
                             <br /><br />
                             
-                            {if $lan_ouverte.idLan == $l.idLan || $l.datedeb < $smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
+                            {if $lan_ouverte.idLan == $l.idLan}
                                 <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" style="vertical-align:middle" /> &nbsp;<a href="{$base_url}/lan/viewinscrits?id={$l.idLan}">{$chiffre[$l.idLan].insc}</strong> Inscrits</a><br />
                             {/if}
                             {if $l.datedeb < $smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
-                                <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Presents" title="Presents" style="vertical-align:middle" /> &nbsp;{$chiffre[$l.idLan].present}</strong> Pr&eacute;sents<br />
+                                <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Presents" title="Presents" style="vertical-align:middle" /> &nbsp;<a href="{$base_url}/lan/viewpresents?id={$l.idLan}">{$chiffre[$l.idLan].present}</strong> Pr&eacute;sents</a><br />
                             {/if}
                         	<br/>
                         
