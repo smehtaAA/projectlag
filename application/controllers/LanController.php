@@ -17,26 +17,55 @@ class LanController extends Zend_Controller_Action
 		$modelLanJeux = $this->_getModelLanJeux();
 		$modelConfig = $this->_getModelConfig();
 		$request = $this->getRequest();
-		$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description', 'prix', 'prix_prepaiement_paypal', 'prix_prepaiement', 'telethon'));
+		
+		$mode = $request->getParam('m','');
+		
+		$lan_ouverte_date = $model->fetchEntryOuverteDateField(array('idLan'));
 		$lan_ouverte = $model->fetchEntryOuverteField(array('idLan'));
 		$map = null;
 		$map_google = 0;
 		
-		foreach($lans as $lan)
-		{			
-			$chiffre[$lan['idLan']]['insc'] = $model->fetchEntriesCountValide($lan['idLan']);
-			$chiffre[$lan['idLan']]['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
-			if($lan['idLan']==$lan_ouverte['idLan'])
-				$chiffre[$lan['idLan']]['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
-				
-				
-			$key_google = $modelConfig->fetchEntrySetting('key_google');
-			//$key_google = 'ABQIAAAAbaa4Yr0CaJRPmvTyPQokuxRi_j0U6kJrkFvY4-OX2XYmEAa76BQERWqIuqxhrnFGcb39CYpGKaVwqg';
-				
-				
-			$date = new Zend_Date();
+		if ($lan_ouverte_date == -1 || $mode == "histo") {
+			//pointe vers l'affichage de l'ensemble des lans
+			$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description', 'prix', 'prix_prepaiement_paypal', 'prix_prepaiement', 'telethon'));
 			
-			if(false) {
+			foreach($lans as $lan)
+			{			
+				$chiffre[$lan['idLan']]['insc'] = $model->fetchEntriesCountValide($lan['idLan']);
+				$chiffre[$lan['idLan']]['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
+				if($lan['idLan']==$lan_ouverte['idLan'])
+					$chiffre[$lan['idLan']]['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
+					
+				$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLanField($lan['idLan'], array(''), array(''), array('nom'));
+			}
+			
+	
+			
+			
+			$smarty->assign('lan_ouverte', $lan_ouverte);
+			$smarty->assign('lans', $lans);
+			$smarty->assign('chiffre', $chiffre);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('titre', 'Lans');
+			$smarty->assign('base_url', $request->getBaseUrl());
+			
+			$smarty->display('lan/index.tpl');
+			
+			
+		} else {
+			//poite vers la prochaine et unique lan
+			
+			$lan = $model->fetchEntry($lan_ouverte_date);
+
+			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLanField($lan['idLan'], array(''), array(''), array('nom'));
+			
+			$chiffre['insc'] = $model->fetchEntriesCountValide($lan['idLan']);
+			$chiffre['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
+			if($lan['idLan']==$lan_ouverte['idLan'])
+				$chiffre['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
+				
+			if(true) {
+				$key_google = $modelConfig->fetchEntrySetting('key_google');
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
@@ -62,20 +91,22 @@ class LanController extends Zend_Controller_Action
 				$map_google = 1;
 				$smarty->assign('map', $map);
 			}
-			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLanField($lan['idLan'], array(''), array(''), array('nom'));
+				
+				
+			
+			$smarty->assign('lan_ouverte', $lan_ouverte);
+			$smarty->assign('lan', $lan);
+			$smarty->assign('chiffre', $chiffre);
+			$smarty->assign('jeux', $jeux);
+			$smarty->assign('map_google', $map_google);
+			$smarty->assign('titre', 'Lans');
+			$smarty->assign('base_url', $request->getBaseUrl());
+			
+			$smarty->display('lan/index_ouverte.tpl');
+			
 		}
 		
 
-		
-		$smarty->assign('map_google', $map_google);
-		$smarty->assign('lan_ouverte', $lan_ouverte);
-		$smarty->assign('lans', $lans);
-		$smarty->assign('chiffre', $chiffre);
-		$smarty->assign('jeux', $jeux);
-		$smarty->assign('titre', 'Lans');
-		$smarty->assign('base_url', $request->getBaseUrl());
-		
-		$smarty->display('lan/index.tpl');
 	}
 	
     public function indexadminAction() 

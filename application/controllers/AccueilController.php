@@ -54,8 +54,9 @@ class AccueilController extends Zend_Controller_Action
 			for($i=1; $i<=$nb_page; $i++)
 				$pages[$i] = $i;
 				
-			$lan=$modelLan->fetchEntryOuverteField(array('idLan', 'nom', 'adresse', 'cp', 'ville', 'datedeb', 'datefin', 'prix_prepaiement', 'prix'));
-			if($lan!=-1){
+			$lan_ouverte=$modelLan->fetchEntryOuverteField(array('idLan'));
+			$lan=$modelLan->fetchEntryOuverteDateField(array('idLan', 'nom', 'adresse', 'cp', 'ville', 'datedeb', 'datefin', 'prix_prepaiement', 'prix', 'inscription'));
+			if($lan['inscription']==1 && $lan['idLan'] == $lan_ouverte['idLan']){
 				$lan['nb_inscrits'] = $modelLan->fetchEntriesCountValide($lan['idLan']);
 				$lan['nb_preinscrits'] = $modelLan->fetchEntriesCountPreInscrits($lan['idLan']);
 			}
@@ -72,6 +73,7 @@ class AccueilController extends Zend_Controller_Action
 				
 			$smarty->assign('infos', $infos);	
 			$smarty->assign('lan', $lan);
+			$smarty->assign('lan_ouverte', $lan_ouverte);
 			$smarty->assign('partenaire', $partenaire);
 			$smarty->assign('partenaires', $part);
 			$smarty->assign('logos', $partenaires);
