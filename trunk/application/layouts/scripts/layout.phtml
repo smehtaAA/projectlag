@@ -35,7 +35,9 @@
 
         });
         </script>
-		<?php } ?>		
+		<?php } elseif($controllerName=="multimedia") { ?>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/swfobject.js"></script>
+		<?php } ?>
 	</head> 
 	<?php if($controllerName=="lan" && ($actionName=="viewinscrits"||$actionName=="indexjoueur"||$actionName=="index")) { ?>
 	<body onload="onLoad();">
