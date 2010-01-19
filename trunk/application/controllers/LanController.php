@@ -17,7 +17,7 @@ class LanController extends Zend_Controller_Action
 		$modelLanJeux = $this->_getModelLanJeux();
 		$modelConfig = $this->_getModelConfig();
 		$request = $this->getRequest();
-		$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description', 'prix', 'prix_prepaiement_paypal', 'prix_prepaiement'));
+		$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description', 'prix', 'prix_prepaiement_paypal', 'prix_prepaiement', 'telethon'));
 		$lan_ouverte = $model->fetchEntryOuverteField(array('idLan'));
 		$map = null;
 		$map_google = 0;

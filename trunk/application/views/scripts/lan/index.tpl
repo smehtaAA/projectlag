@@ -39,7 +39,14 @@
                    <br />
                     	<table>
                     	<tr>
-                    		<td><strong><img src="{$base_url}/images/icones/icon-euro.png" alt="Prix" title="Prix" style="vertical-align:middle" /> &nbsp;Prix &nbsp;:</strong>&nbsp;</td><td> {$l.prix_prepaiement} &euro; par ch&egrave;que &agrave; l'ordre de l'AFM T&eacute;l&eacute;thon</td>
+                    		<td><strong><img src="{$base_url}/images/icones/icon-euro.png" alt="Prix" title="Prix" style="vertical-align:middle" /> &nbsp;Prix &nbsp;:</strong>&nbsp;</td><td> {$l.prix_prepaiement} &euro; par ch&egrave;que &agrave; l'ordre de 
+                            
+                        {if $l.telethon == 1}
+                        	l'AFM T&eacute;l&eacute;thon
+                        {else}
+                        	la LAG
+                        {/if}
+                        </td>
                     	</tr>
                     	<tr><td></td><td> {$l.prix_prepaiement_paypal} &euro; par PayPal </td></tr>
                     	<tr><td></td><td> {$l.prix} &euro; sur place</td></tr>

@@ -31,7 +31,22 @@
                 <br/>
                 
                 {$lan.extra|utf8_encode}
-                <hr />							<!-- Materiels a ramener -->							<span class="rouge"><h2> Mat&eacute;riels &agrave; ramener par le joueur </h2></span>				<br/>								<ul>					<li> Ordinateur (Unit&eacute; centrale, &eacute;cran, clavier ...) </li>					<li> Casque obligatoire (les enceintes sont interdites) </li>					<li> C&acirc;ble r&eacute;seaux de 5m minimum </li>					<li> Multi-prise &eacute;lectrique </li>				</ul>				Un joueur ne poss&egrave;dant pas ce mat&eacute;riel minimum peut se voir refuser l'acc&eacute; &agrave; la salle.				<br />
+                <hr />
+				
+			<!-- Materiels a ramener -->
+			
+				<span class="rouge"><h2> Mat&eacute;riels &agrave; ramener par le joueur </h2></span>
+				<br/>
+				
+				<ul>
+					<li> Ordinateur (Unit&eacute; centrale, &eacute;cran, clavier ...) </li>
+					<li> Casque obligatoire (les enceintes sont interdites) </li>
+					<li> C&acirc;ble r&eacute;seaux de 5m minimum </li>
+					<li> Multi-prise &eacute;lectrique </li>
+				</ul>
+
+				Un joueur ne poss&egrave;dant pas ce mat&eacute;riel minimum peut se voir refuser l'acc&eacute; &agrave; la salle.
+				<br />
                 <hr />
 			<!-- Informations sur le joueur -->
             <span class="rouge"><h2> Informations sur votre compte </h2></span>
@@ -48,7 +63,7 @@
                 <div class="form-inscription2">
                 	<center>
                     {if $tournoi}
-                        <strong>Tournois Organisés :</strong>
+                        <strong>Tournois Organis&eacute;s :</strong>
                         <ul>
                         {foreach from=$jeux name=jeu item=jeu}
                         
