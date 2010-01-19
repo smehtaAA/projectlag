@@ -88,10 +88,10 @@ class PartenaireController extends Zend_Controller_Action
 					if(!empty($dataform['logo']))
 					{
 						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
-						$thumb = PhpThumbFactory::create('../public/images/partenaires/'.$ancien_nom);
-						$thumb->resize(200, 200)->save('../public/images/partenaires/'.$dataform["logo"]);
-						if(file_exists('../public/images/partenaires/'.$ancien_nom))
-							unlink('../public/images/partenaires/'.$ancien_nom);
+						$thumb = PhpThumbFactory::create('../www/images/partenaires/'.$ancien_nom);
+						$thumb->resize(200, 200)->save('../www/images/partenaires/'.$dataform["logo"]);
+						if(file_exists('../www/images/partenaires/'.$ancien_nom))
+							unlink('../www/images/partenaires/'.$ancien_nom);
 					}
 					
 				return $this->_helper->redirector('indexadmin');

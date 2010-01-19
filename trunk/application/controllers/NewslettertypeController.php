@@ -41,8 +41,7 @@ class NewsletterTypeController extends Zend_Controller_Action
 			
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$dataform = $form->getValues();
-					$model->save($id,$dataform);					
+					$model->save($id,$form->getValues());
 					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
@@ -58,6 +57,7 @@ class NewsletterTypeController extends Zend_Controller_Action
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
+		
 		
 	}
 	

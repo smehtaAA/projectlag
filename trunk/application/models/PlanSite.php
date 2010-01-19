@@ -39,21 +39,8 @@ class Model_PlanSite
     {
         $table = $this->getTable();
         $select = $table->select()->where('idPlansite = ?', $id);
-        if($table->fetchRow($select) != null)
-            return $table->fetchRow($select)->toArray();
-        else
-            return null;
-    }
 
-    public function fetchEntryByTitle($url)
-    {
-        $table = $this->getTable();
-        $select = $table->select()->where('url = ?', $url);
-        
-        if($table->fetchRow($select) != null)
-            return $table->fetchRow($select)->toArray();
-        else
-            return null;
+        return $table->fetchRow($select)->toArray();
     }
 
 	public function delete($id)

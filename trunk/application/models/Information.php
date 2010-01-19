@@ -46,7 +46,7 @@ class Model_Information
 	public function fetchEntriesAccueil()
     {
         $table = $this->getTable();
-        $select = $table->select()->where('affiche = 1')->limit(3);
+        $select = $table->select()->where('affiche = 1')->order('ordre')->limit(3);
 
         return $table->fetchAll($select)->toArray();
     }

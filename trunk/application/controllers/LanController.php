@@ -19,6 +19,8 @@ class LanController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		$lans  = $model->fetchEntriesorderByDateField(array('idLan', 'nom', 'datedeb', 'datefin', 'adresse', 'cp', 'ville', 'extra', 'description', 'prix', 'prix_prepaiement_paypal', 'prix_prepaiement'));
 		$lan_ouverte = $model->fetchEntryOuverteField(array('idLan'));
+		$map = null;
+		$map_google = 0;
 		
 		foreach($lans as $lan)
 		{			
@@ -28,18 +30,20 @@ class LanController extends Zend_Controller_Action
 				$chiffre[$lan['idLan']]['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
 				
 				
-			//$key_google = $modelConfig->fetchEntrySetting('key_google');
-			$key_google = 'ABQIAAAAbaa4Yr0CaJRPmvTyPQokuxRi_j0U6kJrkFvY4-OX2XYmEAa76BQERWqIuqxhrnFGcb39CYpGKaVwqg';
+			$key_google = $modelConfig->fetchEntrySetting('key_google');
+			//$key_google = 'ABQIAAAAbaa4Yr0CaJRPmvTyPQokuxRi_j0U6kJrkFvY4-OX2XYmEAa76BQERWqIuqxhrnFGcb39CYpGKaVwqg';
 				
+				
+			$date = new Zend_Date();
 			
-			if($lan['datedeb']>date('Y-m-y h:i:s')) {
+			if($lan['datedeb']>=$date) {
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
 				$map->setMapType('map');
 				$map->setAPIKey($key_google['valeur']);
 				// fixe les dimensions de la carte
-				$map->setHeight("250");
+				$map->setHeight("444");
 				$map->setWidth("400");
 				// gestion des services
 				$map->DisableTypeControls();
@@ -55,17 +59,19 @@ class LanController extends Zend_Controller_Action
 				$map->addMarkerByAddress($lan['adresse'].' '.$lan['ville'].' '.$lan['cp'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 				// utilisation d'un icone different pour la lan
 				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
+				$map_google = 1;
+				$smarty->assign('map', $map);
 			}
 			$jeux[$lan['idLan']] = $modelLanJeux->fetchEntriesByLanField($lan['idLan'], array(''), array(''), array('nom'));
 		}
 		
 
 		
+		$smarty->assign('map_google', $map_google);
 		$smarty->assign('lan_ouverte', $lan_ouverte);
 		$smarty->assign('lans', $lans);
 		$smarty->assign('chiffre', $chiffre);
 		$smarty->assign('jeux', $jeux);
-		$smarty->assign('map', $map);
 		$smarty->assign('titre', 'Lans');
 		$smarty->assign('base_url', $request->getBaseUrl());
 		
@@ -145,8 +151,8 @@ class LanController extends Zend_Controller_Action
 					$jeuxlibres=0;
 				
 				
-				$key_google = $modelConfig->fetchEntrySetting('key_google');
-				//$key_google = 'ABQIAAAADNrtNEKC87esbJai0XIwcRRi_j0U6kJrkFvY4-OX2XYmEAa76BQZy_oGZ_TMY1xEDUSKVtQEddHTnA';
+				//$key_google = $modelConfig->fetchEntrySetting('key_google');
+				$key_google = 'ABQIAAAAZa-MrYLCTveVxtzzB_ndBhQWCLFO9fZBImejaIh1nL6hobfpIxT475dhQ9njIa4kZ3IA8dcMdQYcig';
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
 				$map = new GoogleMapAPI('map','driving_directions');
@@ -197,9 +203,9 @@ class LanController extends Zend_Controller_Action
 			
 			$lan = $model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville', 'cp'));
 			
-			//key_google = $modelConfig->fetchEntrySetting('key_google');
+			$key_google = $modelConfig->fetchEntrySetting('key_google');
 			
-			$key_google = 'ABQIAAAAbaa4Yr0CaJRPmvTyPQokuxRDhYTaHn_Vp0BC9wWY8yz-he3QcRRezsmIaqc3J92gSQrbOfVH_NsVrA';
+			//$key_google = 'ABQIAAAAbaa4Yr0CaJRPmvTyPQokuxRDhYTaHn_Vp0BC9wWY8yz-he3QcRRezsmIaqc3J92gSQrbOfVH_NsVrA';
 			
 			// API Google Map
 			require('../library/My/GoogleMapAPI.class.php');
@@ -217,8 +223,8 @@ class LanController extends Zend_Controller_Action
 			// definition du zoom
 			$map->setZoomLevel(8);
 			
-			$villes = $modelLanJoueur->fetchEntriesVille($id);
 			
+			$villes = $modelLanJoueur->fetchEntriesVille($id);
 			foreach($villes as $v) {
 				$joueurs = $modelLanJoueur->fetchEntriesByLanVilleField($id, $v['ville'], array('idCompte', 'login', 'cp', 'ville', 'img'));
 				
@@ -247,7 +253,6 @@ class LanController extends Zend_Controller_Action
 			$map->addMarkerByAddress($lan['adresse'].' '.$lan['ville'].' '.$lan['cp'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 			// utilisation d'un icone different pour la lan
 			$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
-
 
 			$date = new Zend_Date();
 		

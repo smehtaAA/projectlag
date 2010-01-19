@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<simpleviewergallery
+	
+	galleryStyle="MODERN"
+	title=""
+	textColor="FFFFFF"
+	frameColor="CCCCCC"
+	frameWidth="10"
+	thumbPosition="LEFT"
+	thumbColumns="3"
+	thumbRows="4"
+	showOpenButton="FALSE"
+	showFullscreenButton="FALSE"	
+	maxImageWidth="400"
+	maxImageHeight="400"
+	useFlickr="false"
+	flickrUserName=""
+	flickrTags=""
+	languageCode="AUTO"
+	languageList=""		
+	imagePath="/images/photos/"
+	thumbPath="/images/photos/thumbs/"
+	
+>
+
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="http://www.simpleviewer.net" linkTarget="_blank" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/wide.jpg" thumbURL="/images/photos/thumbs/wide.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+<image imageURL="/images/photos/tall.jpg" thumbURL="/images/photos/thumbs/tall.jpg" linkURL="" linkTarget="" >
+	<caption></caption>	
+</image>
+</simpleviewergallery>

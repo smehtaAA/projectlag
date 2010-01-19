@@ -126,11 +126,11 @@ class CompteController extends Zend_Controller_Action
 						if(!empty($dataform['img']))
 						{
 							require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
-							$thumb = PhpThumbFactory::create('../public/images/comptes/tmp/'.$ancien_nom);
-							$thumb->resize(100, 100)->save('../public/images/comptes/'.$dataform["img"]);
-							$thumb->resize(25, 25)->save('../public/images/comptes/thumb/'.$dataform["img"]);
-							if(file_exists('../public/images/comptes/tmp/'.$ancien_nom))
-								unlink('../public/images/comptes/tmp/'.$ancien_nom);
+							$thumb = PhpThumbFactory::create('../www/images/comptes/tmp/'.$ancien_nom);
+							$thumb->resize(100, 100)->save('../www/images/comptes/'.$dataform["img"]);
+							$thumb->resize(25, 25)->save('../www/images/comptes/thumb/'.$dataform["img"]);
+							if(file_exists('../www/images/comptes/tmp/'.$ancien_nom))
+								unlink('../www/images/comptes/tmp/'.$ancien_nom);
 						}
 						
 						return $this->_redirect($this->redirection);
