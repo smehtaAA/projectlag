@@ -77,6 +77,11 @@ class Form_Lan extends Zend_Form
             'RegisterInArrayValidator' => false
         ));
 		
+		$this->addElement('text', 'prix_prepaiement_paypal', array(
+            'label'      => 'Montant du prepaiement PayPal: ',
+            'RegisterInArrayValidator' => false
+        ));
+		
 		$this->addElement('text', 'nbmaxpers', array(
             'label'      => 'Nombre de Personnes Max : ',
             'RegisterInArrayValidator' => false,
