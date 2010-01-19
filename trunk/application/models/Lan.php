@@ -46,7 +46,7 @@ class Model_Lan
 	public function fetchEntriesorderByDateField($array)
     {
         $table = $this->getTable();
-        $select = $table->select()->from('lan', $array)->order('datedeb DESC');
+        $select = $table->select()->from('lan', $array)->where('datedeb < NOW()')->order('datedeb DESC');
 
         return $table->fetchAll($select)->toArray();
     }
@@ -71,6 +71,19 @@ class Model_Lan
     {
         $table = $this->getTable();
         $select = $table->select()->where('inscription = true');
+		
+		$temp = $table->fetchRow($select);
+
+		if(isset($temp))
+        	return $temp->toArray();
+		else
+			return -1;
+    }
+	
+	public function fetchEntryOuverteDateField($array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('lan', $array)->where('datedeb > NOW()');
 		
 		$temp = $table->fetchRow($select);
 

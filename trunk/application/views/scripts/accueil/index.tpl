@@ -148,6 +148,7 @@ $(document).ready(function() {
                     <tr>
                     	<td colspan="4" height="20"></td>
                     </tr>
+                    {if $lan_ouverte != -1}
                     <tr>
                     	<td><img src="{$base_url}/images/icones/icon-user.png" alt="Pre-inscrits" title="Pre-inscrits" /> </td>
                     	<td colspan="3"><a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}"><strong>{$lan.nb_preinscrits}</strong> Pr&eacute;-inscrits</a></td>
@@ -156,6 +157,7 @@ $(document).ready(function() {
                     	<td><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" /> </td>
                     	<td colspan="3"><a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}"><strong>{$lan.nb_inscrits}</strong> Inscrits</a></td>
                     </tr>
+                    {/if}
                 </table>
                 <br /><br />
                 <a href="{$base_url}/lan/"><span class="rouge"><em>Plus d'informations...</em></span></a>
