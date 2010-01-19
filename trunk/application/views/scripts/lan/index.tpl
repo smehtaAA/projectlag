@@ -41,7 +41,7 @@
                     	<tr>
                     		<td><strong><img src="{$base_url}/images/icones/icon-euro.png" alt="Prix" title="Prix" style="vertical-align:middle" /> &nbsp;Prix &nbsp;:</strong>&nbsp;</td><td> {$l.prix_prepaiement} &euro; par ch&egrave;que &agrave; l'ordre de l'AFM T&eacute;l&eacute;thon</td>
                     	</tr>
-                    	<tr><td></td><td> {$l.prix_prepaiement_paypal} &euro; par PayPal (prise en compte d'une compensation du fee)</td></tr>
+                    	<tr><td></td><td> {$l.prix_prepaiement_paypal} &euro; par PayPal </td></tr>
                     	<tr><td></td><td> {$l.prix} &euro; sur place</td></tr>
                     </table>
                     
