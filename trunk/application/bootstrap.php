@@ -11,6 +11,13 @@ require_once(APPLICATION_PATH . '/sessions/SessionLAG.php');
 
 Zend_Session::start();
 
+/*$defaultNamespace = new Zend_Session_Namespace();
+
+if (!isset($defaultNamespace->initialized)) {
+    Zend_Session::regenerateId();
+    $defaultNamespace->initialized = true;
+}*/
+
 $language_code = 'fr_FR';
 setlocale (LC_ALL, $language_code,'fra');
 setlocale(LC_TIME, $language_code,'fra');
@@ -20,6 +27,8 @@ Zend_Registry::set('view', $view);
 
 $locale = new Zend_Locale('fr_FR');
 Zend_Registry::set('Zend_Locale', $locale);
+
+
 
 $frontController = Zend_Controller_Front::getInstance();
 $frontController->setParam('noViewRenderer', true);
@@ -76,27 +85,8 @@ try {
 
 Zend_Db_Table_Abstract::setDefaultAdapter($dbAdapter);
 
-var_dump($frontController->getRequest());
 $registry = Zend_Registry::getInstance();
 $registry->configuration = $configuration;
-$registry->dbAdapter     = $dbAdapter;
-
-//Mise à jour de la date de connexion de l'utilisateur
-if(isset($defaultNamespace->userid)) {
-    require_once APPLICATION_PATH . '/models/Compte.php';
-    $modelCompte = new Model_Compte();
-	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));
-}
-
-//Récupération des configurations de la page courante
-$frontController->dispatch();
-require_once APPLICATION_PATH . '/models/PlanSite.php';
-$modelPlansite = new Model_PlanSite();
-var_dump($frontController->getBaseUrl());
-
-//$current_url = $frontController->getRequest()->getControllerName()."/".$frontController->getRequest()->getActionName()."?".$frontController->getRequest()->getParams();
-//var_dump($current_url);
-//$modelPlansite->fetchEntryByTitle($current_url);
-
-
+$registry->dbAdapter     = $dbAdapter;require_once APPLICATION_PATH . '/models/Compte.php';$modelCompte = new Model_Compte();if(isset($defaultNamespace->userid)) {	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));}
 unset($frontController, $view, $configuration, $dbAdapter, $registry);
+
