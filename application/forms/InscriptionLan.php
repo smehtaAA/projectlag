@@ -34,7 +34,7 @@ class Form_InscriptionLan extends My_InscriptionLan
 		            array('Label', array('tag' => 'dt', 'class'=>'cacheme default_display_none')),
 		));
 		
-		$this->addElement('multicheckbox', 'jeux', array(
+		$this->addElement('multiCheckbox', 'jeux', array(
             'label'      => 'Jeux : ',
 			'class'    => 'check',
             'required'   => true

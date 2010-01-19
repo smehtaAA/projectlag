@@ -16,8 +16,7 @@ class Form_Message extends Zend_Form
 		
 		if ($log->_getTypeConnected('superadmin') && $modeform=='modif') {
 			$this->addElement('textarea', 'annotation_edition', array(
-				'label'      => 'Annotation : ',
-				'required'   => true
+				'label'      => 'Annotation : '
 			));
 		}
 

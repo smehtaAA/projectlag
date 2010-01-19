@@ -18,7 +18,7 @@
                     	<th width="70">Age</th>
                         <th width="300">Localit&eacute;</th>
                         <th width="130">Team</th>
-                        <th>Pay&eacute;</th>
+                        <th>Actif</th>
                     </tr>
                     
                     {foreach from=$joueurs item=j name=joueur}

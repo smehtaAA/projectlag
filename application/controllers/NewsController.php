@@ -146,13 +146,13 @@ class NewsController extends Zend_Controller_Action
 					if(!empty($dataform['img']))
 					{
 						require_once '../library/My/PhpThumb/ThumbLib.inc.php'; 
-						$thumb = PhpThumbFactory::create('../public/images/news/'.$ancien_nom);
+						$thumb = PhpThumbFactory::create('../www/images/news/'.$ancien_nom);
 						if ($dataform['idPartenaire']!=0)
-							$thumb->resize(300, 300)->save('../public/images/news/'.$dataform["img"]);
+							$thumb->resize(300, 300)->save('../www/images/news/'.$dataform["img"]);
 						else
-							$thumb->resize(140, 140)->save('../public/images/news/'.$dataform["img"]);
-						if(file_exists('../public/images/news/'.$ancien_nom))
-							unlink('../public/images/news/'.$ancien_nom);
+							$thumb->resize(140, 140)->save('../www/images/news/'.$dataform["img"]);
+						if(file_exists('../www/images/news/'.$ancien_nom))
+							unlink('../www/images/news/'.$ancien_nom);
 					}
 					
 					if(!empty($dataform['idPartenaire']))

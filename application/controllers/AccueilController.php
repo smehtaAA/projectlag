@@ -48,13 +48,13 @@ class AccueilController extends Zend_Controller_Action
 			
 			// Récupération du nombre de ligne pour la page voulue
 			$news = $modelNews->fetchEntriesLimitPage($page,$nb_max_news_page);
-			$newsp = $modelNews->fetchEntriesPartenaireLimitPage(1,3);
+			$newsp = $modelNews->fetchEntriesPartenaireLimitPage(1,2);
 			$pages = null;
 			
 			for($i=1; $i<=$nb_page; $i++)
 				$pages[$i] = $i;
 				
-			$lan=$modelLan->fetchEntryOuverteField(array('idLan', 'nom', 'adresse', 'cp', 'ville', 'datedeb', 'datefin'));
+			$lan=$modelLan->fetchEntryOuverteField(array('idLan', 'nom', 'adresse', 'cp', 'ville', 'datedeb', 'datefin', 'prix_prepaiement', 'prix'));
 			if($lan!=-1){
 				$lan['nb_inscrits'] = $modelLan->fetchEntriesCountValide($lan['idLan']);
 				$lan['nb_preinscrits'] = $modelLan->fetchEntriesCountPreInscrits($lan['idLan']);

@@ -16,41 +16,50 @@ class InscriptionController extends Zend_Controller_Action
 	
 	public function indexAction()
 	{
-		$smarty = Zend_Registry::get('view');
-		
-		$modelLan = $this->_getModelLan();
-		$modelLanJoueur = $this->_getModelLanJoueur();
-		$request = $this->getRequest();
-		$deja_inscrit=false;
-		$lan = $modelLan->fetchEntryOuverte();
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('joueur')) {
-			$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
+			$smarty = Zend_Registry::get('view');
+		
+			$modelLan = $this->_getModelLan();
+			$modelLanJoueur = $this->_getModelLanJoueur();
+			$request = $this->getRequest();
+			$deja_inscrit=false;
+			$lan = $modelLan->fetchEntryOuverte();
 			
-			foreach($lans as $l) {
-				if($l['idLan'] == $lan['idLan'])
-					$deja_inscrit=true;
+			if($log->_getTypeConnected('joueur')) {
+				$lans = $modelLanJoueur->fetchEntriesByJoueur($log->_getUser());
+				
+				foreach($lans as $l) {
+					if($l['idLan'] == $lan['idLan'])
+						$deja_inscrit=true;
+				}
 			}
+			if($lan==-1) {
+				$smarty->assign('titre', 'Aucune Inscription n\'est actuellement ouverte');
+				$smarty->assign('ouverte', false);
+			} elseif($deja_inscrit){
+				$smarty->assign('titre', 'Vous &ecirc;tes d&eacute;j&agrave; inscrit pour cette lan');
+				$smarty->assign('ouverte', false);
+			} else{
+				$modelCharte=$this->_getModelCharte();
+				
+				$charte = $modelCharte->fetchEntryAsso();
+				$articles = $modelCharte->fetchArticlesAsso();
+				$smarty->assign('ouverte', true);
+				$smarty->assign('articles', $articles);
+				$smarty->assign('url_valide', $request->getBaseUrl().'/inscription/inscription');
+				$smarty->assign('url_nonvalide', $request->getBaseUrl());
+				
+				$smarty->assign('titre', 'Inscription pour la lan '.$lan['nom']);
+			}
+			$smarty->display('inscription/index.tpl');
+		
+		} else {
+			if(!$log->_getTypeConnected('admin') && !$log->_getTypeConnected('superadmin'))
+				return $this->_redirect('/inscription/inscriptionmembre');
+			else
+				return $this->_redirect('/accueil/index');
 		}
-		if($lan==-1) {
-			$smarty->assign('titre', 'Aucune Inscription n\'est actuellement ouverte');
-			$smarty->assign('ouverte', false);
-		} elseif($deja_inscrit){
-			$smarty->assign('titre', 'Vous &ecirc;tes d&eacute;j&agrave; inscrit pour cette lan');
-			$smarty->assign('ouverte', false);
-		} else{
-			$modelCharte=$this->_getModelCharte();
-			
-			$charte = $modelCharte->fetchEntryAsso();
-			$articles = $modelCharte->fetchArticlesAsso();
-			$smarty->assign('ouverte', true);
-			$smarty->assign('articles', $articles);
-			$smarty->assign('url_valide', $request->getBaseUrl().'/inscription/inscription');
-			$smarty->assign('url_nonvalide', $request->getBaseUrl());
-			
-			$smarty->assign('titre', 'Inscription pour la lan '.$lan['nom']);
-		}
-		$smarty->display('inscription/index.tpl');
 	}
 	
 	public function inscriptionAction()
@@ -282,7 +291,7 @@ class InscriptionController extends Zend_Controller_Action
 				
 		
 		$smarty->assign('login_existant', $login_existant);	
-		$smarty->assign('titre', 'Inscription sur le site la LAG);
+		$smarty->assign('titre', 'Inscription sur le site de la LAG');
 		$smarty->assign('form', $form);
 		$smarty->display('inscription/inscriptionMembre.tpl');
 	}

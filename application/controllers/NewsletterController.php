@@ -50,6 +50,7 @@ class NewsletterController extends Zend_Controller_Action
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					$dataform = $form->getValues();
+					$dataform['idAdmin'] = $log->_getUser();
 					$model->save($id,$dataform);
 					
 					if(!empty($dataform['img'])) {

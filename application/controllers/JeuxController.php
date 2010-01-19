@@ -66,7 +66,7 @@ class JeuxController extends Zend_Controller_Action
 					$dataform['datesortie'] = substr($datesortie, 6, 4)."-".substr($datesortie, 3, 2)."-".substr($datesortie, 0, 2)." 00:00:00";
 					if(!empty($dataform["creer_type"]))
 						$dataform["type"] = $dataform["creer_type"];
-					unset($dataform["creer_type"]);
+					unset($dataform["creer_type"]);															$dataform["type"] = utf8_decode($dataform["type"]);					$dataform["titre"] = utf8_decode($dataform["titre"]);					
 					$model->save($id,$dataform);
 					return $this->_helper->redirector('indexadmin');
 				}
@@ -74,7 +74,7 @@ class JeuxController extends Zend_Controller_Action
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
 					$date = new Zend_Date($data['datesortie']);
-					$data['datesortie'] = $date->toString('dd/MM/Y');
+					$data['datesortie'] = $date->toString('dd/MM/Y');										$dataform["type"] = utf8_encode($dataform["type"]);					$dataform["titre"] = utf8_encode($dataform["titre"]);
 					$form->populate($data);
 				}
 			}
