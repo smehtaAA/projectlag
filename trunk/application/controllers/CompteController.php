@@ -6,6 +6,7 @@ class CompteController extends Zend_Controller_Action
 	protected $_model;
 	protected $_modelNewslettermail;
 	protected $_modelNewslettermailtype;
+        protected $_modelLanJoueur;
 	
 	public function indexAction()
 	{
@@ -115,7 +116,7 @@ class CompteController extends Zend_Controller_Action
 						$model->save($id,$dataform);
 						
 						
-						// Ajout du mail dans la table Newsletter si il n'est pas déjà présent dedans
+						// Ajout du mail dans la table Newsletter si il n'est pas dï¿½jï¿½ prï¿½sent dedans
 						$record = $modelNewsletterMail->fetchEntryByMail($dataform['email']);
 						if($record==-1) {
 							$ancien_mail = $modelNewsletterMail->fetchEntryByMail($save['email']);
@@ -195,6 +196,45 @@ class CompteController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
     }
+
+    public function viewinscriptionsAction()
+    {
+        $log = new SessionLAG();
+        $smarty  = Zend_Registry::get('view');
+	if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$log->_getTypeConnected('joueur')) {
+           $id = $log->_getUser();
+            $model = $this->_getModel();
+            $request = $this->getRequest();
+            //$modelLanJoueur = $this->_getModelNewsletterMail();
+            $modelLanJoueur = $this->_getModelLanJoueur();
+
+            //$lans = $$modelLanJoueur->fetchEntriesByJoueur($id, array('idLan', 'nom', 'datedeb', 'datefin'));
+
+            //$smarty->assign('lans', $lans);
+
+
+           $smarty->assign('base_url', $request->getBaseUrl());
+           $smarty->display('compte/viewinscriptions.tpl');
+        }
+
+
+    }
+
+    public function delavatarAction()
+    {
+        $log = new SessionLAG();
+	if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$log->_getTypeConnected('joueur')) {
+            $id = $log->_getUser();
+            $model = $this->_getModel();
+            $compte = $model->fetchEntry($id);
+            $compte['img'] = "no_logo.png";
+            $model->save($id, $compte);
+
+        }
+
+        return $this->_helper->redirector('form', 'compte');
+
+    }
     
 	
 	protected function _getModel()
@@ -204,6 +244,15 @@ class CompteController extends Zend_Controller_Action
             $this->_model = new Model_Compte();
         }
         return $this->_model;
+    }
+
+    protected function _getModelLanJoueur()
+    {
+        if (null === $this->_modelLanJoueur) {
+            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            $this->_modelLanJoueur = new Model_LanJoueur();
+        }
+        return $this->_modelLanJoueur;
     }
 	
     protected function _getModelNewsletterMail()

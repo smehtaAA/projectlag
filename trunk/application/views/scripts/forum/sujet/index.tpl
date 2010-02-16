@@ -57,12 +57,14 @@
                   {foreach from=$messages item=m name=message}
                     <tr>
                         <td rowspan="3" width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">
-                            <span class="rouge bold" style="font-size:13px;">{$comptes[$m.idCompte].login|utf8_encode}</span><br/>
+                            <a href="{$base_url}/forum/fiche?id={$comptes[$m.idCompte].idCompte}"><span class="rouge bold" style="font-size:13px;">{$comptes[$m.idCompte].login|utf8_encode}</span></a><br/>
+                            <a href="{$base_url}/forum/fiche?id={$comptes[$m.idCompte].idCompte}">
                             {if $comptes[$m.idCompte].img != ""}
                                 <img src="{$base_url}/images/comptes/{$comptes[$m.idCompte].img}" alt="{$comptes[$m.idCompte].login|utf8_encode}" title="{$comptes[$m.idCompte].login|utf8_encode}" style="margin-top:8px;margin-bottom:8px;"/>
                             {else}
                                 <img src="{$base_url}/images/comptes/no_logo.png" style="margin-top:8px;margin-bottom:8px;"/>
                             {/if}
+                            </a>
                             <br/>
                             {if $comptes[$m.idCompte].nom_f == 'superadmin'}
                                 <strong>God Master</strong>

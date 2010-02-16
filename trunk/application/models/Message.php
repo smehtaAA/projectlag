@@ -92,6 +92,24 @@ class Model_Message
 		else
 			return -1;
     }
+    
+    public function fetchEntryLastByCompte($id)
+    {
+		$table = $this->getTable();
+		$select = $table->select()->from('message', array('date_m', 'description'))
+									->join('sujet', 'sujet.idSujet=message.idSujet', array('idSujet', 'titre'))
+									->join('souscategorie', 'sujet.idSousCategorie=souscategorie.idSousCategorie')
+									->where('message.idCompte = ?', $id)
+									->where('admin=0')
+									->order('message.date_m DESC')->limit(1)
+									->setIntegrityCheck(false);
+
+		$table = $table->fetchRow($select);
+		if(!empty($table))
+			return $table->toArray();
+		else
+			return -1;
+    }
 	
     public function fetchEntry($id)
     {

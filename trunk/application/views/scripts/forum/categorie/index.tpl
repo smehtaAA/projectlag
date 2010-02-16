@@ -62,7 +62,7 @@
                             	<em>Aucun Message</em>
                             {else}
                                 <span class="rouge"><strong><a href="{$base_url}/sujet?id={$last_messages[$sc.idSousCategorie].idSujet}">{$last_messages[$sc.idSousCategorie].titre|utf8_encode}</a></strong></span><br/>
-                                <span class="font-min">par <span class="rouge">{$last_messages[$sc.idSousCategorie].login}</span> | {$last_messages[$sc.idSousCategorie].date_m|date_format:"%d/%m/%Y %H:%M"}</span>
+                                <span class="font-min">par <a href="{$base_url}/forum/fiche?id={$last_messages[$sc.idSousCategorie].idCompte}"> <span class="rouge">{$last_messages[$sc.idSousCategorie].login}</span> </a> | {$last_messages[$sc.idSousCategorie].date_m|date_format:"%d/%m/%Y %H:%M"}</span>
                             {/if}
                         </td>
                     </tr>
@@ -84,7 +84,7 @@
                 <div class="content-total-text">
                 	<ul>
                 		<li>Nb total d'utilisateurs: <span class="rouge">{$stats.nb}</span></li>
-                    	<li>Dernier inscrit: <span class="rouge italic">{$stats.last.login|utf8_encode}</span></li>
+                    	<li>Dernier inscrit: <a href="{$base_url}/forum/fiche?id={$stats.last.idCompte}"><span class="rouge italic">{$stats.last.login|utf8_encode}</span></a></li>
                 		<li>Nb total de messages: <strong>{$stats.nb_messages}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sujets: <strong>{$stats.nb_sujets}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de cat&eacute;gories: <strong>{$stats.nb_cat}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sous-cat&eacute;gories: <strong>{$stats.nb_sscat}</strong></li>
                 	</ul>
                 </div>

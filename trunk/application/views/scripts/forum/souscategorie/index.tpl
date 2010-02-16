@@ -62,7 +62,7 @@
                             	<em>Aucun Message </em>
                             {else}
                                 <span class="font-min">{$last_messages[$s.idSujet].date_m|date_format:"%d/%m/%Y à %H:%M"|utf8_encode} 
-                                par <span class="rouge">{$last_messages[$s.idSujet].login}</span></span>
+                                par <a href="{$base_url}/forum/fiche?id={$last_messages[$s.idSujet].idCompte}"> <span class="rouge">{$last_messages[$s.idSujet].login}</span></a></span>
                             {/if}
                         </td>
                     </tr>

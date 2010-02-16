@@ -77,7 +77,7 @@ class ForumController extends Zend_Controller_Action
 			// Recuperation Stats Forum
 			$stats['nb'] = $modelCompte->countEntriesActif();
 			$stats['last'] = $modelCompte->fetchEntryLast();
-			$stats['log'] = $modelCompte->fetchEntriesLogField(time()-900, array('login'));
+			$stats['log'] = $modelCompte->fetchEntriesLogField(time()-900, array('idCompte', 'login'));
 			
 			$smarty->assign('lecture', $lecture);
 			$smarty->assign('sscat', $sscat);
@@ -109,6 +109,36 @@ class ForumController extends Zend_Controller_Action
 			$smarty->assign('message', 'Erreur Connexion');
 			$smarty->display('error/errorconnexion.tpl');
 		}  
+    }
+    
+    public function ficheAction()
+    {
+    	$smarty = Zend_Registry::get('view');
+    	$request = $this->getRequest();
+    	$id = $request->getParam('id',0);
+    	
+    	if($id>0) {
+    		
+    		$modelCompte = $this->_getModelCompte();
+    		$modelMessage = $this->_getModelMessage();
+    		
+    		$datas = $modelCompte->fetchEntryField($id, array('idCompte', 'login', 'img', 'nom', 'prenom', 'ville', 'site', 'citationpreferee', 'description'));
+    		
+    		$nb = $modelMessage->countEntriesByCompte($id);
+    		$last = $modelMessage->fetchEntryLastByCompte($id);
+    		
+    		$smarty->assign('nb', $nb);
+    		$smarty->assign('last', $last);
+    		$smarty->assign('base_url',$request->getBaseUrl());
+    		$smarty->assign('datas', $datas);
+    		$smarty->display('forum/fiche.tpl');
+    		
+    	} else{
+			return $this->_helper->redirector('index', 'forum');
+		}
+    	
+    	
+    	
     }
 	
 	protected function _getModelCategorie() {
