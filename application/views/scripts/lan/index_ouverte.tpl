@@ -12,7 +12,9 @@
             <div class="content-title-middle content-title-middle-total"><h3>Historique</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-            	<a href="?m=histo">Voir l'historique des Lans</a>
+            	<ul>
+            		<li><a href="?m=histo">Voir l'historique des Lans</a></li>
+            	</ul>
             </div>
         </div>
         <div class="content-total-bottom"></div>

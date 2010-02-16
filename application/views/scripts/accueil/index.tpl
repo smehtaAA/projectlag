@@ -65,21 +65,7 @@ $(document).ready(function() {
     <div class="content-left-bottom"></div>
 </div>
 
-<div class="content-princ content-separator">
-	<div class="content-left-top"></div>
-	<div class="content-left-middle">
-		<div class="content-title-left"></div>
-		<div class="content-title-middle content-title-middle-left"><h2>Vid&eacute;os Lan T&eacute;l&eacute;thon</h2></div>
-		<div class="content-title-right"></div>
-		<div class="content-left-text">
-			<!--
-			<center><object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/CtT8PFi7Moo&hl=fr_FR&fs=1&color1=0x5d1719&color2=0xcd311b"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/CtT8PFi7Moo&hl=fr_FR&fs=1&color1=0x5d1719&color2=0xcd311b" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object></center>
-			-->
-			<center><embed type="application/x-mplayer2" showcontrols="0" height="200" width="300" src="http://www.asso-lag.fr/videos/Telethon_Lan_2005_by_GNL.wmv" /></center>
-		</div>
-	</div>
-	<div class="content-left-bottom"></div>
-</div>
+
 
 
 {foreach from=$news item=new name=new}
@@ -191,6 +177,22 @@ $(document).ready(function() {
         </div>
         <div class="content-right-bottom"></div>
     </div>
+    
+    
+    <div class="content-right-princ content-separator">
+	<div class="content-right-top"></div>
+	<div class="content-right-middle">
+		<div class="content-title-left"></div>
+		<div class="content-title-middle content-title-middle-right"><h2>Vid&eacute;os Lan T&eacute;l&eacute;thon</h2></div>
+		<div class="content-title-right"></div>
+		<div class="content-right-text">
+			
+			<center><object width="220" height="200"><param name="movie" value="http://www.dailymotion.com/swf/xc92a4"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed src="http://www.dailymotion.com/swf/xc92a4" width="220" height="200" allowfullscreen="true" allowscriptaccess="always"></embed></object></center>
+			
+		</div>
+	</div>
+	<div class="content-right-bottom"></div>
+</div>
     
     <div class="content-right-princ content-separator">
         <div class="content-right-top"></div>
