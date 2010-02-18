@@ -42,7 +42,7 @@
   	<td>{$smarty.foreach.foo.index+1} - </td>
     <td>{$i.titre|utf8_encode}</td>
     <td>{$i.type|utf8_encode}</td>
-    <td><a href="http://{$i.lien}" target="_blank">{$i.lien}</a></td>
+    <td><a href="http://{$i.lien}" target="_blank">Voir le site</a></td>
     <td align="center"><a href="{$urlphoto}{$i.img}" target="_blank">ici</a></td>
         <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}

@@ -71,7 +71,7 @@
     {foreach from=$comptes[$s.idStaff] item=c name=compte}
     	<tr>
         	<td>{$smarty.foreach.s.index+1}.{$smarty.foreach.compte.index+1}</td>
-        	<td colspan="2" align="center">{$c.nom} - {$c.prenom}</td>
+        	<td colspan="2" align="center">{$c.nom|utf8_encode} - {$c.prenom|utf8_encode}</td>
             <td></td>
             <td></td>
             <td></td>
