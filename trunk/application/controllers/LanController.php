@@ -63,8 +63,11 @@ class LanController extends Zend_Controller_Action
 			$chiffre['present'] = $model->fetchEntriesCountPresent($lan['idLan']);
 			if($lan['idLan']==$lan_ouverte['idLan'])
 				$chiffre['pre_inscrit'] = $model->fetchEntriesCountPreInscrits($lan['idLan']);
-				
-			if(false) {
+
+
+
+			if($lan['datedeb']< date('YYYY-MM-DD')) {
+                            try {
 				$key_google = $modelConfig->fetchEntrySetting('key_google');
 				// API Google Map
 				require('../library/My/GoogleMapAPI.class.php');
@@ -72,7 +75,7 @@ class LanController extends Zend_Controller_Action
 				$map->setMapType('map');
 				$map->setAPIKey($key_google['valeur']);
 				// fixe les dimensions de la carte
-				$map->setHeight("444");
+				$map->setHeight("350");
 				$map->setWidth("400");
 				// gestion des services
 				$map->DisableTypeControls();
@@ -88,8 +91,16 @@ class LanController extends Zend_Controller_Action
 				$map->addMarkerByAddress($lan['adresse'].'-'.$lan['ville'].'-'.$lan['cp'], $lan['nom'], "<span class='rouge'><strong>$lan[nom]</strong></span><br/>$lan[adresse]<br/>$lan[ville] ($lan[cp])", $lan['nom']);
 				// utilisation d'un icone different pour la lan
 				$map->addMarkerIcon($request->getBaseUrl().'/images/admin/computer_gmap.png',$request->getBaseUrl().'/images/admin/computer_gmap.png',0,0,10,10);
-				$map_google = 1;
-				$smarty->assign('map', $map);
+                                $smarty->assign('map', $map);
+                                $map_google = 1;
+
+
+                            } catch(Exception $e) {
+				$map_google = 2;
+                                $map_error = "Probleme Map Google";
+                                $smarty->assign('map_error', $map_error);
+
+                            }
 			}
 				
 				
@@ -173,7 +184,7 @@ class LanController extends Zend_Controller_Action
 				
 				$lan=$model->fetchEntryField($id,array('idLan', 'nom', 'adresse', 'ville', 'cp', 'adresse'));
 				$joueur = $modelCompte->fetchEntryField($log->_getUser(),array('ville', 'cp'));
-				// recuperation des jeus où le joueur s'est inscrit
+				// recuperation des jeus oï¿½ le joueur s'est inscrit
 				$jeux = $modelLanJeuxJoueurTeam->fetchEntriesJeuxByLan($id, $log->_getUser());
 				$jeux_libres = $modelLanJeuxJoueurTeam->fetchEntriesJeuxLibresByLanJoueur($id, $log->_getUser());
 				if(sizeof($jeux_libres)>0)
@@ -254,7 +265,7 @@ class LanController extends Zend_Controller_Action
 			// definition du zoom
 			$map->setZoomLevel(8);
 			
-			if (false ) {
+			if (true ) {
 			$villes = $modelLanJoueur->fetchEntriesVille($id);
 			foreach($villes as $v) {
 				$joueurs = $modelLanJoueur->fetchEntriesByLanVilleField($id, $v['ville'], array('idCompte', 'login', 'cp', 'ville', 'img'));
@@ -266,13 +277,13 @@ class LanController extends Zend_Controller_Action
 					}
 					// ajout d'un marqueur joueur sur la carte
 					$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], "Joueurs", "<span class='rouge'><strong>$j[ville] ($j[cp])</strong></span><br/>$logins", "Joueurs de $j[ville]");
-					// met cet icone pour le dernier marqueur posé
+					// met cet icone pour le dernier marqueur posï¿½
 					$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/no_logo.png',$request->getBaseUrl().'/images/comptes/thumb/no_logo.png',0,0,10,10);
 						
 				} else {
 					// ajout d'un marqueur joueur sur la carte
 					$map->addMarkerByAddress( $joueurs[0]['ville'].' '.$joueurs[0]['cp'], $joueurs[0]['login'], "<span class='rouge'><strong>".$joueurs[0]['login']."</strong></span><br/>".$joueurs[0]['ville']." (".$joueurs[0]['cp'].")", $joueurs[0]['login']);
-					// met cet icone pour le dernier marqueur posé
+					// met cet icone pour le dernier marqueur posï¿½
 					$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/'.$joueurs[0]['img'],$request->getBaseUrl().'/images/comptes/thumb/'.$joueurs[0]['img'],0,0,10,10);
 				}
 			
@@ -337,7 +348,7 @@ class LanController extends Zend_Controller_Action
 				// definition du zoom
 				$map->setZoomLevel(8);
 				
-			if (false ) {	
+			if (true ) {
 				$villes = $modelLanJoueur->fetchEntriesVillePresents($id);
 				foreach($villes as $v) {
 					$joueurs = $modelLanJoueur->fetchEntriesByLanVillePresentsField($id, $v['ville'], array('idCompte', 'login', 'cp', 'ville', 'img'));
@@ -349,13 +360,13 @@ class LanController extends Zend_Controller_Action
 						}
 						// ajout d'un marqueur joueur sur la carte
 						$map->addMarkerByAddress( $j['ville'].' '.$j['cp'], "Joueurs", "<span class='rouge'><strong>$j[ville] ($j[cp])</strong></span><br/>$logins", "Joueurs de $j[ville]");
-						// met cet icone pour le dernier marqueur posé
+						// met cet icone pour le dernier marqueur posï¿½
 						$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/no_logo.png',$request->getBaseUrl().'/images/comptes/thumb/no_logo.png',0,0,10,10);
 							
 					} else {
 						// ajout d'un marqueur joueur sur la carte
 						$map->addMarkerByAddress( $joueurs[0]['ville'].' '.$joueurs[0]['cp'], $joueurs[0]['login'], "<span class='rouge'><strong>".$joueurs[0]['login']."</strong></span><br/>".$joueurs[0]['ville']." (".$joueurs[0]['cp'].")", $joueurs[0]['login']);
-						// met cet icone pour le dernier marqueur posé
+						// met cet icone pour le dernier marqueur posï¿½
 						$map->addMarkerIcon($request->getBaseUrl().'/images/comptes/thumb/'.$joueurs[0]['img'],$request->getBaseUrl().'/images/comptes/thumb/'.$joueurs[0]['img'],0,0,10,10);
 					}
 				

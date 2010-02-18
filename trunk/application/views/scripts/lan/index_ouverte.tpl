@@ -1,4 +1,4 @@
-{if $map_google==1}
+{if $map_google>0}
 {$map->printHeaderJS()}
 {$map->printMapJS()}
 {/if}
@@ -84,15 +84,19 @@
             </div>
             <div class="content-middle-bottom"></div>
         </div>
-        {if $map_google==1}
+        {if $map_google>0}
         <div class="content-middle-princ content-separator">
             <div class="content-middle-top"></div>
             <div class="content-middle-middle">
                 <div class="content-title-left"></div>
                 <div class="content-title-middle content-title-middle-middle"><h3>Plan de la lan</h3></div>
                 <div class="content-title-right"></div>
-                <div class="content-middle-text" style="height:454px;">
+                <div class="content-middle-text" style="height:350px;">
+                {if $map_google==1}
                     {$map->printMap()}
+                {else}
+                    {$map_error}
+                {/if}
     
                 </div>
             </div>
