@@ -11,8 +11,10 @@
                 <ul>
                 {foreach from=$datas key=myId item=i name=foo}
                     <li> 
-                        <h4>{$smarty.foreach.foo.index+1} - {$i.titre|utf8_encode}</h4>
-                        {$i.description|utf8_encode}
+                        <h4>{$smarty.foreach.foo.index+1} - {$i.titre}</h4>
+                        <br />
+                        {$i.description|utf8_decode}
+                        <br /><br />
                     </li>
                 {/foreach}
 				</ul>
