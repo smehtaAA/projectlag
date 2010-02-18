@@ -32,11 +32,6 @@
 			<div id="header">
 				<div id="header-text">
 					<a href="<?= $this->url(array('controller' => 'admin', 'action' => 'indexuser'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/lock.png" alt="Panneau d'administration" class="textalignm" /> Panneau d'administration</a>
-					<form action="" style="margin-left:60px;" method="post">
-						<input type="text" name="search" style="width: 120px;" onfocus="this.value = '';"  onclick="this.value = '';"
-						value="" />&nbsp;
-						<input type="submit" name="bo_search" value="Recherche" />
-					</form>
 				</div>
 				<div id="header-logout">      
 					<a href="<?= $this->url(array('controller' => 'log', 'action' => 'deconnexion'),'default', true) ?>">D&eacute;connexion <img src="<?= $this->baseUrl() ?>/images/admin/close.png" alt="d�connexion" class="textalignm" /></a><br/>
@@ -45,7 +40,7 @@
 			</div>
 			<div id="menu">
 				<ul>
-					<li <?php if($controllerName=="accueil" || $controllerName=="news") { echo 'class="active"'; } ?>>
+					<li <?php if($controllerName=="accueil" || $controllerName=="news" || $controllerName=="information") { echo 'class="active"'; } ?>>
 						<a href="<?= $this->url(array('controller' => 'accueil', 'action' => 'indexadminmenu'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/city.png" alt="LAG" class="textalignm" /> Lag</a>
 					</li>
 					<li <?php if(($controllerName=="lan" || $controllerName=="team" || $controllerName=="lanjeux" || $controllerName=="lanjeuxjoueurteam") && $actionName != "indexuser") { echo 'class="active"'; } ?>>
@@ -76,7 +71,7 @@
 						<a href="<?= $this->url(array('controller' => 'site', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/config.png" alt="Outils" class="textalignm" /> Site</a>
 					</li>
 					<li <?php if($controllerName=="forum" || $controllerName=="categorie" || $controllerName=="souscategorie" || $controllerName=="grade") { echo 'class="active"'; } ?>>
-						<a href="<?= $this->url(array('controller' => 'forum', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/forum.png" alt="Forum" class="textalignm" /> Forum</a>
+						<a href="<?= $this->url(array('controller' => 'categorie', 'action' => 'indexadmin'),'default', true) ?>"><img src="<?= $this->baseUrl() ?>/images/admin/forum.png" alt="Forum" class="textalignm" /> Forum</a>
 					</li>
 				</ul>
 			</div>
@@ -106,7 +101,6 @@
 						<li><a href="<?= $this->url(array('controller' => 'newslettertype', 'action' => 'indexadmin'),'default', true) ?>">Type des NewsLetter</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'newslettermail', 'action' => 'indexadmin'),'default', true) ?>">Liste des Mails</a></li>
 						<?php }  if($controllerName=="forum" || $controllerName=="categorie" || $controllerName=="souscategorie" || $controllerName=="grade") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'forum', 'action' => 'indexadmin'),'default', true) ?>">Forum</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'categorie', 'action' => 'indexadmin'),'default', true) ?>">Categorie</a></li>
 						<li><a href="<?= $this->url(array('controller' => 'grade', 'action' => 'indexadmin'),'default', true) ?>">Grade</a></li>
 						<?php }  if($controllerName=="charte"||$controllerName=="chartearticle") { ?>

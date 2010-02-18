@@ -16,7 +16,7 @@ class InformationController extends Zend_Controller_Action
 			/* Coder une fonction pour trouver le nombre de joueurs dans les teams */
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			$smarty->assign('total',$model->countEntries());
-			$smarty->assign('title','Team');
+			$smarty->assign('title','Information');
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
