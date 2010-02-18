@@ -7,7 +7,18 @@
             <div class="content-title-middle content-title-middle-total"><h3>Plan du site</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-                <br /><br /><br />
+                <ul>
+                    <li><a href="http://www.asso-lag.fr/">Home - News</a></li>
+                    <li><a href="http://www.asso-lag.fr/news/indexpartenaire">News partenaires</a></li>
+                    <li><a href="http://www.asso-lag.fr/staff">Association</li>
+                    <li><a href="http://www.asso-lag.fr/lan">Lan</li>
+                    <li><a href="http://www.asso-lag.fr/lan?m=histo">Historique des lans</li>
+                    <li><a href="http://www.asso-lag.fr/multimedia">Photos</li>
+                    <li><a href="http://www.asso-lag.fr/inscription">Inscription sur le site</li>
+                    <li><a href="http://www.asso-lag.fr/forum">Forum</li>
+                    <li><a href="http://www.asso-lag.fr/partenaire">Partenaires</li>
+                    <li><a href="http://www.asso-lag.fr/contact/form">Contact</li>
+                </ul>
             </div>
         </div>
         <div class="content-total-bottom"></div>

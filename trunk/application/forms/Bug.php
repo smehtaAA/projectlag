@@ -5,12 +5,12 @@ class Form_Bug extends Zend_Form
     public function init()
     {
         $this->setMethod('post');
-		$this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
+        $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
 	
 		
-		if(Zend_Registry::get('modeform') == 'modif') {
+        if(Zend_Registry::get('modeform') == 'modif') {
 			
-			$this->addElement('select', 'statut', array(
+            $this->addElement('select', 'statut', array(
 				'label'       => 'Statut : ',
 				'required'    => true,
                 'class'      => 'input-contact-text',
@@ -44,7 +44,7 @@ class Form_Bug extends Zend_Form
 			$this->addElement('hidden', 'datebug');
 						
 			$this->addElement('hidden', 'datedebug');
-		} else {
+        } else {
 			
 
             $this->addElement('text', 'titre', array(
@@ -89,7 +89,15 @@ class Form_Bug extends Zend_Form
                 'required'   => true
             ));
 
-		}
+            $this->addElement('captcha', 'captcha', array(
+                'label'      => 'Vérification anti-robot : ',
+                'required'   => true,
+                'captcha'    => array(
+                    'captcha' => 'Figlet',
+                    'wordLen' => 5
+                )
+            ));
+        }
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
