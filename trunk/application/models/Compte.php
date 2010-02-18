@@ -84,6 +84,19 @@ class Model_Compte
 		else
 			return -1;
     }
+
+    public function fetchEntryByMail($mail)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->where('email = ?', $mail);
+
+        $temp=$table->fetchRow($select);
+
+		if(isset($temp))
+        	return $temp->toArray();
+		else
+			return -1;
+    }
 		
 	public function fetchEntryByKeyAndMail($key)
     {
