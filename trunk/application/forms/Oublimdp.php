@@ -8,7 +8,7 @@ class Form_OubliMdp extends Zend_Form
 		$this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
 
 	$this->addElement('text', 'email', array(
-            'label'      => 'Email : ',
+            'label'      => 'Indiquer votre Email : ',
             'required'   => true,
             'validators' => array(
                  array('validator' => 'StringLength', 'options' => array(2, 60), 'EmailAddress')
