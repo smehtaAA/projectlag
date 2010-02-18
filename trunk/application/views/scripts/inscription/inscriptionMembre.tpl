@@ -31,6 +31,10 @@ $(document).ready(function() {
             <div class="content-title-middle content-title-middle-total"><h3>{$titre|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
+                <br/>
+                    <center> <strong> Important : </strong> L'inscription sur le site permet &eacute;galement l'inscription aupr&egrave;s
+                    des diff&eacute;rents &eacute;v&egrave;nements organis&eacute;s par l'association. </center>
+
             	<br/>
 				<center>
                     <span class="bold">Attention :</span> Il est important d'indiquer un <strong>email valide</strong> pour confirmer son inscription au site.<br/>
