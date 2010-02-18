@@ -75,23 +75,6 @@ class Model_LanJoueur
         return $table->fetchAll($select)->toArray();
     }
 
-    /*
-     * Ne fonctionne pas, affiche une page blanche si la fonction est présente
-     *
-        public function fetchEntriesByJoueur($idCompte, $array)
-        {
-            $table = $this->getTable();
-            $select = $table->select()
-                            ->from(array('lj'=>'lanjoueur'))
-                            ->join(array('l' => 'lan'), 'l.idLan=lj.idLan', $array)
-                            ->where('lj.idCompte = ?', $idCompte)
-                            ->distinct()
-                            ->setIntegrityCheck(false);
-            return $table->fetchAll($select)->toArray();
-        }
-     *
-     *
-     */
 
 
 

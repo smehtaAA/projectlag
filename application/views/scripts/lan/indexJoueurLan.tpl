@@ -12,8 +12,11 @@
             <br/>
                <span class="rouge"><strong>{$lan.nom|utf8_encode}</strong></span>
 
+                
+                {if $lan.datedeb > $smarty.now}
                 <br/><br/>
                 <a href="{$urladdjeu}"> S'inscrire &agrave; un nouveau jeu </a>
+                {/if}
                 <br/><br/>
                 
                 {if $jeux_libres != 0}

@@ -197,29 +197,6 @@ class CompteController extends Zend_Controller_Action
 		}
     }
 
-    public function viewinscriptionsAction()
-    {
-        $log = new SessionLAG();
-        $smarty  = Zend_Registry::get('view');
-	if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')||$log->_getTypeConnected('joueur')) {
-           $id = $log->_getUser();
-            $model = $this->_getModel();
-            $request = $this->getRequest();
-            //$modelLanJoueur = $this->_getModelNewsletterMail();
-            $modelLanJoueur = $this->_getModelLanJoueur();
-
-            //$lans = $$modelLanJoueur->fetchEntriesByJoueur($id, array('idLan', 'nom', 'datedeb', 'datefin'));
-
-            //$smarty->assign('lans', $lans);
-
-
-           $smarty->assign('base_url', $request->getBaseUrl());
-           $smarty->display('compte/viewinscriptions.tpl');
-        }
-
-
-    }
-
     public function delavatarAction()
     {
         $log = new SessionLAG();

@@ -64,21 +64,7 @@ $(document).ready(function() {
         </div>
         <div class="content-right-bottom"></div>
     </div>
-    <div class="content-princ content-separator">
-        <div class="content-right-top"></div>
-        <div class="content-right-middle">
-            <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-right"><h3>Mes Lans</h3></div>
-            <div class="content-title-right"></div>
-            <div class="content-right-text">
-                <ul>
-                    <li> <a href="{$base_url}/compte/viewinscriptions">Voir mes inscriptions</a> </li>
-                    <li> Cotisations </li>
-                </ul>
-            </div>
-        </div>
-        <div class="content-right-bottom"></div>
-    </div>
+
 </div>
 
 
