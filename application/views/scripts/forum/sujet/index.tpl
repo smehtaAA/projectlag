@@ -53,7 +53,7 @@
                         </div>
                     {/if}
                 </div>
-                <table border="0">
+                <table border="0" style="clear:left;">
                   {foreach from=$messages item=m name=message}
                     <tr>
                         <td rowspan="3" width="170" align="center" style="padding-top:10px;padding-bottom:10px;padding-top:10px;" class="td-paire">

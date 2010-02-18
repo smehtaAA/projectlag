@@ -6,7 +6,7 @@ class Form_Contact extends Zend_Form
     {
         $this->setMethod('post');
 		
-		$this->addElement('text', 'titre', array(
+        $this->addElement('text', 'titre', array(
             'label'      => 'Sujet : ',
             'required'   => true,
 			'class'      => 'input-contact-text',
@@ -15,7 +15,7 @@ class Form_Contact extends Zend_Form
             )
         ));
 		
-		$this->addElement('select', 'type', array(
+        $this->addElement('select', 'type', array(
             'label'      => 'Type : ',
             'required'   => true,
 			'class'      => 'input-contact-text',
@@ -46,6 +46,16 @@ class Form_Contact extends Zend_Form
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(10, 1000))
                 )
+        ));
+
+
+        $this->addElement('captcha', 'captcha', array(
+            'label'      => 'Vérification anti-robot : ',
+            'required'   => true,
+            'captcha'    => array(
+                'captcha' => 'Figlet',
+                'wordLen' => 5
+            )
         ));
 
         $this->addElement('submit', 'submit', array(
