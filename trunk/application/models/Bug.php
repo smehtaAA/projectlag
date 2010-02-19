@@ -78,4 +78,11 @@ class Model_Bug
 		$row = $table->fetchRow($select);
         return $row->num;
 	}
+        	public function delete($id)
+    {
+		$table  = $this->getTable();
+		$where = $table->getAdapter()->quoteInto('idBug = ?', $id);
+		return $table->delete($where);
+
+    }
 }

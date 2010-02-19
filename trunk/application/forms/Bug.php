@@ -27,6 +27,7 @@ class Form_Bug extends Zend_Form
 				'required'    => true,
                 'class'      => 'input-contact-text',
 				'multiOptions' => array(
+                                         0 => 'Inconnu',
 					 1   => 'Urgent',
 					 2 => 'Haute',
 					 3 => 'Normal',
