@@ -49,14 +49,19 @@ class Form_Contact extends Zend_Form
         ));
 
 
-        $this->addElement('captcha', 'captcha', array(
-            'label'      => 'Vérification anti-robot : ',
-            'required'   => true,
-            'captcha'    => array(
-                'captcha' => 'Figlet',
-                'wordLen' => 5
-            )
-        ));
+            $this->addElement('Captcha','captcha',array(
+                'label' => 'Vérification anti-robot (6 caractères) :',
+                'required' => true,
+                'captcha' => array(
+                'captcha' => 'image',
+                'name' => 'foo',
+                'wordLen' => 6,
+                'font' => 'scripts/arial.ttf',
+                'fontSize' => 30,
+                'imgDir' => 'images/captcha/',
+                'imgUrl' => 'http://www.asso-lag.fr/images/captcha/',
+                'timeout' => 300)
+            ));
 
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
