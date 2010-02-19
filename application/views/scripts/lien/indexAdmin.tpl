@@ -13,7 +13,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.titre|utf8_encode}</td>
+    <td>{$i.titre}</td>
     <td><a href="http://{$i.lien}" target="_blank">{$i.lien}</a></td>
     <td align="center"><a href="{$urlupd}{$i.idLien}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idLien}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
