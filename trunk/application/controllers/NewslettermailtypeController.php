@@ -12,18 +12,22 @@ class NewsletterMailTypeController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
+
+			$modelType = $this->_getModelType();
 			$request = $this->getRequest();
 			$id = (int) $request->getParam('id', 0);
 			
 			if($id>0)
 			{
 				$datas = $model->fetchEntriesByType($id);
-				
-				$smarty->assign('title', 'Mails');
+
+                                $type = $modelType->fetchEntry($id);
+
+				$smarty->assign('title', 'Mails de '.$type['nom']);
 				$smarty->assign('base_url', $request->getBaseUrl());
-				$smarty->assign('urladd','../rattachermail/?id='.$id);
+				$smarty->assign('urladd', $request->getBaseUrl().'/newslettermailtype/rattachermail/?id='.$id);
 				$smarty->assign('urlupd','form/?id=');
-				$smarty->assign('urldel','del/?id=');
+				$smarty->assign('urldel',$request->getBaseUrl().'/newslettermailtype/del/?id=');
 				$smarty->assign('datas', $datas);
 				$smarty->display('newsletter/indexmailtypeAdmin.tpl');
 			} else{
@@ -35,6 +39,28 @@ class NewsletterMailTypeController extends Zend_Controller_Action
 			$smarty->display('error/errorconnexion.tpl');
 		}
 	}
+
+        public function delAction()
+        {
+            $smarty = Zend_Registry::get('view');
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+			$model  = $this->_getModel();
+			$request = $this->getRequest();
+			$id = (int) $request->getParam('id', 0);
+			$idt = (int) $request->getParam('idt', 0);
+
+                        if($id!=0){
+                             $model->delete($id);
+
+                             //return $this->_helper->redirector('indexadmin', 'newslettermailtype','', array('id'=>$idt));
+                             return $this->_redirect('newslettermailtype/indexadmin?id='.$idt);
+
+                        }
+                } else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+        }
 
 	public function formAction()
 	{

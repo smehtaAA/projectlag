@@ -19,7 +19,7 @@
     <td>{$i.mail}</td>
    <!-- <td align="center"><a href="{$urlvoir}{$i.idNewsletterMail}"><img src="{$base_url}/images/admin/read.png" alt="Voir" class="textalignm" title="Voir" /></a></td>
     <td align="center"><a href="{$urlupd}{$i.idNewsletterType}"><img src="{$base_url}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>-->
-    <td align="center"><a href="{$urldel}{$i.idNewsletterMailType}"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
+    <td align="center"><a href="{$urldel}{$i.idNewsletterMailType}&idt={$i.idNewsletterType}"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>
 {/foreach}
 </table>

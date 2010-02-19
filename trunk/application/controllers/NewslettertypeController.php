@@ -3,6 +3,7 @@
 class NewsletterTypeController extends Zend_Controller_Action 
 {
     protected $_model;
+    protected $_modelNewsletterMailType;
 	
 	public function indexadminAction()
     {
@@ -10,11 +11,17 @@ class NewsletterTypeController extends Zend_Controller_Action
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
 			$model  = $this->_getModel();
+                        $modelNewsletterMailType = $this->_getModelNewsletterMailType();
 			$request = $this->getRequest();
 			$datas  = $model->fetchEntries();
-			// Faire la liste ici
+                        foreach($datas as $d)
+                            $nb[$d['idNewsletterType']] = $modelNewsletterMailType->countEntriesByType($d['idNewsletterType']);
+
+
+                        // Faire la liste ici
 			// création d'un tableau avec smarty et dans ce tableau ajouter une colonne modifier et supprimer
 			// je n'ai pas encore gérer le order pour le fetchEntries mais ne pas oublier
+                        $smarty->assign('nb', $nb);
 			$smarty->assign('title','Type des NewsLetter');
 			$smarty->assign('base_url',$request->getBaseUrl());
 			$smarty->assign('urlvoir', $request->getBaseUrl().'/newslettermailtype/indexadmin/?id=');
@@ -84,6 +91,15 @@ class NewsletterTypeController extends Zend_Controller_Action
             $this->_model = new Model_NewsletterType();
         }
         return $this->_model;
+    }
+
+    protected function _getModelNewsletterMailType()
+    {
+        if (null === $this->_modelNewsletterMailType) {
+            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            $this->_modelNewsletterMailType = new Model_NewsletterMailType();
+        }
+        return $this->_modelNewsletterMailType;
     }
 	   
 	protected function _getNewsletterTypeForm($id)

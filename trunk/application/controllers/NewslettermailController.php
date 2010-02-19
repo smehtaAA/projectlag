@@ -83,6 +83,8 @@ class NewsletterMailController extends Zend_Controller_Action
 			if ($id > 0) {
 				$model = $this->_getModel();
 				$model->delete($id);
+                                $modelt = $this->_getModelNewsletterMailType();
+                                $modelt->deleteByMail($id);
 			}					
 			return $this->_helper->redirector('indexadmin');
 
