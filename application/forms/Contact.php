@@ -57,7 +57,8 @@ class Form_Contact extends Zend_Form
                 'name' => 'foo',
                 'wordLen' => 6,
                 'font' => 'scripts/arial.ttf',
-                'fontSize' => 30,
+                'fontSize' => 28,
+                'height' => 60,
                 'imgDir' => 'images/captcha/',
                 'imgUrl' => 'http://www.asso-lag.fr/images/captcha/',
                 'timeout' => 300)
