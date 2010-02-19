@@ -13,11 +13,11 @@
 <br/> <br/>
 <table>
     <tr>
-        <th align="left" width="150"> Evenement </th>
-        <th align="center" width="130"> Date Evenement </th>
+        <th align="left" width="150"> Ev&egrave;nement </th>
+        <th align="center" width="130"> Date Ev&egrave;nement </th>
         <th align="center" width="130"> Date Inscription </th>
-        <th align="center" width="100"> Inscrits </th>
-        <th align="center" width="100"> Pr&eacute;sents </th>
+        <th align="center" width="100"> Valid&eacute; </th>
+        <th align="center" width="100"> Pr&eacute;sent </th>
         <th align="center" width="150"> Mode Paiement </th>
 
         <th align="center" width="100"> Cotisation </th>

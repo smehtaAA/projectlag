@@ -28,7 +28,7 @@
 <table align="center" id="tab_record">
   <tr height="30">
     <th align="left" width="250">Nom</th>
-    <th align="left" width="200">Jeux</th>
+    <th align="left" width="200"></th>
     <th align="center" width="60" colspan="2">Ordre</th>
     <th width="70"> </th>
     <th width="70" align="center">Articles</th>
@@ -39,7 +39,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr id="ligne_{$i.ordre}">
     <td>{$i.nom|utf8_encode}</td>
-    <td>{$i.idJeux}</td>
+    <td></td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}
     		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up')" />
