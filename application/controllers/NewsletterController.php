@@ -30,13 +30,34 @@ class NewsletterController extends Zend_Controller_Action
 			$smarty->assign('title','Newsletter');
 			$smarty->assign('urladd','form/');
 			$smarty->assign('urlview','view/?id=');
-			$smarty->assign('urlupd','form/?id=');
+			$smarty->assign('urlsend','send/?id=');
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('datas',$datas);
 			$smarty->display('newsletter/indexAdmin.tpl');
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
+    }
+
+    public function sendAction()
+    {
+        $smarty  = Zend_Registry::get('view');
+	$log = new SessionLAG();
+	if($log->_getTypeConnected('superadmin')) {
+            $request = $this->getRequest();
+            $id = $request->getParam('id', 0);
+            if($id != 0) {
+                $model = $this->_getModel();
+                $n = $model->fetchEntry($id);
+
+                $this->sendMail($n);
+                return $this->_helper->redirector('indexadmin', 'newsletter');
+            }
+        } else {
+            $smarty->display('error/errorconnexion.tpl');
+	}
+
+
     }
 
     public function viewAction()
