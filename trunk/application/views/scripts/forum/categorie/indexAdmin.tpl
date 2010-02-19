@@ -58,7 +58,7 @@
 {foreach from=$datas key=myId item=cat name=categorie}
   <tr>
   	<td>{$smarty.foreach.categorie.index+1} - </td>
-    <td>{$cat.titre}</td>
+    <td><strong>{$cat.titre}</strong> {if $cat.admin==1} (Administration) {/if}</td>
     <td>{$cat.visible}</td>
     <td align="center">
     	{if $smarty.foreach.categorie.index+1 != 1}
@@ -105,7 +105,7 @@
     <td align="center"><a href="{$urldelSousCat}{$datasSousCategorie[$cat.idCategorie][souscategorie].idSousCategorie}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.section.souscategorie.index+1} ?'));"><img src="{$base_url}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>
   {/section}
-  
+  <tr> <td height="30px" colspan="8"> </td> </tr>
 {/foreach}
 </table>
 </div>
