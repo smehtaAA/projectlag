@@ -156,6 +156,8 @@ class Form_Compte extends My_CreationCompte
             'required'   => false
         ));
 
+
+
         $this->addElement('submit', 'submit', array(
             'label'    => 'Envoyer',
 			'class'    => 'button'

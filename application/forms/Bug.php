@@ -98,10 +98,10 @@ class Form_Bug extends Zend_Form
                 'captcha' => 'image',
                 'name' => 'foo',
                 'wordLen' => 6,
-                'font' => 'images/captcha/arial.ttf',
+                'font' => 'scripts/arial.ttf',
                 'fontSize' => 30,
                 'imgDir' => 'images/captcha/',
-                'imgUrl' => 'http://lag/public/images/captcha/',
+                'imgUrl' => 'http://www.asso-lag.fr/images/captcha/',
                 'timeout' => 300)
             ));
         }
