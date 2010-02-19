@@ -80,8 +80,8 @@ class Model_LanJeuxJoueurTeam
         $table = $this->getTable();
         $select = $table->select()
 							->from(array('ljjt' => 'lanjeuxjoueurteam'), '')
-							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur')
-							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam')
+							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur', '')
+							->join(array('t'=>'team'),'t.idTeam=ljjt.idTeam', array('nom', 'idTeam'))
 							->where('lj.idLan = ?', $idLan)
 							->where('ljjt.idJeux = ?', $idJeux)
 							->order('nom')
@@ -171,7 +171,9 @@ class Model_LanJeuxJoueurTeam
 							->from(array('ljjt' => 'lanjeuxjoueurteam'), array(''))
 							->join(array('lj'=>'lanjoueur'),'lj.idLanJoueur=ljjt.idLanJoueur', array(''))
 							->join(array('j'=>'jeux'),'j.idJeux=ljjt.idJeux', array('idJeux','nom'))
-							->where('lj.idLan = ?', $idLan)														->where('lj.idCompte = ?', $idCompte)
+							->where('lj.idLan = ?', $idLan)
+							
+							->where('lj.idCompte = ?', $idCompte)
 							->setIntegrityCheck(false);
 
         return $table->fetchAll($select)->toArray();
