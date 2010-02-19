@@ -90,13 +90,19 @@ class Form_Bug extends Zend_Form
                 'required'   => true
             ));
 
-            $this->addElement('captcha', 'captcha', array(
-                'label'      => 'Vérification anti-robot : ',
-                'required'   => true,
-                'captcha'    => array(
-                    'captcha' => 'Figlet',
-                    'wordLen' => 5
-                )
+
+            $this->addElement('Captcha','captcha',array(
+                'label' => 'Vérification anti-robot (6 caractères) :',
+                'required' => true,
+                'captcha' => array(
+                'captcha' => 'image',
+                'name' => 'foo',
+                'wordLen' => 6,
+                'font' => 'images/captcha/arial.ttf',
+                'fontSize' => 30,
+                'imgDir' => 'images/captcha/',
+                'imgUrl' => 'http://lag/public/images/captcha/',
+                'timeout' => 300)
             ));
         }
 
