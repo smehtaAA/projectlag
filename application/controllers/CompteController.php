@@ -7,6 +7,8 @@ class CompteController extends Zend_Controller_Action
 	protected $_modelNewslettermail;
 	protected $_modelNewslettermailtype;
         protected $_modelLanJoueur;
+        protected $_modelLanJeuxJoueurTeam;
+        protected $_modelJeux;
 	
 	public function indexAction()
 	{
@@ -225,13 +227,19 @@ class CompteController extends Zend_Controller_Action
 
                     $model = $this->_getModel();
                     $modelLanJoueur = $this->_getModelLanJoueur();
+                    $modelljjt = $this->_getModelLanJeuxJoueurTeam();
                     $compte = $model->fetchEntryField($id, array('login', 'nom', 'prenom', 'ville', 'email', 'dateins', 'phone'));
 
+                    // Partie Participations
                     $lans = $modelLanJoueur->fetchEntriesByJoueurField($id, array('nom', 'datedeb'));
                     $total = 0;
                     foreach($lans as $l)
                         $total += $l['paiement'];
 
+                    // Partie Jeux
+                    $jeux = $modelljjt->fetchEntriesJeuxByCompte($id);
+
+                    $smarty->assign('jeux', $jeux);
                     $smarty->assign('total', $total);
                     $smarty->assign('lans', $lans);
                     $smarty->assign('title', 'Fiche de '.$compte['login']);
@@ -263,6 +271,24 @@ class CompteController extends Zend_Controller_Action
             $this->_modelLanJoueur = new Model_LanJoueur();
         }
         return $this->_modelLanJoueur;
+    }
+
+    protected function _getModelLanJeuxJoueurTeam()
+    {
+        if (null === $this->_modelLanJeuxJoueurTeam) {
+            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            $this->_modelLanJeuxJoueurTeam = new Model_LanJeuxJoueurTeam();
+        }
+        return $this->_modelLanJeuxJoueurTeam;
+    }
+
+    protected function _getModelJeux()
+    {
+        if (null === $this->_modelJeux) {
+            require_once APPLICATION_PATH . '/models/Jeux.php';
+            $this->_modelJeux = new Model_Jeux();
+        }
+        return $this->_modelJeux;
     }
 	
     protected function _getModelNewsletterMail()

@@ -203,6 +203,22 @@ class Model_LanJeuxJoueurTeam
 
         return $stmt->fetchAll();
 	}
+
+        public function fetchEntriesJeuxByCompte($idCompte)
+        {
+            $table = $this->getTable();
+
+            $select = $table->select()->from(array('ljjt'=>'lanjeuxjoueurteam'), 'COUNT(*) AS num')
+                                        ->join(array('lj'=>'lanjoueur'), 'lj.idLanJoueur=ljjt.idLanJoueur', '')
+                                        ->join(array('j'=>'jeux'), 'j.idJeux=ljjt.idJeux', array('nom'))
+                                        ->where('idCompte = ?', $idCompte)
+                                        ->group('j.idJeux')
+                                        ->order('num DESC')
+                                        ->setIntegrityCheck(false);
+
+            return $table->fetchAll($select)->toArray();
+
+        }
 	
 	public function countEntriesByLan($idLan)
 	{

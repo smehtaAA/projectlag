@@ -50,3 +50,23 @@
 
 
 </table>
+
+<br/><br/>
+<strong> Jeux </strong>
+<br/> <br/>
+<table>
+
+    <tr>
+        <th width="150px">Nom</th>
+        <th width="150px">Nombre d'inscriptions </th>
+    </tr>
+
+    {foreach from=$jeux item=j name=j}
+    <tr>
+        <td>{$j.nom}</td>
+        <td align="right">{$j.num}</td>
+    </tr>
+    {/foreach}
+
+
+</table>
