@@ -9,43 +9,13 @@ class LienController extends Zend_Controller_Action
 	{
 		$smarty = Zend_Registry::get('view');
 		$model  = $this->_getModel();
-		$modelConfig = $this->_getModelConfig();
 		$request = $this->getRequest();
-		$page = $request->page;
 		
-		$config = $modelConfig->fetchEntrySetting('nb_max_lien_page');
 		
-		$nb_max_lien_page = $config['value'];
-		
-		if($nb_max_lien_page == 0)
-		{
-			$nb_max_lien_page = 4;
-		}
-		
-		// Récupération du nombre d'enregistrement
-		$nb = $model->countEntries();
-		// Arrondi à l'entier supérieur
-		$nb_page = ceil($nb/$nb_max_lien_page);
-		// Bloque l'accès au page supérieure au nombre total de page
-		if($page > $nb_page) 
-		{
-			$page=1;
-		}
-		
-		// Récupération du nombre de ligne pour la page voulue
-		$datas  = $model->fetchEntriesLimitPage($page,$nb_max_lien_page);
-		
-		$pages = null;
-		
-		for($i=1; $i<=$nb_page; $i++)
-		{
-			$pages[$i] = $i;
-		}
-
+		// Rï¿½cupï¿½ration du nombre de ligne pour la page voulue
+		$datas  = $model->fetchEntries();
 		
 		$smarty->assign('datas', $datas);
-		$smarty->assign('pages', $pages);
-		$smarty->assign('url','?page=');
 		$smarty->display('lien/index.tpl');
 	}
 	
