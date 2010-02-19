@@ -13,8 +13,8 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.nom|utf8_encode}</td>
-    <td>temp</td>
+    <td><a href="viewmembres?id={$i.idTeam}">{$i.nom|utf8_encode}</a></td>
+    <td>{$nb[$i.idTeam]}</td>
     <td align="center"><a href="{$urlupd}{$i.idTeam}"><img src="{$baseurl}/images/admin/modify.png" alt="Modifier" class="textalignm" title="Modifier" /></a></td>
     <td align="center"><a href="{$urldel}{$i.idTeam}" onclick="return(confirm('Etes-vous sur de vouloir supprimer la ligne {$smarty.foreach.foo.index+1} ?'));"><img src="{$baseurl}/images/admin/delete.png" alt="Supprimer" class="textalignm" title="Supprimer" /></a></td>
   </tr>

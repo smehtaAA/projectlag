@@ -42,13 +42,40 @@ class Model_Team
 
         return $table->fetchRow($select)->toArray();
     }
+
+    public function fetchMembresField($id, $array)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from(array('c'=>'compte'), $array )
+                                    ->join('lanjoueur', 'lanjoueur.idCompte=c.idCompte', '')
+                                    ->join('lanjeuxjoueurteam', 'lanjeuxjoueurteam.idLanJoueur=lanjoueur.idLanJoueur', '')
+                                    ->join('team', 'team.idTeam=lanjeuxjoueurteam.idTeam', array('nom'))
+                                    ->where('lanjeuxjoueurteam.idTeam = ?', $id)
+                                    ->distinct('c.idCompte')
+                                    ->setIntegrityCheck(false);
+
+        return $table->fetchAll($select)->toArray();
+
+
+
+    }
+
+    public function countEntriesByTeam($idTeam)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('lanjoueur', 'COUNT(DISTINCT idCompte) AS num')
+                ->join('lanjeuxjoueurteam', 'lanjeuxjoueurteam.idLanJoueur=lanjoueur.idLanJoueur', '')
+                ->where('idTeam = ?', $idTeam)->setIntegrityCheck(false);
+        $row = $table->fetchRow($select);
+        return $row->num;
+    }
 	
 	public function countEntries()
 	{
 		$table = $this->getTable();
 		$select = $table->select()->from('team','COUNT(idTeam) AS num');
 		$row = $table->fetchRow($select);
-        return $row->num;
+                return $row->num;
 	}
 	
 	public function delete($id)
