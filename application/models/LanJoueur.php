@@ -123,6 +123,23 @@ class Model_LanJoueur
         return $table->fetchAll($select)->toArray();
 	}
 
+        public function fetchEntriesByJoueurField($idCompte, $array)
+        {
+            $table = $this->getTable();
+            $select = $table->select()
+                                ->from(array('lj'=>'lanjoueur'), array('dateins', 'validation', 'present', 'paiement', 'modepaiement'))
+                                ->join(array('l'=>'lan'), 'l.idLan=lj.idLan', $array)
+                                ->where('idCompte = ?', $idCompte)
+                                ->order('datedeb DESC')
+                                ->distinct()
+                                ->setIntegrityCheck(false);
+
+            return $table->fetchAll($select)->toArray();
+
+
+
+        }
+
 	
 	public function fetchEntriesByLanVilleField($idLan, $ville, $array)
 	{

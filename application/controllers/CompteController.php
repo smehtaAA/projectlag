@@ -212,6 +212,39 @@ class CompteController extends Zend_Controller_Action
         return $this->_helper->redirector('form', 'compte');
 
     }
+
+    public function viewficheAction()
+    {
+        $smarty  = Zend_Registry::get('view');
+	$log = new SessionLAG();
+	if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+		$request = $this->getRequest();
+                $id = $request->getParam('id', 0);
+
+                if ($id != 0) {
+
+                    $model = $this->_getModel();
+                    $modelLanJoueur = $this->_getModelLanJoueur();
+                    $compte = $model->fetchEntryField($id, array('login', 'nom', 'prenom', 'ville', 'email', 'dateins', 'phone'));
+
+                    $lans = $modelLanJoueur->fetchEntriesByJoueurField($id, array('nom', 'datedeb'));
+                    $total = 0;
+                    foreach($lans as $l)
+                        $total += $l['paiement'];
+
+                    $smarty->assign('total', $total);
+                    $smarty->assign('lans', $lans);
+                    $smarty->assign('title', 'Fiche de '.$compte['login']);
+                    $smarty->assign('compte', $compte);
+                    $smarty->assign('base_url', $request->getBaseUrl());
+                    $smarty->display('compte/viewfiche.tpl');
+                    
+                }
+
+        } else {
+            return $this->_helper->redirector('index', 'accueil');
+        }
+    }
     
 	
 	protected function _getModel()

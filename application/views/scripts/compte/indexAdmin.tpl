@@ -16,7 +16,7 @@
 {foreach from=$datas key=myId item=i name=foo}
   <tr>
   	<td>{$smarty.foreach.foo.index+1} - </td>
-    <td>{$i.nom|utf8_encode}</td>
+    <td> <a href="{$baseurl}/compte/viewfiche?id={$i.idCompte}"> {$i.nom|utf8_encode} </a></td>
     <td>{$i.prenom|utf8_encode}</td>
     <td>{$i.email}</td>
     <td>{$i.dateins|date_format:"%d/%m/%Y"}</td>
