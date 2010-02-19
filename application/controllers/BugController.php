@@ -24,8 +24,15 @@ class BugController extends Zend_Controller_Action
 			$model  = $this->_getModel();
 			$request = $this->getRequest();
 			$id = $request->getParam('id',0);
+
+                        if ($log->_getTypeConnected('superadmin'))
+                            $smarty->assign('superadmin', 1);
+                        else
+                            $smarty->assign('superadmin', 0);
+                        
 			
 			// Affichage des priorités
+			$priorite['0'] = 'Inconnu';
 			$priorite['1'] = 'Urgent';
 			$priorite['2'] = 'Haute';
 			$priorite['3'] = 'Normal';
@@ -63,7 +70,8 @@ class BugController extends Zend_Controller_Action
 				
 				$smarty->assign('titre','Bugs');
 				$smarty->assign('urlview', 'indexadmin/?id=');
-				$smarty->assign('urlupd','resoudre/?id=');
+				$smarty->assign('urlupd',$request->getBaseUrl().'/bug/resoudre/?id=');
+				$smarty->assign('urldel',$request->getBaseUrl().'/bug/del/?id=');
 				$smarty->assign('urltri', $request->getBaseUrl().'/bug/indexadmin/?');
 				$smarty->assign('bugs_corrige',$bugs_corrige);
 				$smarty->assign('bugs',$bugs);
@@ -176,6 +184,22 @@ class BugController extends Zend_Controller_Action
 		mail($destinataire, $subject, $msg, $from);
 	}
 
+    public function delAction()
+    {
+		$log = new SessionLAG();
+		if($log->_getTypeConnected('superadmin')) {
+			$request = $this->getRequest();
+			$id      = (int)$request->getParam('id', 0);
+			if ($id > 0) {
+				$model = $this->_getModel();
+				$model->delete($id);
+			}
+			return $this->_helper->redirector('indexadmin');
+		} else {
+			$smarty->display('error/errorconnexion.tpl');
+		}
+    }
+
     protected function _getModel()
     {
         if (null === $this->_model) {
@@ -189,7 +213,7 @@ class BugController extends Zend_Controller_Action
     {
         require_once APPLICATION_PATH . '/forms/Bug.php';
 		
-		if ($id > 0 && $type == 'admin')
+		if (($id > 0 && $type == 'admin') || ($id > 0 && $type == 'superadmin') )
 			Zend_Registry::set('modeform', 'modif');
 		else
 			Zend_Registry::set('modeform', 'ajout');
