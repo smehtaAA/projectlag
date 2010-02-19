@@ -101,6 +101,16 @@ class Model_NewsletterMailType
 
         return $table->fetchRow($select)->toArray();
     }
+
+    public function countEntriesByType($idType)
+    {
+        $table = $this->getTable();
+        $select = $table->select()->from('newslettermailtype', 'COUNT(DISTINCT idNewsletterMail) as num')->where('idNewsletterType=?', $idType);
+
+        $row = $table->fetchRow($select);
+        return $row->num;
+
+    }
 	
 	public function delete($id)
     {	
