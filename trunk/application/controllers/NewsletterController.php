@@ -22,9 +22,14 @@ class NewsletterController extends Zend_Controller_Action
 			$model  = $this->_getModel();
 			$datas  = $model->fetchEntries();
 			$request = $this->getRequest();
+                        if($log->_getTypeConnected('superadmin'))
+                                $smarty->assign('superadmin', 1);
+                        else
+                                $smarty->assign('superadmin', 0);
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			$smarty->assign('title','Newsletter');
 			$smarty->assign('urladd','form/');
+			$smarty->assign('urlview','view/?id=');
 			$smarty->assign('urlupd','form/?id=');
 			$smarty->assign('urldel','del/?id=');
 			$smarty->assign('datas',$datas);
@@ -32,6 +37,29 @@ class NewsletterController extends Zend_Controller_Action
 		} else {
 			$smarty->display('error/errorconnexion.tpl');
 		}
+    }
+
+    public function viewAction()
+    {
+        $smarty  = Zend_Registry::get('view');
+	$log = new SessionLAG();
+	if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
+            $request = $this->getRequest();
+            $id = $request->getParam('id', 0);
+            if($id != 0) {
+                $model = $this->_getModel();
+                $n = $model->fetchEntry($id);
+
+                $smarty->assign('baseurl', $request->getBaseUrl());
+                $smarty->assign('n', $n);
+                $smarty->display('newsletter/view.tpl');
+            } else {
+                return $this->_helper->redirector('index', 'accueil');
+            }
+        } else {
+            $smarty->display('error/errorconnexion.tpl');
+	}
+
     }
 
     public function formAction()
@@ -123,8 +151,9 @@ class NewsletterController extends Zend_Controller_Action
 	
 	public function delAction()
     {
+            $smarty  = Zend_Registry::get('view');
 		$log = new SessionLAG();
-		if($log->_getTypeConnected('admin')) {
+		if($log->_getTypeConnected('superadmin')) {
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('id', 0);
 			if ($id > 0) {
