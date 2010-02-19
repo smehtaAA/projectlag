@@ -21,6 +21,12 @@ class TeamController extends Zend_Controller_Action
 			$datas  = $model->fetchEntries();
 			$request = $this->getRequest();
 			/* Coder une fonction pour trouver le nombre de joueurs dans les teams */
+
+                        foreach($datas as $t){
+                            $nb[$t['idTeam']] = $model->countEntriesByTeam($t['idTeam']);
+                        }
+
+                        $smarty->assign('nb', $nb);
 			$smarty->assign('baseurl',$request->getBaseUrl());
 			$smarty->assign('total',$model->countEntries());
 			$smarty->assign('title','Team');
@@ -48,6 +54,28 @@ class TeamController extends Zend_Controller_Action
 			$smarty->assign('message', 'Erreur Connexion');
 			$smarty->display('error/errorconnexion.tpl');
 		}  
+    }
+
+    public function viewmembresAction()
+    {
+        $smarty = Zend_Registry::get('view');
+	$log = new SessionLAG();
+	if($log->_getTypeConnected('superadmin')||$log->_getTypeConnected('admin')) {
+            $request = $this->getRequest();
+            $id = $request->getParam('id', 0);
+            if($id != 0) {
+
+                $model = $this->_getModel();
+                $membres = $model->fetchMembresField($id, array('idCompte', 'login'));
+
+                $smarty->assign('title', 'Membres de la team : '.$membres[0]['nom']);
+
+                $smarty->assign('membres', $membres);
+                $smarty->assign('urlfiche', $request->getBaseUrl().'/compte/viewfiche?id=');
+                $smarty->assign('baseurl', $request->getBaseUrl());
+                $smarty->display('team/viewmembres.tpl');
+            }
+        }
     }
 	
 	public function formAction()
