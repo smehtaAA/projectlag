@@ -113,6 +113,7 @@ class LogController extends Zend_Controller_Action
             }
 
 
+
             $destinataire = $email;
 		$subject = "Perte du mot de passe Compte Local Arena Games";
 		$from  = "From: Local Arena Games <contact@asso-lag.fr>\n";

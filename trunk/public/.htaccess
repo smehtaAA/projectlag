@@ -1,8 +1,8 @@
 #Force PHP5
 SetEnv PHP_VER 5
-#Désactive le paramètre register_globals
+#Dï¿½sactive le paramï¿½tre register_globals
 SetEnv REGISTER_GLOBALS 0
-#Désactive le paramètre magic_quotes_gcp
+#Dï¿½sactive le paramï¿½tre magic_quotes_gcp
 SetEnv MAGIC_QUOTES 0
 
 SetEnv SESSION_AUTO_START 0
@@ -36,7 +36,7 @@ AddDefaultCharset UTF-8
 # NOTE: these display error ini's should most likely be OFF
 # in your production environment
 #php_value display_startup_errors "1"
-#php_value display_errors "1"
+php_value display_errors "1"
 #php_value session.auto_start "0"
 
 
