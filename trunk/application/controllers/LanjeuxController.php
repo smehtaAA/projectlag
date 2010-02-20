@@ -127,10 +127,10 @@ class LanJeuxController extends Zend_Controller_Action
 			$request = $this->getRequest();
 			$model   = $this->_getModel();
 			$modelLan = $this->_getModelLan();
-			$ordre   = (int)$request->getParam('ordre', 0);
-			$idLan   = (int)$request->getParam('idLan', 0);
+			$idLanJeux   = (int)$request->getParam('idLanJeux', 0);
+                        $idLan = (int)$request->getParam('idLan', 0);
 			$change  = (string)$request->getParam('change');
-			$data    = $model->fetchEntryByOrdreAndLan($idLan,$ordre);
+			$data    = $model->fetchEntry($idLanJeux);
 			
 			if($change == "up") {
 				$data['ordre']    = $data['ordre'] - 1;
@@ -144,8 +144,10 @@ class LanJeuxController extends Zend_Controller_Action
 			
 			$model->save($data['idLanJeux'], $data);
 			$model->save($mention['idLanJeux'], $mention);
+
+                        return $this->_helper->redirector('indexadmin','lanjeux','',array('idLan'=>$idLan));
 			
-			$smarty = Zend_Registry::get('view');
+			/*$smarty = Zend_Registry::get('view');
 	
 			$datas  = $model->fetchEntriesByLan($idLan);
 			$lan = $modelLan->fetchEntry($idLan);
@@ -158,7 +160,7 @@ class LanJeuxController extends Zend_Controller_Action
 			$smarty->assign('urldel',$request->getBaseUrl().'/lanjeux/del/?idLan='.$idLan.'&id=');
 			$smarty->assign('datas',$datas);
 			
-			$smarty->display('lanjeux/indexAdmin.tpl');
+			$smarty->display('lanjeux/indexAdmin.tpl');*/
 			
 		} else {
 			$smarty->display('error/errorconnexion.tpl');

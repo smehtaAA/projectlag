@@ -47,8 +47,8 @@ class Model_LanJeux
     {
         $table = $this->getTable();
         $select = $table->select()
-							->from(array('lj' => 'lanjeux'), array('idLanJeux','tournoi', 'nbmaxteam', 'nbmaxjoueur', 'nbmaxjoueurparteam'))
-							->join(array('l'=>'lan'),'l.idLan=lj.idLan', array(''))
+							->from(array('lj' => 'lanjeux'), array('idLanJeux','tournoi', 'nbmaxteam', 'nbmaxjoueur', 'nbmaxjoueurparteam', 'ordre'))
+							->join(array('l'=>'lan'),'l.idLan=lj.idLan', array('idLan'))
 							->join(array('j'=>'jeux'),'j.idJeux=lj.idJeux', array('idJeux', 'nom'))
 							->where('lj.idLan = ?', $idLan)
 							->order('ordre')
