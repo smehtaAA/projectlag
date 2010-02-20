@@ -11,19 +11,25 @@ class RechercheController extends Zend_Controller_Action
 		
         $request     = $this->getRequest();
         $query = $request->getParam('q', "");
-        $query_html = htmlentities(utf8_decode($query));
-        $query = split(" ",$query);
-        $query_html = split(" ",$query_html);
-
+        $form    = $this->_getRechercheForm();
+        $form->populate(array('q'=>$query));
+        $smarty->assign('form', $form);
+        
         if($query!="")
         {
+            
+            $query_html = htmlentities(utf8_decode($query));
+            $query = split(" ",$query);
+            $query_html = split(" ",$query_html);
             $news = $model->fetchNews($query, $query_html);
             $newsp = $model->fetchNewsP($query, $query_html);
             $lan = $model->fetchLan($query, $query_html);
             $forum = $model->fetchForum($query, $query_html);
 
 
+            $smarty->assign('recherche', 1);
             $smarty->assign('news', $news);
+            
             $smarty->assign('forum', $forum);
             $smarty->assign('lan', $lan);
             $smarty->assign('newsp', $newsp);
@@ -33,13 +39,22 @@ class RechercheController extends Zend_Controller_Action
 
             $smarty->display('recherche/index.tpl');
         } else {
-
-            return $this->_helper->redirector('form');
+            $smarty->assign('recherche', 0);
+            $smarty->display('recherche/index.tpl');
         }
 
 
 
         
+     }
+
+     public function formAction()
+     {
+         $smarty = Zend_Registry::get('view');
+         $form    = $this->_getRechercheForm();
+
+
+         $smarty->display('recherche/form.tpl');
      }
 
 	
@@ -50,6 +65,14 @@ class RechercheController extends Zend_Controller_Action
             $this->_model = new Model_Recherche();
         }
         return $this->_model;
+    }
+
+    protected function _getRechercheForm()
+    {
+        require_once APPLICATION_PATH . '/forms/Recherche.php';
+        $form = new Form_Recherche();
+        $form->setAction($this->_helper->url('index'));
+        return $form;
     }
 	
 }
