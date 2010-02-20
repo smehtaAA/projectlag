@@ -1,11 +1,11 @@
 {literal}
 <script type="text/javascript">
-	function changerordre(obj, changement, idLan, url) {		
+	function changerordre(obj, changement, idLanJeux, idLan, url) {
 		$.ajax({
 			type     : "POST",
 			url      : url,
 			async    : true,
-			data     : "ordre="+obj.name+"&change="+changement+"&idLan="+idLan,
+			data     : "idLan="+idLan+"&change="+changement+"&idLanJeux="+idLanJeux,
 			dateType : "html",
 			error    : function(msg) {
 				alert( "Error: " + msg );
@@ -56,16 +56,16 @@
     <!-- Affichage des flches pour la gestion de l'ordre -->
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}
-    		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
+    		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up',{$i.idLanJeux},{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
         {else}
-        	<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Monter" onclick="javascript:changerordre(this,'up',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />        
+        	<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Monter" onclick="javascript:changerordre(this,'up',{$i.idLanJeux},{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
     	{/if}
     </td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != $smarty.foreach.foo.last}
-        	<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Descendre" onclick="javascript:changerordre(this,'down',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
+        	<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Descendre" onclick="javascript:changerordre(this,'down',{$i.idLanJeux},{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
         {else}
-       		<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Descendre" onclick="javascript:changerordre(this,'down',{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
+       		<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Descendre" onclick="javascript:changerordre(this,'down',{$i.idLanJeux},{$i.idLan},'{$base_url}/lanjeux/changementordre')" />
     	{/if}
     </td>
     <td></td>
