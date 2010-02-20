@@ -51,12 +51,15 @@ class LienController extends Zend_Controller_Action
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$model->save($id,$form->getValues());
+					$dataform = $form->getValues();
+                                        $dataform['titre'] = utf8_decode($dataform['titre']);
+					$model->save($id,$dataform);
 					return $this->_helper->redirector('indexadmin');
 				}
 			} else {
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
+                                        $data['titre'] = utf8_encode($data['titre']);
 					$form->populate($data);
 				}
 			}

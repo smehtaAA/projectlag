@@ -17,7 +17,10 @@
                     <li><a href="http://www.asso-lag.fr/inscription">Inscription sur le site</li>
                     <li><a href="http://www.asso-lag.fr/forum">Forum</li>
                     <li><a href="http://www.asso-lag.fr/partenaire">Partenaires</li>
+                    <li><a href="http://www.asso-lag.fr/lien">Liens</li>
                     <li><a href="http://www.asso-lag.fr/contact/form">Contact</li>
+                    <li style="margin-top: 20px;"><a href="http://www.asso-lag.fr/mentionlegale">Mentions L&eacute;gales</li>
+                    <li><a href="http://www.asso-lag.fr/bug/form">Signaler un bug</li>
                 </ul>
             </div>
         </div>

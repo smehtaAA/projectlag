@@ -405,7 +405,7 @@ class LanController extends Zend_Controller_Action
 		$smarty = Zend_Registry::get('view');
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('superadmin') || $log->_getTypeConnected('admin')) {
-			$model  = $this->_getModel();
+                        $model  = $this->_getModel();
 			$modelLanJeux = $this->_getModelLanJeux();
 			$request = $this->getRequest();
 			$id      = (int)$request->getParam('idLan', 0);
@@ -426,7 +426,7 @@ class LanController extends Zend_Controller_Action
 		}
 	}
 	
-	public function formAction()
+    public function formAction()
     {
 		$smarty  = Zend_Registry::get('view');
 		$log = new SessionLAG();
@@ -450,6 +450,7 @@ class LanController extends Zend_Controller_Action
 					}
 					
 					$dataform['nom'] = utf8_decode($dataform['nom']);
+					$dataform['adresse'] = utf8_decode($dataform['adresse']);
 					
 					$model->save($id,$dataform);
 					return $this->_helper->redirector('indexadmin');
@@ -466,6 +467,7 @@ class LanController extends Zend_Controller_Action
 					$data['heurefin'] = $datef->toString('H');
 					$data['minutefin'] = $datef->toString('mm');
 					$data['nom'] = utf8_encode($data['nom']);
+					$data['adresse'] = utf8_encode($data['adresse']);
 					$form->populate($data);
 				}
 			}
@@ -482,7 +484,7 @@ class LanController extends Zend_Controller_Action
 		}
     }
 	
-	public function delAction()
+    public function delAction()
     {
 		$log = new SessionLAG();
 		if($log->_getTypeConnected('admin')||$log->_getTypeConnected('superadmin')) {
@@ -499,7 +501,7 @@ class LanController extends Zend_Controller_Action
     }
     
 	
-	protected function _getModel()
+    protected function _getModel()
     {
         if (null === $this->_model) {
             require_once APPLICATION_PATH . '/models/Lan.php';
@@ -508,7 +510,7 @@ class LanController extends Zend_Controller_Action
         return $this->_model;
     }
 	
-	protected function _getModelLanJoueur()
+    protected function _getModelLanJoueur()
     {
         if (null === $this->_modelLanJoueur) {
             require_once APPLICATION_PATH . '/models/LanJoueur.php';
@@ -517,7 +519,7 @@ class LanController extends Zend_Controller_Action
         return $this->_modelLanJoueur;
     }
 	
-	protected function _getModelLanJeux()
+    protected function _getModelLanJeux()
     {
         if (null === $this->_modelLanJeux) {
             require_once APPLICATION_PATH . '/models/LanJeux.php';

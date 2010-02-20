@@ -8,7 +8,7 @@
             <div class="content-total-text">
                 <ul>
                      {foreach from=$datas item=lien name=lien}
-                         <li><strong>{$smarty.foreach.lien.index+1} - {$lien.titre}</strong> <br/>
+                         <li><strong>{$smarty.foreach.lien.index+1} - {$lien.titre|utf8_encode}</strong> <br/>
                                 <a href="http://{$lien.lien}">{$lien.lien}</a>
                          </li>
                      {/foreach}

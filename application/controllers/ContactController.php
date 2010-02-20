@@ -84,7 +84,7 @@ class ContactController extends Zend_Controller_Action
 		if($id > 0)
 			$smarty->assign('title','Lire Message');
 		else
-			$smarty->assign('title', 'Contactez-nous');
+			$smarty->assign('title', 'Formulaire de Contact');
 		
 		$smarty->assign('form', $form);
 		$smarty->display('contact/form.tpl');
