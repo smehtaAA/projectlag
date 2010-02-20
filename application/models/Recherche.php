@@ -90,6 +90,37 @@ class Model_Recherche
 
     }
 
+    public function fetchForum($query, $query_html)
+    {
+        $table = $this->getTable();
+	$sql = 'SELECT DISTINCT(idMessage), date_m, m.description, titre, login, m.idSujet FROM message m, sujet s, compte c WHERE c.idCompte=m.idCompte AND s.idSujet=m.idSujet AND ((';
+        foreach($query as $q) {
+             $sql = $sql."(m.description LIKE '%".$q."%') AND ";
+        }
+
+        $sql = substr($sql, 0, strlen($sql)-5);
+        $sql.=') OR ( ';
+
+        foreach($query_html as $qh) {
+             $sql = $sql."(m.description LIKE '%".$qh."%') AND ";
+        }
+
+        $sql = substr($sql, 0, strlen($sql)-5);
+        $sql.='))';
+
+	$stmt = $table->getAdapter()->query($sql);
+
+        $temp=$stmt->fetchAll();
+
+        //return $sql;
+
+        if(!empty($temp))
+            return $temp;
+        else
+            return -1;
+
+    }
+
     public function fetchNewsP($query, $query_html)
     {
         $table = $this->getTable();

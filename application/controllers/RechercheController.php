@@ -20,9 +20,11 @@ class RechercheController extends Zend_Controller_Action
             $news = $model->fetchNews($query, $query_html);
             $newsp = $model->fetchNewsP($query, $query_html);
             $lan = $model->fetchLan($query, $query_html);
+            $forum = $model->fetchForum($query, $query_html);
 
 
             $smarty->assign('news', $news);
+            $smarty->assign('forum', $forum);
             $smarty->assign('lan', $lan);
             $smarty->assign('newsp', $newsp);
             $smarty->assign('query', $request->getParam('q', ""));
