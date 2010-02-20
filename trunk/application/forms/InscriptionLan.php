@@ -41,7 +41,7 @@ class Form_InscriptionLan extends My_InscriptionLan
         ));	
 
         $this->addElement('submit', 'submit', array(
-            'label'    => 'Envoyer',
+            'label'    => 'Continuer',
 			'class'    => 'button',
         ));
     }
