@@ -48,13 +48,13 @@
 			<div id="header">
 				<h1>LAG - Local Arena Games</h1>
 				<div id="search">
-					<form method="post" action="">
+					<form method="post" action="<?php echo $this->baseUrl();?>/recherche/">
 						<table border="0">
 							<tr>
 								<td valign="middle" width="24"><img src="<?php echo $this->baseUrl();?>/images/icones/icon-search.png" alt="Recherche" title="Recherche" /></td>
 								<td width="60" valign="middle">Recherche</td>
 								<td valign="middle"> : </td>
-								<td valign="middle"> <input type="text" /> <input type="submit" value="ok" class="button" /></td>
+								<td valign="middle"> <input type="text" id="q" name="q" /> <input type="submit" value="ok" class="button" /></td>
 							</tr>
 						</table>
 					</form>
