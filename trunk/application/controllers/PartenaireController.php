@@ -65,7 +65,9 @@ class PartenaireController extends Zend_Controller_Action
 	
 			if ($this->getRequest()->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$dataform = $form->getValues();	
+					$dataform = $form->getValues();
+                                        $dataform['titre'] = utf8_decode($dataform['titre']);
+                                        $dataform['type'] = utf8_decode($dataform['type']);
 					if($id==0){
 						$nb = $model->countEntries();
 						$dataform['ordre'] = $nb+1;
@@ -100,6 +102,8 @@ class PartenaireController extends Zend_Controller_Action
 				
 				if ($id > 0) {
 					$data = $model->fetchEntry($id);
+                                        $data['titre'] = utf8_encode($data['titre']);
+                                        $data['type'] = utf8_encode($data['type']);
 					$form->populate($data);
 				}
 			}

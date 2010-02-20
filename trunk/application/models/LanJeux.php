@@ -47,7 +47,7 @@ class Model_LanJeux
     {
         $table = $this->getTable();
         $select = $table->select()
-							->from(array('lj' => 'lanjeux'), array('tournoi', 'nbmaxteam', 'nbmaxjoueur', 'nbmaxjoueurparteam'))
+							->from(array('lj' => 'lanjeux'), array('idLanJeux','tournoi', 'nbmaxteam', 'nbmaxjoueur', 'nbmaxjoueurparteam'))
 							->join(array('l'=>'lan'),'l.idLan=lj.idLan', array(''))
 							->join(array('j'=>'jeux'),'j.idJeux=lj.idJeux', array('idJeux', 'nom'))
 							->where('lj.idLan = ?', $idLan)
