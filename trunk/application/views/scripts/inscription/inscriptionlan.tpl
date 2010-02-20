@@ -61,30 +61,25 @@
             <span class="rouge"><h2> Votre inscription </h2></span>
             	<br /><br />
                 <div class="form-inscription2">
-                	<center>
+                    <div style="margin:0 auto;width: 250px;">
                     {if $tournoi}
                         <strong>Tournois Organis&eacute;s :</strong>
                         <ul>
                         {foreach from=$jeux name=jeu item=jeu}
-                        
-                            <li>
                             {if $jeu.tournoi==true}
-                                {$jeu.nom} ({$jeu.nbmaxjoueurparteam}vs{$jeu.nbmaxjoueurparteam})
-                            {/if}
-                            
+                            <li>
+                                {$jeu.nom|utf8_encode} ({$jeu.nbmaxjoueurparteam}vs{$jeu.nbmaxjoueurparteam})
                             </li>
-                        
-                        
+                            {/if}
                         {/foreach}
                         </ul>
                     {else}
                         <strong>Aucun tournoi (lan "Fun")</strong>
                     {/if}
-                    </center>
-                    
+                    </div>
                 
                     <br/><br/><br/>
-                
+
                     {$form}
                 </div>
             </div>
