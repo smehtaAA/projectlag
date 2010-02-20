@@ -6,6 +6,11 @@
             <div class="content-title-middle content-title-middle-total"><h3>Recherche</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
+                {$form}
+
+<br/><br/>
+{if $recherche==1}
+
                 <strong> R&eacute;sultats de votre recherche : {$query} </strong>
                 <br/> <br/>
 
@@ -114,6 +119,8 @@
                 {else}
                     <strong> News Partenaires : Aucun Résultat</strong>
                 {/if}
+
+{/if}
 
 
             </div>
