@@ -38,15 +38,15 @@ class AccueilController extends Zend_Controller_Action
 			if($nb_max_news_page == 0)
 				$nb_max_news_page = 4;
 			
-			// Récupération du nombre d'enregistrement
+			// Rï¿½cupï¿½ration du nombre d'enregistrement
 			$nb = $modelNews->countEntries();
-			// Arrondi à l'entier supérieur
+			// Arrondi ï¿½ l'entier supï¿½rieur
 			$nb_page = ceil($nb/$nb_max_news_page);
-			// Bloque l'accès au page supérieure au nombre total de page
+			// Bloque l'accï¿½s au page supï¿½rieure au nombre total de page
 			if($page > $nb_page) 
 				$page=1;
 			
-			// Récupération du nombre de ligne pour la page voulue
+			// Rï¿½cupï¿½ration du nombre de ligne pour la page voulue
 			$news = $modelNews->fetchEntriesLimitPage($page,$nb_max_news_page);
 			$newsp = $modelNews->fetchEntriesPartenaireLimitPage(1,2);
 			$pages = null;
@@ -61,14 +61,14 @@ class AccueilController extends Zend_Controller_Action
 				$lan['nb_preinscrits'] = $modelLan->fetchEntriesCountPreInscrits($lan['idLan']);
 			}
 				
-			// Récupération du partenaire aleatoire
+			// Rï¿½cupï¿½ration du partenaire aleatoire
 			$partenaire=$modelPartenaire->fetchEntryRandom();
 			
 			$partenaires=$modelPartenaire->fetchEntriesL();
 			foreach($partenaires as $p)
 				$part[$p['idPartenaire']]=$p['titre'];
 				
-			// Récupération des 3 informations
+			// Rï¿½cupï¿½ration des 3 informations
 			$infos = $modelInformation->fetchEntriesAccueil();
 				
 			$smarty->assign('infos', $infos);	

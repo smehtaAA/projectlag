@@ -22,7 +22,7 @@ $language_code = 'fr_FR';
 setlocale (LC_ALL, $language_code,'fra');
 setlocale(LC_TIME, $language_code,'fra');
 
-$view = new ZSJoin_View_Smarty();
+$view = new ZSJoin_View_Smarty('/default');
 Zend_Registry::set('view', $view);
 
 $locale = new Zend_Locale('fr_FR');
@@ -32,7 +32,7 @@ Zend_Registry::set('Zend_Locale', $locale);
 
 $frontController = Zend_Controller_Front::getInstance();
 $frontController->setParam('noViewRenderer', true);
-$frontController->setControllerDirectory(APPLICATION_PATH . '/controllers');
+$frontController->setControllerDirectory(array('default'=> APPLICATION_PATH . '/default/controllers', 'admin'=> APPLICATION_PATH . '/admin/controllers'));
 $frontController->setParam('env', APPLICATION_ENVIRONMENT);
 /*
 $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); 
@@ -87,6 +87,12 @@ Zend_Db_Table_Abstract::setDefaultAdapter($dbAdapter);
 
 $registry = Zend_Registry::getInstance();
 $registry->configuration = $configuration;
-$registry->dbAdapter     = $dbAdapter;require_once APPLICATION_PATH . '/models/Compte.php';$modelCompte = new Model_Compte();if(isset($defaultNamespace->userid)) {	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));}
+$registry->dbAdapter     = $dbAdapter;
+
+require_once APPLICATION_PATH . '/models/Compte.php';
+$modelCompte = new Model_Compte();
+if(isset($defaultNamespace->userid)) {
+	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));
+}
 unset($frontController, $view, $configuration, $dbAdapter, $registry);
 
