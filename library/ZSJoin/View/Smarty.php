@@ -4,11 +4,11 @@ class ZSJoin_View_Smarty
 {
     private $_smarty = false;
 
-    public function __construct($data = array())
+    public function __construct($data = '')
     {	
         $this->_smarty = new Smarty();
 
-        $this->_smarty->template_dir = APPLICATION_PATH . '/views/scripts/';
+        $this->_smarty->template_dir = APPLICATION_PATH . $data . '/views/scripts/';
         $this->_smarty->compile_dir = APPLICATION_PATH . '/../smarty/views_c';
         $this->_smarty->cache_dir = APPLICATION_PATH . '/../smarty/cache';
 		$this->_smarty->config_dir = APPLICATION_PATH . '/../smarty/configs';
