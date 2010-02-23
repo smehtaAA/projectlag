@@ -22,6 +22,14 @@ $language_code = 'fr_FR';
 setlocale (LC_ALL, $language_code,'fra');
 setlocale(LC_TIME, $language_code,'fra');
 
+// passage du chemin des views pour smarty :
+// pour le module default mettre "/default"
+// pour le module admin mettre "/admin"
+// en attendant j'ai mis '/defaul' car les parties sont pas encore séparées
+
+// PS : penser à déplacer les commmuns dans le dossier commons
+// et de voir les modification de chemins à apporter
+
 $view = new ZSJoin_View_Smarty('/default');
 Zend_Registry::set('view', $view);
 
