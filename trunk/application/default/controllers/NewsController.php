@@ -40,17 +40,17 @@ class NewsController extends Zend_Controller_Action
 			$nb_max_news_page = 4;
 		}
 		
-		// Récupération du nombre d'enregistrement
+		// Rï¿½cupï¿½ration du nombre d'enregistrement
 		$nb = $model->countEntriesPartenaires();
-		// Arrondi à l'entier supérieur
+		// Arrondi ï¿½ l'entier supï¿½rieur
 		$nb_page = ceil($nb/$nb_max_news_page);
-		// Bloque l'accès au page supérieure au nombre total de page
+		// Bloque l'accï¿½s au page supï¿½rieure au nombre total de page
 		if($page > $nb_page) 
 		{
 			$page=1;
 		}
 		
-		// Récupération du nombre de ligne pour la page voulue
+		// Rï¿½cupï¿½ration du nombre de ligne pour la page voulue
 		$datas  = $model->fetchEntriesPartenaireLimitPage($page,$nb_max_news_page);
 		
 		$pages = null;
@@ -202,7 +202,7 @@ class NewsController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/News.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/News.php';
             $this->_model = new Model_News();
         }
         return $this->_model;
@@ -211,7 +211,7 @@ class NewsController extends Zend_Controller_Action
     protected function _getModelPartenaire()
     {
         if (null === $this->_modelPartenaire) {
-            require_once APPLICATION_PATH . '/models/Partenaire.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Partenaire.php';
             $this->_modelPartenaire = new Model_Partenaire();
         }
         return $this->_modelPartenaire;
@@ -220,7 +220,7 @@ class NewsController extends Zend_Controller_Action
 	protected function _getModelConfig()
 	{
 		if (null === $this->_modelConfig) {
-			require_once APPLICATION_PATH . '/models/Config.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Config.php';
 			$this->_modelConfig = new Model_Config();
 		}
 		return $this->_modelConfig;
@@ -228,7 +228,7 @@ class NewsController extends Zend_Controller_Action
 
     protected function _getNewsForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/News.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/News.php';
         $form = new Form_News();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

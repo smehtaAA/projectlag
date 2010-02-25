@@ -208,7 +208,7 @@ class SujetController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Sujet.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Sujet.php';
             $this->_model = new Model_Sujet();
         }
         return $this->_model;
@@ -217,7 +217,7 @@ class SujetController extends Zend_Controller_Action
 	protected function _getModelMessage()
     {
         if (null === $this->_modelMessage) {
-            require_once APPLICATION_PATH . '/models/Message.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Message.php';
             $this->_modelMessage = new Model_Message();
         }
         return $this->_modelMessage;
@@ -226,7 +226,7 @@ class SujetController extends Zend_Controller_Action
 	protected function _getModelGrade()
     {
         if (null === $this->_modelGrade) {
-            require_once APPLICATION_PATH . '/models/Grade.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Grade.php';
             $this->_modelGrade = new Model_Grade();
         }
         return $this->_modelGrade;
@@ -235,7 +235,7 @@ class SujetController extends Zend_Controller_Action
 	protected function _getModelCompte()
     {
         if (null === $this->_modelCompte) {
-            require_once APPLICATION_PATH . '/models/Compte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
@@ -244,7 +244,7 @@ class SujetController extends Zend_Controller_Action
 	protected function _getModelLecture()
     {
         if (null === $this->_modelLecture) {
-            require_once APPLICATION_PATH . '/models/Lecture.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lecture.php';
             $this->_modelLecture = new Model_Lecture();
         }
         return $this->_modelLecture;
@@ -252,7 +252,7 @@ class SujetController extends Zend_Controller_Action
 	
 	protected function _getSujetForm($id,$idSsCat)
     {
-        require_once APPLICATION_PATH . '/forms/Sujet.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Sujet.php';
         $form = new Form_Sujet();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?idSsCat='.$idSsCat.'&id='.$id));

@@ -95,7 +95,7 @@ class LienController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Lien.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lien.php';
             $this->_model = new Model_Lien();
         }
         return $this->_model;
@@ -104,7 +104,7 @@ class LienController extends Zend_Controller_Action
 	protected function _getModelConfig()
 	{
 		if (null === $this->_modelConfig) {
-			require_once APPLICATION_PATH . '/models/Config.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Config.php';
 			$this->_modelConfig = new Model_Config();
 		}
 		return $this->_modelConfig;
@@ -112,7 +112,7 @@ class LienController extends Zend_Controller_Action
 
     protected function _getLienForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Lien.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Lien.php';
         $form = new Form_Lien();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

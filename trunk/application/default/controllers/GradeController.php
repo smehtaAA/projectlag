@@ -88,7 +88,7 @@ class GradeController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Grade.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Grade.php';
             $this->_model = new Model_Grade();
         }
         return $this->_model;
@@ -96,7 +96,7 @@ class GradeController extends Zend_Controller_Action
 
     protected function _getGradeForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Grade.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Grade.php';
         $form = new Form_Grade();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

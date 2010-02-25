@@ -137,7 +137,7 @@ class AccueilController extends Zend_Controller_Action
 	protected function _getModelLan()
     {
         if (null === $this->_modelLan) {
-            require_once APPLICATION_PATH . '/models/Lan.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lan.php';
             $this->_modelLan = new Model_Lan();
         }
         return $this->_modelLan;
@@ -146,7 +146,7 @@ class AccueilController extends Zend_Controller_Action
     protected function _getModelNews()
     {
         if (null === $this->_modelNews) {
-            require_once APPLICATION_PATH . '/models/News.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/News.php';
             $this->_modelNews = new Model_News();
         }
         return $this->_modelNews;
@@ -155,7 +155,7 @@ class AccueilController extends Zend_Controller_Action
 	protected function _getModelPartenaire()
 	{
 		if (null === $this->_modelPartenaire) {
-            require_once APPLICATION_PATH . '/models/Partenaire.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Partenaire.php';
             $this->_modelPartenaire = new Model_Partenaire();
         }
         return $this->_modelPartenaire;
@@ -164,7 +164,7 @@ class AccueilController extends Zend_Controller_Action
 	protected function _getModelConfig()
 	{
 		if (null === $this->_modelConfig) {
-			require_once APPLICATION_PATH . '/models/Config.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Config.php';
 			$this->_modelConfig = new Model_Config();
 		}
 		return $this->_modelConfig;
@@ -173,7 +173,7 @@ class AccueilController extends Zend_Controller_Action
 	protected function _getModelInformation()
 	{
 		if (null === $this->_modelInformation) {
-			require_once APPLICATION_PATH . '/models/Information.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Information.php';
 			$this->_modelInformation = new Model_Information();
 		}
 		return $this->_modelInformation;

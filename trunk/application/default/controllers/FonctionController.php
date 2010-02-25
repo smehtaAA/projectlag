@@ -149,7 +149,7 @@ class FonctionController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Fonction.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Fonction.php';
             $this->_model = new Model_Fonction();
         }
         return $this->_model;
@@ -157,7 +157,7 @@ class FonctionController extends Zend_Controller_Action
 
     protected function _getFonctionForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Fonction.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Fonction.php';
         $form = new Form_Fonction();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

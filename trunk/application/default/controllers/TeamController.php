@@ -137,7 +137,7 @@ class TeamController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Team.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Team.php';
             $this->_model = new Model_Team();
         }
         return $this->_model;
@@ -145,7 +145,7 @@ class TeamController extends Zend_Controller_Action
 
     protected function _getLanForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Team.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Team.php';
         $form = new Form_Team();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

@@ -113,7 +113,7 @@ class JeuxController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Jeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Jeux.php';
             $this->_model = new Model_Jeux();
         }
         return $this->_model;
@@ -121,7 +121,7 @@ class JeuxController extends Zend_Controller_Action
 
     protected function _getJeuxForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Jeux.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Jeux.php';
         $form = new Form_Jeux();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

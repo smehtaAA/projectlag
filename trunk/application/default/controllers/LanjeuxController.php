@@ -170,7 +170,7 @@ class LanJeuxController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeux.php';
             $this->_model = new Model_LanJeux();
         }
         return $this->_model;
@@ -179,7 +179,7 @@ class LanJeuxController extends Zend_Controller_Action
 	protected function _getModelLan()
     {
         if (null === $this->_modelLan) {
-            require_once APPLICATION_PATH . '/models/Lan.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lan.php';
             $this->_modelLan = new Model_Lan();
         }
         return $this->_modelLan;
@@ -188,7 +188,7 @@ class LanJeuxController extends Zend_Controller_Action
 	protected function _getModelJeux()
     {
         if (null === $this->_modelJeux) {
-            require_once APPLICATION_PATH . '/models/Jeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Jeux.php';
             $this->_modelJeux = new Model_Jeux();
         }
         return $this->_modelJeux;
@@ -196,7 +196,7 @@ class LanJeuxController extends Zend_Controller_Action
 
     protected function _getLanJeuxForm($id, $idLan)
     {
-        require_once APPLICATION_PATH . '/forms/LanJeux.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/LanJeux.php';
         $form = new Form_LanJeux();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?idLan='.$idLan.'&id='.$id));

@@ -1,0 +1,144 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; echo "\n"; ?>
+<?php $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName(); echo "\n" ?>
+<?=  $this->doctype(); echo "\n"; ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>  
+		<title>LAG - Local Arena Games</title>
+		<meta name="description" content="LAG - Local Arena Games est une association loi 1901 de jeux en réseau dans l'aisne (02) qui a pour but de regrouper un maximum de joueurs." />
+		<meta name="keywords" content="lag, local, arena, games, lan, reseau, informatique, ordinateur, jeux, picardie, aisne, mont notre dame, soissons, reims, compiegne, 02, trackmania, css, warcraft, frozen throne, wolfenstein, Antoine MORAUX, Johan FRAILLON, Steevens BOURGEOIS, Maxime MEHAULT, Eric BARATH" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<meta name="robots" content="all" />
+		<meta name="revisit-after" content="7 days" />
+		<meta name="author" content="Local Arena Games" />
+		<meta name="copyright" content="Local Arena Games" />
+		<link rel="icon" type="image/png" href="<?php echo $this->baseUrl();?>/images/favicon.png" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/global.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $this->baseUrl();?>/css/jquery/jquery.css" />
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery/jquery-ui-1.7.2.custom.min.js"></script>		
+		<?php if(($controllerName=="sujet" && $actionName=="form")||($controllerName=="message" && $actionName=="form")) { ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/tiny_mce/tiny_mce.js"></script>
+        <script type="text/javascript">
+            tinyMCE.init({
+                language : 'fr',
+                mode : "textareas",
+                theme : "advanced",
+                plugins : "emotions",
+
+                theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,forecolor,backcolor",
+                theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,emotions,|,outdent,indent,blockquote,|,hr,|,sub,sup,|,charmap",
+                theme_advanced_buttons3 : "",
+                theme_advanced_toolbar_location : "top",
+                theme_advanced_toolbar_align : "left",
+                theme_advanced_statusbar_location : "bottom",
+                theme_advanced_resizing : true,
+
+        });
+        </script>
+		<?php } elseif($controllerName=="multimedia") { ?>
+		<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/swfobject.js"></script>
+		<?php } ?>
+	</head> 
+	<?php if($controllerName=="lan" && ($actionName=="viewinscrits"||$actionName=="indexjoueur"||$actionName=="index")) { ?>
+	<body onload="onLoad();">
+	<?php } else { ?>
+	<body>
+	<?php } ?>
+		<div id="global">
+			<div id="header">
+				<h1>LAG - Local Arena Games</h1>
+				<div id="search">
+					<form method="post" action="<?php echo $this->baseUrl();?>/recherche/">
+						<table border="0">
+							<tr>
+								<td valign="middle" width="24"><img src="<?php echo $this->baseUrl();?>/images/icones/icon-search.png" alt="Recherche" title="Recherche" /></td>
+								<td width="60" valign="middle">Recherche</td>
+								<td valign="middle"> : </td>
+								<td valign="middle"> <input type="text" id="q" name="q" /> <input type="submit" value="ok" class="button" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<?php $defaultNamespace = new Zend_Session_Namespace();
+				if(!isset($defaultNamespace->userid)) {?>
+				<div id="connexion">
+					<form method="post" action="<?php echo $this->baseUrl();?>/log/">
+						<table border="0">
+							<tr>
+								<td valign="middle" width="24"><img src="<?php echo $this->baseUrl();?>/images/icones/icon-user.png" alt="Login" title="Login" /></td>
+								<td valign="middle" width="60">Login</td>
+								<td> : </td>
+								<td valign="middle"><input type="text" name="login" /></td>
+							</tr>
+							<tr>
+								<td valign="middle" width="24"><img src="<?php echo $this->baseUrl();?>/images/icones/icon-key.png" alt="Password" title="Password" /></td>
+								<td valign="middle" width="60">Password</td>
+								<td> : </td>
+								<td valign="middle"><input type="password" name="password" /></td>								
+							</tr>
+                                                        <tr>
+                                                            <td colspan="3"> </td>
+                                                            <td> <a href="<?php echo $this->baseUrl();?>/log/oublimdp/" style="font-size: 10px;"> <em>Oubli mot de passe ? </em></a> </td>
+                                                        </tr>
+							<tr>
+								<td colspan="3"></td>
+								<td><input type="submit" value="connexion" class="button" /></td>
+							</tr>
+						</table>	
+					</form>
+				</div>
+				<?php } else { ?>
+					<div class="connexion-active">
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-user2.png" alt="Mon Compte" title="Mon Compte" class="absmiddle img-separator" /> <a href="<?php echo $this->baseUrl();?>/compte/form">Mon Compte</a></div>
+                        <?php if($defaultNamespace->type == "superadmin" || $defaultNamespace->type == "admin") { ?>
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-lock.png" alt="Administration" title="Administration" class="absmiddle img-separator" /> <a href="<?php echo $this->baseUrl();?>/admin/accueil/index">Administration</a></div>
+						<?php } else { ?>
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-modify.png" alt="Mes Inscriptions" title="Mes Inscriptions" class="absmiddle img-separator" />
+						<a href="<?php echo $this->baseUrl();?>/lan/indexjoueur">Mes Inscriptions</a></div>
+						<?php } ?>
+						<div><img src="<?php echo $this->baseUrl();?>/images/icones/icon-close.png" alt="Deconnexion" title="Deconnexion" class="absmiddle img-separator" /> <a href="<?php echo $this->baseUrl();?>/log/deconnexion">Deconnexion</a></div>
+					</div>
+				<?php } ?>				
+				<div id="menu">
+					<?= utf8_encode($this->render('menu.phtml')) ?>
+				</div>
+				<div id="submenu">
+					<?= utf8_encode($this->render('submenu.phtml')) ?>
+				</div>
+			</div>
+			<div id="content">
+				<?= $this->layout()->content ?>
+			</div>
+			<div id="footer">
+			
+			</div>
+			<div id="footer-link">
+				<?= utf8_encode($this->render('footer.phtml'))  ?>
+			</div>
+		</div>
+        <script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+			try {
+				var pageTracker = _gat._getTracker("UA-11354447-1");
+				pageTracker._trackPageview();
+			} catch(err) {}
+		</script>
+		<!-- Piwik -->
+		<script type="text/javascript">
+            var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.asso-lag.fr/piwik/" : "http://www.asso-lag.fr/piwik/");
+            document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+        <script type="text/javascript">
+            try {
+            var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+            piwikTracker.trackPageView();
+            piwikTracker.enableLinkTracking();
+            } catch( err ) {}
+		</script>
+        <noscript><p><img src="http://www.asso-lag.fr/piwik/piwik.php?idsite=1" style="border:0" alt=""/></p></noscript>
+        <!-- End Piwik Tag -->
+	</body>
+</html>

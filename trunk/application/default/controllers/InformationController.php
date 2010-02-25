@@ -107,7 +107,7 @@ class InformationController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Information.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Information.php';
             $this->_model = new Model_Information();
         }
         return $this->_model;
@@ -115,7 +115,7 @@ class InformationController extends Zend_Controller_Action
 	
     protected function _getInformationForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Information.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Information.php';
         $form = new Form_Information();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

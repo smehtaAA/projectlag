@@ -153,7 +153,7 @@ class MentionLegaleController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/MentionLegale.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/MentionLegale.php';
             $this->_model = new Model_MentionLegale();
         }
         return $this->_model;
@@ -161,7 +161,7 @@ class MentionLegaleController extends Zend_Controller_Action
 
     protected function _getMentionLegaleForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/MentionLegale.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/MentionLegale.php';
         $form = new Form_MentionLegale();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

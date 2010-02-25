@@ -130,7 +130,7 @@ class ContactController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Contact.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Contact.php';
             $this->_model = new Model_Contact();
         }
         return $this->_model;
@@ -138,7 +138,7 @@ class ContactController extends Zend_Controller_Action
 
     protected function _getContactForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Contact.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Contact.php';
         $form = new Form_Contact();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));
