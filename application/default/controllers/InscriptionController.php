@@ -96,7 +96,7 @@ class InscriptionController extends Zend_Controller_Action
 							$this->connexion($existlog[$userid],$nom);
 							return $this->_redirect('/inscription/inscriptionlan');
 						} else {
-							$form = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut être pas encore activé par un administrateur.";
+							$form = "Erreur de connexion : votre login ou mot de passe n'est pas valide. Votre compte n'est peut ï¿½tre pas encore activï¿½ par un administrateur.";
 						}
 					}
 				}
@@ -241,11 +241,11 @@ class InscriptionController extends Zend_Controller_Action
 					
 					$new_id=$modelCompte->save(0,$dataform);
 					
-					// Ajout du mail dans la table Newsletter si il n'est pas déjà présent dedans
+					// Ajout du mail dans la table Newsletter si il n'est pas dï¿½jï¿½ prï¿½sent dedans
 					$record = $modelNewsletterMail->fetchEntryByMail($dataform['email']);
 					if($record==-1) {
 						$id_mail=$modelNewsletterMail->save(0, array('mail'=>$dataform['email']));
-						// lié automatiquement au groupe "Joueurs" des newsletters
+						// liï¿½ automatiquement au groupe "Joueurs" des newsletters
 						$modelNewsletterMailType->save(0, array('idNewsletterType'=>2, 'idNewsletterMail'=>$id_mail));
 					}
 					
@@ -273,8 +273,8 @@ class InscriptionController extends Zend_Controller_Action
 					return $this->_redirect('/inscription/validation');
 					
 					
-					/* Code permettant l'inscription à une LAN
-					Ce morceau de code doit etre déplacé à l'endroit voulu
+					/* Code permettant l'inscription ï¿½ une LAN
+					Ce morceau de code doit etre dï¿½placï¿½ ï¿½ l'endroit voulu
 					$compte = $modelCompte->fetchEntryByLogin($dataform['login']);
 					$insc['idLan']=$lan['idLan'];
 					$insc['idCompte']=$compte['idCompte'];
@@ -456,7 +456,7 @@ class InscriptionController extends Zend_Controller_Action
 
 				Cher Gamer ou Gameuse,<br /><br />
 				
-				Vous venez de vous créer votre compte sur le site de l'assocation Local Arena Games.<br /> Il vous permettra de vous inscrire aux lans de l'association et de participer à la vie du site tel que le forum.<br /> Nous vous rappelons que vos informations resteront confidentielles.<br /><br />
+				Vous venez de vous crï¿½er votre compte sur le site de l'assocation Local Arena Games.<br /> Il vous permettra de vous inscrire aux lans de l'association et de participer ï¿½ la vie du site tel que le forum.<br /> Nous vous rappelons que vos informations resteront confidentielles.<br /><br />
 				
 				Pour <b>activer votre compte</b> cliquez sur le lien suivant : <br />
 				<a href='http://www.asso-lag.fr/inscription/validationmembre/?key=".$membre['keyvalidation']."'>ACTIVATION ICI</a>
@@ -465,9 +465,9 @@ class InscriptionController extends Zend_Controller_Action
 				<b>Votre login :</b> ".$membre['login']."<br />
 				<b>Votre mot de passe :</b> ".$membre['passwordsave']."<br /><br />
 				
-				Au plaisir de vous voir bientôt.<br /><br />
+				Au plaisir de vous voir bientï¿½t.<br /><br />
 				
-				L'équipe Local Arena Games.<br /><br />
+				L'ï¿½quipe Local Arena Games.<br /><br />
 				
 				<div style='font: normal 11px Arial;'>Petit rappel : <a href='http://www.asso-lag.fr' target='_blank'>www.asso-lag.fr</a></div>
 				</body></html>"; 
@@ -477,7 +477,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelCompte()
     {
         if (null === $this->_modelCompte) {
-            require_once APPLICATION_PATH . '/models/Compte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
@@ -486,7 +486,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelLan()
     {
         if (null === $this->_modelLan) {
-            require_once APPLICATION_PATH . '/models/Lan.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lan.php';
             $this->_modelLan = new Model_Lan();
         }
         return $this->_modelLan;
@@ -495,7 +495,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelTeam()
     {
         if (null === $this->_modelTeam) {
-            require_once APPLICATION_PATH . '/models/Team.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Team.php';
             $this->_modelTeam = new Model_Team();
         }
         return $this->_modelTeam;
@@ -504,7 +504,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelLanJeuxJoueurTeam()
     {
         if (null === $this->_modelLanJeuxJoueurTeam) {
-            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeuxJoueurTeam.php';
             $this->_modelLanJeuxJoueurTeam = new Model_LanJeuxJoueurTeam();
         }
         return $this->_modelLanJeuxJoueurTeam;
@@ -514,7 +514,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelLanJeux()
     {
         if (null === $this->_modelLanJeux) {
-            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeux.php';
             $this->_modelLanJeux = new Model_LanJeux();
         }
         return $this->_modelLanJeux;
@@ -523,7 +523,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelCharte()
     {
         if (null === $this->_modelCharte) {
-            require_once APPLICATION_PATH . '/models/Charte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Charte.php';
             $this->_modelCharte = new Model_Charte();
         }
         return $this->_modelCharte;
@@ -531,7 +531,7 @@ class InscriptionController extends Zend_Controller_Action
 	
 	public function _getLogForm()
 	{
-		require_once APPLICATION_PATH . '/forms/Log.php';
+		require_once APPLICATION_PATH_COMMONS . '/forms/Log.php';
         $form = new Form_Log();
 		$form->setAction($this->_helper->url('inscription'));
         return $form;
@@ -540,7 +540,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelFonctionCompte()
 	{
         if (null === $this->_modelFonctionCompte) {
-            require_once APPLICATION_PATH . '/models/FonctionCompte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/FonctionCompte.php';
             $this->_modelFonctionCompte = new Model_FonctionCompte();
         }
         return $this->_modelFonctionCompte;
@@ -549,7 +549,7 @@ class InscriptionController extends Zend_Controller_Action
 	protected function _getModelLanJoueur()
     {
         if (null === $this->_modelLanJoueur) {
-            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJoueur.php';
             $this->_modelLanJoueur = new Model_LanJoueur();
         }
         return $this->_modelLanJoueur;
@@ -558,7 +558,7 @@ class InscriptionController extends Zend_Controller_Action
     protected function _getModelNewsletterMail()
     {
         if (null === $this->_modelNewslettermail) {
-            require_once APPLICATION_PATH . '/models/NewsletterMail.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/NewsletterMail.php';
             $this->_modelNewslettermail = new Model_NewsletterMail();
         }
         return $this->_modelNewslettermail;
@@ -567,7 +567,7 @@ class InscriptionController extends Zend_Controller_Action
     protected function _getModelNewsletterMailType()
     {
         if (null === $this->_modelNewslettermailtype) {
-            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/NewsletterMailType.php';
             $this->_modelNewslettermailtype = new Model_NewsletterMailType();
         }
         return $this->_modelNewslettermailtype;
@@ -575,7 +575,7 @@ class InscriptionController extends Zend_Controller_Action
 	
 	protected function _getCompteForm()
     {
-        require_once APPLICATION_PATH . '/forms/Compte.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Compte.php';
         Zend_Registry::set('modeform', 'inscription');
 		$form = new Form_Compte();
 		$form->setAction($this->_helper->url('inscriptionmembre'));
@@ -584,7 +584,7 @@ class InscriptionController extends Zend_Controller_Action
 	
 	protected function _getInscriptionLanForm()
     {
-        require_once APPLICATION_PATH . '/forms/InscriptionLan.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/InscriptionLan.php';
 		$form = new Form_InscriptionLan();
 		$form->setAction($this->_helper->url('inscriptionlan'));
 		return $form;
@@ -592,7 +592,7 @@ class InscriptionController extends Zend_Controller_Action
 	
 	protected function _getModificationInscriptionLanForm()
     {
-        require_once APPLICATION_PATH . '/forms/ModificationInscriptionLan.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/ModificationInscriptionLan.php';
 		$form = new Form_ModificationInscriptionLan();
 		$form->setAction($this->_helper->url('ajoutjeu'));
 		return $form;

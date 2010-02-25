@@ -113,7 +113,7 @@ class PlansiteController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/PlanSite.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/PlanSite.php';
             $this->_model = new Model_PlanSite();
         }
         return $this->_model;
@@ -121,7 +121,7 @@ class PlansiteController extends Zend_Controller_Action
 
     protected function _getPlansiteForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/PlanSite.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/PlanSite.php';
         $form = new Form_PlanSite();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

@@ -258,7 +258,7 @@ class CompteController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Compte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
             $this->_model = new Model_Compte();
         }
         return $this->_model;
@@ -267,7 +267,7 @@ class CompteController extends Zend_Controller_Action
     protected function _getModelLanJoueur()
     {
         if (null === $this->_modelLanJoueur) {
-            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJoueur.php';
             $this->_modelLanJoueur = new Model_LanJoueur();
         }
         return $this->_modelLanJoueur;
@@ -276,7 +276,7 @@ class CompteController extends Zend_Controller_Action
     protected function _getModelLanJeuxJoueurTeam()
     {
         if (null === $this->_modelLanJeuxJoueurTeam) {
-            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeuxJoueurTeam.php';
             $this->_modelLanJeuxJoueurTeam = new Model_LanJeuxJoueurTeam();
         }
         return $this->_modelLanJeuxJoueurTeam;
@@ -285,7 +285,7 @@ class CompteController extends Zend_Controller_Action
     protected function _getModelJeux()
     {
         if (null === $this->_modelJeux) {
-            require_once APPLICATION_PATH . '/models/Jeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Jeux.php';
             $this->_modelJeux = new Model_Jeux();
         }
         return $this->_modelJeux;
@@ -294,7 +294,7 @@ class CompteController extends Zend_Controller_Action
     protected function _getModelNewsletterMail()
     {
         if (null === $this->_modelNewslettermail) {
-            require_once APPLICATION_PATH . '/models/NewsletterMail.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/NewsletterMail.php';
             $this->_modelNewslettermail = new Model_NewsletterMail();
         }
         return $this->_modelNewslettermail;
@@ -303,7 +303,7 @@ class CompteController extends Zend_Controller_Action
     protected function _getModelNewsletterMailType()
     {
         if (null === $this->_modelNewslettermailtype) {
-            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/NewsletterMailType.php';
             $this->_modelNewslettermailtype = new Model_NewsletterMailType();
         }
         return $this->_modelNewslettermailtype;
@@ -311,7 +311,7 @@ class CompteController extends Zend_Controller_Action
 
     protected function _getCompteForm($id,$type)
     {
-        require_once APPLICATION_PATH . '/forms/Compte.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Compte.php';
         if(($type == 'admin'||$type=='superadmin') && !empty($id)) {
 			Zend_Registry::set('modeform', 'modif');
 			$form = new Form_Compte();
@@ -330,7 +330,7 @@ class CompteController extends Zend_Controller_Action
 	
 	protected function _getMdpForm($id, $type)
     {
-        require_once APPLICATION_PATH . '/forms/Mdp.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Mdp.php';
 		
 		if($type == 'admin' && !empty($id)) {
 			Zend_Registry::set('modeform', 'modif');

@@ -148,7 +148,7 @@ class LogController extends Zend_Controller_Action
 	
 	protected function _getModel()
     {
-		require_once APPLICATION_PATH . '/models/Compte.php';
+		require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
 		$this->_model = new Model_Compte();
 
         return $this->_model;
@@ -156,7 +156,7 @@ class LogController extends Zend_Controller_Action
 
 	protected function _getModelFonctionCompte()
     {
-		require_once APPLICATION_PATH . '/models/FonctionCompte.php';
+		require_once APPLICATION_PATH_COMMONS . '/models/FonctionCompte.php';
 		$this->_modelFonctionCompte = new Model_FonctionCompte();
 
         return $this->_modelFonctionCompte;
@@ -164,7 +164,7 @@ class LogController extends Zend_Controller_Action
 	
 	public function _getLogForm()
 	{
-		require_once APPLICATION_PATH . '/forms/Log.php';
+		require_once APPLICATION_PATH_COMMONS . '/forms/Log.php';
         $form = new Form_Log();
 		$form->setAction($this->_helper->url('index'));
         return $form;
@@ -172,7 +172,7 @@ class LogController extends Zend_Controller_Action
 
         public function _getOubliMdpForm()
         {
-            require_once APPLICATION_PATH . '/forms/Oublimdp.php';
+            require_once APPLICATION_PATH_COMMONS . '/forms/Oublimdp.php';
             $form = new Form_OubliMdp();
             $form->setAction($this->_helper->url('oublimdp'));
             return $form;

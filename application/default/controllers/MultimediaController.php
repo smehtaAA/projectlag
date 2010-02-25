@@ -137,7 +137,7 @@ class MultimediaController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Multimedia.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Multimedia.php';
             $this->_model = new Model_Multimedia();
         }
         return $this->_model;
@@ -145,7 +145,7 @@ class MultimediaController extends Zend_Controller_Action
 
     protected function _getMultimediaForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Multimedia.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Multimedia.php';
         $form = new Form_Multimedia();
         if($id > 0)
             $form->setAction($this->_helper->url('form/?id='.$id));
@@ -156,7 +156,7 @@ class MultimediaController extends Zend_Controller_Action
 
     protected function _getPhotosForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Photos.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Photos.php';
         $form = new Form_Photos();
 		$form->setAction($this->_helper->url('indexadmin'));
         return $form;

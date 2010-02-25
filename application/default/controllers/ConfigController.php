@@ -65,7 +65,7 @@ class ConfigController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Config.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Config.php';
             $this->_model = new Model_Config();
         }
         return $this->_model;
@@ -73,7 +73,7 @@ class ConfigController extends Zend_Controller_Action
 	
 	protected function _getConfigForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Config.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Config.php';
         $form = new Form_Config();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

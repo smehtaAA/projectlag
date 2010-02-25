@@ -181,7 +181,7 @@ class PartenaireController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Partenaire.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Partenaire.php';
             $this->_model = new Model_Partenaire();
         }
         return $this->_model;
@@ -190,7 +190,7 @@ class PartenaireController extends Zend_Controller_Action
 	protected function _getModelConfig()
 	{
 		if (null === $this->_modelConfig) {
-			require_once APPLICATION_PATH . '/models/Config.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Config.php';
 			$this->_modelConfig = new Model_Config();
 		}
 		return $this->_modelConfig;
@@ -198,7 +198,7 @@ class PartenaireController extends Zend_Controller_Action
 
     protected function _getPartenaireForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Partenaire.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Partenaire.php';
         $form = new Form_Partenaire();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

@@ -87,7 +87,7 @@ class NewsletterTypeController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/NewsletterType.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/NewsletterType.php';
             $this->_model = new Model_NewsletterType();
         }
         return $this->_model;
@@ -96,7 +96,7 @@ class NewsletterTypeController extends Zend_Controller_Action
     protected function _getModelNewsletterMailType()
     {
         if (null === $this->_modelNewsletterMailType) {
-            require_once APPLICATION_PATH . '/models/NewsletterMailType.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/NewsletterMailType.php';
             $this->_modelNewsletterMailType = new Model_NewsletterMailType();
         }
         return $this->_modelNewsletterMailType;
@@ -104,7 +104,7 @@ class NewsletterTypeController extends Zend_Controller_Action
 	   
 	protected function _getNewsletterTypeForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/NewsletterType.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/NewsletterType.php';
         $form = new Form_NewsletterType();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

@@ -272,7 +272,7 @@ class StaffController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Staff.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Staff.php';
             $this->_model = new Model_Staff();
         }
         return $this->_model;
@@ -281,7 +281,7 @@ class StaffController extends Zend_Controller_Action
 	protected function _getModelCompte()
     {
         if (null === $this->_modelCompte) {
-            require_once APPLICATION_PATH . '/models/Compte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
@@ -290,7 +290,7 @@ class StaffController extends Zend_Controller_Action
 	protected function _getModelStaffCompte()
     {
         if (null === $this->_modelStaffCompte) {
-            require_once APPLICATION_PATH . '/models/StaffCompte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/StaffCompte.php';
             $this->_modelStaffCompte = new Model_StaffCompte();
         }
         return $this->_modelStaffCompte;
@@ -298,7 +298,7 @@ class StaffController extends Zend_Controller_Action
 
     protected function _getStaffForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Staff.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Staff.php';
         $form = new Form_Staff();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?idStaff='.$id));
@@ -309,7 +309,7 @@ class StaffController extends Zend_Controller_Action
 	
 	protected function _getStaffCompteForm($id,$idStaff)
     {
-        require_once APPLICATION_PATH . '/forms/StaffCompte.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/StaffCompte.php';
         $form = new Form_StaffCompte();
 		if($id > 0)
 			$form->setAction($this->_helper->url('liercompte/?idStaff='.$idStaff.'&id='.$id));

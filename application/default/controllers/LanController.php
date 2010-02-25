@@ -504,7 +504,7 @@ class LanController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Lan.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lan.php';
             $this->_model = new Model_Lan();
         }
         return $this->_model;
@@ -513,7 +513,7 @@ class LanController extends Zend_Controller_Action
     protected function _getModelLanJoueur()
     {
         if (null === $this->_modelLanJoueur) {
-            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJoueur.php';
             $this->_modelLanJoueur = new Model_LanJoueur();
         }
         return $this->_modelLanJoueur;
@@ -522,7 +522,7 @@ class LanController extends Zend_Controller_Action
     protected function _getModelLanJeux()
     {
         if (null === $this->_modelLanJeux) {
-            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeux.php';
             $this->_modelLanJeux = new Model_LanJeux();
         }
         return $this->_modelLanJeux;
@@ -531,7 +531,7 @@ class LanController extends Zend_Controller_Action
 	protected function _getModelCompte()
     {
         if (null === $this->_modelCompte) {
-            require_once APPLICATION_PATH . '/models/Compte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
@@ -540,7 +540,7 @@ class LanController extends Zend_Controller_Action
 	protected function _getModelConfig()
     {
         if (null === $this->_modelConfig) {
-            require_once APPLICATION_PATH . '/models/Config.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Config.php';
             $this->_modelConfig = new Model_Config();
         }
         return $this->_modelConfig;
@@ -549,7 +549,7 @@ class LanController extends Zend_Controller_Action
 	protected function _getModelLanJeuxJoueurTeam()
     {
         if (null === $this->_modelLanJeuxJoueurTeam) {
-            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeuxJoueurTeam.php';
             $this->_modelLanJeuxJoueurTeam = new Model_LanJeuxJoueurTeam();
         }
         return $this->_modelLanJeuxJoueurTeam;
@@ -558,7 +558,7 @@ class LanController extends Zend_Controller_Action
 
     protected function _getLanForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Lan.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Lan.php';
         $form = new Form_Lan();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

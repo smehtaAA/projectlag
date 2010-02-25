@@ -61,7 +61,7 @@ class RechercheController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Recherche.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Recherche.php';
             $this->_model = new Model_Recherche();
         }
         return $this->_model;
@@ -69,7 +69,7 @@ class RechercheController extends Zend_Controller_Action
 
     protected function _getRechercheForm()
     {
-        require_once APPLICATION_PATH . '/forms/Recherche.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Recherche.php';
         $form = new Form_Recherche();
         $form->setAction($this->_helper->url('index'));
         return $form;

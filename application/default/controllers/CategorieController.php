@@ -301,7 +301,7 @@ class CategorieController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Categorie.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Categorie.php';
             $this->_model = new Model_Categorie();
         }
         return $this->_model;
@@ -310,7 +310,7 @@ class CategorieController extends Zend_Controller_Action
 	protected function _getModelSousCategorie()
     {
         if (null === $this->_modelSousCategorie) {
-            require_once APPLICATION_PATH . '/models/SousCategorie.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/SousCategorie.php';
             $this->_modelSousCategorie = new Model_SousCategorie();
         }
         return $this->_modelSousCategorie;
@@ -318,7 +318,7 @@ class CategorieController extends Zend_Controller_Action
 	
 	protected function _getCategorieForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Categorie.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Categorie.php';
         $form = new Form_Categorie();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));
@@ -330,7 +330,7 @@ class CategorieController extends Zend_Controller_Action
 	protected function _getModelCompte()
     {
         if (null === $this->_modelCompte) {
-            require_once APPLICATION_PATH . '/models/Compte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
             $this->_modelCompte = new Model_Compte();
         }
         return $this->_modelCompte;
@@ -338,7 +338,7 @@ class CategorieController extends Zend_Controller_Action
 	
 	protected function _getModelSujet() {
 		if (null === $this->_modelSujet) {
-			require_once APPLICATION_PATH . '/models/Sujet.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Sujet.php';
 			$this->_modelSujet = new Model_Sujet();
 		}
 		return $this->_modelSujet;
@@ -346,7 +346,7 @@ class CategorieController extends Zend_Controller_Action
 	
 	protected function _getModelMessage() {
 		if (null === $this->_modelMessage) {
-			require_once APPLICATION_PATH . '/models/Message.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Message.php';
 			$this->_modelMessage = new Model_Message();
 		}
 		return $this->_modelMessage;
@@ -354,7 +354,7 @@ class CategorieController extends Zend_Controller_Action
 	
 	protected function _getModelLecture() {
 		if (null === $this->_modelLecture) {
-			require_once APPLICATION_PATH . '/models/Lecture.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/Lecture.php';
 			$this->_modelLecture = new Model_Lecture();
 		}
 		return $this->_modelLecture;

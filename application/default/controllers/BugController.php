@@ -203,7 +203,7 @@ class BugController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Bug.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Bug.php';
             $this->_model = new Model_Bug();
         }
         return $this->_model;
@@ -211,7 +211,7 @@ class BugController extends Zend_Controller_Action
 
     protected function _getBugForm($id, $type)
     {
-        require_once APPLICATION_PATH . '/forms/Bug.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Bug.php';
 		
 		if (($id > 0 && $type == 'admin') || ($id > 0 && $type == 'superadmin') )
 			Zend_Registry::set('modeform', 'modif');

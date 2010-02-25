@@ -7,7 +7,7 @@ class Model_LanJoueur
     public function getTable()
     {
         if (null === $this->_table) {
-            require_once APPLICATION_PATH . '/models/DbTable/lanjoueur.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/DbTable/lanjoueur.php';
             $this->_table = new Model_DbTable_lanjoueur;
         }
         return $this->_table;

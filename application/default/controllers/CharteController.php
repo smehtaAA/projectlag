@@ -187,7 +187,7 @@ class CharteController extends Zend_Controller_Action
     protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/Charte.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Charte.php';
             $this->_model = new Model_Charte();
         }
         return $this->_model;
@@ -196,7 +196,7 @@ class CharteController extends Zend_Controller_Action
 	protected function _getModelCharteArticle()
 	{
 		if(null === $this->_modelCharteArticle) {
-			require_once APPLICATION_PATH . '/models/CharteArticle.php';
+			require_once APPLICATION_PATH_COMMONS . '/models/CharteArticle.php';
 			$this->_modelCharteArticle = new Model_CharteArticle();
 		}
 		return $this->_modelCharteArticle;
@@ -205,7 +205,7 @@ class CharteController extends Zend_Controller_Action
 	protected function _getModelJeux()
     {
         if (null === $this->_modelJeux) {
-            require_once APPLICATION_PATH . '/models/Jeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Jeux.php';
             $this->_modelJeux = new Model_Jeux();
         }
         return $this->_modelJeux;
@@ -213,7 +213,7 @@ class CharteController extends Zend_Controller_Action
 
     protected function _getCharteForm($id)
     {
-        require_once APPLICATION_PATH . '/forms/Charte.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/Charte.php';
         $form = new Form_Charte();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?id='.$id));

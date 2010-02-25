@@ -3,11 +3,14 @@
 defined('APPLICATION_PATH')
     or define('APPLICATION_PATH', dirname(__FILE__));
 
+defined('APPLICATION_PATH_COMMONS')
+    or define('APPLICATION_PATH_COMMONS', dirname(__FILE__).'/commons');
+
 defined('APPLICATION_ENVIRONMENT')
     or define('APPLICATION_ENVIRONMENT', 'development');
 	
 require_once(APPLICATION_PATH . '/../library/Smarty/Smarty.class.php');
-require_once(APPLICATION_PATH . '/sessions/SessionLAG.php');
+require_once(APPLICATION_PATH_COMMONS . '/sessions/SessionLAG.php');
 
 Zend_Session::start();
 
@@ -73,7 +76,7 @@ else
 
 $options = array(
     'layout'     => $layoutname,
-    'layoutPath' => APPLICATION_PATH . '/layouts/scripts/',
+    'layoutPath' => APPLICATION_PATH_COMMONS . '/layouts/scripts/',
 );
 
 Zend_Layout::startMvc($options);
@@ -82,7 +85,7 @@ $view = Zend_Layout::getMvcInstance()->getView();
 $view->doctype('XHTML11');
 $view->setEncoding('UTF-8');
 
-$configuration = new Zend_Config_Ini(APPLICATION_PATH . '/config/app.ini', APPLICATION_ENVIRONMENT);
+$configuration = new Zend_Config_Ini(APPLICATION_PATH_COMMONS . '/config/app.ini', APPLICATION_ENVIRONMENT);
 
 try {
 	$dbAdapter = Zend_Db::factory($configuration->database);
@@ -97,7 +100,7 @@ $registry = Zend_Registry::getInstance();
 $registry->configuration = $configuration;
 $registry->dbAdapter     = $dbAdapter;
 
-require_once APPLICATION_PATH . '/models/Compte.php';
+require_once APPLICATION_PATH_COMMONS . '/models/Compte.php';
 $modelCompte = new Model_Compte();
 if(isset($defaultNamespace->userid)) {
 	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));

@@ -319,7 +319,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected function _getModel()
     {
         if (null === $this->_model) {
-            require_once APPLICATION_PATH . '/models/LanJeuxJoueurTeam.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeuxJoueurTeam.php';
             $this->_model = new Model_LanJeuxJoueurTeam();
         }
         return $this->_model;
@@ -328,7 +328,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected function _getModelLan()
     {
         if (null === $this->_modelLan) {
-            require_once APPLICATION_PATH . '/models/Lan.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Lan.php';
             $this->_modelLan = new Model_Lan();
         }
         return $this->_modelLan;
@@ -337,7 +337,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected function _getModelLanJoueur()
     {
         if (null === $this->_modelLanJoueur) {
-            require_once APPLICATION_PATH . '/models/LanJoueur.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJoueur.php';
             $this->_modelLanJoueur = new Model_LanJoueur();
         }
         return $this->_modelLanJoueur;
@@ -346,7 +346,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected function _getModelJeux()
     {
         if (null === $this->_modelJeux) {
-            require_once APPLICATION_PATH . '/models/Jeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/Jeux.php';
             $this->_modelJeux = new Model_Jeux();
         }
         return $this->_modelJeux;
@@ -355,7 +355,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 	protected function _getModelLanJeux()
     {
         if (null === $this->_modelLanJeux) {
-            require_once APPLICATION_PATH . '/models/LanJeux.php';
+            require_once APPLICATION_PATH_COMMONS . '/models/LanJeux.php';
             $this->_modelLanJeux = new Model_LanJeux();
         }
         return $this->_modelLanJeux;
@@ -363,7 +363,7 @@ class LanJeuxJoueurTeamController extends Zend_Controller_Action
 
     protected function _getLanJeuxJoueurTeamForm($id, $idLan)
     {
-        require_once APPLICATION_PATH . '/forms/LanJeuxJoueurTeam.php';
+        require_once APPLICATION_PATH_COMMONS . '/forms/LanJeuxJoueurTeam.php';
         $form = new Form_LanJeuxJoueurTeam();
 		if($id > 0)
 			$form->setAction($this->_helper->url('form/?idLan='.$idLan.'&id='.$id));
