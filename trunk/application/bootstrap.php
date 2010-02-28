@@ -33,7 +33,7 @@ setlocale(LC_TIME, $language_code,'fra');
 // PS : penser à déplacer les commmuns dans le dossier commons
 // et de voir les modification de chemins à apporter
 
-$view = new ZSJoin_View_Smarty('/default');
+$view = new ZSJoin_View_Smarty('/admin');
 Zend_Registry::set('view', $view);
 
 $locale = new Zend_Locale('fr_FR');
@@ -45,6 +45,8 @@ $frontController = Zend_Controller_Front::getInstance();
 $frontController->setParam('noViewRenderer', true);
 $frontController->setControllerDirectory(array('default'=> APPLICATION_PATH . '/default/controllers', 'admin'=> APPLICATION_PATH . '/admin/controllers'));
 $frontController->setParam('env', APPLICATION_ENVIRONMENT);
+
+
 /*
 $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); 
 $actionName = $frontController->getRequest()->getActionName();
@@ -105,5 +107,6 @@ $modelCompte = new Model_Compte();
 if(isset($defaultNamespace->userid)) {
 	$modelCompte->save($defaultNamespace->userid,array('last_time_connexion'=>time()));
 }
+
 unset($frontController, $view, $configuration, $dbAdapter, $registry);
 
