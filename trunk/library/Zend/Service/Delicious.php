@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Delicious
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Delicious.php 9638 2008-06-08 15:58:11Z ghacek $
+ * @version    $Id$
  */
 
 
@@ -47,6 +47,8 @@ require_once 'Zend/Service/Delicious/Post.php';
  */
 require_once 'Zend/Service/Delicious/PostList.php';
 
+/** @see Zend_Xml_Security */
+require_once 'Zend/Xml/Security.php';
 
 /**
  * Zend_Service_Delicious is a concrete implementation of the del.icio.us web service
@@ -54,7 +56,7 @@ require_once 'Zend/Service/Delicious/PostList.php';
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Delicious
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Delicious
@@ -426,10 +428,10 @@ class Zend_Service_Delicious
         $path = sprintf(self::JSON_FANS, $user);
         return $this->makeRequest($path, array(), 'json');
     }
-    
+
     /**
      * Get details on a particular bookmarked URL
-     * 
+     *
      * Returned array contains four elements:
      *  - hash - md5 hash of URL
      *  - top_tags - array of tags and their respective usage counts
@@ -439,14 +441,14 @@ class Zend_Service_Delicious
      * If URL hasen't been bookmarked null is returned.
      *
      * @param  string $url URL for which to get details
-     * @return array 
+     * @return array
      */
-    public function getUrlDetails($url) 
+    public function getUrlDetails($url)
     {
         $parms = array('hash' => md5($url));
-        
+
         $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
-        
+
         if(isset($res[0])) {
             return $res[0];
         } else {
@@ -506,8 +508,8 @@ class Zend_Service_Delicious
         switch ($type) {
             case 'xml':
                 $dom = new DOMDocument() ;
-
-                if (!@$dom->loadXML($responseBody)) {
+    
+                if (!$dom = @Zend_Xml_Security::scan($responseBody, $dom)) {
                     /**
                      * @see Zend_Service_Delicious_Exception
                      */

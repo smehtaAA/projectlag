@@ -11,7 +11,7 @@ class ZSJoin_View_Smarty
         $this->_smarty->template_dir = APPLICATION_PATH . $data . '/views/scripts/';
         $this->_smarty->compile_dir = APPLICATION_PATH . '/../smarty/views_c';
         $this->_smarty->cache_dir = APPLICATION_PATH . '/../smarty/cache';
-		$this->_smarty->config_dir = APPLICATION_PATH . '/../smarty/configs';
+	$this->_smarty->config_dir = APPLICATION_PATH . '/../smarty/configs';
     }
 
     /**
@@ -65,6 +65,14 @@ class ZSJoin_View_Smarty
      */
     public function display($name)
     {
+        // Prise en compte du front controller
+        $log = new SessionLAG();
+        if ($log->_getInterfaceAdmin()) {
+            $this->_smarty->template_dir = APPLICATION_PATH . '/admin' . '/views/scripts/';
+        } else {
+            $this->_smarty->template_dir = APPLICATION_PATH . '/default' . '/views/scripts/';
+        }
+                
         $this->_smarty->display($name);
     }
 }

@@ -49,9 +49,9 @@
                     {/if}
                         <td style="vertical-align:bottom;">
 							{if $lecture[$s.idSujet] == 1}
-								<img src="images/icones/icon-forum-gris.png" />
+								<img src="{$base_url}/images/icones/icon-forum-gris.png" />
 							{else}
-								<img src="images/icones/icon-forum.png" />
+								<img src="{$base_url}/images/icones/icon-forum.png" />
 							{/if}
 						</td>
 						<td><a href="{$url_viewsujet}{$s.idSujet}"><span class="rouge"><strong>{$s.titre|utf8_encode}</strong></span></a></td>
@@ -61,7 +61,7 @@
                         	{if $last_messages[$s.idSujet] == -1} 
                             	<em>Aucun Message </em>
                             {else}
-                                <span class="font-min">{$last_messages[$s.idSujet].date_m|date_format:"%d/%m/%Y à %H:%M"|utf8_encode} 
+                                <span class="font-min">{$last_messages[$s.idSujet].date_m|date_format:"%d/%m/%Y ï¿½ %H:%M"|utf8_encode} 
                                 par <a href="{$base_url}/forum/fiche?id={$last_messages[$s.idSujet].idCompte}"> <span class="rouge">{$last_messages[$s.idSujet].login}</span></a></span>
                             {/if}
                         </td>

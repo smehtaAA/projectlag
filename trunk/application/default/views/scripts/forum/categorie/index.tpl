@@ -27,7 +27,7 @@
         <div class="content-total-top"></div>
         <div class="content-total-middle">
             <div class="content-title-left"></div>
-            <div class="content-title-middle content-title-middle-total"><h3>{$categorie.titre|utf8_encode}{if $categorie.admin==1} [Admin] {/if}</h3></div>
+            <div class="content-title-middle content-title-middle-total"><h3>{$categorie.titre}{if $categorie.admin==1} [Admin] {/if}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
             <table border=1>
@@ -53,15 +53,15 @@
 								{/if}
 						</td>
 						<td>
-                        	<a href="{$url_viewsc}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre|utf8_encode} {if $sc.admin==1} [Admin] {/if}</strong></span></a><br />
-                            <span class="font-min">{$sc.description|utf8_encode}</span>
+                        	<a href="{$url_viewsc}{$sc.idSousCategorie}"><span class="rouge"><strong>{$sc.titre} {if $sc.admin==1} [Admin] {/if}</strong></span></a><br />
+                            <span class="font-min">{$sc.description}</span>
                         </td>
                         <td align="center">{$nb[$sc.idSousCategorie].nb_sujets}</td>
                         <td align="center">{$nb[$sc.idSousCategorie].nb_reponses}</td>
                         <td>{if $last_messages[$sc.idSousCategorie] == -1} 
                             	<em>Aucun Message</em>
                             {else}
-                                <span class="rouge"><strong><a href="{$base_url}/sujet?id={$last_messages[$sc.idSousCategorie].idSujet}">{$last_messages[$sc.idSousCategorie].titre|utf8_encode}</a></strong></span><br/>
+                                <span class="rouge"><strong><a href="{$base_url}/sujet?id={$last_messages[$sc.idSousCategorie].idSujet}">{$last_messages[$sc.idSousCategorie].titre}</a></strong></span><br/>
                                 <span class="font-min">par <a href="{$base_url}/forum/fiche?id={$last_messages[$sc.idSousCategorie].idCompte}"> <span class="rouge">{$last_messages[$sc.idSousCategorie].login}</span> </a> | {$last_messages[$sc.idSousCategorie].date_m|date_format:"%d/%m/%Y %H:%M"}</span>
                             {/if}
                         </td>
@@ -84,7 +84,7 @@
                 <div class="content-total-text">
                 	<ul>
                 		<li>Nb total d'utilisateurs: <span class="rouge">{$stats.nb}</span></li>
-                    	<li>Dernier inscrit: <a href="{$base_url}/forum/fiche?id={$stats.last.idCompte}"><span class="rouge italic">{$stats.last.login|utf8_encode}</span></a></li>
+                    	<li>Dernier inscrit: <a href="{$base_url}/forum/fiche?id={$stats.last.idCompte}"><span class="rouge italic">{$stats.last.login}</span></a></li>
                 		<li>Nb total de messages: <strong>{$stats.nb_messages}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sujets: <strong>{$stats.nb_sujets}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de cat&eacute;gories: <strong>{$stats.nb_cat}</strong> &nbsp;&nbsp;&nbsp;&nbsp;Nb total de sous-cat&eacute;gories: <strong>{$stats.nb_sscat}</strong></li>
                 	</ul>
                 </div>
