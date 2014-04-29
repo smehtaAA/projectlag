@@ -10,6 +10,8 @@ defined('APPLICATION_ENVIRONMENT')
     or define('APPLICATION_ENVIRONMENT', 'development');
 	
 require_once(APPLICATION_PATH . '/../library/Smarty/Smarty.class.php');
+require_once(APPLICATION_PATH . '/../library/Smarty/SmartyBC.class.php');
+require_once(APPLICATION_PATH . '/../library/ZSJoin/View/Smarty.php');
 require_once(APPLICATION_PATH_COMMONS . '/sessions/SessionLAG.php');
 
 Zend_Session::start();
@@ -33,9 +35,8 @@ setlocale(LC_TIME, $language_code,'fra');
 // PS : penser à déplacer les commmuns dans le dossier commons
 // et de voir les modification de chemins à apporter
 
-$view = new ZSJoin_View_Smarty('/admin');
+$view = new ZSJoin_View_Smarty('/default');
 Zend_Registry::set('view', $view);
-
 $locale = new Zend_Locale('fr_FR');
 Zend_Registry::set('Zend_Locale', $locale);
 
@@ -45,6 +46,7 @@ $frontController = Zend_Controller_Front::getInstance();
 $frontController->setParam('noViewRenderer', true);
 $frontController->setControllerDirectory(array('default'=> APPLICATION_PATH . '/default/controllers', 'admin'=> APPLICATION_PATH . '/admin/controllers'));
 $frontController->setParam('env', APPLICATION_ENVIRONMENT);
+
 
 
 /*

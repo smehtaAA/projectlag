@@ -9,8 +9,9 @@ set_include_path(APPLICATION_PATH . '/../library' . PATH_SEPARATOR . get_include
 // This is a nifty trick that allows ZF to load classes automatically so
 // that you don't have to litter your code with 'include' or 'require'
 // statements.
-require_once "Zend/Loader.php";
-Zend_Loader::registerAutoload();
+require_once "Zend/Loader/AutoLoader.php";
+//Zend_Loader::registerAutoload();
+Zend_Loader_Autoloader::getInstance()->pushAutoloader(NULL, 'Smarty_' );
 
 header('Content-type: text/html; charset=utf-8'); 
 

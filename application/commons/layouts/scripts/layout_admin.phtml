@@ -80,33 +80,33 @@
 				<div id="submenu">
 					<ul>
 						<?php if($controllerName=="accueil" || $controllerName=="news" || $controllerName=="information") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'news', 'action' => 'indexadmin'),'default', true) ?>">News Asso</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'news', 'action' => 'indexadminpartenaire'),'default', true) ?>">News Partenaire</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'information', 'action' => 'indexadmin'),'default', true) ?>">Information</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'news', 'action' => 'indexadmin'),'default', true) ?>">News Asso</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'news', 'action' => 'indexadminpartenaire'),'default', true) ?>">News Partenaire</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'information', 'action' => 'indexadmin'),'default', true) ?>">Information</a></li>
 						<?php }  if(($controllerName=="lan" || $controllerName=="team" || $controllerName=="lanjeux" || $controllerName=="lanjeuxjoueurteam") && $actionName != "indexuser") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'lan', 'action' => 'indexadmin'),'default', true) ?>">Lan</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'team', 'action' => 'indexadmin'),'default', true) ?>">Team</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'lan', 'action' => 'indexadmin'),'default', true) ?>">Lan</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'team', 'action' => 'indexadmin'),'default', true) ?>">Team</a></li>
 						<?php }  if($controllerName=="compte" || $controllerName=="fonction" || $controllerName=="staff") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'compte', 'action' => 'indexadmin'),'default', true) ?>">Comptes</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'fonction', 'action' => 'indexadmin'),'default', true) ?>">Fonctions</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'staff', 'action' => 'indexadmin'),'default', true) ?>">Staff</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'compte', 'action' => 'indexadmin'),'default', true) ?>">Comptes</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'fonction', 'action' => 'indexadmin'),'default', true) ?>">Fonctions</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'staff', 'action' => 'indexadmin'),'default', true) ?>">Staff</a></li>
 						<?php }  if($controllerName=="externe" || $controllerName=="lien" || $controllerName=="partenaire") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'lien', 'action' => 'indexadmin'),'default', true) ?>">Liens</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'partenaire', 'action' => 'indexadmin'),'default', true) ?>">Partenaires</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'lien', 'action' => 'indexadmin'),'default', true) ?>">Liens</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'partenaire', 'action' => 'indexadmin'),'default', true) ?>">Partenaires</a></li>
 						<?php }  if($controllerName=="site" || $controllerName=="mentionlegale" || $controllerName=="config" || $controllerName=="bug") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'bug', 'action' => 'indexadmin'),'default', true) ?>">Bugs</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'config', 'action' => 'indexadmin'),'default', true) ?>">Configuration</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'mentionlegale', 'action' => 'indexadmin'),'default', true) ?>">Mentions L&eacute;gales</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'bug', 'action' => 'indexadmin'),'default', true) ?>">Bugs</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'config', 'action' => 'indexadmin'),'default', true) ?>">Configuration</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'mentionlegale', 'action' => 'indexadmin'),'default', true) ?>">Mentions L&eacute;gales</a></li>
 						<?php }  if($controllerName=="newsletter" || $controllerName=="newslettermail" || $controllerName=="newslettertype" || $controllerName=="newslettermailtype") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'newsletter', 'action' => 'indexadmin'),'default', true) ?>">NewsLetter</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'newslettertype', 'action' => 'indexadmin'),'default', true) ?>">Type des NewsLetter</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'newslettermail', 'action' => 'indexadmin'),'default', true) ?>">Liste des Mails</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'newsletter', 'action' => 'indexadmin'),'default', true) ?>">NewsLetter</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'newslettertype', 'action' => 'indexadmin'),'default', true) ?>">Type des NewsLetter</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'newslettermail', 'action' => 'indexadmin'),'default', true) ?>">Liste des Mails</a></li>
 						<?php }  if($controllerName=="forum" || $controllerName=="categorie" || $controllerName=="souscategorie" || $controllerName=="grade") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'categorie', 'action' => 'indexadmin'),'default', true) ?>">Categorie</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'grade', 'action' => 'indexadmin'),'default', true) ?>">Grade</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'categorie', 'action' => 'indexadmin'),'default', true) ?>">Categorie</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'grade', 'action' => 'indexadmin'),'default', true) ?>">Grade</a></li>
 						<?php }  if($controllerName=="charte"||$controllerName=="chartearticle") { ?>
-						<li><a href="<?= $this->url(array('controller' => 'charte', 'action' => 'indexadmin'),'default', true) ?>">Asso</a></li>
-						<li><a href="<?= $this->url(array('controller' => 'charte', 'action' => 'indexjeuxadmin'),'default', true) ?>">Jeux</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'charte', 'action' => 'indexadmin'),'default', true) ?>">Asso</a></li>
+						<li><a href="<?= $this->url(array('module' => 'admin','controller' => 'charte', 'action' => 'indexjeuxadmin'),'default', true) ?>">Jeux</a></li>
 						<?php } ?>
 						<li>&nbsp;</li>
 					</ul>

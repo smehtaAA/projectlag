@@ -1,5 +1,7 @@
 <?php
 
+require_once(APPLICATION_PATH . '/../library/My/CreationCompte.php');
+
 class Form_Compte extends My_CreationCompte
 {
     public function init()
