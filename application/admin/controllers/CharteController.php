@@ -40,9 +40,10 @@ class Admin_CharteController extends Zend_Controller_Action {
             $smarty->assign('base_url', $request->getBaseUrl());
             $smarty->assign('titre', 'Charte');
             $smarty->assign('idCharte', $charte['idCharte']);
-            $smarty->assign('urladd', $request->getBaseUrl() . '/chartearticle/form/?idCharte=' . $charte['idCharte']);
-            $smarty->assign('urlupd', $request->getBaseUrl() . '/chartearticle/form/?id=');
-            $smarty->assign('urldel', $request->getBaseUrl() . '/chartearticle/del/?id=');
+            $smarty->assign('urladd', $request->getBaseUrl() . '/admin/chartearticle/form/?idCharte=' . $charte['idCharte']);
+            $smarty->assign('urlupd', $request->getBaseUrl() . '/admin/chartearticle/form/?id=');
+            $smarty->assign('urldel', $request->getBaseUrl() . '/admin/chartearticle/del/?id=');
+            $smarty->assign('urlchg', $request->getBaseUrl() . '/admin/chartearticle/changementordre');
             $smarty->assign('datas', $datas);
             $smarty->display('charte/indexAdmin.tpl');
         } else {
@@ -59,10 +60,10 @@ class Admin_CharteController extends Zend_Controller_Action {
             $request = $this->getRequest();
             $smarty->assign('base_url', $request->getBaseUrl());
             $smarty->assign('titre', 'Charte');
-            $smarty->assign('urladd', 'form/');
-            $smarty->assign('urlupd', 'form/?id=');
-            $smarty->assign('urldel', 'del/?id=');
-            $smarty->assign('viewarticles', $request->getBaseUrl() . '/chartearticle/indexadmin?id=');
+            $smarty->assign('urladd', $request->getBaseUrl() . '/admin/chartearticle/form/');
+            $smarty->assign('urlupd', $request->getBaseUrl() . '/admin/chartearticle/form/?id=');
+            $smarty->assign('urldel', $request->getBaseUrl() . '/admin/chartearticle/del/?id=');
+            $smarty->assign('viewarticles', $request->getBaseUrl() . '/admin/chartearticle/indexadmin?id=');
             $smarty->assign('datas', $datas);
             $smarty->display('charte/indexjeuxAdmin.tpl');
         } else {
@@ -165,12 +166,14 @@ class Admin_CharteController extends Zend_Controller_Action {
 
             $datas = $model->fetchEntriesOrderByOrdreJeux();
             $smarty->assign('base_url', $request->getBaseUrl());
-            $smarty->assign('titre', 'Charte');
-            $smarty->assign('urladd', 'form/');
-            $smarty->assign('urlupd', 'form/?id=');
-            $smarty->assign('urldel', 'del/?id=');
             $smarty->assign('datas', $datas);
-            $smarty->assign('viewarticles', $request->getBaseUrl() . '/chartearticle/indexjeuxadmin?id=');
+            $smarty->assign('titre', 'Charte');
+            $smarty->assign('urladd', $request->getBaseUrl() . '/admin/chartearticle/form/');
+            $smarty->assign('urlupd', $request->getBaseUrl() . '/admin/chartearticle/form/?id=');
+            $smarty->assign('urldel', $request->getBaseUrl() . '/admin/chartearticle/del/?id=');
+            $smarty->assign('urlchg', $request->getBaseUrl() . '/admin/chartearticle/changementordre');
+            $smarty->assign('viewarticles', $request->getBaseUrl() . '/admin/chartearticle/indexadmin?id=');
+            
             $smarty->display('charte/indexjeuxAdmin.tpl');
         } else {
             $smarty->display('error/errorconnexion.tpl');
