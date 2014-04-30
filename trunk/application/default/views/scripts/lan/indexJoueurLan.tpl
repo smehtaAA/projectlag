@@ -1,5 +1,3 @@
-{$map->printHeaderJS()}
-{$map->printMapJS()}
 
 <div id="content-total">
     <div class="content-total-princ">
@@ -46,9 +44,11 @@
             <div class="content-title-middle content-title-middle-total"><h3>Itin&eacute;raire</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-            
-            	{$map->printMap()}
+                <div>
+                {$map->getGoogleMap()}
                
+                <div id="route" style="width:830px;"></div>
+                </div>
             </div>
         </div>
         <div class="content-total-bottom"></div>
