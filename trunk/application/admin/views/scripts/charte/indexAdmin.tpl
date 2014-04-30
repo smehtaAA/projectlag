@@ -38,16 +38,16 @@
     <td>{$i.titre|utf8_encode}</td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != 1}
-    		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up','{$base_url}/chartearticle/changementordre')" />
+    		<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Monter" onclick="javascript:changerordre(this,'up','{$urlchg}')" />
         {else}
-        	<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Monter" onclick="javascript:changerordre(this,'up','{$base_url}/chartearticle/changementordre')" />        
+        	<img src="{$base_url}/images/admin/arrow_green_up.png" alt="Monter l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Monter" onclick="javascript:changerordre(this,'up','{$urlchg}')" />        
     	{/if}
     </td>
     <td align="center">
     	{if $smarty.foreach.foo.index+1 != $smarty.foreach.foo.last}
-        	<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Descendre" onclick="javascript:changerordre(this,'down','{$base_url}/chartearticle/changementordre')" />
+        	<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;" title="Descendre" onclick="javascript:changerordre(this,'down','{$urlchg}')" />
         {else}
-       		<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Descendre" onclick="javascript:changerordre(this,'down', '{$base_url}/chartearticle/changementordre')" />
+       		<img src="{$base_url}/images/admin/arrow_red_down.png" alt="Descendre l'article" name="{$i.ordre}" class="textalignm" style="cursor:pointer;display:none;" title="Descendre" onclick="javascript:changerordre(this,'down', '{$urlchg}')" />
     	{/if}
     </td>
     <td></td>
