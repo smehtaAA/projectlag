@@ -4,6 +4,14 @@ class Admin_NewsletterMailController extends Zend_Controller_Action {
 
     protected $_model;
     protected $_modelNewslettermailtype;
+
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('indexadmin');
+        }
+
+        throw new Exception('Invalid method');
+    }
     
     public function indexAction() {
         $smarty = Zend_Registry::get('view');

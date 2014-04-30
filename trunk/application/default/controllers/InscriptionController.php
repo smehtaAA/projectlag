@@ -13,6 +13,14 @@ class InscriptionController extends Zend_Controller_Action {
     protected $_modelNewslettermail;
     protected $_modelNewslettermailtype;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('index');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     public function indexAction() {
         $log = new SessionLAG();
         if ($log->_getTypeConnected('joueur')) {

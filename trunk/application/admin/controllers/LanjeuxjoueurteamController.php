@@ -8,6 +8,14 @@ class Admin_LanJeuxJoueurTeamController extends Zend_Controller_Action {
     protected $_modelLanJeux;
     protected $_modelLanJoueur;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('indexadmin');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     public function indexAction() {
         $smarty = Zend_Registry::get('view');
         $log = new SessionLAG();

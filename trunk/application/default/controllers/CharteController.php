@@ -6,6 +6,14 @@ class CharteController extends Zend_Controller_Action {
     protected $_modelJeux;
     protected $_modelCharteArticle;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('index');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     public function indexAction() {
         $smarty = Zend_Registry::get('view');
         $model = $this->_getModel();
