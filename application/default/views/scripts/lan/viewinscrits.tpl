@@ -1,6 +1,4 @@
-{$map->printHeaderJS()}
-{$map->printMapJS()}
-
+          
 <div id="content-total">
     <div class="content-total-princ">
         <div class="content-total-top"></div>
@@ -63,7 +61,9 @@
             <div class="content-title-middle content-title-middle-total"><h3>Emplacement des {$title|utf8_encode}</h3></div>
             <div class="content-title-right"></div>
             <div class="content-total-text">
-				{$map->printMap()}
+                
+                {$map->getGoogleMap()}
+                
             </div>
         </div>
         <div class="content-total-bottom"></div>

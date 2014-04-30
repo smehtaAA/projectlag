@@ -1,7 +1,3 @@
-{if $map_google>0}
-{$map->printHeaderJS()}
-{$map->printMapJS()}
-{/if}
 
 <div id="content-total">
 
@@ -54,10 +50,11 @@
                     <br /><br />
                     
                     {if $lan_ouverte.idLan == $lan.idLan}
-                        <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" style="vertical-align:middle" /> &nbsp;<a href="{$base_url}/lan/viewinscrits?id={$l.idLan}">{$chiffre.pre_inscrit}</strong> Pr&eacute;-Inscrits</a><br />
+                        <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" style="vertical-align:middle" /> &nbsp;<a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}">{$chiffre.pre_inscrit}</strong> Pr&eacute;-Inscrits</a><br />
                     {/if}
+        
                     {if $lan_ouverte.idLan == $lan.idLan || $lan.datedeb < $smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
-                        <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" style="vertical-align:middle" /> &nbsp;<a href="{$base_url}/lan/viewinscrits?id={$l.idLan}">{$chiffre.insc}</strong> Inscrits</a><br />
+                        <strong><img src="{$base_url}/images/icones/icon-user.png" alt="Inscrits" title="Inscrits" style="vertical-align:middle" /> &nbsp;<a href="{$base_url}/lan/viewinscrits?id={$lan.idLan}">{$chiffre.insc}</strong> Inscrits</a><br />
                     {/if}
                     <br/>
                     <strong><img src="{$base_url}/images/icones/icon-games.png" alt="Jeux" title="Jeux" style="vertical-align:middle" /> &nbsp;Liste des jeux :</strong> 
@@ -93,7 +90,7 @@
                 <div class="content-title-right"></div>
                 <div class="content-middle-text" style="height:350px;">
                 {if $map_google==1}
-                    {$map->printMap()}
+                    {$map->getGoogleMap()}
                 {else}
                     {$map_error}
                 {/if}

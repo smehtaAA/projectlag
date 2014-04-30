@@ -1,5 +1,8 @@
 <?php
 
+
+require_once(APPLICATION_PATH . '/../library/My/InscriptionLan.php');
+
 class Form_InscriptionLan extends My_InscriptionLan
 {
     public function init()
