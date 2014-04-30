@@ -5,6 +5,14 @@ class LogController extends Zend_Controller_Action {
     protected $_model;
     protected $_modelFonctionCompte;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('index');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     protected function connexion($userid, $type) {
         $defaultNamespace = new Zend_Session_Namespace();
         $defaultNamespace->userid = $userid;

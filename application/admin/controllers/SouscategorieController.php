@@ -9,6 +9,14 @@ class Admin_SousCategorieController extends Zend_Controller_Action {
     protected $_modelMessage;
     protected $_modelLecture;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('indexadmin');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     public function indexAction() {
         $smarty = Zend_Registry::get('view');
         $log = new SessionLAG();

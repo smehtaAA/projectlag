@@ -4,6 +4,14 @@ class Model_LanJoueur {
 
     protected $_table;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('index');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     public function getTable() {
         if (null === $this->_table) {
             require_once APPLICATION_PATH_COMMONS . '/models/DbTable/lanjoueur.php';

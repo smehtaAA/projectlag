@@ -8,6 +8,14 @@ class AccueilController extends Zend_Controller_Action {
     protected $_modelConfig;
     protected $_modelInformation;
 
+    public function __call($method, $args) {
+        if ('Action' == substr($method, -6)) {
+            return $this->_helper->redirector('index');
+        }
+
+        throw new Exception('Invalid method');
+    }
+
     public function indexAction() {
         $smarty = Zend_Registry::get('view');
         $modelLan = $this->_getModelLan();
@@ -17,6 +25,7 @@ class AccueilController extends Zend_Controller_Action {
         $modelInformation = $this->_getModelInformation();
 
         $request = $this->getRequest();
+
         $page = $request->page;
         $id = (int) $request->getParam('id', 0);
 
@@ -83,7 +92,7 @@ class AccueilController extends Zend_Controller_Action {
             $smarty->display('accueil/index.tpl');
         }
     }
-    
+
     public function indexadminAction() {
         return $this->_helper->redirector('index');
     }
